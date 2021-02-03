@@ -1,8 +1,11 @@
 #include <iostream> 
 #include "AdjacencyList.h"
 
+#define lista_adiacenza 1
+ 
 int main(){
 
+#if lista_adiacenza
     Node a,b,c,d;
     std::vector<Edge> edges;
     a.value=0;
@@ -10,43 +13,19 @@ int main(){
     c.value=2;
     d.value=3;
 
-    Edge ab;
-    ab.src=a;
-    ab.dest=b;
-
-    Edge bc;
-    bc.src=b;
-    bc.dest=c;
-
-    Edge ac;
-    ac.src=a;
-    ac.dest=c;
-
-    Edge cd;
-    cd.src=c;
-    cd.dest=d;
-
-    Edge da;
-    da.src=d;
-    da.dest=a;
-
-    Edge dc;
-    dc.src=d;
-    dc.dest=c;
-
-    edges.push_back(ab);
-    edges.push_back(ac);
-    edges.push_back(bc);
-    edges.push_back(cd);
-    edges.push_back(da);
-    edges.push_back(dc);
+    edges.push_back({a,b});
+    edges.push_back({b,c});
+    edges.push_back({a,c});
+    edges.push_back({c,d});
+    edges.push_back({d,a});
+    edges.push_back({d,c});
  
-    //AdjacencyList(edges);
-    AdjacencyList boh(edges,edges.size());
+    AdjacencyList boh(edges);
 
-    printGraph(boh,edges.size());
-
+    boh.showGraph();
     
+#endif 
+
     return 0;
 
 }
