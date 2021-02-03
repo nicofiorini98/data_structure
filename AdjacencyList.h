@@ -1,52 +1,83 @@
-#pragma once 
+#pragma once
 
 #include <iostream>
 #include "Graph.h"
 #include <vector>
+#include <list>
+#include <iterator>
 
-using namespace std;
 
 //stores adjacency list items
 
 
 class AdjacencyList{
-private: 
-public: 
+private:
+public:
 
-    vector<vector<Node>> adjList; 
+    std::list<std::list<Node>> adjLists;
+    
     //constructor
-    AdjacencyList(vector<Edge> const &_edges,int N){
-        // resize the vector to N elements of type vector<int>
-        adjList.resize(N);
- 
-        for(auto &edge:_edges){
-            //insert at the end
-            //std::cout<<"boh che succede\n";
-//            std::cout<<edge.src.key<<"\n";
-            adjList[edge.src.key].push_back(edge.dest);  //TODO RIVEDERE 
-            //praticamente sto a di che al nodo con quella chiave inserisco il nodo dest
+    AdjacencyList(std::vector<Edge> const &_edges,int N){
 
-            // Uncomment below line for undirected graph
-            // adjList[edge.dest].push_back(edge.src);
+        for(auto &edge: _edges){
+            //if the adjList don't have the src node then add the adjList in the adjLists
+            std::list<std::list<Node>>::iterator it=getList(edge.src);
+
+            //add node lists if it doesn't exist else add an edge in the list of the node 
+            if(it==adjLists.end()){
+                adjLists.push_back({edge.src,edge.dest});
+            }
+            else{
+                (*it).push_back({edge.dest});
+            } 
         }
     }
+
+    //return an iterator that point in an adjList of a Node x
+    std::list<std::list<Node>>::iterator getList(Node x){
+
+        std::list<std::list<Node>>::iterator it;
+        for(it=adjLists.begin();it!=adjLists.end();it++)
+            if((*(*it).begin()).value==x.value)
+                return it;
+
+        return it;
+    }
+
+    bool hasNode(const Node &x){
+
+         std::list<std::list<Node>>::iterator list_it;
+
+         //return true if the node will found in the first 
+         for(auto& adjList: adjLists)
+         {
+             if((*(adjList.begin())).value==x.value)
+                 return true;
+             return false;
+         }
+         return false;
+    }
+
 };
 
 
  // print adjacency list representation of graph
 void printGraph(AdjacencyList const& graph, int N)
 {
-    int i=0;
-    for (auto &node: graph.adjList )
+    for (auto &node: graph.adjLists )
     {
         // print current vertex number
-        cout << i << " --> ";
+        std::cout << (*node.begin()).value << " --> ";
         // print all neighboring vertices of vertex i
-        for(auto &neighboor: node){
-            std::cout<<neighboor.key;
+        for(std::list<Node>::const_iterator it=(node.begin())++;it!=node.end();it++){
+            std::cout<<(*it).value<<" ";
         }
-        i++;
+        /*for(auto &neighboor: node){
+            std::cout<<neighboor.value;
+        }
+        */
         
-        cout << endl;
+        std::cout << std::endl;
     }
 }
+

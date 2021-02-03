@@ -13,6 +13,10 @@ Graph.h
 /home/nico/my_project/data_structure/Graph.h
 vector
 -
+list
+-
+iterator
+-
 
 /home/nico/my_project/data_structure/Graph.h
 iostream

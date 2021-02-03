@@ -4,11 +4,11 @@
 int main(){
 
     Node a,b,c,d;
-    vector<Edge> edges;
-    a.key=0;
-    b.key=1;
-    c.key=2;
-    d.key=3;
+    std::vector<Edge> edges;
+    a.value=0;
+    b.value=1;
+    c.value=2;
+    d.value=3;
 
     Edge ab;
     ab.src=a;
@@ -19,8 +19,8 @@ int main(){
     bc.dest=c;
 
     Edge ac;
-    bc.src=a;
-    bc.dest=c;
+    ac.src=a;
+    ac.dest=c;
 
     Edge cd;
     cd.src=c;
@@ -35,15 +35,16 @@ int main(){
     dc.dest=c;
 
     edges.push_back(ab);
+    edges.push_back(ac);
     edges.push_back(bc);
     edges.push_back(cd);
     edges.push_back(da);
     edges.push_back(dc);
  
-    AdjacencyList boh(edges,6);
-    
+    //AdjacencyList(edges);
+    AdjacencyList boh(edges,edges.size());
 
-    printGraph(boh,6);
+    printGraph(boh,edges.size());
 
     
     return 0;
