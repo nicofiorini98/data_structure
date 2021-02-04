@@ -6,6 +6,7 @@
 int main(){
 
 #if lista_adiacenza
+
     Node a,b,c,d;
     std::vector<Edge> edges;
     a.value=0;
@@ -19,10 +20,20 @@ int main(){
     edges.push_back({c,d});
     edges.push_back({d,a});
     edges.push_back({d,c});
- 
+
     AdjacencyList boh(edges);
 
+    Node e;
+    e.value=4;
+
+    boh.addNode(e);
+    boh.addEdge(e,a);
+    boh.addEdge(e,b);
+
+    boh.addEdge(a,e);
     boh.showGraph();
+
+    std::cout<<"\n il grado del nodo a è: "<<boh.grade(a);
     
 #endif 
 

@@ -6,6 +6,10 @@
 
 #IncludeRegexTransform: 
 
+/home/nico/my_project/data_structure/AdjacencyList.cpp
+AdjacencyList.h
+/home/nico/my_project/data_structure/AdjacencyList.h
+
 /home/nico/my_project/data_structure/AdjacencyList.h
 iostream
 -
