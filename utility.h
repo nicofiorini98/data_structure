@@ -12,7 +12,10 @@ public:
         value=_value;
         pos=-1;
     }
-
+    Node(const Node& x){
+        value=x.value;
+        pos=x.pos;
+    }
 
     friend class AdjList;
 };

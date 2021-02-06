@@ -54,9 +54,10 @@ int main(){
     //edges.push_back({g}); //TODO to correct this 
 
     AdjList graph(edges);
+
+    Node h(8);
+    graph.addNode(h);
     graph.showGraph();
-
-
 
 
 
