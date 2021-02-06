@@ -123,6 +123,33 @@ data_structure/fast:
 	$(MAKE) -f CMakeFiles/data_structure.dir/build.make CMakeFiles/data_structure.dir/build
 .PHONY : data_structure/fast
 
+AdjList.o: AdjList.cpp.o
+
+.PHONY : AdjList.o
+
+# target to build an object file
+AdjList.cpp.o:
+	$(MAKE) -f CMakeFiles/data_structure.dir/build.make CMakeFiles/data_structure.dir/AdjList.cpp.o
+.PHONY : AdjList.cpp.o
+
+AdjList.i: AdjList.cpp.i
+
+.PHONY : AdjList.i
+
+# target to preprocess a source file
+AdjList.cpp.i:
+	$(MAKE) -f CMakeFiles/data_structure.dir/build.make CMakeFiles/data_structure.dir/AdjList.cpp.i
+.PHONY : AdjList.cpp.i
+
+AdjList.s: AdjList.cpp.s
+
+.PHONY : AdjList.s
+
+# target to generate assembly for a file
+AdjList.cpp.s:
+	$(MAKE) -f CMakeFiles/data_structure.dir/build.make CMakeFiles/data_structure.dir/AdjList.cpp.s
+.PHONY : AdjList.cpp.s
+
 AdjacencyList.o: AdjacencyList.cpp.o
 
 .PHONY : AdjacencyList.o
@@ -186,6 +213,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... data_structure"
+	@echo "... AdjList.o"
+	@echo "... AdjList.i"
+	@echo "... AdjList.s"
 	@echo "... AdjacencyList.o"
 	@echo "... AdjacencyList.i"
 	@echo "... AdjacencyList.s"

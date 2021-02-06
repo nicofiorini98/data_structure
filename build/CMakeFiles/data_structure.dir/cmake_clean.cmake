@@ -1,4 +1,5 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/data_structure.dir/AdjList.cpp.o"
   "CMakeFiles/data_structure.dir/AdjacencyList.cpp.o"
   "CMakeFiles/data_structure.dir/main.cpp.o"
   "data_structure"

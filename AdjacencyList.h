@@ -1,4 +1,4 @@
-#pragma once
+/*#pragma once
 
 #include <iostream>
 #include "Graph.h"
@@ -34,4 +34,4 @@ public:
 };
 
 
-
+*/

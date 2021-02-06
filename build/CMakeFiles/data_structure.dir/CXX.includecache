@@ -6,20 +6,22 @@
 
 #IncludeRegexTransform: 
 
-/home/nico/my_project/data_structure/AdjacencyList.cpp
-AdjacencyList.h
-/home/nico/my_project/data_structure/AdjacencyList.h
+/home/nico/my_project/data_structure/AdjList.cpp
+AdjList.h
+/home/nico/my_project/data_structure/AdjList.h
 
-/home/nico/my_project/data_structure/AdjacencyList.h
-iostream
--
+/home/nico/my_project/data_structure/AdjList.h
 Graph.h
 /home/nico/my_project/data_structure/Graph.h
-vector
+iostream
 -
 list
 -
-iterator
+vector
+-
+utility
+-
+string
 -
 
 /home/nico/my_project/data_structure/Graph.h
@@ -29,12 +31,6 @@ list
 -
 utility.h
 /home/nico/my_project/data_structure/utility.h
-
-/home/nico/my_project/data_structure/main.cpp
-iostream
--
-AdjacencyList.h
-/home/nico/my_project/data_structure/AdjacencyList.h
 
 /home/nico/my_project/data_structure/utility.h
 iostream

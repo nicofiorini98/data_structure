@@ -1,10 +1,12 @@
 #include <iostream> 
 #include "AdjacencyList.h"
+#include "AdjList.h"
 
-#define lista_adiacenza 1
+
+#define lista_adiacenza 0
  
 int main(){
-
+/*
 #if lista_adiacenza
 
     Node a,b,c,d;
@@ -34,9 +36,31 @@ int main(){
     boh.showGraph();
 
     std::cout<<"\n il grado del nodo a è: "<<boh.grade(a);
-    
-#endif 
+*/    
+
+
+    Node *d = new Node(0);
+    Node *e = new Node(1);
+    Node *f = new Node(2);
+    Node *g = new Node(3);
+
+    std::vector<Edge> edges;
+
+    edges.push_back({d,e});
+    edges.push_back({d,g});
+    edges.push_back({e,d});
+    edges.push_back({e,f});
+    edges.push_back({f,d});
+    //edges.push_back({g}); //TODO to correct this 
+
+    AdjList graph(edges);
+    graph.showGraph();
+
+
+
+
 
     return 0;
+
 
 }

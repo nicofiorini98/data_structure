@@ -1,6 +1,11 @@
 [
 {
   "directory": "/home/nico/my_project/data_structure/build",
+  "command": "/usr/bin/c++      -std=gnu++14 -o CMakeFiles/data_structure.dir/AdjList.cpp.o -c /home/nico/my_project/data_structure/AdjList.cpp",
+  "file": "/home/nico/my_project/data_structure/AdjList.cpp"
+},
+{
+  "directory": "/home/nico/my_project/data_structure/build",
   "command": "/usr/bin/c++      -std=gnu++14 -o CMakeFiles/data_structure.dir/AdjacencyList.cpp.o -c /home/nico/my_project/data_structure/AdjacencyList.cpp",
   "file": "/home/nico/my_project/data_structure/AdjacencyList.cpp"
 },
