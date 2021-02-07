@@ -1,3 +1,0 @@
-/home/nico/my_project/data_structure/build/CMakeFiles/rebuild_cache.dir
-/home/nico/my_project/data_structure/build/CMakeFiles/edit_cache.dir
-/home/nico/my_project/data_structure/build/CMakeFiles/data_structure.dir
