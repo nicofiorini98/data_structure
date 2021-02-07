@@ -45,6 +45,12 @@ AdjList::AdjList(std::vector<Edge> const &_edges): Graph()
             num_node++;
             num_edge++;
         }
+        else if(itr_dest==adj_lists.end()){
+            (*itr_src).push_back({dest});
+            adj_lists.push_back({dest});
+            num_edge++;
+            num_node++;
+        }
         else
         {
             (*itr_src).push_back({dest}); 
@@ -107,10 +113,10 @@ void AdjList::showGraphValue() const{
 
     for (auto &node: adj_lists){
         // print current vertex number
-        std::cout << (*node.begin())->value<< " --> ";
+        std::cout << (*node.begin())->pos<< " --> ";
         // print all neighboring vertices of vertex i
         for(std::list<Node*>::const_iterator it = ++(node.cbegin()); it!=node.cend(); it++)
-            std::cout<<(*it)->value<<" ";
+            std::cout<<(*it)->pos<<" ";
         
         std::cout << std::endl;
     }
