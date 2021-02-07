@@ -33,7 +33,7 @@ public:
 
     //each data structure has own method for add Node and Edge
     virtual void addNode(const Node &x)=0;                //add a Node 
-    virtual void addEdge(const Node &x,const Node &y)=0;        //add an Edge
+    virtual void addEdge(const Node &x,const Node &)=0;        //add an Edge
     //void deleteNode(Node *x);               //remove a Node in the graph
     //void deleteEdge(Edge* e);               //remove a Edge in the graph
 };
