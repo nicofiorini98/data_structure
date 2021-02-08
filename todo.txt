@@ -1,7 +1,15 @@
 TODO
 importante: la lista di archi deve avere anche una lista di nodi immagazzinata con i relativi 
-indici.
+            indici?
 
 
 1. mi conviene utilizzare una chiave primaria per ogni nodo?
-2. addNode deve stare in tutti 
+
+//printTree()
+
+        --- 0 ---
+       /   /|\   \
+      /   / | \   \
+      8  1  9  2   7
+
+
