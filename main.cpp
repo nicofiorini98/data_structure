@@ -1,6 +1,7 @@
 #include <iostream> 
 #include "AdjacencyList.h"
 #include "AdjList.h"
+#include "GraphAdjList.h"
 
 
 #define lista_adiacenza 1
@@ -14,6 +15,7 @@ int main(){
     Node c(2);
     Node d(3);
     Node e(4);
+    
     //Node *d = new Node(3);
 
     std::vector<Edge> edges;
@@ -24,20 +26,30 @@ int main(){
     edges.push_back({&b,&c});
     edges.push_back({&a,&b});
 
-    AdjList *graph=new AdjList(edges);
-    graph->addNode(e);
+
+    GraphAdjList *graph=new GraphAdjList(edges);
+    //graph->addNode(e);
+    graph->addEdge(e,b);
+    Node f(5);
+    graph->addNode(f);
+    graph->addEdge(e,f);
+    graph->addEdge(a,f);
+
+    graph->deleteNode(f);
+
+    //graph->addEdge(f,c);
+    ////graph->addEdge(f,d);
 
 
     //graph.addNode(h);
     graph->showGraph();
     std::cout<<std::endl;
-    graph->showGraphPos();
-    std::cout<<std::endl;
     graph->showGraphValue();
 
-    delete graph;
 
-    std::cout<<"grafo distrutto\n";
+
+    //delete graph;
+    //std::cout<<"grafo distrutto\n";
 
 
 #endif

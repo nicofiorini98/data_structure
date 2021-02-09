@@ -3,8 +3,11 @@
 AdjList::AdjList(std::vector<Edge> const &_edges): Graph()
 {
     for(auto &edge: _edges)
+
         addEdge(*edge.src,*edge.dest);
+
     //generate_key();
+
 }
 
 AdjList::~AdjList(){
