@@ -2,7 +2,7 @@
 #include <iostream>
 #include <list>
 
-//to define with template
+//TODO to define with template
 class Node{
 private:
     int value;
@@ -16,8 +16,25 @@ public:
         value=x.value;
         pos=x.pos;
     }
+    //overload operator
+    bool operator==(const Node& x) const{
+     std::cout<<"operatore ==\n";
+        if(x.value==value){
+            return true;
+        }
+
+        return false;
+    }
+
+    bool operator!=(const Node& x) const{
+        if(x.value==value)
+            return false;
+        return true;
+    }
+
 
     friend class AdjList;
+    friend class GraphAdjList;
 };
 
 //TODO here I should define the template
@@ -27,9 +44,5 @@ struct Edge{
     Node *dest;   //destination of the edge
     int weight; //weight of the edge
     std::string color;
-
 };
-
-
-
 
