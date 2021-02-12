@@ -14,7 +14,10 @@ public:
 
     void addNode(const Node &x);
     void addEdge(const Node &x,const Node &y);
+    void addEdge(const Edge& _edge);
     void deleteNode(const Node &x);               //remove a Node in the graph
+    void deleteEdge(const Node &x,const Node &y);               //remove a Edge in the graph
+    void deleteEdge(const Edge &_edge);               //remove a Edge in the graph
     int grade(const Node &x){}
 
     //TODO da implementare 

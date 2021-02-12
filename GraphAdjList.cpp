@@ -5,7 +5,6 @@ GraphAdjList::GraphAdjList(const std::vector<Edge> &_edges)
 {
     for(auto &edge: _edges)
         addEdge(*edge.src,*edge.dest);
-
 }
 
 //add an Edge O(n)
@@ -32,7 +31,7 @@ void GraphAdjList::addEdge(const Node &x,const Node &y)
         dest= *(itr_dest->second).begin(); 
 
 
-    //add the node in the edge if it doesn't exist in adjList 
+    //add the node in the edge if doesn't exist in adjList 
     if(itr_src == adj_lists.end() && itr_dest==adj_lists.end())
     {
         adj_lists.insert(std::pair<int,std::list<Node*>>(src->value,{src,dest}));
@@ -59,6 +58,10 @@ void GraphAdjList::addEdge(const Node &x,const Node &y)
         num_edge++;
     }
     
+}
+
+void GraphAdjList::addEdge(const Edge &_edge){
+    addEdge(*_edge.src,*_edge.dest);
 }
 
 
@@ -114,7 +117,22 @@ void GraphAdjList::deleteNode(const Node &x){
 }
 
 
+void GraphAdjList::deleteEdge(const Node &x,const Node &y)
+{
 
+    std::map<int,std::list<Node*>>::iterator itr_y= adj_lists.find(x.value);
+
+    for(auto& node: adj_lists)
+        if(node.first==x.value)
+            node.second.remove(*itr_y->second.begin());
+
+}
+
+
+void GraphAdjList::deleteEdge(const Edge &_edge){
+    deleteEdge(*_edge.src,*_edge.dest);
+
+}
 
 void GraphAdjList::showGraph() const{
 

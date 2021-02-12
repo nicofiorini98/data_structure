@@ -35,6 +35,7 @@ public:
 
     friend class AdjList;
     friend class GraphAdjList;
+    friend class TreeVectorFather;
 };
 
 //TODO here I should define the template
