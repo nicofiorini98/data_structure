@@ -2,48 +2,85 @@
 #include <iostream>
 #include <list>
 
-//TODO to define with template
-class Node{
-private:
-    int value;
-    int pos;
-public:
-    Node(int _value){
-        value=_value;
-        pos=-1;
-    }
-    Node(const Node& x){
-        value=x.value;
-        pos=x.pos;
-    }
-    //overload operator
-    bool operator==(const Node& x) const{
-     std::cout<<"operatore ==\n";
-        if(x.value==value){
+//todo togliere il pos nella classe node 
+namespace datalib
+{
+    //TODO to define with template
+    class node
+    {
+    private:
+
+        node(int _value, node* _parent=nullptr){
+            value=_value;
+            pos=-1;
+            parent=nullptr;
+            node_list={};
+        }
+
+        //list of outgoing nodes  
+        std::list<node*> node_list;
+
+        //parameter only for the Tree
+        node* parent; 
+
+        int value;
+        int pos;
+
+    public:
+        ///\param _value is for initialize the value 
+        ///\param _type define the type of the node
+        node(int _value){
+            value=_value;
+            pos=-1;
+        }
+        node(const node& x){
+            value=x.value;
+            pos=x.pos;
+        }
+
+
+        //overloading operator ==
+        bool operator==(const node& x) const{
+            std::cout<<"operatore ==\n";
+            if(x.value==value){
+                return true;
+            }
+            return false;
+        }
+
+        //overloading operator !=
+        bool operator!=(const node& x) const{
+            if(x.value==value)
+                return false;
             return true;
         }
 
-        return false;
-    }
+        friend class graph_adj_list;
+        friend class tree_pos_vector;
+        friend class tree_children_list;
+        friend class tree_parent_vector;
+    };
 
-    bool operator!=(const Node& x) const{
-        if(x.value==value)
-            return false;
-        return true;
-    }
+    //TODO here I should define the template
+    //class for the Edge of the graph, this edge is oriented
+
+    class Edge{
+
+    private: 
+        node* src;
+        node* dest;
+    public: 
+    //costructor 
+        Edge(node *_src,node *_dest,int _weight=0,const std::string _mark=""): 
+            src{_src},dest{_dest}, weight{_weight},mark{_mark} {}
+
+        int weight;
+        std::string mark;
+
+        friend class graph_adj_list;
+        friend class tree_pos_vector;
+        friend class tree_parent_vector;
+    };
 
 
-    friend class AdjList;
-    friend class GraphAdjList;
-    friend class TreeVectorFather;
-};
-
-//TODO here I should define the template
-//class for the Edge of the graph, this edge is oriented
-struct Edge{
-    Node *src;    //source of the edge
-    Node *dest;   //destination of the edge
-    int weight; //weight of the edge
-    std::string color;
-};
-
+} 

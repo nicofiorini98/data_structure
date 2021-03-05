@@ -1,45 +1,70 @@
 #include <iostream> 
-#include "AdjacencyList.h"
-#include "AdjList.h"
-#include "GraphAdjList.h"
-#include "TreeVectorFather.h"
+#include "graph_adj_list.h"
+#include "tree_parent_vector.h"
+#include <chrono>
 
- 
+using namespace std::chrono;
+
+
+// //using namespace std::chrono 
+// high_resolution_clock::time_point t1= high_resolution_clock::now();
+
+    
+// high_resolution_clock::time_point t2= high_resolution_clock::now();
+
+// duration<double> time_span=duration_cast<duration<double>>(t2-t1);
+
+
+// std::cout<<"it took the time"<<time_span.count()<<"seconds.";
+
+
+
+#define tree_vector_father 1
+#define graph_adj_lists 0
+#define tree_children_list 0
+
+using namespace datalib;
+
 int main(){
 
-#if 1 
-    Node a(0);    
-    Node l(1);    
-    Node b(2);    
-    Node e(3);    
-    Node r(4);    
-    Node o(5);    
-    
-    TreeVectorFather tree;
+#if tree_children_list
 
-
-    tree.addNode(&a);
-    tree.addNode(&l);
-    tree.addNode(&b);
-    
-    tree.addNode(&e,&l);
-    tree.addNode(&r,&l);
-    tree.addNode(&o,&b);
-
-
-    tree.showTree();
-        
-
+    std::cout<<"dio\n";
 
 #endif
 
-#if 0
+#if tree_vector_father
 
-    Node a(0);
-    Node b(1);
-    Node c(2);
-    Node d(3);
-    Node e(4);
+    node a(0);
+    node l(1);
+    node b(2); 
+    node e(3);
+    node r(4); 
+    node o(5);
+    
+    tree_parent_vector t;
+
+
+    t.addNode(&a);
+    t.addNode(&l);
+    t.addNode(&b);
+    
+    t.addNode(&e,&l);
+    t.addNode(&r,&l);
+    t.addNode(&o,&b);
+
+    t.showTree();
+    t.showTree();
+
+#endif
+
+#if graph_adj_lists
+
+    node a(0);
+    node b(1);
+    node c(2);
+    node d(3);
+    node e(4);
     
     std::vector<Edge> edges;
 
@@ -55,7 +80,7 @@ int main(){
     //graph->addNode(e);
     graph->addEdge(e,b);
     graph->addEdge({&a,&e});
-    Node f(5);
+    node f(5);
     graph->addNode(f);
     graph->addEdge(e,f);
     graph->addEdge(a,f);
