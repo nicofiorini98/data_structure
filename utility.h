@@ -5,17 +5,18 @@
 //todo togliere il pos nella classe node 
 namespace datalib
 {
-    //TODO to define with template
     class node
     {
     private:
 
-        node(int _value, node* _parent=nullptr){
+        //only implementation of data structure 
+        //can define the parent of a node 
+        node(int _value, node* _parent){
             value=_value;
             pos=-1;
-            parent=nullptr;
+            parent=_parent;
             node_list={};
-        }
+        } 
 
         //list of outgoing nodes  
         std::list<node*> node_list;
@@ -27,15 +28,23 @@ namespace datalib
         int pos;
 
     public:
+
         ///\param _value is for initialize the value 
         ///\param _type define the type of the node
         node(int _value){
             value=_value;
+            parent=nullptr;
+            node_list={};
             pos=-1;
         }
-        node(const node& x){
-            value=x.value;
-            pos=x.pos;
+
+        ///copy costructor
+        node(const node& x)
+        {
+            value = x.value;
+            node_list = x.node_list;
+            pos = x.pos;
+            parent = x.parent;
         }
 
 

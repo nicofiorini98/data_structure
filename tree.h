@@ -1,5 +1,8 @@
+#pragma once
 #include <vector>
+#include <list>
 #include "utility.h"
+
 
 /**
  * \class Tree
@@ -12,7 +15,7 @@
 
 namespace datalib{ 
 
-    class tree{
+    class tree {
     protected:
         int num_nodes;
     public: 
@@ -30,7 +33,7 @@ namespace datalib{
         ///return a vector of the node x 
         virtual std::vector<node*> getChildren(const node &x)=0;                     
         ///add a Node in the Tree 
-        virtual void addNode(const node *_node,const node *_parent)=0;
+        virtual void addNode(const node *_node,const node *_parent,const std::list<node*> _children)=0;
 
         //aggiungi sotto albero
         //rimuovi sotto albero

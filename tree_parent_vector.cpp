@@ -2,7 +2,7 @@
 
 using namespace datalib;
 
-void tree_parent_vector::addNode(const node *_node, const node *_parent) 
+void tree_parent_vector::addNode(const node *_node, const node *_parent, const std::list<node*> _children) 
 {
     node* n = new node(*_node);
 
@@ -27,6 +27,8 @@ void tree_parent_vector::addNode(const node *_node, const node *_parent)
             return;
         vec_node.push_back(std::make_pair(n,parent_pos));
     }
+
+    //todo update with the children
 
 }
 

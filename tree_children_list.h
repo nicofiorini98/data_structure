@@ -38,8 +38,9 @@ namespace datalib
         ///\param _node is the node to add in the Tree
         ///\param _father is the parent of the node to be inserted, 
         ///if not specified the node is the root of the Tree
-        virtual void addNode(const node *x,const node *_parent=nullptr);
+        virtual void addNode(const node *x,const node *_parent=nullptr,const std::list<node*> _children={});
 
+        void showTree();
         //aggiungi sotto albero
         //rimuovi sotto albero
     };

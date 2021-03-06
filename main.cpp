@@ -1,6 +1,8 @@
 #include <iostream> 
 #include "graph_adj_list.h"
 #include "tree_parent_vector.h"
+#include "tree_children_list.h"
+
 #include <chrono>
 
 using namespace std::chrono;
@@ -19,18 +21,34 @@ using namespace std::chrono;
 
 
 
-#define tree_vector_father 1
-#define graph_adj_lists 0
-#define tree_children_list 0
+#define vector_father 0
+#define adj_lists 0
+#define children_list 1
 
 using namespace datalib;
 
 int main(){
 
-#if tree_children_list
+#if children_list
 
-    std::cout<<"dio\n";
+    node a(0);
+    node l(1);
+    node b(2); 
+    node e(3);
+    node r(4); 
+    node o(5);
+    node d(3);
 
+    tree_children_list t;
+    t.addNode(&a);
+    t.addNode(&l,&a);
+    
+    t.addNode(&b,&a);
+    t.addNode(&e,&l);
+    t.addNode(&r,&l);
+    t.addNode(&o,&b);
+    t.showTree();
+    
 #endif
 
 #if tree_vector_father
