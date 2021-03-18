@@ -29,9 +29,9 @@ namespace datalib{
         ///return the number of sons for the node x
         virtual int getDegree(const node &x)=0;
         ///return the father of the node x
-        virtual node* getParent(const node &x)=0;
-        ///return a vector of the node x 
-        virtual std::vector<node*> getChildren(const node &x)=0;                     
+        virtual node getParent(const node &x)=0;
+        ///return a vector with the children of the node x 
+        virtual std::list<node*> getChildren(const node &x)=0;                     
         ///add a Node in the Tree 
         virtual void addNode(const node *_node,const node *_parent,const std::list<node*> _children)=0;
 

@@ -16,8 +16,8 @@ namespace datalib{
         ~tree_parent_vector(){}
 
         int getDegree(const node &x){}
-        virtual node* getParent(const node &x){}
-        std::vector<node*> getChildren(const node &x){}                     
+        virtual node getParent(const node &x){}
+        std::list<node*> getChildren(const node &x){}                     
         //to update 
         //void addNode(const node *_node, const node *_parent=nullptr);
         void addNode(const node *_node,const node *_parent,const std::list<node*> _children)=0;

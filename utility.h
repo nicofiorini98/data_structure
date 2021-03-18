@@ -8,7 +8,6 @@ namespace datalib
     class node
     {
     private:
-
         //only implementation of data structure 
         //can define the parent of a node 
         node(int _value, node* _parent){
@@ -17,7 +16,6 @@ namespace datalib
             parent=_parent;
             node_list={};
         } 
-
         //list of outgoing nodes  
         std::list<node*> node_list;
 
@@ -47,6 +45,11 @@ namespace datalib
             parent = x.parent;
         }
 
+        //getter  
+        int getValue()const {return value;}
+
+        ///setter
+        int setValue(int _value) {value=_value;}
 
         //overloading operator ==
         bool operator==(const node& x) const{
@@ -64,10 +67,11 @@ namespace datalib
             return true;
         }
 
+        //class that can access to private member of the node
         friend class graph_adj_list;
         friend class tree_pos_vector;
-        friend class tree_children_list;
         friend class tree_parent_vector;
+        friend class tree_general;
     };
 
     //TODO here I should define the template

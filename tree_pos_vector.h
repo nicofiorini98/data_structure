@@ -38,8 +38,8 @@ namespace datalib{
         virtual ~tree_pos_vector(){}
 
         int getDegree(const node &x){}
-        node* getParent(const node &x){}
-        std::vector<node*> getChildren(){} 
+        node getParent(const node &x){}
+        std::list<node*> getChildren(){} 
         void addNode(const node *_node,const node *_parent);
 
     };

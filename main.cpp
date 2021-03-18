@@ -1,7 +1,7 @@
 #include <iostream> 
 #include "graph_adj_list.h"
 #include "tree_parent_vector.h"
-#include "tree_children_list.h"
+#include "tree_general.h"
 
 #include <chrono>
 
@@ -19,39 +19,42 @@ using namespace std::chrono;
 
 // std::cout<<"it took the time"<<time_span.count()<<"seconds.";
 
-
-
-#define vector_father 0
-#define adj_lists 0
-#define children_list 1
+#define VECTOR_FATHER 0
+#define ADJ_LISTS 0
+#define TREE_GENERAL 1
 
 using namespace datalib;
 
 int main(){
 
-#if children_list
+#if TREE_GENERAL
 
-    node a(0);
-    node l(1);
-    node b(2); 
-    node e(3);
-    node r(4); 
-    node o(5);
-    node d(3);
+    node a{0},l{1},b{2};
+    node e{3},r{4},o{5};
 
-    tree_children_list t;
-    t.addNode(&a);
+    std::list<node*> children;
+
+    tree_general t;
+    //t.addNode(&a); //optional
     t.addNode(&l,&a);
-    
     t.addNode(&b,&a);
     t.addNode(&e,&l);
     t.addNode(&r,&l);
     t.addNode(&o,&b);
+
+    children = t.getChildren(a);
+
+    for(auto& child: children){
+        std::cout<<child->getValue()<<"\n";
+        
+    }
+
     t.showTree();
-    
+    std::cout<<"grado nodo a"<<t.getDegree(a)<<"\n";
+
 #endif
 
-#if tree_vector_father
+#if TREE_VECTOR_FATHER
 
     node a(0);
     node l(1);
@@ -76,7 +79,7 @@ int main(){
 
 #endif
 
-#if graph_adj_lists
+#if GRAPH_ADJ_LISTS
 
     node a(0);
     node b(1);
