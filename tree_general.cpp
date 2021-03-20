@@ -2,69 +2,100 @@
 #include <stack>
 
 using namespace datalib;    
+int callAdd =0; 
 
-tree_general::tree_general(int _degree){
+
+tree_general::tree_general(int _degree): tree()
+{
+    //initalization parameter
     degree=_degree;
+    root=nullptr;
+
 }
 
 
-void tree_general::addNode(const node* x,const node *_parent,const std::list<node*> _children){
+void tree_general::addNode(const node* _x,const node *_parent,const std::list<node*> _children){
 
-    /* pre-conditions: x must be different from the null pointer
-    * if father is a null pointer, _node is a roots of the tree 
+    /*
+    * pre-conditions: x and _parent cannot both be nullptr
+    * x is a roots of the tree if the parent is not specified and the root doesn't exists
+    * x is a children of the roots if the parent is not specified and the root already exists
     */
-    
-    node* n;
-    node* p=nullptr; 
+    callAdd++;
+    //std::cout<<"chiamata addNode numero: "<<callAdd<<"\n";
+
+    node* x;
+    node* parent_ptr=nullptr;
+
+    node* s=nullptr;
 
     std::map<int,node*>::iterator itr;
     std::map<int,node*>::iterator itr_parent;
 
-    //try to find x in the map
-    itr=nodes_map.find(x->value);
-    
-
-    //manage the parent if specified(!=nullptr)
-    if(_parent != nullptr) {
-        //try to find _parent in the map
-        itr_parent=nodes_map.find(_parent->value);
-
-        //create parent if doesn't exist and add in the map
-        if(itr_parent == nodes_map.end()){
-            p = new node(*_parent);                                                     //new to delete
-            nodes_map.insert({p->value,p});
-        }
-        else
-            //update the pointer p
-            p=itr_parent->second;
+    if(x==nullptr)
+    {
+        std::cerr<<"errore, non puoi aggiungere un nodo che sia nullo\n";
     }
 
+    //manage the parent if specified(!=nullptr)
+    if(_parent != nullptr)
+    {
+        //try to find _parent in the map
+        itr_parent = nodes_map.find(_parent->value);
+
+        //create parent if doesn't exist and add in the map
+        if(itr_parent == nodes_map.end())
+        {
+            parent_ptr = new node(_parent->value); 
+            nodes_map.insert({parent_ptr->value,parent_ptr});                                             
+        }
+        else{
+            //update the pointer p
+            parent_ptr=itr_parent->second;
+        }
+    }
+
+    //try to find x in the map
+    itr=nodes_map.find(_x->value);
 
     //if x doesn't exist, create it and add in map
     if(itr == nodes_map.end())
     {
-        n = new node(x->value,p);                                                       //new to delete
-        nodes_map.insert({x->value,n});
+        x = new node(_x->value);                                                       //new to delete
+        nodes_map.insert({x->value,x});
 
         //add a son in parent
-        if(p!=nullptr)
-            p->node_list.push_back(n);
+        if(parent_ptr)
+            parent_ptr->node_list.push_back(x);
+        
+        //add parent 
+        x->parent=parent_ptr;
+    }
+    else 
+    {
+        (itr->second)->parent=parent_ptr;
+
+        //update sons of the parent
+        if(parent_ptr)
+            parent_ptr->node_list.push_back(itr->second);
     }
 
-    //add-update parent to the node 
-    n->parent=p; 
 
-//     //add children in the node 
-//     for(auto &child: _children)
-//     {
-//         //if x doesn't exist, create it and add in map
-//         itr = nodes_map.find(child->value);
-//         if(itr==nodes_map.end())
-//         {
-//             n = new node(*child);
-//             nodes_map.insert({n->value,child});
-//         }
-//     } 
+    
+/*  //add children in the node 
+    for(auto &child: _children)
+    {
+        //pre-conditions: we can add child only if doesn't exists in the tree               //troppo restrittiva come condizione?
+        itr = nodes_map.find(child->value);
+        if(itr==nodes_map.end())
+        {
+            s = new node(*child);
+            s->parent = n;
+            nodes_map.insert({s->value,s});
+            n->node_list.push_back();
+        }
+    } */
+    //std::cout<<"fine chiamata\n";
 }
 
 
@@ -96,29 +127,52 @@ std::list<node*> tree_general::getChildren(const node&x){
 }
 
 
-void tree_general::visitDFS(const node &_root)
+void tree_general::visitDFS(const node* _root)
 {
     //initialize for stack
-    std::stack<node*> s;
+    std::stack<node> s;
     std::map<int,node*>::iterator itr;
 
-    itr = nodes_map.find(_root.value);
+    //pre-conditions: if the node isn't in the tree, return error
+    itr = nodes_map.find(_root->value);
     if(itr==nodes_map.end())
     {
         std::cerr<<"errore, non c'è il nodo per poter fare la visita\n";
         return;
     }
 
-    s.push((*itr).second);
-    while()    
+    s.push(*(*itr).second);
+    while(!s.empty())    
+    {
+        node *u = &s.top();
+        s.pop();             //pop don't return the value
 
+        //todo vedere se è corretto, non mi fido
+        if(u)
+        {
+            //visit u
+            std::cout<<u->value<<"\n";
+            std::list<node*> childrens=getChildren(*u);
+            std::list<node*>::iterator itr;
+
+            if(childrens.empty())
+                u=nullptr;
+            else
+               /*  for(itr=childrens.end()--;itr != childrens.begin();itr--)
+                    s.push(**itr);
+               */
+               for(auto i=(childrens.rbegin());i!=childrens.rend();i++)
+                    s.push(**i);
+            //prendere la lista dei figli di u 
+            //ed inserirli nello stack
+        }
+    }
 }
 
 
 
-void tree_general::showTree(){
-
-
+void tree_general::showTree()
+{
     std::cout<<std::endl;
     for(auto& n: nodes_map)
     {
@@ -126,12 +180,28 @@ void tree_general::showTree(){
             std::cout<<((n.second)->parent)->value<<"<---";
         }
         else 
-            std::cout<<"//"<<"<---";
+            std::cout<<"null"<<"<---";
     
         std::cout<<n.first<<" --->  ";
-        for(auto& child: n.second->node_list){
-            std::cout<<child->value<<" ";
+        //print the sons if the list isn't empty
+        if(!n.second->node_list.empty())
+        {
+
+            for(auto& child: n.second->node_list){
+                std::cout<<child->value<<" ";
+            }
+
         }
+        else 
+            std::cout<<"null";
+
         std::cout<<std::endl;
     }
+}
+
+
+void tree_general::showTree2()
+{
+    std::cout<<std::endl;
+
 }

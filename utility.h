@@ -51,6 +51,17 @@ namespace datalib
         ///setter
         int setValue(int _value) {value=_value;}
 
+        
+       /*  void addChildren(std::list<node*> _node_list){
+
+            if(node_list.front()==nullptr)
+                node_list.pop_back();
+
+            
+
+
+        } */
+
         //overloading operator ==
         bool operator==(const node& x) const{
             std::cout<<"operatore ==\n";

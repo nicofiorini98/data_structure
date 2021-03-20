@@ -16,7 +16,6 @@ using namespace std::chrono;
 
 // duration<double> time_span=duration_cast<duration<double>>(t2-t1);
 
-
 // std::cout<<"it took the time"<<time_span.count()<<"seconds.";
 
 #define VECTOR_FATHER 0
@@ -25,32 +24,36 @@ using namespace std::chrono;
 
 using namespace datalib;
 
-int main(){
+int main()
+{
 
 #if TREE_GENERAL
 
-    node a{0},l{1},b{2};
-    node e{3},r{4},o{5};
+    node a0{0},l1{1},b2{2};
+    node e3{3},r4{4},o5{5},n{6};
 
     std::list<node*> children;
 
     tree_general t;
     //t.addNode(&a); //optional
-    t.addNode(&l,&a);
-    t.addNode(&b,&a);
-    t.addNode(&e,&l);
-    t.addNode(&r,&l);
-    t.addNode(&o,&b);
+    t.addNode(&e3,&l1);
+    t.addNode(&l1,&a0);
+    t.addNode(&b2,&a0);
+    t.addNode(&r4,&l1);
+    t.addNode(&o5,&b2); 
 
-    children = t.getChildren(a);
+    //children = t.getChildren(a);
 
-    for(auto& child: children){
+    /*for(auto& child: children){
         std::cout<<child->getValue()<<"\n";
         
     }
+    */
 
-    t.showTree();
-    std::cout<<"grado nodo a"<<t.getDegree(a)<<"\n";
+    //t.showTree();
+
+    t.visitDFS(&a0);
+    //std::cout<<"grado nodo a: "<<t.getDegree(a0)<<"\n";
 
 #endif
 

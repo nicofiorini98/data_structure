@@ -21,7 +21,7 @@ namespace datalib
     private:
 
         int degree;
-
+        node* root;
         std::map<int,node*> nodes_map;
 
         //get node by value
@@ -48,12 +48,13 @@ namespace datalib
         ///\param _node is the node to add in the Tree
         ///\param _father is the parent of the node to be inserted, 
         ///if not specified the node is the root of the Tree
-        void addNode(const node *x,const node *_parent=nullptr,const std::list<node*> _children={});
+        void addNode(const node* _x,const node *_parent=nullptr,const std::list<node*> _children={});
 
         ///visita DFS 
-        void visitDFS(const node &root);
+        void visitDFS(const node* root);
         
         void showTree();
+        void showTree2();
         //aggiungi sotto albero
         //rimuovi sotto albero
     };
