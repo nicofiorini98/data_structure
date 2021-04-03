@@ -10,11 +10,9 @@ tree_general::tree_general(int _degree): tree()
     //initalization parameter
     degree=_degree;
     root=nullptr;
-
 }
 
-
-void tree_general::addNode(const node* _x,const node *_parent,const std::list<node*> _children){
+void tree_general::addNode2(const node* _x,const node *_parent,const std::list<node> _children){
 
     /*
     * pre-conditions: x and _parent cannot both be nullptr
@@ -27,7 +25,7 @@ void tree_general::addNode(const node* _x,const node *_parent,const std::list<no
     node* x;
     node* parent_ptr=nullptr;
 
-    node* s=nullptr;
+    node* s = nullptr;
 
     std::map<int,node*>::iterator itr;
     std::map<int,node*>::iterator itr_parent;
@@ -50,13 +48,13 @@ void tree_general::addNode(const node* _x,const node *_parent,const std::list<no
             nodes_map.insert({parent_ptr->value,parent_ptr});                                             
         }
         else{
-            //update the pointer p
+            //get the pointer to parent
             parent_ptr=itr_parent->second;
         }
     }
 
     //try to find x in the map
-    itr=nodes_map.find(_x->value);
+    itr = nodes_map.find(_x->value);
 
     //if x doesn't exist, create it and add in map
     if(itr == nodes_map.end())
@@ -65,39 +63,98 @@ void tree_general::addNode(const node* _x,const node *_parent,const std::list<no
         nodes_map.insert({x->value,x});
 
         //add a son in parent
-        if(parent_ptr)
-            parent_ptr->node_list.push_back(x);
+        if(parent_ptr){
+            //if(parent_ptr->node_list)
+            //parent_ptr->node_list.push_back(x);
+
+            parent_ptr->addChildren({x});
+        }
         
         //add parent 
         x->parent=parent_ptr;
     }
     else 
     {
-        (itr->second)->parent=parent_ptr;
+        (itr->second)->parent = parent_ptr;
 
         //update sons of the parent
         if(parent_ptr)
-            parent_ptr->node_list.push_back(itr->second);
+        {
+            parent_ptr->addChildren({x});
+        }
     }
 
 
-    
-/*  //add children in the node 
+    //add children in the node
     for(auto &child: _children)
     {
-        //pre-conditions: we can add child only if doesn't exists in the tree               //troppo restrittiva come condizione?
-        itr = nodes_map.find(child->value);
+        //pre-conditions: we can add child only if doesn't exists in the tree
+        itr=nodes_map.find(child.value);
         if(itr==nodes_map.end())
         {
-            s = new node(*child);
-            s->parent = n;
+            s = new node(child);
+            s->parent = x;
             nodes_map.insert({s->value,s});
-            n->node_list.push_back();
+            x->node_list.push_back(s);
         }
-    } */
-    //std::cout<<"fine chiamata\n";
+    }
 }
 
+
+void tree_general::addNode(const node* _x,const node *_parent)
+{
+    callAdd++;
+
+    node* x_ptr;
+    //node* parent_ptr;
+
+    std::map<int,node*>::iterator x_itr;
+    std::map<int,node*>::iterator parent_itr;
+
+
+    //pre-conditions: 
+    //1. the node x to add must be different from nullptr
+    //2. the node parent must exists if different from nullptr
+    //3. the parent nullptr means that x is the root if the root exists
+    //4. x will be the root if parent is nullptr and even the root is nullptr
+    if(_x==nullptr)
+    {
+        std::cerr<<"non puoi aggiungere un nodo nullo\n";
+        return;
+    }
+
+    x_itr = nodes_map.find(_x->value);
+
+    if(x_itr == nodes_map.end())
+    {
+        x_ptr = new node(*_x); 
+        nodes_map.insert({x_ptr->value,x_ptr});
+    }
+
+    if(!root)
+        root=x_ptr;
+
+    if(_parent!=nullptr)
+    {
+        parent_itr = nodes_map.find(_parent->value);
+        if(parent_itr == nodes_map.end())
+        {
+            std::cerr<<"errore, il padre immesso non esiste\n";
+            return;
+        }
+        x_ptr->parent = (parent_itr->second);
+
+        //update children of the parent
+        (x_ptr->parent)->addChildren({x_ptr});
+    }
+    else
+    {
+        if(x_ptr==root)
+            x_ptr->parent=nullptr;
+        else
+            x_ptr->parent=root;
+    }
+}
 
 //return the number of sons for the node x 
 int tree_general::getDegree(const node &x)
@@ -115,8 +172,6 @@ node tree_general::getParent(const node &x)
 }
 
 std::list<node*> tree_general::getChildren(const node&x){
-
-    //
 
     std::map<int,node*>::iterator itr=nodes_map.find(x.value);
 
@@ -190,7 +245,30 @@ void tree_general::showTree()
             for(auto& child: n.second->node_list){
                 std::cout<<child->value<<" ";
             }
+        }
+        else 
+            std::cout<<"null";
+        std::cout<<std::endl;
+    }
+}
 
+void tree_general::showTreePtr()
+{
+    std::cout<<std::endl;
+    for(auto& n: nodes_map)
+    {
+        if(n.second->parent!=nullptr){
+            std::cout<<((n.second)->parent)<<"<---";
+        }
+        else 
+            std::cout<<"null"<<"<---";
+    
+        std::cout<<n.first<<" --->  ";
+        //print the sons if the list isn't empty
+        if(!n.second->node_list.empty())
+        {
+            for(auto& child: n.second->node_list)
+                std::cout<<child<<" ";
         }
         else 
             std::cout<<"null";
@@ -198,6 +276,7 @@ void tree_general::showTree()
         std::cout<<std::endl;
     }
 }
+
 
 
 void tree_general::showTree2()

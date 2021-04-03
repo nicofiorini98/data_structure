@@ -20,7 +20,7 @@ namespace datalib{
         std::list<node*> getChildren(const node &x){}                     
         //to update 
         //void addNode(const node *_node, const node *_parent=nullptr);
-        void addNode(const node *_node,const node *_parent,const std::list<node*> _children)=0;
+        void addNode(const node *_node,const node *_parent,const std::list<node> _children);
         void showTree();
 
     };

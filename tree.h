@@ -1,8 +1,8 @@
 #pragma once
 #include <vector>
 #include <list>
-#include "utility.h"
-
+#include "node.h"
+#include "edge.h"
 
 /**
  * \class Tree
@@ -33,7 +33,9 @@ namespace datalib{
         ///return a vector with the children of the node x 
         virtual std::list<node*> getChildren(const node &x)=0;                     
         ///add a Node in the Tree 
-        virtual void addNode(const node *_node,const node *_parent,const std::list<node*> _children)=0;
+        virtual void addNode(const node *_x,const node *_parent)=0;
+        ///add childrens to node
+        virtual void addChildrens(const node* _x, const std::list<node> _childrens){} //TODO rendere virtuale puro
 
         //aggiungi sotto albero
         //rimuovi sotto albero

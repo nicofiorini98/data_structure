@@ -37,12 +37,12 @@ namespace datalib{
         //TreePosVector(int _max_grade,int _num_nodes);
         virtual ~tree_pos_vector(){}
 
+
         int getDegree(const node &x){}
         node getParent(const node &x){}
         std::list<node*> getChildren(){} 
-        void addNode(const node *_node,const node *_parent);
+        void addNode(const node *_node,const node *_parent,const std::list<node> _children);
 
     };
-
 
 }

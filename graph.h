@@ -2,7 +2,8 @@
 
 #include <iostream> 
 #include <list>
-#include "utility.h"
+#include "node.h"
+#include "edge.h"
 
 
 namespace datalib{
