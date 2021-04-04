@@ -59,12 +59,11 @@ namespace datalib
 
         //todo controllare questa funzione
         ///overloading operator <<
-        friend std::ostream &operator<<(std::ostream &os, node &_node)
+        friend std::ostream &operator<<(std::ostream &os,const node &_node)
         {
             os << _node.value;
             return os;
         }
-
 
         //class that can access to private member of the node
         friend class graph_adj_list;

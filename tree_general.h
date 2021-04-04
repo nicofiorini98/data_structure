@@ -41,14 +41,18 @@ namespace datalib
             //pre-conditions
             //format for input of a node: node parent list_children
             //Example: 3 1
-            node x{0};
-            node parent{0};
+            // node x{0};
+            // node parent{0};
+
+            node* x=new node(0);
+            node* parent=new node(0);
             //get the value of x and parent
             char tmp;
-
+            std::string parent_string{""};
+            int i=0;
             while (is>>tmp)
             {
-
+                
                 if (tmp != '{')
                 {
                     std::cerr << "errore di lettura\n";
@@ -56,28 +60,45 @@ namespace datalib
                     is.clear(std::ios_base::failbit);
                     return is;
                 }
-                std::cout<<tmp;
 
-                is >> x >> parent;
-                std::cout<<x<<" "<<parent;
 
-                if (is>>tmp && tmp != '}')
+
+                is>>*x;
+                is>>*parent;
+                
+                if(!is)
+                {
+                    is.clear(std::ios_base::goodbit);
+                    is>>parent_string;
+                    if(parent_string!="null")
+                    {
+                        is.unget();
+                        is.clear(std::ios_base::failbit);
+                        std::cerr<<"errore lettura\n";
+                        return is;
+                    }
+                }
+
+
+                is>>tmp;
+
+                if (is && tmp != '}')
                 {
                     std::cerr << "errore di lettura\n";
                     is.unget();
                     is.clear(std::ios_base::failbit);
                     return is;
                 }
-                std::cout<<tmp<<"\n";
-                // for(char tmp;is>>tmp;)
-                // {
-                //     is.unget();
-                //     node boh{0};
-                //     is>>boh;
-                // }
+                if(parent_string=="null")
+                {
+                    t.addNode(x, nullptr);
+                    parent_string=" ";
+                }
+                else
+                    t.addNode(x,parent);
 
-                t.addNode(&x, &parent);
             }
+
             return is;
         }
 

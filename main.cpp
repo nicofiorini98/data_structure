@@ -68,7 +68,7 @@ int main()
     t.addNode(&o5,&b2); 
 
     tfile.showTree();
-    tfile.showTreePtr();
+    //tfile.showTreePtr();
 
     //t.visitDFS(&a0);
     //std::cout<<"grado nodo a: "<<t.getDegree(a0)<<"\n";
