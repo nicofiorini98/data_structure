@@ -48,6 +48,8 @@ int main()
     //input node from a file
     ist>>a0>>l1>>b2>>e3>>r4>>o5>>n;
 
+    n=a0;
+
     //ist.open( "../insert_tree.txt",std::ios::in);
 
     //std::list<node*> children;
@@ -56,10 +58,10 @@ int main()
     tree_general tfile;
 
 
-    ist2>>tfile;
+    //ist2>>tfile;
 
     //t.addNode(&a0,nullptr,{l1,b2}); //optional
-    t.addNode(&a0,nullptr);
+    t.addNode(&n,nullptr);
     t.addNode(&l1,&a0);
     //t.addNode(&b2,&a0,{o5}); //optional  // mi fa andare in segmentation fault
     t.addNode(&b2,&a0);
@@ -67,7 +69,10 @@ int main()
     t.addNode(&r4,&l1);
     t.addNode(&o5,&b2); 
 
-    tfile.showTree();
+    t.showTree();
+
+    std::cout<<"\n"<<n;
+
     //tfile.showTreePtr();
 
     //t.visitDFS(&a0);

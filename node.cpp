@@ -28,6 +28,13 @@ bool node::operator==(const node& x) const{
     }
     return false;
 }
+void node::operator=(const node& x) 
+{
+    value = x.value;
+    node_list = x.node_list;
+    pos = x.pos;
+    parent = x.parent;   
+}
 
 bool node::operator<(const node& x) const{
 

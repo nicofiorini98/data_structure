@@ -34,6 +34,7 @@ namespace datalib
         ///setter
         void setValue(int _value) {value=_value;}
 
+        void operator=(const node& x);
         ///overloading operator ==
         bool operator==(const node& x) const;    
         ///overloading operator <
