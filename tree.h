@@ -15,6 +15,7 @@
 
 namespace datalib{ 
 
+    template<class T>
     class tree {
     protected:
         int num_nodes;
@@ -27,15 +28,15 @@ namespace datalib{
         ///return the number of nodes of the Tree 
         virtual int numNodes(){return num_nodes;}
         ///return the number of sons for the node x
-        virtual int getDegree(const node &x)=0;
+        virtual int getDegree(const node<T> &x)=0;
         ///return the father of the node x
-        virtual node getParent(const node &x)=0;
+        virtual node<T> getParent(const node<T>& x)=0;
         ///return a vector with the children of the node x 
-        virtual std::list<node*> getChildren(const node &x)=0;                     
+        virtual std::list<node<T>*> getChildren(const node<T> &x)=0;                     
         ///add a Node in the Tree 
-        virtual void addNode(const node *_x,const node *_parent)=0;
+        virtual void addNode(const node<T> *_x,const node<T> *_parent)=0;
         ///add childrens to node
-        virtual void addChildrens(const node* _x, const std::list<node> _childrens){} //TODO rendere virtuale puro
+        virtual void addChildrens(const node<T>* _x, const std::list<node<T>> _childrens){} //TODO rendere virtuale puro
 
         //aggiungi sotto albero
         //rimuovi sotto albero

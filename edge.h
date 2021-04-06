@@ -1,23 +1,25 @@
-#pragma once
-#include "node.h"
+// #pragma once
+// #include "node.h"
 
-namespace datalib{
-    class Edge
-    {
+// namespace datalib{
 
-    private: 
-        node* src;
-        node* dest;
-    public: 
-    //costructor 
-        Edge(node *_src,node *_dest,int _weight=0,const std::string _mark=""): 
-            src{_src},dest{_dest}, weight{_weight},mark{_mark} {}
+//     template<class T>
+//     class Edge
+//     {
 
-        int weight;
-        std::string mark;
+//     private: 
+//         node<T>* src;
+//         node<T>* dest;
+//     public: 
+//     //costructor 
+//         Edge(node<T>* _src,node<T>* _dest,int _weight=0,const std::string _mark=""): 
+//             src{_src},dest{_dest}, weight{_weight},mark{_mark} {}
 
-        friend class graph_adj_list;
-        friend class tree_pos_vector;
-        friend class tree_parent_vector;
-    };
-}
+//         int weight;
+//         std::string mark;
+
+//         friend class graph_adj_list;
+//         friend class tree_pos_vector;
+//         friend class tree_parent_vector;
+//     };
+// }

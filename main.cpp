@@ -5,9 +5,10 @@
 #include "tree_parent_vector.h"
 #include "tree_general.h"
 #include <fstream>
-#include <chrono>
+//#include <chrono>
+#include <vector>
 
-using namespace std::chrono;
+//using namespace std;
 
 
 // //using namespace std::chrono 
@@ -24,7 +25,7 @@ using namespace std::chrono;
 #define ADJ_LISTS 0
 #define TREE_GENERAL 1
 
-using namespace datalib;
+//using namespace datalib;
 
 int main()
 {
@@ -39,39 +40,40 @@ int main()
 
 #if TREE_GENERAL
 
-    node a0{0},l1{0},b2{0};
-    node e3{0},r4{0},o5{0},n{0};
+    datalib::node<int> a0{0},l1{0},b2{0};
+    datalib::node<int> e3{0},r4{0},o5{0},n{0};
 
     std::ifstream ist{"../node.txt"};
-    std::ifstream ist2{"../insert_tree.txt"};
+    //std::ifstream ist2{"../insert_tree.txt"};
 
     //input node from a file
     ist>>a0>>l1>>b2>>e3>>r4>>o5>>n;
+    std::cout<<a0<<l1;
 
-    n=a0;
+    //n=a0;
 
     //ist.open( "../insert_tree.txt",std::ios::in);
 
     //std::list<node*> children;
 
-    tree_general t;
-    tree_general tfile;
+    //tree_general t;
+    //tree_general tfile;
 
 
     //ist2>>tfile;
 
     //t.addNode(&a0,nullptr,{l1,b2}); //optional
-    t.addNode(&n,nullptr);
-    t.addNode(&l1,&a0);
-    //t.addNode(&b2,&a0,{o5}); //optional  // mi fa andare in segmentation fault
-    t.addNode(&b2,&a0);
-    t.addNode(&e3,&l1);
-    t.addNode(&r4,&l1);
-    t.addNode(&o5,&b2); 
+    // t.addNode(&n,nullptr);
+    // t.addNode(&l1,&a0);
+    // //t.addNode(&b2,&a0,{o5}); //optional  // mi fa andare in segmentation fault
+    // t.addNode(&b2,&a0);
+    // t.addNode(&e3,&l1);
+    // t.addNode(&r4,&l1);
+    // t.addNode(&o5,&b2); 
 
-    t.showTree();
+    //t.showTree();
 
-    std::cout<<"\n"<<n;
+    //std::cout<<"\n"<<n;
 
     //tfile.showTreePtr();
 
