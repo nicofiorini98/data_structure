@@ -1,7 +1,4 @@
-#ifndef NODE_H
-#define NODE_H
-
-
+#pragma once
 #include <iostream>
 #include <list>
 
@@ -18,19 +15,19 @@ namespace datalib
         //list of outgoing nodes  
         std::list<node<T>*> node_list;
     
-        //parameter only for the Tree
+        // //parameter only for the Tree
         node<T>* parent; 
 
         T value;
         int pos;
 
-        //void addChildren(std::list<node<T>*>&& _children);
+        void addChildren(std::list<node<T>*>&& _children);
 
     public:
-
-
         ///\param _value is for initialize the value 
         ///\param _type define the type of the node
+
+        node();
         node(T _value,node<T>* _parent=nullptr);
         ///copy costructor
         node(const node<T>& x);
@@ -64,7 +61,7 @@ namespace datalib
             return is;
         }
 
-        //todo controllare questa funzione
+        //TODO Controllare questa funzione
         ///overloading operator <<
         friend std::ostream &operator<<(std::ostream &os,const node<T>& _node)
         {
@@ -73,20 +70,19 @@ namespace datalib
         }
 
         //class that can access to private member of the node
-        friend class graph_adj_list;
-        friend class tree_pos_vector;
-        friend class tree_parent_vector;
+        // friend class graph_adj_list;
+        // friend class tree_pos_vector;
+        // friend class tree_parent_vector;
+
+        template<class U>
         friend class tree_general;
 
     };
 
 }
 
-using namespace datalib;
-#include "node.tpp"
+#include "node.cpp"
 
-
-#endif
 
 
 

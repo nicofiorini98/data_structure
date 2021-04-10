@@ -29,9 +29,6 @@
 
 int main()
 {
-
-
-
 /* std::cout << 1234.56789 << "\t\t(defaultfloat)\n"
  // \t\t to line up columns
 << std::fixed << 1234.56789 << "\t(fixed)\n"
@@ -40,15 +37,15 @@ int main()
 
 #if TREE_GENERAL
 
-    datalib::node<int> a0{0},l1{0},b2{0};
-    datalib::node<int> e3{0},r4{0},o5{0},n{0};
+    datalib::node<std::string> a0{"a"},l1{"l"},b2{"b"};
+    datalib::node<std::string> e3{"e"},r4{"r"},o5{"o"},n{"n"};
 
     std::ifstream ist{"../node.txt"};
     //std::ifstream ist2{"../insert_tree.txt"};
 
     //input node from a file
-    ist>>a0>>l1>>b2>>e3>>r4>>o5>>n;
-    std::cout<<a0<<l1;
+    //ist>>a0>>l1>>b2>>e3>>r4>>o5>>n;
+    //std::cout<<a0<<l1;
 
     //n=a0;
 
@@ -56,22 +53,22 @@ int main()
 
     //std::list<node*> children;
 
-    //tree_general t;
+    tree_general<std::string> t;
     //tree_general tfile;
 
 
     //ist2>>tfile;
 
-    //t.addNode(&a0,nullptr,{l1,b2}); //optional
-    // t.addNode(&n,nullptr);
-    // t.addNode(&l1,&a0);
-    // //t.addNode(&b2,&a0,{o5}); //optional  // mi fa andare in segmentation fault
+    //t.addNode(&n,nullptr);
+    t.addNode(&a0,nullptr);
+    t.addNode(&l1,&a0);
+    t.addNode(&b2,&a0);
     // t.addNode(&b2,&a0);
     // t.addNode(&e3,&l1);
     // t.addNode(&r4,&l1);
     // t.addNode(&o5,&b2); 
 
-    //t.showTree();
+    t.showTree();
 
     //std::cout<<"\n"<<n;
 

@@ -1,9 +1,16 @@
-
+#pragma once
 #include "node.h"
 #include <algorithm>
 
-//using namespace datalib;
+using namespace datalib;
 
+template<class T>
+node<T>::node()
+{
+    pos=-1;
+    parent=nullptr;
+    node_list={};
+}
 
 template<class T>
 node<T>::node(T _value,node<T>* _parent)
@@ -85,20 +92,20 @@ bool node<T>::operator!=(const node<T>& x) const{
     return true;
 }
 
-// template<class T>
-// void node<T>::addChildren(std::list<node<T>*>&& _children){
+template<class T>
+void node<T>::addChildren(std::list<node<T>*>&& _children){
 
-//     std::list<node<T>*>::iterator itr;
+    typename std::list<node<T>*>::iterator itr;
 
-//     for(auto& child: _children)
-//     {
-//         if(child==nullptr)
-//             continue;
+    for(auto& child: _children)
+    {
+        if(child==nullptr)
+            continue;
 
-//         itr = std::find(node_list.begin(),node_list.end(),child);
+        itr = std::find(node_list.begin(),node_list.end(),child);
 
-//         if(itr==node_list.end()){
-//             node_list.push_back(child); //complessità costante
-//         }
-//     }
-// }
+        if(itr==node_list.end()){
+            node_list.push_back(child); //complessità costante
+        }
+    }
+}
