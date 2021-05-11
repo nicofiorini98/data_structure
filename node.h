@@ -51,7 +51,6 @@ namespace datalib
         bool operator!=(const node<T>& x) const;
 
         ///overloading operator >> 
-
         friend std::istream& operator>>(std::istream &is, node<T>& _node)
         {
             //make ist throw if it goes bad or fail
@@ -76,7 +75,6 @@ namespace datalib
 
         template<class U>
         friend class tree_general;
-
     };
 
 }

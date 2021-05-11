@@ -4,13 +4,12 @@
 #include "graph_adj_list.h"
 #include "tree_parent_vector.h"
 #include "tree_general.h"
+#include "tree_pos_vector.h"
 #include <fstream>
 //#include <chrono>
 #include <vector>
 
 //using namespace std;
-
-
 // //using namespace std::chrono 
 // high_resolution_clock::time_point t1= high_resolution_clock::now();
 
@@ -23,7 +22,8 @@
 
 #define VECTOR_FATHER 0
 #define ADJ_LISTS 0
-#define TREE_GENERAL 1
+#define TREE_GENERAL 0
+#define VECTOR_POS 1
 
 //using namespace datalib;
 
@@ -35,13 +35,30 @@ int main()
 < < std::scientific << 1234.56789 << "\t(scientific)\n";
 */
 
-#if TREE_GENERAL
-
     datalib::node<std::string> a0{"a"},l1{"l"},b2{"b"};
     datalib::node<std::string> e3{"e"},r4{"r"},o5{"o"},n{"n"};
 
+#if VECTOR_POS 
+
+
+    std::cout<<"Prova vettore posizione: \n";
+    datalib::tree_pos_vector<std::string> boh;
+
+    boh.addNode(a0,)
+
+
+
+#endif
+
+#if TREE_GENERAL
+
+
+    // datalib::node<int> a0{0},l1{1},b2{2};
+    // datalib::node<int> e3{3},r4{4},o5{5};
+
+
     std::ifstream ist{"../node.txt"};
-    //std::ifstream ist2{"../insert_tree.txt"};
+    std::ifstream ist2{"../insert_tree.txt"};
 
     //input node from a file
     //ist>>a0>>l1>>b2>>e3>>r4>>o5>>n;
@@ -49,32 +66,27 @@ int main()
 
     //n=a0;
 
-    //ist.open( "../insert_tree.txt",std::ios::in);
+    // ist.open( "../insert_tree.txt",std::ios::in);
 
     //std::list<node*> children;
 
     tree_general<std::string> t;
-    //tree_general tfile;
+    tree_general<std::string> tfile;
 
+    ist2>>tfile;
 
-    //ist2>>tfile;
-
-    //t.addNode(&n,nullptr);
     t.addNode(&a0,nullptr);
     t.addNode(&l1,&a0);
     t.addNode(&b2,&a0);
-    // t.addNode(&b2,&a0);
-    // t.addNode(&e3,&l1);
-    // t.addNode(&r4,&l1);
-    // t.addNode(&o5,&b2); 
+    t.addNode(&e3,&l1);
+    t.addNode(&r4,&l1);
+    t.addNode(&o5,&b2); 
 
     t.showTree();
 
-    //std::cout<<"\n"<<n;
-
-    //tfile.showTreePtr();
-
-    //t.visitDFS(&a0);
+    // tfile.showTree();
+    // tfile.showTreePtr();
+    t.visitDFS(&a0);
     //std::cout<<"grado nodo a: "<<t.getDegree(a0)<<"\n";
 
 #endif

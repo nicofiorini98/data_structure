@@ -39,7 +39,8 @@ namespace datalib{
         {
             //pre-conditions
             //format for input of a node: node parent list_children
-            //Example: 3 1
+            //Example: {3 1}, { 1 2 }
+            //Example: {a b} {l a}
             // node x{0};
             // node parent{0};
 
@@ -53,7 +54,6 @@ namespace datalib{
             int i = 0;
             while (is >> tmp)
             {
-
                 if (tmp != '{')
                 {
                     std::cerr << "errore di lettura\n";
@@ -73,13 +73,12 @@ namespace datalib{
                     {
                         is.unget();
                         is.clear(std::ios_base::failbit);
-                        std::cerr << "errore lettura\n";
+                        std::cerr << "errore lettura2\n";
                         return is;
                     }
                 }
 
                 is >> tmp;
-
                 if (is && tmp != '}')
                 {
                     std::cerr << "errore di lettura\n";
@@ -87,15 +86,15 @@ namespace datalib{
                     is.clear(std::ios_base::failbit);
                     return is;
                 }
+
                 if (parent_string == "null")
                 {
                     t.addNode(x, nullptr);
-                    parent_string = " ";
+                    parent_string = ' ';
                 }
                 else
                     t.addNode(x, parent);
             }
-
             return is;
         }
 
@@ -105,7 +104,7 @@ namespace datalib{
         node<T> getParent(const node<T> &x);
 
         ///return a vector of the node x
-        std::list<node<T> *> getChildren(const node<T> &x);
+        std::list<node<T>*> getChildren(const node<T> &x);
 
         ///add a node in the Tree
         ///\param _node is the node to add in the Tree

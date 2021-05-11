@@ -14,107 +14,15 @@ tree_general<T>::tree_general(int _degree): tree<T>()
     root=nullptr;
 }
 
-// template<class T>
-// void tree_general<T>::addNode2(const node<T>* _x,const node<T> *_parent,const std::list<node<T>> _children){
-
-//     /*
-//     * pre-conditions: x and _parent cannot both be nullptr
-//     * x is a roots of the tree if the parent is not specified and the root doesn't exists
-//     * x is a children of the roots if the parent is not specified and the root already exists
-//     */
-//     callAdd++;
-//     //std::cout<<"chiamata addNode numero: "<<callAdd<<"\n";
-
-//     node* x;
-//     node* parent_ptr=nullptr;
-
-//     node* s = nullptr;
-
-//     std::map<T,node<T>*>::iterator itr;
-//     std::map<T,node<T>*>::iterator itr_parent;
-
-//     if(x==nullptr)
-//     {
-//         std::cerr<<"errore, non puoi aggiungere un nodo che sia nullo\n";
-//     }
-
-//     //manage the parent if specified(!=nullptr)
-//     if(_parent != nullptr)
-//     {
-//         //try to find _parent in the map
-//         itr_parent = nodes_map.find(_parent->value);
-
-//         //create parent if doesn't exist and add in the map
-//         if(itr_parent == nodes_map.end())
-//         {
-//             parent_ptr = new node(_parent->value); 
-//             nodes_map.insert({parent_ptr->value,parent_ptr});                                             
-//         }
-//         else{
-//             //get the pointer to parent
-//             parent_ptr=itr_parent->second;
-//         }
-//     }
-
-//     //try to find x in the map
-//     itr = nodes_map.find(_x->value);
-
-//     //if x doesn't exist, create it and add in map
-//     if(itr == nodes_map.end())
-//     {
-//         x = new node(_x->value);                                                       //new to delete
-//         nodes_map.insert({x->value,x});
-
-//         //add a son in parent
-//         if(parent_ptr){
-//             //if(parent_ptr->node_list)
-//             //parent_ptr->node_list.push_back(x);
-
-//             parent_ptr->addChildren({x});
-//         }
-        
-//         //add parent 
-//         x->parent=parent_ptr;
-//     }
-//     else 
-//     {
-//         (itr->second)->parent = parent_ptr;
-
-//         //update sons of the parent
-//         if(parent_ptr)
-//         {
-//             parent_ptr->addChildren({x});
-//         }
-//     }
-
-
-//     //add children in the node
-//     for(auto &child: _children)
-//     {
-//         //pre-conditions: we can add child only if doesn't exists in the tree
-//         itr=nodes_map.find(child.value);
-//         if(itr==nodes_map.end())
-//         {
-//             s = new node(child);
-//             s->parent = x;
-//             nodes_map.insert({s->value,s});
-//             x->node_list.push_back(s);
-//         }
-//     }
-// }
-
-
 template<class T>
 void tree_general<T>::addNode(const node<T>* _x,const node<T> *_parent)
 {
     callAdd++;
-
     node<T>* x_ptr;
-    //node* parent_ptr;
 
+    //x_itr and parent_itr are dependent names
     typename std::map<T,node<T>*>::iterator x_itr;
     typename std::map<T,node<T>*>::iterator parent_itr;
-
 
     //pre-conditions: 
     //1. the node x to add must be different from nullptr
@@ -128,7 +36,6 @@ void tree_general<T>::addNode(const node<T>* _x,const node<T> *_parent)
     }
 
     x_itr = nodes_map.find(_x->value);
-
     if(x_itr == nodes_map.end())
     {
         x_ptr = new node<T>(*_x); 
@@ -275,7 +182,7 @@ void tree_general<T>::showTreePtr()
         else 
             std::cout<<"null"<<"<---";
     
-        std::cout<<n.first<<" --->  ";
+        std::cout<<n.second<<" --->  ";
         //print the sons if the list isn't empty
         if(!n.second->node_list.empty())
         {
