@@ -12,7 +12,7 @@ This is a project for a OOP course, it will be a data structure library and it a
 
 # TODO 
 
-##node 
+## node 
 
 - [X] Implementare distruttore
     Non mi serve nessun distruttore in node, i nodi inseriti nella lista di adiacenza, sono di proprietà 
