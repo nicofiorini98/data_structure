@@ -1,13 +1,13 @@
 #include <iostream> 
-#include "edge.h"
+#include <fstream>
+#include <vector>
 #include "node.h"
+#include "edge.h"
 #include "graph_adj_list.h"
 #include "tree_parent_vector.h"
 #include "tree_general.h"
 #include "tree_pos_vector.h"
-#include <fstream>
 //#include <chrono>
-#include <vector>
 
 //using namespace std;
 // //using namespace std::chrono 
@@ -22,8 +22,8 @@
 
 #define VECTOR_FATHER 0
 #define ADJ_LISTS 0
-#define TREE_GENERAL 0
-#define VECTOR_POS 1
+#define TREE_GENERAL 1
+#define VECTOR_POS 0
 
 //using namespace datalib;
 
@@ -35,18 +35,17 @@ int main()
 < < std::scientific << 1234.56789 << "\t(scientific)\n";
 */
 
-    datalib::node<std::string> a0{"a"},l1{"l"},b2{"b"};
-    datalib::node<std::string> e3{"e"},r4{"r"},o5{"o"},n{"n"};
+    // datalib::node<std::string> a0{"a"},l1{"l"},b2{"b"};
+    // datalib::node<std::string> e3{"e"},r4{"r"},o5{"o"},n{"n"};
+
+    datalib::node<int> a0{0},l1{1},b2{2};
+    datalib::node<int> e3{3},r4{4},o5{5},n{6};
 
 #if VECTOR_POS 
 
 
     std::cout<<"Prova vettore posizione: \n";
-    datalib::tree_pos_vector<std::string> boh;
-
-    boh.addNode(a0,)
-
-
+    // datalib::tree_pos_vector<int> boh(2);
 
 #endif
 
@@ -70,23 +69,41 @@ int main()
 
     //std::list<node*> children;
 
-    tree_general<std::string> t;
-    tree_general<std::string> tfile;
+    tree_general<int> *t = new tree_general<int>;
+    // tree_general<std::string> tfile;
 
-    ist2>>tfile;
+    // ist2>>tfile;
 
-    t.addNode(&a0,nullptr);
-    t.addNode(&l1,&a0);
-    t.addNode(&b2,&a0);
-    t.addNode(&e3,&l1);
-    t.addNode(&r4,&l1);
-    t.addNode(&o5,&b2); 
 
-    t.showTree();
+    t->addNode(&a0,nullptr);
+    t->addNode(&l1,&a0);
 
+    // try{
+    //     t.addNode(nullptr,&a0);
+    // }catch(const char* msg){
+    //     std::cout<<msg<<"\n";
+    // }
+
+
+    t->addNode(&b2,&a0);
+    t->addNode(&e3,&l1);
+    // t.addNode(&r4,&l1);
+    // t.addNode(&o5,&b2); 
+
+    // t->showTree();
+
+    delete t;
+
+    /* Non viene distrutto in maniera appropriata */
     // tfile.showTree();
     // tfile.showTreePtr();
-    t.visitDFS(&a0);
+
+    // try{
+    //     t.visitDFS(&a0);
+    // }catch(const char* msg){
+    //     std::cerr<<msg<<"\n";
+    // }
+
     //std::cout<<"grado nodo a: "<<t.getDegree(a0)<<"\n";
 
 #endif

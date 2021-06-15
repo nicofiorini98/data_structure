@@ -14,24 +14,27 @@ namespace datalib
         
         //list of outgoing nodes  
         std::list<node<T>*> node_list;
-    
+
         // //parameter only for the Tree
         node<T>* parent; 
 
         T value;
         int pos;
+        int max_children; 
 
         void addChildren(std::list<node<T>*>&& _children);
 
     public:
         ///\param _value is for initialize the value 
-        ///\param _type define the type of the node
 
         node();
-        node(T _value,node<T>* _parent=nullptr);
+        node(T _value,node<T>* _parent=nullptr,int _max_children=-1);
+
+        ~node();
         ///copy costructor
         node(const node<T>& x);
-        //getter  
+
+        ///getter  
         T getValue()const {return value;}
         ///setter
         void setValue(T _value) {value=_value;}
@@ -73,8 +76,12 @@ namespace datalib
         // friend class tree_pos_vector;
         // friend class tree_parent_vector;
 
-        template<class U>
+        template<class U> 
         friend class tree_general;
+        template<class W> 
+        friend class tree_pos_vector;
+
+
     };
 
 }

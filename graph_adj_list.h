@@ -19,8 +19,7 @@
 //     class graph_adj_list: public graph
 //     {
 //     private: 
-//         std::map<int,std::list<node<T>*>> adj_lists;
-        
+//         std::map<int,std::list<node<T>*>> adj_lists;   
 //     public:
 //         ///Default costructor for the GraphAdjList
 //         graph_adj_list(): graph(){}

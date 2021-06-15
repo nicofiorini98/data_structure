@@ -3,8 +3,6 @@
 #include <stack>
 
 using namespace datalib;    
-int callAdd =0; 
-
 
 template<class T>
 tree_general<T>::tree_general(int _degree): tree<T>()
@@ -15,9 +13,19 @@ tree_general<T>::tree_general(int _degree): tree<T>()
 }
 
 template<class T>
+tree_general<T>::~tree_general(){
+
+    for(typename std::map<int,node<T>*>::iterator i=nodes_map.begin();  i!=nodes_map.end();i++)
+    {
+        // TODO controllare questo pezzo
+        delete i->second;
+        nodes_map.erase(i);
+    }
+}
+
+template<class T>
 void tree_general<T>::addNode(const node<T>* _x,const node<T> *_parent)
 {
-    callAdd++;
     node<T>* x_ptr;
 
     //x_itr and parent_itr are dependent names
@@ -31,10 +39,12 @@ void tree_general<T>::addNode(const node<T>* _x,const node<T> *_parent)
     //4. x will be the root if parent is nullptr and even the root is nullptr
     if(_x==nullptr)
     {
-        std::cerr<<"non puoi aggiungere un nodo nullo\n";
-        return;
+        throw "You cannot add a null node";
+        //std::cerr<<"non puoi aggiungere un nodo nullo\n";
+        // return;
     }
 
+    //check if x already exists
     x_itr = nodes_map.find(_x->value);
     if(x_itr == nodes_map.end())
     {
@@ -42,17 +52,17 @@ void tree_general<T>::addNode(const node<T>* _x,const node<T> *_parent)
         nodes_map.insert({x_ptr->value,x_ptr});
     }
 
+
     if(!root)
         root=x_ptr;
 
-    if(_parent!=nullptr)
+    if(_parent!=nullptr) //TODO  //questo è come se fosse if(_parent) da testare il cambiamento 
     {
         parent_itr = nodes_map.find(_parent->value);
         if(parent_itr == nodes_map.end())
-        {
-            std::cerr<<"errore, il padre immesso non esiste\n";
-            return;
-        }
+            throw "the father entered doesn't exist";
+
+
         x_ptr->parent = (parent_itr->second);
 
         //update children of the parent
@@ -108,8 +118,9 @@ void tree_general<T>::visitDFS(const node<T>* _root)
     itr = nodes_map.find(_root->value);
     if(itr==nodes_map.end())
     {
-        std::cerr<<"errore, non c'è il nodo per poter fare la visita\n";
-        return;
+        throw " the node entered for start the visit doesn't exists\n";
+        // std::cerr<<"errore, non c'è il nodo per poter fare la visita\n";
+        // return;
     }
 
     s.push(*(*itr).second);

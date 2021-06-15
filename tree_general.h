@@ -20,18 +20,20 @@ namespace datalib{
     private:
         int degree;
         node<T> *root;
-        std::map<T,node<T>*> nodes_map;
 
+        std::map<T,node<T>*> nodes_map;
         //get node by value
-        void getNode(T _value);
+        // void getNode(T _value);
 
     public:
+
+
         /// \param _degree Costructor with default parameter,
         /// if degree is not specified, Tree doesn't have a particular degree
         tree_general(int _degree = -1);
 
         ///virtual destructor
-        ~tree_general() {}
+        ~tree_general();
 
         ///overloading operator >>
         //TODO decidere un carattere per il nullo per l'input da file

@@ -11,5 +11,3 @@ importante: la lista di archi deve avere anche una lista di nodi immagazzinata c
        /   /|\   \
       /   / | \   \
       8  1  9  2   7
-
-

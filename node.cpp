@@ -13,11 +13,12 @@ node<T>::node()
 }
 
 template<class T>
-node<T>::node(T _value,node<T>* _parent)
+node<T>::node(T _value,node<T>* _parent,int _max_children)
 {
             value=_value;
             pos=-1;
             parent=_parent;
+            max_children=_max_children;
             node_list={};
 } 
 
@@ -30,6 +31,11 @@ node<T>::node(const node<T>& x)
     parent = x.parent;
 }
 
+template<class T>
+node<T>::~node()
+{
+    
+}
 
 template<class T>
 bool node<T>::operator==(const node<T>& x) const{
