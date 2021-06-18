@@ -114,7 +114,7 @@ namespace datalib{
         ///if not specified the node is the root of the Tree
         //void addNode2(const node<T> *_x, const node<T> *_parent = nullptr, const std::list<node<T>> _children = {}); //TODO
         void addNode(const node<T> *_x, const node<T> *_parent = nullptr);
-        virtual void addChildrens(const node<T> *_x, const std::list<node<T>> _childrens) {} //TODO da rendere virtuale puro
+        virtual void addChildrens(const node<T> *_x, const std::list<node<T>*> &_childrens) {} //TODO da rendere virtuale puro
 
         ///print the node following a DFS visit
         void visitDFS(const node<T> *root);

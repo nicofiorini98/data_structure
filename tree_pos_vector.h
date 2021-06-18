@@ -45,8 +45,10 @@ namespace datalib
         int getDegree(const node<T> &x){}
         node<T> getParent(const node<T> &x){}
         std::list<node<T>*> getChildren(const node<T> &x){} 
-        void addChildrens(const node<T>* _x, const std::list<node<T>> _childrens);
-        void addNode(const node<T> *_x,const node<T> *_parent);
+        void addNode(const node<T> *_x,const node<T> *_parent=nullptr);
+        void addChildrens(const node<T>* _x, const std::list<node<T>*> &_childrens);
+        void showTree();
+
     };
 }
 

@@ -23,6 +23,10 @@ tree_pos_vector<T>::tree_pos_vector(int _max_degree,int _num_nodes): tree<T>()
 template <class T>
 void tree_pos_vector<T>::addNode(const node<T> *_x,const node<T> *_parent)
 {
+    static int call=0;
+    call++;
+
+    std::cout<<"_ parent: "<<_parent<<"\n";
 
     //per vedere se i nodi sono già inseriti
     typename std::vector<node<T>*>::iterator x_itr;
@@ -39,23 +43,25 @@ void tree_pos_vector<T>::addNode(const node<T> *_x,const node<T> *_parent)
     //   otherwise x become the root (only the first node inserted can be the root)
 
     //pre-condition 1
-    if(_x==nullptr)
-        throw "you can't add nullptr as a node\n";
+    if(_x==nullptr){
+        std::string error("you can't add nullptr as a node\n");
+        throw error;
+    }
+    
 
     node<T>* x_ptr;
 
     //check if x already exists
+    //non credo posso farlo così, così viene valutato l'iteratore 
     x_itr = std::find(vec_node.begin(), vec_node.end(),_x);
-    if(x_itr == vec_node.end())
-    {
-        //allocation of the node
-        x_ptr = new node<T>(*_x);
 
-        // vec_node.insert({x_ptr->value,x_ptr}); //devo capire dove vado ad inserire il nodo padre
-    }
+    if(x_itr == vec_node.end())
+        x_ptr = new node<T>(*_x);
     else{
-        //se il nodo esiste, cosa devo farci, cambiare posizione????
+        std::string error = "x already exists\n";
+        throw error;
     }
+    
 
     if(!root)
         root = x_ptr;
@@ -69,31 +75,71 @@ void tree_pos_vector<T>::addNode(const node<T> *_x,const node<T> *_parent)
 
         //pre-condition 2.
         if(parent_itr==vec_node.end())
-            throw "the father entered doesn't exists";
+        {
+            std::string a =   "addNode(): the father entered doesn't exists, at call number: " + std::to_string(call);
+            throw a;
+        }
         
         //qui devo prendere la posizione del nodo del padre
+        addChildrens(_parent,{x_ptr});
 
     }
     else //padre nullo, aggiornare radice
     {
-        //vedere se mi conviene usare 0 oppure 1
-        vec_node[1]=x_ptr;
-        // vec_node.at(1)=x_ptr;  //this type of insert generate out_of_range if needed
-        // vec_node.insert(vec_node.begin(),x_ptr);
+        //la radice è in posizione 1 
+        vec_node[1]=root; 
+        root->pos=1;
     }
-
-
-    if(x_ptr==root)
-        vec_node[1]=root;
-    else{
-
-    }
- 
 }
 
 
-
 template<class T>
-void tree_pos_vector<T>::addChildrens(const node<T>* _x, const std::list<node<T>> _childrens){
+void tree_pos_vector<T>::addChildrens(const node<T>* _x, const std::list<node<T>*> &_childrens){
     
+    /* Preconditions
+     * 1. the nodes to be added must have enough space 
+     * 2. the node _x must exists
+     */
+
+    //TODO to clean
+    if(!_x){
+        std::string error("error: _x can't be null pointer\n");
+        throw error;
+    }
+
+    int pos = _x->pos;
+    int num2add= _childrens.size();
+    
+    if((_x->num_children + num2add) >= degree)
+        throw "error: max child node reached\n";
+
+    //add childrens in the vector structure
+    int i=0;
+    for(auto &n: _childrens){
+
+        node<T> *a = new node<T>(n->value);
+        int pos_a= (pos*degree)+i;
+        vec_node[pos_a] = a; 
+
+        a->pos=pos_a;
+        i++;
+    }
+
+}
+
+template <class T>
+void tree_pos_vector<T>::showTree(){
+
+    for(auto &n: vec_node){
+        if(n){
+            std::cout<<n->value<<" ";
+            std::cout<<"puntatore a0:"<<n<<"\n";
+        }
+        else if(n==nullptr)
+            std::cout<<"nullptr\n";
+    }
+    
+    std::cout<<std::endl;
+
+
 }

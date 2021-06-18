@@ -22,8 +22,8 @@
 
 #define VECTOR_FATHER 0
 #define ADJ_LISTS 0
-#define TREE_GENERAL 1
-#define VECTOR_POS 0
+#define TREE_GENERAL 0
+#define VECTOR_POS 1
 
 //using namespace datalib;
 
@@ -45,7 +45,23 @@ int main()
 
 
     std::cout<<"Prova vettore posizione: \n";
-    // datalib::tree_pos_vector<int> boh(2);
+    datalib::tree_pos_vector<int> t(2,7);
+
+    std::cout<<"a0: " <<&a0<<"\n";
+
+    try{
+    t.addNode(&a0);
+    // t.addNode(&l1);
+    // t.addNode(&l1,&a0);
+    }catch(std::string &error){
+        std::cout<<error;
+    }
+
+
+    t.showTree();
+
+
+
 
 #endif
 

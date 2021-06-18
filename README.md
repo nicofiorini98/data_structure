@@ -4,6 +4,7 @@ This is a project for a OOP course, it will be a data structure library and it a
 # Class Edge
 * mi conviene che ha due puntatori oppure due valori? 
 
+[[nico ]]
 # Problem 
 
 * Come inizializzo gli elementi del vettore vuoto??  
@@ -11,6 +12,9 @@ This is a project for a OOP course, it will be a data structure library and it a
     * di default i puntatori sono già inizializzati a nullptr
 
 # TODO 
+
+- [ ] Provare a rifare il find(), find mi confronta i puntatori oppure i valori dei puntatori????
+
 
 ## node 
 
@@ -22,7 +26,7 @@ This is a project for a OOP course, it will be a data structure library and it a
 
 ## tree_general 
 
-- [ ] Implementare distruttore 
+- [X] Implementare distruttore 
 
 
 Vedere se i nodi li distrugge in modo appropriato, adesso mi sembra di no
@@ -49,7 +53,12 @@ Deve aggiungere i nodi, inserendoli nel vettore posizione in maniera opportuna
 
     Fondamentalmente quello che deve fare, è inserire i childrens nel nodo x.
     //pre-conditions
-    //1. 
+    //1. the node is inserted only if the num_children is < degree 
+    //2. 
+    
+    //TODO 
+    L'add children che ho implementato non funziona per l'utente ma solo per la struttura dati
+    Implementarla anche dal lato utenta
 
 
 
@@ -62,7 +71,7 @@ Deve aggiungere i nodi, inserendoli nel vettore posizione in maniera opportuna
 ## Graph 
 
 
-##graph_adj_list
+## graph_adj_list
 
 
 

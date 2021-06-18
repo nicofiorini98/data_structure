@@ -20,15 +20,17 @@ namespace datalib
 
         T value;
         int pos;
-        int max_children; 
+        int num_children;
+        // int max_children;
 
+        //private constructor 
+        node(T _value,node<T>* _parent);
         void addChildren(std::list<node<T>*>&& _children);
 
     public:
         ///\param _value is for initialize the value 
 
-        node();
-        node(T _value,node<T>* _parent=nullptr,int _max_children=-1);
+        node(T _value);
 
         ~node();
         ///copy costructor
@@ -42,6 +44,8 @@ namespace datalib
         void operator=(const node<T>& x);
         ///overloading operator ==
         bool operator==(const node<T>& x) const;    
+        bool operator==(const node<T>& x) const;    
+        
         ///overloading operator <
         bool operator<(const node<T>& x) const;
         ///overloading operator <=

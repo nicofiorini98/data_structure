@@ -5,20 +5,22 @@
 using namespace datalib;
 
 template<class T>
-node<T>::node()
+node<T>::node(T _value)
 {
+    value=_value;
     pos=-1;
+    num_children=0;
     parent=nullptr;
     node_list={};
 }
 
 template<class T>
-node<T>::node(T _value,node<T>* _parent,int _max_children)
+node<T>::node(T _value,node<T>* _parent)
 {
             value=_value;
             pos=-1;
+            num_children=0;
             parent=_parent;
-            max_children=_max_children;
             node_list={};
 } 
 

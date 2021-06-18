@@ -36,7 +36,7 @@ namespace datalib{
         ///add a Node in the Tree 
         virtual void addNode(const node<T> *_x,const node<T> *_parent)=0;
         ///add childrens to node
-        virtual void addChildrens(const node<T>* _x, const std::list<node<T>> _childrens)=0;
+        virtual void addChildrens(const node<T>* _x, const std::list<node<T>*> &_childrens)=0;
 
         //aggiungi sotto albero
         //rimuovi sotto albero
