@@ -1,10 +1,15 @@
 #pragma once
 #include <iostream>
 #include <list>
+#include <vector>
+#include <algorithm>
 
 //todo togliere il pos nella classe node 
 namespace datalib
 {
+
+
+
     template<class T>
     class node
     {
@@ -43,7 +48,6 @@ namespace datalib
 
         void operator=(const node<T>& x);
         ///overloading operator ==
-        bool operator==(const node<T>& x) const;    
         bool operator==(const node<T>& x) const;    
         
         ///overloading operator <
@@ -85,100 +89,28 @@ namespace datalib
         template<class W> 
         friend class tree_pos_vector;
 
-
     };
 
+    //utility function
+    template<class T>
+    typename std::vector<node<T>*>::iterator trova(typename std::vector<node<T>*>::iterator begin, 
+                                                typename std::vector<node<T>*>::iterator end,const node<T>* value)
+    {
+        int i=0;
+        typename std::vector<node<T>*>::iterator appo;
+        for(appo = begin ; appo != end; appo++)
+        {
+            //if appo is nullptr, don't check equality, it is certainly different
+            if(*appo==nullptr)
+                continue;
+
+            if(**appo==*value){
+                return appo;
+            }
+        }        
+        return end;
+    }
 }
 
 #include "node.cpp"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    // class node2
-    // {
-    // private:
-    //     //only implementation of data structure 
-    //     //can define the parent of a node 
-        
-    //     //list of outgoing nodes  
-    //     std::list<node2*> node_list;
-    
-    //     //parameter only for the Tree
-    //     node2* parent; 
-
-    //     int value;
-    //     int pos;
-
-    //     void addChildren(std::list<node2*>&& _children);
-
-    // public:
-
-    //     ///\param _value is for initialize the value 
-    //     ///\param _type define the type of the node
-    //     node2(int _value,node2* _parent=nullptr);
-    //     ///copy costructor
-    //     node2(const node2& x);
-    //     //getter  
-    //     int getValue()const {return value;}
-    //     ///setter
-    //     void setValue(int _value) {value=_value;}
-
-    //     void operator=(const node2& x);
-    //     ///overloading operator ==
-    //     bool operator==(const node2& x) const;    
-    //     ///overloading operator <
-    //     bool operator<(const node2& x) const;
-    //     ///overloading operator <=
-    //     bool operator<=(const node2& x) const;
-    //     ///overloading operator > 
-    //     bool operator>(const node2& x) const;
-    //     ///overloading operator >=
-    //     bool operator>=(const node2& x) const;
-    //     ///overloading operator !=
-    //     bool operator!=(const node2& x) const;
-
-    //     ///overloading operator >> 
-    //     friend std::istream& operator>>(std::istream &is, node2 &_node)
-    //     {
-    //         //make ist throw if it goes bad or fail
-    //         //is.exceptions(is.exceptions()|std::ios_base::badbit);
-    //         //is.exceptions(is.exceptions()|std::ios_base::failbit);
-    //         is >> _node.value;
-    //         return is;
-    //     }
-
-    //     //todo controllare questa funzione
-    //     ///overloading operator <<
-    //     friend std::ostream &operator<<(std::ostream &os,const node2 &_node)
-    //     {
-    //         os << _node.value;
-    //         return os;
-    //     }
-
-    //     //class that can access to private member of the node
-    //     friend class graph_adj_list;
-    //     friend class tree_pos_vector;
-    //     friend class tree_parent_vector;
-    //     friend class tree_general;
-    // };
-//}
-
-
 

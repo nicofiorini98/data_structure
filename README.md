@@ -4,7 +4,6 @@ This is a project for a OOP course, it will be a data structure library and it a
 # Class Edge
 * mi conviene che ha due puntatori oppure due valori? 
 
-[[nico ]]
 # Problem 
 
 * Come inizializzo gli elementi del vettore vuoto??  
@@ -12,9 +11,7 @@ This is a project for a OOP course, it will be a data structure library and it a
     * di default i puntatori sono già inizializzati a nullptr
 
 # TODO 
-
 - [ ] Provare a rifare il find(), find mi confronta i puntatori oppure i valori dei puntatori????
-
 
 ## node 
 
@@ -27,10 +24,6 @@ This is a project for a OOP course, it will be a data structure library and it a
 ## tree_general 
 
 - [X] Implementare distruttore 
-
-
-Vedere se i nodi li distrugge in modo appropriato, adesso mi sembra di no
-
 
 ## tree_pos_vector
 

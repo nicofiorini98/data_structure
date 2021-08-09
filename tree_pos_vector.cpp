@@ -23,12 +23,10 @@ tree_pos_vector<T>::tree_pos_vector(int _max_degree,int _num_nodes): tree<T>()
 template <class T>
 void tree_pos_vector<T>::addNode(const node<T> *_x,const node<T> *_parent)
 {
-    static int call=0;
+    static int call = 0;
     call++;
 
-    std::cout<<"_ parent: "<<_parent<<"\n";
-
-    //per vedere se i nodi sono già inseriti
+    //local iterator, typename because are nested dependent names
     typename std::vector<node<T>*>::iterator x_itr;
     typename std::vector<node<T>*>::iterator parent_itr;
 
@@ -52,26 +50,31 @@ void tree_pos_vector<T>::addNode(const node<T> *_x,const node<T> *_parent)
     node<T>* x_ptr;
 
     //check if x already exists
-    //non credo posso farlo così, così viene valutato l'iteratore 
-    x_itr = std::find(vec_node.begin(), vec_node.end(),_x);
+    //std::cout<<"prima di trova: "<<std::endl<< (*vec_node.begin())->value;
+    // if((*vec_node.begin())==nullptr)
+    //     std::cout<<"vettore nodo nullo\n";
 
-    if(x_itr == vec_node.end())
+    x_itr = datalib::trova(vec_node.begin(), vec_node.end(),_x);
+
+    if(x_itr == vec_node.end()){
         x_ptr = new node<T>(*_x);
+        std::cout<<"creo il nodo: "<<*x_ptr<<"\n"; 
+    }
     else{
         std::string error = "x already exists\n";
         throw error;
     }
-    
 
     if(!root)
         root = x_ptr;
-
 
     // TODO qui devo decide dove vado ad inserire il nodo, e lo devo inserire 
     // in base alla posizione del padre
 
     if(_parent){
-        parent_itr = std::find(vec_node.begin(),vec_node.end(),_parent);
+
+        parent_itr = datalib::trova(vec_node.begin(),vec_node.end(),_parent);
+
 
         //pre-condition 2.
         if(parent_itr==vec_node.end())
@@ -91,7 +94,6 @@ void tree_pos_vector<T>::addNode(const node<T> *_x,const node<T> *_parent)
         root->pos=1;
     }
 }
-
 
 template<class T>
 void tree_pos_vector<T>::addChildrens(const node<T>* _x, const std::list<node<T>*> &_childrens){
@@ -126,6 +128,7 @@ void tree_pos_vector<T>::addChildrens(const node<T>* _x, const std::list<node<T>
     }
 
 }
+
 
 template <class T>
 void tree_pos_vector<T>::showTree(){

@@ -4,6 +4,8 @@
 
 using namespace datalib;
 
+
+
 template<class T>
 node<T>::node(T _value)
 {
@@ -41,7 +43,6 @@ node<T>::~node()
 
 template<class T>
 bool node<T>::operator==(const node<T>& x) const{
-    std::cout<<"operatore ==\n";
     if(x.value==value){
         return true;
     }
@@ -100,6 +101,7 @@ bool node<T>::operator!=(const node<T>& x) const{
     return true;
 }
 
+// TODO ridare un'occhiata al std::find qui dentro
 template<class T>
 void node<T>::addChildren(std::list<node<T>*>&& _children){
 

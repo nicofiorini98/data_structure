@@ -47,17 +47,13 @@ int main()
     std::cout<<"Prova vettore posizione: \n";
     datalib::tree_pos_vector<int> t(2,7);
 
-    std::cout<<"a0: " <<&a0<<"\n";
-
     try{
     t.addNode(&a0);
     // t.addNode(&l1);
-    // t.addNode(&l1,&a0);
+    t.addNode(&l1,&a0);
     }catch(std::string &error){
         std::cout<<error;
     }
-
-
     t.showTree();
 
 
