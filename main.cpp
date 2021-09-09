@@ -70,6 +70,10 @@ int main()
     try{
         t.addNode2(&a0);
         t.addNode2(&l1,&a0);
+        t.addNode2(&b2,&a0);
+        t.addNode2(&e3,&l1);
+        t.addNode2(&r4,&l1);
+        t.addNode2(&o5,&a0);
     }catch(std::string &error){
         std::cout<<error;
     }

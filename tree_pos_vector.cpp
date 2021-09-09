@@ -86,10 +86,13 @@ void tree_pos_vector<T>::addNode2(node<T>* _x,node<T> *_parent){
             throw a;
         }
 
-        //qui devo prendere la posizione del nodo del padre
-        // std::list<node<T>*> lista;
-        // lista.push_back(_x);
-        addChildrens(*parent_itr,{_x});
+        try{
+            addChildrens(*parent_itr,{_x});
+        }
+        catch(std::string &error){
+            throw error; 
+        }
+        
 
     }
     else //padre nullo, aggiornare radice
@@ -110,56 +113,43 @@ void tree_pos_vector<T>::addNode2(node<T>* _x,node<T> *_parent){
 }
 
 template<class T>
-void tree_pos_vector<T>::addChildrens(const node<T>* _x, const std::list<node<T>*> &_childrens){
+void tree_pos_vector<T>::addChildrens(node<T>* _x,const std::list<node<T>*> &_childrens){
     
     /* Preconditions
      * 1. the node _x must exists
      * 2. the nodes to be added must have enough space 
      */
 
-    //intanto lo faccio solo per un nodo, poi penso a modoficare bene gli attributi 
-    
+
+
+
     //preconditions 1 
     if(!_x){
         std::string error("error: _x can't be null pointer\n");
         throw error;
     }
 
-    
-
     int pos = _x->pos;
-    std::cout<<"posizione del parent: "<<pos<<"\n";
 
-    node<T>* first_childrens = *(_childrens.begin());
+    //preconditions 2 
+    if((_x->num_children + _childrens.size()) > degree){
+        std::string error("error: max child node reached\n");
+        throw error;
+    }
 
-    node<T> *childrens = new node<T>(first_childrens->value);
 
-    int pos_childrens = (pos*degree);           //da modificare nel caso si hanno più figli
-    vec_node[pos_childrens] = childrens;
+    for(auto &n: _childrens){
 
-    childrens->pos=pos_childrens;
+        node<T> *child2add= new node<T>(*n);
 
-    std::cout<<"posizione del figlio: "<<pos_childrens<<"\n";
-    
+        //add childrens in vec_node in the proper positions
+        int pos_childrens=(pos*degree)+_x->num_children;
 
-    
+        vec_node[pos_childrens]= child2add;
+        child2add->pos=pos_childrens;
 
-    // int num2add= _childrens.size();
-    // if((_x->num_children + num2add) >= degree)
-    //     throw "error: max child node reached\n";
-
-    //add childrens in the vector structure
-    // int i=0;
-    // for(auto &n: _childrens){
-
-    //     node<T> *a = new node<T>(n->value);
-    //     int pos_a= (pos*degree)+i;
-    //     vec_node[pos_a] = a; 
-
-    //     a->pos=pos_a;
-    //     i++;
-    // }
-
+        _x->num_children++;
+    }
 }
 
 
@@ -168,13 +158,12 @@ void tree_pos_vector<T>::showTree(){
 
     std::cout<<"\n\n Stampa di Tree_pos_vector: \n";
 
-
     for(auto &n: vec_node){
         if(n){
-            std::cout<<n->value<<", puntatore: "<<n;
+            std::cout<<n->value<<", puntatore: "<<n<<"\n";
         }
-        // else if(n==nullptr)
-        //     std::cout<<"nullptr\n";
+        else if(n==nullptr)
+            std::cout<<"nullptr\n";
     }
     
     std::cout<<std::endl;

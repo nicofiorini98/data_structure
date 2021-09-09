@@ -23,12 +23,15 @@ namespace datalib
         node<T>* parent; 
 
         T value;
+
+        //attribute for tree_pos_vector
         int pos;
         int num_children;
-        //int max_children;
 
         //private constructor 
         node(T _value,node<T>* _parent);
+
+        //utility function for tree_general
         void addChildren(std::list<node<T>*>&& _children);
 
     public:

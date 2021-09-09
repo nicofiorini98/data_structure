@@ -31,8 +31,9 @@ node<T>::node(const node<T>& x)
 {
     value = x.value;
     node_list = x.node_list;
-    pos = x.pos;
     parent = x.parent;
+    pos = x.pos;
+    num_children=x.num_children;
 }
 
 
