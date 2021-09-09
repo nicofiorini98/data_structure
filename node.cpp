@@ -35,11 +35,13 @@ node<T>::node(const node<T>& x)
     parent = x.parent;
 }
 
+
 template<class T>
 node<T>::~node()
 {
     
 }
+
 
 template<class T>
 bool node<T>::operator==(const node<T>& x) const{

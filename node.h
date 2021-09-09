@@ -20,13 +20,12 @@ namespace datalib
         //list of outgoing nodes  
         std::list<node<T>*> node_list;
 
-        // //parameter only for the Tree
         node<T>* parent; 
 
         T value;
         int pos;
         int num_children;
-        // int max_children;
+        //int max_children;
 
         //private constructor 
         node(T _value,node<T>* _parent);
@@ -92,6 +91,7 @@ namespace datalib
     };
 
     //utility function
+    //l'ho fatta perchè io devo vedere se i puntatori sono uguali, 
     template<class T>
     typename std::vector<node<T>*>::iterator trova(typename std::vector<node<T>*>::iterator begin, 
                                                 typename std::vector<node<T>*>::iterator end,const node<T>* value)

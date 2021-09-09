@@ -13,7 +13,6 @@
 // //using namespace std::chrono 
 // high_resolution_clock::time_point t1= high_resolution_clock::now();
 
-    
 // high_resolution_clock::time_point t2= high_resolution_clock::now();
 
 // duration<double> time_span=duration_cast<duration<double>>(t2-t1);
@@ -24,6 +23,27 @@
 #define ADJ_LISTS 0
 #define TREE_GENERAL 0
 #define VECTOR_POS 1
+#define PROVA 0 
+
+
+typename std::vector<node<int>*>::iterator prova_trova(typename std::vector<node<int>*>::iterator begin, 
+                                            typename std::vector<node<int>*>::iterator end,const node<int>* value)
+{
+    int i=0;
+    typename std::vector<node<int>*>::iterator appo;
+    for(appo = begin ; appo != end; appo++)
+    {
+        //if appo is nullptr, don't check equality, it is certainly different
+        if(*appo==nullptr)
+            continue;
+
+        if(**appo==*value){
+            return appo;
+        }
+    }        
+    return end;
+}
+
 
 //using namespace datalib;
 
@@ -45,19 +65,40 @@ int main()
 
 
     std::cout<<"Prova vettore posizione: \n";
-    datalib::tree_pos_vector<int> t(2,7);
+    datalib::tree_pos_vector<int> t(2,3);
 
     try{
-    t.addNode(&a0);
-    // t.addNode(&l1);
-    t.addNode(&l1,&a0);
+        t.addNode2(&a0);
+        t.addNode2(&l1,&a0);
     }catch(std::string &error){
         std::cout<<error;
     }
+
     t.showTree();
 
+#endif
+
+#if PROVA
+
+    std::vector<node<int>*> vec_node;
+
+    vec_node.push_back(&a0);
+    vec_node.push_back(&b2);
+    vec_node.push_back(&e3);
+    vec_node.push_back(&l1);
 
 
+    std::vector<node<int>*>::iterator trovato = prova_trova(vec_node.begin(),vec_node.end(),&l1);
+
+    if(trovato != vec_node.end()){
+        std::cout<<"vettore trovato: "<<*trovato<<"\n";
+    }
+
+    int i=0;
+    for(auto &n: vec_node){
+        std::cout<<"pointer: "<<n<<"\n";
+        i++;
+    }
 
 #endif
 
