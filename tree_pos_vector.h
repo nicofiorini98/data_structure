@@ -50,7 +50,7 @@ namespace datalib
         void addNode2(node<T> *_x,node<T> *_parent=nullptr);
         
         void addNode(const node<T> *_x,const node<T> *_parent=nullptr) {} //da togliere se non serve il const 
-        void addChildrens(node<T>* _x, const std::list<node<T>*> &_childrens){}
+        void addChildrens(node<T>* _x, const std::list<node<T>*> &_childrens);
         // void addChildrens2(node<T>* _x, const std::list<node<T>*> &_childrens);
         void showTree();
 

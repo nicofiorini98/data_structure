@@ -21,8 +21,8 @@
 
 #define VECTOR_FATHER 0
 #define ADJ_LISTS 0
-#define TREE_GENERAL 0
-#define VECTOR_POS 1
+#define TREE_GENERAL 1
+#define VECTOR_POS 0
 #define PROVA 0 
 
 
@@ -113,8 +113,8 @@ int main()
     // datalib::node<int> e3{3},r4{4},o5{5};
 
 
-    std::ifstream ist{"../node.txt"};
-    std::ifstream ist2{"../insert_tree.txt"};
+    // std::ifstream ist{"../node.txt"};
+    // std::ifstream ist2{"../insert_tree.txt"};
 
     //input node from a file
     //ist>>a0>>l1>>b2>>e3>>r4>>o5>>n;
@@ -147,8 +147,9 @@ int main()
     // t.addNode(&r4,&l1);
     // t.addNode(&o5,&b2); 
 
-    // t->showTree();
+    t->showTree();
 
+    
     delete t;
 
     /* Non viene distrutto in maniera appropriata */
