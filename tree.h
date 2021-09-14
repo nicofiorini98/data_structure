@@ -29,6 +29,7 @@ namespace datalib{
         virtual int numNodes(){return num_nodes;}
         ///return the number of sons for the node x
         virtual int getDegree(const node<T> &x)=0;
+        virtual int getDegree(T &x)=0;
         ///return the father of the node x
         virtual node<T> getParent(const node<T> &x)=0;
         ///return a vector with the children of the node x 
