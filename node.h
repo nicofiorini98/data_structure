@@ -32,7 +32,7 @@ namespace datalib
         node(T _value,node<T>* _parent);
 
         //utility function for tree_general
-        void addChildren(std::list<node<T>*>&& _children);
+        void addChildren(const std::list<node<T>*>& _children);
 
     public:
         ///\param _value is for initialize the value 

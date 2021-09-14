@@ -21,8 +21,8 @@
 
 #define VECTOR_FATHER 0
 #define ADJ_LISTS 0
-#define TREE_GENERAL 1
-#define VECTOR_POS 0
+#define TREE_GENERAL 0
+#define POS_VECTOR 1
 #define PROVA 0 
 
 
@@ -61,19 +61,19 @@ int main()
     datalib::node<int> a0{0},l1{1},b2{2};
     datalib::node<int> e3{3},r4{4},o5{5},n{6};
 
-#if VECTOR_POS 
+#if POS_VECTOR 
 
 
     std::cout<<"Prova vettore posizione: \n";
     datalib::tree_pos_vector<int> t(2,3);
 
     try{
-        t.addNode2(&a0);
-        t.addNode2(&l1,&a0);
-        t.addNode2(&b2,&a0);
-        t.addNode2(&e3,&l1);
-        t.addNode2(&r4,&l1);
-        t.addNode2(&o5,&a0);
+        t.addNode(&a0);
+        t.addNode(&l1,&a0);
+        t.addNode(&b2,&a0);
+        t.addNode(&e3,&l1);
+        t.addNode(&r4,&l1);
+        t.addNode(&o5,&r4);
     }catch(std::string &error){
         std::cout<<error;
     }
@@ -128,27 +128,16 @@ int main()
 
     tree_general<int> *t = new tree_general<int>;
     // tree_general<std::string> tfile;
-
     // ist2>>tfile;
-
 
     t->addNode(&a0,nullptr);
     t->addNode(&l1,&a0);
-
-    // try{
-    //     t.addNode(nullptr,&a0);
-    // }catch(const char* msg){
-    //     std::cout<<msg<<"\n";
-    // }
-
-
     t->addNode(&b2,&a0);
     t->addNode(&e3,&l1);
-    // t.addNode(&r4,&l1);
-    // t.addNode(&o5,&b2); 
+    t->addNode(&r4,&l1);
+    t->addNode(&o5,&b2); 
 
     t->showTree();
-
     
     delete t;
 

@@ -15,11 +15,16 @@ tree_general<T>::tree_general(int _degree): tree<T>()
 template<class T>
 tree_general<T>::~tree_general(){
 
+    int j=0;
+    //TODO 
+    //questo mi genera un segmentation fault, quindi vado ad accedere ad un'area 
     for(typename std::map<int,node<T>*>::iterator i=nodes_map.begin();  i!=nodes_map.end();i++)
     {
         // TODO controllare questo pezzo
+        std::cout<<"distruttore: "<< j <<"\n";
         delete i->second;
-        nodes_map.erase(i);
+        // nodes_map.erase(i); //this bring to segmentation fault 
+        j++;
     }
 }
 
@@ -35,7 +40,7 @@ void tree_general<T>::addNode(const node<T>* _x,const node<T> *_parent)
     //pre-conditions: 
     //1. the node x to add must be different from nullptr
     //2. the node parent must exists if different from nullptr
-    //3. the parent nullptr means that x is the root if the root exists
+    //3. the parent nullptr means that x is the root 
     //4. x will be the root if parent is nullptr and even the root is nullptr
     if(_x==nullptr)
     {
@@ -52,16 +57,16 @@ void tree_general<T>::addNode(const node<T>* _x,const node<T> *_parent)
         nodes_map.insert({x_ptr->value,x_ptr});
     }
 
-
     if(!root)
         root=x_ptr;
 
-    if(_parent!=nullptr) //TODO  //questo è come se fosse if(_parent) da testare il cambiamento 
+    if(_parent) //TODO  //questo è come se fosse if(_parent) da testare il cambiamento 
     {
         parent_itr = nodes_map.find(_parent->value);
-        if(parent_itr == nodes_map.end())
-            throw "the father entered doesn't exist";
-
+        if(parent_itr == nodes_map.end()){
+            std::string error("the father entered doesn't exist");
+            throw error;
+        }
 
         x_ptr->parent = (parent_itr->second);
 

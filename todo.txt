@@ -11,3 +11,19 @@ importante: la lista di archi deve avere anche una lista di nodi immagazzinata c
        /   /|\   \
       /   / | \   \
       8  1  9  2   7
+
+
+scelta interfaccia dell'albero 
+
+
+virtual void addNode(const node<T> *_x,const node<T> *_parent)=0;
+
+Oppure 
+
+virtual void addNode(node<T> *_x,node<T> *_parent)=0;
+
+
+Ha senso passare un const node<T> *_x  ??? 
+Praticamente il senso di const in questo caso qual'è??
+
+

@@ -29,7 +29,7 @@ tree_pos_vector<T>::tree_pos_vector(int _degree,int _height): tree<T>()
 }  
 
 template <class T>
-void tree_pos_vector<T>::addNode2(node<T>* _x,node<T> *_parent){
+void tree_pos_vector<T>::addNode(const node<T>* _x,const node<T> *_parent){
 
     static int call = 0;
     call++;
@@ -82,12 +82,15 @@ void tree_pos_vector<T>::addNode2(node<T>* _x,node<T> *_parent){
         //pre-condition 2: parent can't be different from the null_ptr
         if(parent_itr==vec_node.end())
         {
+            //is only for debugging
             std::string a =   "addNode(): the father entered doesn't exists, at call number: " + std::to_string(call);
             throw a;
         }
 
+
         try{
-            addChildrens(*parent_itr,{_x});
+            node<T> a(_x->value);
+            addChildrens(*parent_itr,{&a});
         }
         catch(std::string &error){
             throw error; 
@@ -103,7 +106,6 @@ void tree_pos_vector<T>::addNode2(node<T>* _x,node<T> *_parent){
         }
         else{
 
-            std::cout<<"aggiunta radice\n";
             node<T>* x_ptr = new node<T>(*_x);
             root=x_ptr;
             vec_node[1]=x_ptr;
@@ -120,9 +122,6 @@ void tree_pos_vector<T>::addChildrens(node<T>* _x,const std::list<node<T>*> &_ch
      * 2. the nodes to be added must have enough space 
      */
 
-
-
-
     //preconditions 1 
     if(!_x){
         std::string error("error: _x can't be null pointer\n");
@@ -136,7 +135,6 @@ void tree_pos_vector<T>::addChildrens(node<T>* _x,const std::list<node<T>*> &_ch
         std::string error("error: max child node reached\n");
         throw error;
     }
-
 
     for(auto &n: _childrens){
 

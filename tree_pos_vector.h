@@ -30,7 +30,7 @@ namespace datalib
         int height;
         ///maximum grade of a Node  
         int degree;
-
+        
 
     public: 
 
@@ -47,9 +47,9 @@ namespace datalib
         int getDegree(const node<T> &x){}
         node<T> getParent(const node<T> &x){}
         std::list<node<T>*> getChildren(const node<T> &x){} 
-        void addNode2(node<T> *_x,node<T> *_parent=nullptr);
-        
-        void addNode(const node<T> *_x,const node<T> *_parent=nullptr) {} //da togliere se non serve il const 
+        //void addNode2(const node<T> *_x,const node<T> *_parent=nullptr);
+
+        void addNode(const node<T> *_x,const node<T> *_parent=nullptr); //da togliere se non serve il const 
         void addChildrens(node<T>* _x, const std::list<node<T>*> &_childrens);
         // void addChildrens2(node<T>* _x, const std::list<node<T>*> &_childrens);
         void showTree();

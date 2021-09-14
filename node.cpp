@@ -105,8 +105,13 @@ bool node<T>::operator!=(const node<T>& x) const{
 }
 
 // TODO ridare un'occhiata al std::find qui dentro
+
+// &&    con questo posso passarci soltanto rvalue reference, io qui ci passo una lista creata sul momento
+// ecco perchè devo passarci questo
+//altrimenti pososo pure mettere const std::list<node<T>*> & _children, però così poi non 
+// posso modificare la lista, ma a me non importa non è la lista che devo modificare 
 template<class T>
-void node<T>::addChildren(std::list<node<T>*>&& _children){
+void node<T>::addChildren(const std::list<node<T>*>& _children){ 
 
     typename std::list<node<T>*>::iterator itr;
 
