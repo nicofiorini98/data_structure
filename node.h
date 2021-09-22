@@ -97,12 +97,12 @@ namespace datalib
     //l'ho fatta perchè io devo vedere se i puntatori sono uguali, 
     template<class T>
     typename std::vector<node<T>*>::iterator trova(typename std::vector<node<T>*>::iterator begin, 
-                                                typename std::vector<node<T>*>::iterator end,const node<T>* value)
+                                                typename std::vector<node<T>*>::iterator end,const T* value)
     {
         int i=0;
         typename std::vector<node<T>*>::iterator appo;
-        for(appo = begin ; appo != end; appo++)
-        {
+        for(appo = begin ; appo != end; appo++){
+
             //if appo is nullptr, don't check equality, it is certainly different
             if(*appo==nullptr)
                 continue;

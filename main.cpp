@@ -58,8 +58,11 @@ int main()
     // datalib::node<std::string> a0{"a"},l1{"l"},b2{"b"};
     // datalib::node<std::string> e3{"e"},r4{"r"},o5{"o"},n{"n"};
 
-    datalib::node<int> a0{0},l1{1},b2{2};
-    datalib::node<int> e3{3},r4{4},o5{5},n{6};
+    // datalib::node<int> a0{0},l1{1},b2{2};
+    // datalib::node<int> e3{3},r4{4},o5{5},n{6};
+
+    int a0{0},l1{1},b2{2};
+    int e3{3},r4{4},o5{5},n{6};
 
 #if POS_VECTOR 
 

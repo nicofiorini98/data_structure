@@ -31,6 +31,7 @@ namespace datalib
         ///maximum grade of a Node  
         int degree;
         
+        // void addChildrens(node<T>* _x,const std::list<T*> &_childrens);
 
     public: 
 
@@ -44,13 +45,15 @@ namespace datalib
         //TreePosVector(int _max_grade,int _num_nodes);
         virtual ~tree_pos_vector(){}
 
-        int getDegree(const node<T> &x){}
-        node<T> getParent(const node<T> &x){}
-        std::list<node<T>*> getChildren(const node<T> &x){} 
+        int getDegree(const T &x){}
+        node<T> getParent(const T &x){}
+        std::list<T>& getChildren(const T &x){} 
         //void addNode2(const node<T> *_x,const node<T> *_parent=nullptr);
 
-        void addNode(const node<T> *_x,const node<T> *_parent=nullptr); //da togliere se non serve il const 
-        void addChildrens(node<T>* _x, const std::list<node<T>*> &_childrens);
+        void addNode(const T *_x,const T* _parent=nullptr); //da togliere se non serve il const 
+
+        void addChildrens(const T* _x, const std::list<T*> &_childrens);
+        // void addChildrens(node<T>* _x, const std::list<node<T>*> &_childrens);
         // void addChildrens2(node<T>* _x, const std::list<node<T>*> &_childrens);
         void showTree();
 
