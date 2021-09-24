@@ -25,28 +25,6 @@
 #define POS_VECTOR 1
 #define PROVA 0 
 
-
-typename std::vector<node<int>*>::iterator prova_trova(typename std::vector<node<int>*>::iterator begin, 
-                                            typename std::vector<node<int>*>::iterator end,const node<int>* value)
-{
-    int i=0;
-    typename std::vector<node<int>*>::iterator appo;
-    for(appo = begin ; appo != end; appo++)
-    {
-        //if appo is nullptr, don't check equality, it is certainly different
-        if(*appo==nullptr)
-            continue;
-
-        if(**appo==*value){
-            return appo;
-        }
-    }        
-    return end;
-}
-
-
-//using namespace datalib;
-
 int main()
 {
 /* std::cout << 1234.56789 << "\t\t(defaultfloat)\n"
@@ -64,19 +42,22 @@ int main()
     int a0{0},l1{1},b2{2};
     int e3{3},r4{4},o5{5},n{6};
 
+    std::string a{"a"},l{"l"},b{"b"};
+    std::string e{"e"},r{"r"},o{"o"};
+
 #if POS_VECTOR 
 
 
     std::cout<<"Prova vettore posizione: \n";
-    datalib::tree_pos_vector<int> t(2,3);
+    datalib::tree_pos_vector<std::string> t(2,3);
 
     try{
-        t.addNode(&a0);
-        t.addNode(&l1,&a0);
-        t.addNode(&b2,&a0);
-        t.addNode(&e3,&l1);
-        t.addNode(&r4,&l1);
-        t.addNode(&o5,&r4);
+        t.addNode(&a);
+        t.addChild(&a,&l);
+        t.addNode(&b,&a);
+        t.addNode(&e,&l);
+        t.addNode(&r,&l);
+        t.addNode(&o,&r);
     }catch(std::string &error){
         std::cout<<error;
     }
@@ -93,7 +74,6 @@ int main()
     vec_node.push_back(&b2);
     vec_node.push_back(&e3);
     vec_node.push_back(&l1);
-
 
     std::vector<node<int>*>::iterator trovato = prova_trova(vec_node.begin(),vec_node.end(),&l1);
 
@@ -114,7 +94,6 @@ int main()
 
     // datalib::node<int> a0{0},l1{1},b2{2};
     // datalib::node<int> e3{3},r4{4},o5{5};
-
 
     // std::ifstream ist{"../node.txt"};
     // std::ifstream ist2{"../insert_tree.txt"};

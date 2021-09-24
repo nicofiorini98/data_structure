@@ -87,8 +87,8 @@ void tree_pos_vector<T>::addNode(const T* _x,const T* _parent){
             throw a;
         }
         try{
-            const T a = *_x;
-            addChildrens(_parent,{a});
+            T a = *_x;
+            addChild(_parent,{&a});
         }
         catch(std::string &error){
             throw error; 
@@ -112,45 +112,85 @@ void tree_pos_vector<T>::addNode(const T* _x,const T* _parent){
 
 //add childrens to node x, x must exists
 template<class T>
-void tree_pos_vector<T>::addChildrens(const T* _x,const std::list<T*> &_childrens){
+void tree_pos_vector<T>::addChildren(const T* _x,const std::list<T*> &_children){
     
     /* Preconditions
      * 1. the node _x must exists, and must be in the vec_node
      * 2. the nodes to be added must have enough space 
+     * TODO 3. the child node to be added it must not exist
      */
 
-    typename std::vector<node<T>*>::iterator xitr;
-    xitr= datalib::trova(vec_node.begin(),vec_node.end(),_x);
+    typename std::vector<node<T>*>::iterator x_itr;
+    x_itr= datalib::trova(vec_node.begin(),vec_node.end(),_x);
     
     //preconditions 1 
-    if(xitr == vec_node.end()){
+    if(x_itr == vec_node.end()){
         std::string error("error: _x can't be null pointer\n");
         throw error;
     }
 
-    int pos = xitr->pos;
+    int pos = (*x_itr)->pos;
 
     //preconditions 2 
-    if(((*xitr)->num_children + _childrens.size()) > degree){
+    if(((*x_itr)->num_children + _children.size()) > degree){
         std::string error("error: max child node reached\n");
         throw error;
     }
 
-    for(auto &n: _childrens){
-
-
+    for(auto &n: _children){
         node<T> *child2add= new node<T>(*n);
 
         //add childrens in vec_node in the proper positions
-        int pos_childrens=(pos*degree)+ xitr->num_children;
+        int pos_childrens=(pos*degree)+ (*x_itr)->num_children;
 
         vec_node[pos_childrens]= child2add;
         child2add->pos=pos_childrens;
 
-        (*xitr)->num_children++;
+        (*x_itr)->num_children++;
     }
 }
 
+template<class T>
+void tree_pos_vector<T>::addChild(const T* _x, T* _child){
+    /* Preconditions
+     * 1. the node _x must exists, and must be in the vec_node
+     * 2. the nodes to be added must have enough space 
+     * 3. the child node to be added it must not exist
+     */
+
+    typename std::vector<node<T>*>::iterator x_itr;
+    x_itr= datalib::trova(vec_node.begin(),vec_node.end(),_x);
+    typename std::vector<node<T>*>::iterator child_itr;
+    child_itr= datalib::trova(vec_node.begin(),vec_node.end(),_child);
+    
+    //preconditions 1 
+    if(x_itr == vec_node.end()){
+        std::string error("error: _x can't be null pointer\n");
+        throw error;
+    }
+
+
+    //precondition 2 
+    if(((*x_itr)->num_children + 1) > degree){
+        std::string error("error: max child node reached\n");
+        throw error;
+    }
+    //pre-condition 3
+    if(child_itr != vec_node.end()){
+        std::string error("the child to add, already exists in tree\n");
+        throw error;
+    }
+
+    int pos = (*x_itr)->pos;
+    int pos_child=(pos*degree) + (*x_itr)->num_children;
+
+    node<T> *child2add= new node<T>(*_child);
+
+    vec_node[pos_child]= child2add;
+    vec_node[pos_child]->pos=pos_child;
+
+    (*x_itr)->num_children++;
+}
 
 template <class T>
 void tree_pos_vector<T>::showTree(){
@@ -165,4 +205,18 @@ void tree_pos_vector<T>::showTree(){
             std::cout<<"nullptr\n";
     }
     std::cout<<std::endl;
+}
+
+//convention of print tree
+template <class T>
+void tree_pos_vector<T>::showTree2(){
+    //OUTPUT following the conventions of the library
+    //{ padre figlio1 } { padre figlio2 } { padre2 figlio1}
+
+    for(auto &node: vec_node){
+        if(node){
+            
+        }
+    }
+
 }
