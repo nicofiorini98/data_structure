@@ -10,12 +10,8 @@ namespace datalib
     template<class T>
     class tree_pos_vector;
 
-
-
-
     template<class T>
-    class node
-    {
+    class node{
     private:
         //only implementation of data structure 
         //can define the parent of a node 
@@ -34,7 +30,7 @@ namespace datalib
         //private constructor 
         node(T _value,node<T>* _parent);
 
-        //utility function for tree_general
+        //utility function for tree_ptr_list
         void addChildren(const std::list<node<T>*>& _children);
 
     public:
@@ -90,7 +86,7 @@ namespace datalib
         // friend class tree_parent_vector;
 
         template<class U> 
-        friend class tree_general;
+        friend class tree_ptr_list;
         template<class W> 
         friend class tree_pos_vector;
 
@@ -119,13 +115,6 @@ namespace datalib
         }    
         return end;
     }
-
-    
-
-
-    
-
-
 }
 
 #include "node.cpp"

@@ -5,7 +5,7 @@
 #include "edge.h"
 #include "graph_adj_list.h"
 #include "tree_parent_vector.h"
-#include "tree_general.h"
+#include "tree_ptr_list.h"
 #include "tree_pos_vector.h"
 //#include <chrono>
 
@@ -21,12 +21,12 @@
 
 #define VECTOR_FATHER 0
 #define ADJ_LISTS 0
-#define TREE_GENERAL 1
+#define TREE_PTR_LIST 1
 #define POS_VECTOR 0
 #define PROVA 0 
 
-int main()
-{
+
+int main(){
 /* std::cout << 1234.56789 << "\t\t(defaultfloat)\n"
  // \t\t to line up columns
 << std::fixed << 1234.56789 << "\t(fixed)\n"
@@ -89,7 +89,7 @@ int main()
 
 #endif
 
-#if TREE_GENERAL
+#if TREE_PTR_LIST
 
 
     // datalib::node<int> a0{0},l1{1},b2{2};
@@ -109,8 +109,8 @@ int main()
 
     //std::list<node*> children;
 
-    tree_general<std::string> *t = new tree_general<std::string>;
-    // tree_general<std::string> tfile;
+    tree_ptr_list<std::string> *t = new tree_ptr_list<std::string>;
+    // tree_ptr_list<std::string> tfile;
     // ist2>>tfile;
 
     t->addNode(&a);

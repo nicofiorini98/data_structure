@@ -1,11 +1,11 @@
 #pragma once
-#include "tree_general.h"
+#include "tree_ptr_list.h"
 #include <stack>
 
 using namespace datalib;    
 
 template<class T>
-tree_general<T>::tree_general(int _degree): tree<T>()
+tree_ptr_list<T>::tree_ptr_list(int _degree): tree<T>()
 {
     //initalization parameter
     degree=_degree;
@@ -13,7 +13,7 @@ tree_general<T>::tree_general(int _degree): tree<T>()
 }
 
 template<class T>
-tree_general<T>::~tree_general(){
+tree_ptr_list<T>::~tree_ptr_list(){
 
     int j=0;
     //TODO 
@@ -29,7 +29,7 @@ tree_general<T>::~tree_general(){
 }
 
 template<class T>
-void tree_general<T>::addNode(const T* _x,const T *_parent)
+void tree_ptr_list<T>::addNode(const T* _x,const T *_parent)
 {
     node<T>* x_ptr;
 
@@ -84,7 +84,7 @@ void tree_general<T>::addNode(const T* _x,const T *_parent)
 
 //return the number of sons for the node x 
 template<class T>
-int tree_general<T>::getDegree(const T &_x)
+int tree_ptr_list<T>::getDegree(const T &_x)
 {
     return nodes_map.find(_x)->second->node_list.size();
 }
@@ -93,7 +93,7 @@ int tree_general<T>::getDegree(const T &_x)
 //todo vedere, non mi conviene restituire un puntatore
 
 template<class T>
-T tree_general<T>::getParent(const T &_x)
+T tree_ptr_list<T>::getParent(const T &_x)
 {
     //to see if is convenient to return a reference, the client 
     //what he can do with a reference of node?
@@ -105,7 +105,7 @@ T tree_general<T>::getParent(const T &_x)
 }
 
 template<class T>
-std::list<T>& tree_general<T>::getChildren(const T &_x){
+std::list<T>& tree_ptr_list<T>::getChildren(const T &_x){
 
     // typename std::map<T,node<T>*>::iterator itr=nodes_map.find(_x);
 
@@ -120,7 +120,7 @@ std::list<T>& tree_general<T>::getChildren(const T &_x){
 
 
 template<class T>
-void tree_general<T>::visitDFS(const T* _root)
+void tree_ptr_list<T>::visitDFS(const T* _root)
 {
     //initialize for stack
     typename std::stack<node<T>> s;
@@ -165,7 +165,7 @@ void tree_general<T>::visitDFS(const T* _root)
 
 
 template<class T>
-void tree_general<T>::showTree()
+void tree_ptr_list<T>::showTree()
 {
     std::cout<<std::endl;
     for(auto& n: nodes_map)
@@ -193,7 +193,7 @@ void tree_general<T>::showTree()
 
 
 template<class T>
-void tree_general<T>::showTreePtr()
+void tree_ptr_list<T>::showTreePtr()
 {
     std::cout<<std::endl;
     for(auto& n: nodes_map)
@@ -220,7 +220,7 @@ void tree_general<T>::showTreePtr()
 
 //private function
 template <class T>
-std::list<node<T>*>& tree_general<T>::getNodeList(node<T>* _x){
+std::list<node<T>*>& tree_ptr_list<T>::getNodeList(node<T>* _x){
 
             typename std::map<T,node<T>*>::iterator x_itr;
             x_itr = nodes_map.find(_x->value);
@@ -233,7 +233,7 @@ std::list<node<T>*>& tree_general<T>::getNodeList(node<T>* _x){
 
 
 template<class T>
-void tree_general<T>::showTree2()
+void tree_ptr_list<T>::showTree2()
 {
     std::cout<<std::endl;
 

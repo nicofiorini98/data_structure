@@ -9,13 +9,12 @@
  * 
  * \author Nico Fiorini
  * \date 03/03/2021
- *
- *
+ * 
  * manage the nullptr for the root and the leafs
 */
 namespace datalib{
     template<class T>
-    class tree_general: tree<T>
+    class tree_ptr_list: tree<T>
     {
     private:
         int degree;
@@ -35,14 +34,14 @@ namespace datalib{
 
         /// \param _degree Costructor with default parameter,
         /// if degree is not specified, Tree doesn't have a particular degree
-        tree_general(int _degree = -1);
+        tree_ptr_list(int _degree = -1);
 
         ///virtual destructor
-        ~tree_general();
+        ~tree_ptr_list();
 
         ///overloading operator >>
         //TODO decidere un carattere per il nullo per l'input da file
-        friend std::istream &operator>>(std::istream &is, tree_general<T> &t)
+        friend std::istream &operator>>(std::istream &is, tree_ptr_list<T> &t)
         {
             //pre-conditions
             //format for input of a node: node parent list_children
@@ -105,7 +104,7 @@ namespace datalib{
             return is;
         }
 
-       //friend std::ostream &operator<<(std::ostream &is, tree_general<T> &t);
+       //friend std::ostream &operator<<(std::ostream &is, tree_ptr_list<T> &t);
 
         ///return the number of sons for the node x
         int getDegree(const T &_x);
@@ -133,7 +132,7 @@ namespace datalib{
         void showTree2();
         //aggiungi sotto albero
         //rimuovi sotto albero
-        friend std::ostream& operator<<(std::ostream& os,tree_general<T> t) {
+        friend std::ostream& operator<<(std::ostream& os,tree_ptr_list<T> t) {
 
             for(auto &n: t.nodes_map){
                 for(auto &child: t.getNodeList(n.second)){
@@ -145,4 +144,4 @@ namespace datalib{
     };
 }
 
-#include "tree_general.cpp"
+#include "tree_ptr_list.cpp"
