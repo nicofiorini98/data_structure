@@ -7,6 +7,9 @@
 //todo togliere il pos nella classe node 
 namespace datalib
 {
+    template<class T>
+    class tree_pos_vector;
+
 
 
 
@@ -91,6 +94,9 @@ namespace datalib
         template<class W> 
         friend class tree_pos_vector;
 
+        // template<class S>
+        // std::ostream &operator<<(std::ostream &os, tree_pos_vector<S> &t);
+
     };
 
     //utility function
@@ -110,9 +116,16 @@ namespace datalib
             if(**appo==*value){
                 return appo;
             }
-        }        
+        }    
         return end;
     }
+
+    
+
+
+    
+
+
 }
 
 #include "node.cpp"

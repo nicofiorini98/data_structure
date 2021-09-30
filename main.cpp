@@ -21,8 +21,8 @@
 
 #define VECTOR_FATHER 0
 #define ADJ_LISTS 0
-#define TREE_GENERAL 0
-#define POS_VECTOR 1
+#define TREE_GENERAL 1
+#define POS_VECTOR 0
 #define PROVA 0 
 
 int main()
@@ -57,12 +57,12 @@ int main()
         t.addNode(&b,&a);
         t.addNode(&e,&l);
         t.addNode(&r,&l);
-        t.addNode(&o,&r);
+        t.addNode(&o,&b);
     }catch(std::string &error){
         std::cout<<error;
     }
 
-    t.showTree();
+    std::cout<<t;
 
 #endif
 
@@ -97,6 +97,7 @@ int main()
 
     // std::ifstream ist{"../node.txt"};
     // std::ifstream ist2{"../insert_tree.txt"};
+    std::ofstream os{"../output.txt"};
 
     //input node from a file
     //ist>>a0>>l1>>b2>>e3>>r4>>o5>>n;
@@ -108,20 +109,18 @@ int main()
 
     //std::list<node*> children;
 
-    tree_general<int> *t = new tree_general<int>;
+    tree_general<std::string> *t = new tree_general<std::string>;
     // tree_general<std::string> tfile;
     // ist2>>tfile;
 
-    t->addNode(&a0,nullptr);
-    t->addNode(&l1,&a0);
-    t->addNode(&b2,&a0);
-    t->addNode(&e3,&l1);
-    t->addNode(&r4,&l1);
-    t->addNode(&o5,&b2); 
+    t->addNode(&a);
+    t->addNode(&l,&a);
+    t->addNode(&b,&a);
+    t->addNode(&e,&l);
+    t->addNode(&r,&l);
+    t->addNode(&o,&b); 
 
-    t->showTree();
-    
-    delete t;
+    os<<*t;
 
     /* Non viene distrutto in maniera appropriata */
     // tfile.showTree();

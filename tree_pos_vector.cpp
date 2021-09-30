@@ -77,7 +77,6 @@ void tree_pos_vector<T>::addNode(const T* _x,const T* _parent){
     if(_parent){
 
         parent_itr = datalib::trova(vec_node.begin(),vec_node.end(),_parent);
-        std::cout<<"puntatore al parent "<<(*parent_itr)<<"\n";
 
         //pre-condition 2: parent can't be different from the null_ptr
         if(parent_itr==vec_node.end())
@@ -151,7 +150,7 @@ void tree_pos_vector<T>::addChildren(const T* _x,const std::list<T*> &_children)
 }
 
 template<class T>
-void tree_pos_vector<T>::addChild(const T* _x, T* _child){
+void tree_pos_vector<T>::addChild(const T* _x,const T* _child){
     /* Preconditions
      * 1. the node _x must exists, and must be in the vec_node
      * 2. the nodes to be added must have enough space 
@@ -206,6 +205,11 @@ void tree_pos_vector<T>::showTree(){
     }
     std::cout<<std::endl;
 }
+
+// template <class T>
+// int tree_pos_vector<T>::getNumChildren(node<T>* _x){
+//     return _x->num_children;
+// }
 
 //convention of print tree
 template <class T>

@@ -32,14 +32,15 @@ namespace datalib{
         virtual int getDegree(const T &x)=0;
         ///return the father of the node x
         // virtual node<T> getParent(const node<T> &x)=0;
-        virtual node<T> getParent(const T &x)=0;
+        virtual T getParent(const T &_x)=0;
         ///return a vector with the children of the node x 
-        virtual std::list<T>& getChildren(const T &x)=0;                     
+        //TODO vedere se conviene restituire un reference
+        virtual std::list<T>& getChildren(const T &_x)=0;                     
         ///add a Node in the Tree 
         virtual void addNode(const T *_x,const T *_parent)=0;
         ///add childrens to node
-        virtual void addChildren(const T* _x, const std::list<T*> &_childrens)=0;
-        virtual void addChild(const T* _x, T* _children)=0;
+        virtual void addChildren(const T* _x, const std::list<T*> &_children)=0;
+        virtual void addChild(const T* _x, const T* _children)=0;
 
         //aggiungi sotto albero
         //rimuovi sotto albero

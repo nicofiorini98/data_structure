@@ -30,7 +30,9 @@ namespace datalib
         int height;
         ///maximum grade of a Node  
         int degree;
-        
+        int getNumChildren(node<T>* _x){return _x->num_children;}
+        int getPos(node<T>* _x){return _x->pos;}
+
         // void addChildrens(node<T>* _x,const std::list<T*> &_childrens);
 
     public: 
@@ -46,19 +48,45 @@ namespace datalib
         virtual ~tree_pos_vector(){}
 
         int getDegree(const T &x){}
-        node<T> getParent(const T &x){}
+        T getParent(const T &x){}
         std::list<T>& getChildren(const T &x){} 
         //void addNode2(const node<T> *_x,const node<T> *_parent=nullptr);
 
         void addNode(const T *_x,const T* _parent=nullptr); //da togliere se non serve il const 
 
-        void addChild(const T* _x, T* _child);
+        void addChild(const T* _x,const T* _child);
         void addChildren(const T* _x, const std::list<T*> &_children);
         // void addChildrens(node<T>* _x, const std::list<node<T>*> &_childrens);
         // void addChildrens2(node<T>* _x, const std::list<node<T>*> &_childrens);
+
+        //only for debug 
         void showTree();
         void showTree2();
 
+        friend std::istream &operator>>(std::istream &is, tree_pos_vector<T> &t){
+
+        }
+        friend std::ostream &operator<<(std::ostream &os, tree_pos_vector<T> &t){
+            //pre-conditions
+            //format for input of a node: node parent list_children
+            //Example: ( l a )
+            //Example: (a b) (l a)
+
+            // os<<"\n\n Stampa di Tree_pos_vector: \n";
+            for(auto &n: t.vec_node){
+                //don't consider nullptr as node
+                if(!n) 
+                    continue;
+
+                for(int i = 0; i < t.getNumChildren(n); i++){
+                    if(i!=0)
+                        os<<" ";
+                    os<<"( "<< *n <<" "<< *(t.vec_node[(t.getPos(n)*(t.degree))+i]) <<" )";
+                }
+                os<<"\n";
+            }
+            return os;
+        }
     };
 }
 
