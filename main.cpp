@@ -91,19 +91,12 @@ int main(){
 
 #if TREE_PTR_LIST
 
-
     // datalib::node<int> a0{0},l1{1},b2{2};
     // datalib::node<int> e3{3},r4{4},o5{5};
 
     // std::ifstream ist{"../node.txt"};
     // std::ifstream ist2{"../insert_tree.txt"};
     std::ofstream os{"../output.txt"};
-
-    //input node from a file
-    //ist>>a0>>l1>>b2>>e3>>r4>>o5>>n;
-    //std::cout<<a0<<l1;
-
-    //n=a0;
 
     // ist.open( "../insert_tree.txt",std::ios::in);
 
