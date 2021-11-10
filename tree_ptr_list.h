@@ -34,7 +34,7 @@ namespace datalib{
 
         /// \param _degree Costructor with default parameter,
         /// if degree is not specified, Tree doesn't have a particular degree
-        tree_ptr_list(int _degree = -1);
+        tree_ptr_list(int _degree);
 
         ///virtual destructor
         ~tree_ptr_list();
@@ -120,15 +120,16 @@ namespace datalib{
         ///if not specified the node is the root of the Tree
         //void addNode2(const node<T> *_x, const node<T> *_parent = nullptr, const std::list<node<T>> _children = {}); //TODO
         void addNode(const T *_x,const T *_parent = nullptr);
-        virtual void addChildren(const T *_x, const std::list<T*> &_children) {} //TODO da rendere virtuale puro
-        virtual void addChild(const T *_x, const T* _child) {} //TODO da rendere virtuale puro
+        virtual void addChildren(const T *_x, const std::list<T*> &_children) {}
 
+        void addChild(const T *_x, const T* _child);
         ///print the node following a DFS visit
         void visitDFS(const T* _root);
         ///print the node following BFS visit
         void visitBFS(const T* _root);
         void showTree();
         void showTreePtr();
+        void showStructure();
         void showTree2();
         //aggiungi sotto albero
         //rimuovi sotto albero

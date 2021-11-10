@@ -1,25 +1,39 @@
-// #pragma once
-// #include "node.h"
+#pragma once
+#include "node.h"
 
-// namespace datalib{
+namespace datalib{
 
-//     template<class T>
-//     class Edge
-//     {
+    template<class T>
+    class edge
+    {
 
-//     private: 
-//         node<T>* src;
-//         node<T>* dest;
-//     public: 
-//     //costructor 
-//         Edge(node<T>* _src,node<T>* _dest,int _weight=0,const std::string _mark=""): 
-//             src{_src},dest{_dest}, weight{_weight},mark{_mark} {}
+    private:
+        node<T>* src;
+        node<T>* dest;
+        int weight;
+        std::string mark;
+        edge(node<T>* _src,node<T>* _dest,int _weight=0,const std::string _mark="");
+    public: 
+        ///costructor
+        edge(const T *_src,const T *_dest,int _weight=0,const std::string _mark=""); 
+        ///copy costructor
+        edge(const edge<T>& _x);
+        ~edge(){}
 
-//         int weight;
-//         std::string mark;
+        T getSourceValue() const {return (src->value);}
+        T getDestinationValue() const {return (dest->value);}
 
-//         friend class graph_adj_list;
-//         friend class tree_pos_vector;
-//         friend class tree_parent_vector;
-//     };
-// }
+        friend std::ostream &operator<<(std::ostream &os,const edge<T>& _edge)
+        {
+            os <<"( "<< _edge.getSourceValue()<<" "<< _edge.getDestinationValue()<<" )";
+            return os;
+        }
+
+        template<class U>
+        friend class graph_edge_list;
+        
+        // friend class graph_adj_list;
+        // friend class tree_parent_vector;
+    };
+    #include "edge.cpp"
+}

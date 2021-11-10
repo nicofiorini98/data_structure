@@ -8,8 +8,7 @@ using namespace datalib;
 //I need to know the grade of the tree and the 
 //num_nodes for instatiate the tree
 template<class T>
-tree_pos_vector<T>::tree_pos_vector(int _degree,int _height): tree<T>()
-{
+tree_pos_vector<T>::tree_pos_vector(int _degree,int _height): tree<T>(){
     //initialization parameter
     degree = _degree;
     root=nullptr;

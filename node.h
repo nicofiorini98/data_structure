@@ -87,9 +87,18 @@ namespace datalib
 
         template<class U> 
         friend class tree_ptr_list;
-        template<class W> 
+
+        template<class U> 
         friend class tree_pos_vector;
 
+        template<class U> 
+        friend class graph_adj_list;
+
+        template<class U> 
+        friend class edge;
+        
+        template<class U>
+        friend class graph_edge_list;
         // template<class S>
         // std::ostream &operator<<(std::ostream &os, tree_pos_vector<S> &t);
 

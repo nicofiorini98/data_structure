@@ -62,6 +62,7 @@ namespace datalib
         //only for debug 
         void showTree();
         void showTree2();
+        
 
         friend std::istream &operator>>(std::istream &is, tree_pos_vector<T> &t){
 

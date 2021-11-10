@@ -4,7 +4,7 @@
 #include "node.h"
 #include "edge.h"
 #include "graph_adj_list.h"
-#include "tree_parent_vector.h"
+#include "graph_edge_list.h"
 #include "tree_ptr_list.h"
 #include "tree_pos_vector.h"
 //#include <chrono>
@@ -20,10 +20,13 @@
 // std::cout<<"it took the time"<<time_span.count()<<"seconds.";
 
 #define VECTOR_FATHER 0
-#define ADJ_LISTS 0
-#define TREE_PTR_LIST 1
+#define TREE_PTR_LIST 0
 #define POS_VECTOR 0
+#define GRAPH_ADJ_LIST 0
+#define GRAPH_EDGE_LIST 1
 #define PROVA 0 
+
+using namespace datalib;
 
 
 int main(){
@@ -53,9 +56,9 @@ int main(){
 
     try{
         t.addNode(&a);
-        t.addChild(&a,&l);
+        t.addNode(&l,&a);
         t.addNode(&b,&a);
-        t.addNode(&e,&l);
+        t.addChild(&l,&a);
         t.addNode(&r,&l);
         t.addNode(&o,&b);
     }catch(std::string &error){
@@ -102,18 +105,25 @@ int main(){
 
     //std::list<node*> children;
 
-    tree_ptr_list<std::string> *t = new tree_ptr_list<std::string>;
+    tree_ptr_list<std::string> *t = new tree_ptr_list<std::string>(2);
     // tree_ptr_list<std::string> tfile;
     // ist2>>tfile;
 
-    t->addNode(&a);
-    t->addNode(&l,&a);
-    t->addNode(&b,&a);
-    t->addNode(&e,&l);
-    t->addNode(&r,&l);
-    t->addNode(&o,&b); 
+    try{
+        t->addNode(&a);
+        t->addNode(&l,&a);
+        t->addNode(&b,&a);
+        // t->addNode(&e,&a);
+        // t->addNode(&r,&a);
+        // t->addNode(&o,&b);    //
+    }catch(std::string _error){
+        std::cout<<_error<<"\n";
+    }
 
-    os<<*t;
+    // std::cout<<*t;
+    t->showStructure();
+    // t->showTreePtr();
+
 
     /* Non viene distrutto in maniera appropriata */
     // tfile.showTree();
@@ -154,46 +164,69 @@ int main(){
 
 #endif
 
-#if GRAPH_ADJ_LISTS
+#if GRAPH_ADJ_LIST
 
-    node a(0);
-    node b(1);
-    node c(2);
-    node d(3);
-    node e(4);
-    
-    std::vector<Edge> edges;
+    graph_adj_list<int> *_graph = new graph_adj_list<int>();
 
-    edges.push_back({&c,&d});
-    edges.push_back({&d,&a});
-    edges.push_back({&a,&c});
-    edges.push_back({&b,&c});
-    edges.push_back({&a,&b});
-    //edges.push_back({&a,nullptr}); //TODO gestire nullptr 
+    _graph->addNode(a0); // It's redundant
+    _graph->addEdge(l1,b2);
+    _graph->addEdge(b2,a0);
+    _graph->addEdge(a0,l1);
+    _graph->addEdge(a0,e3);
+    _graph->addEdge(b2,e3);
 
-
-    GraphAdjList *graph=new GraphAdjList(edges);
-    //graph->addNode(e);
-    graph->addEdge(e,b);
-    graph->addEdge({&a,&e});
-    node f(5);
-    graph->addNode(f);
-    graph->addEdge(e,f);
-    graph->addEdge(a,f);
-
-    graph->deleteNode(f);
-
+    std::cout<<"\n\n";
+    _graph->showStructure();
     //graph->deleteEdge(a,c);
 
     //graph.addNode(h);
     //graph->showGraph();
     std::cout<<std::endl;
-    graph->showGraphValue();
-
-
 
     //delete graph;
     //std::cout<<"grafo distrutto\n";
+
+#endif
+
+
+#if 1 
+
+    graph_edge_list<int>* _graph = new graph_edge_list<int>();
+    
+    // _graph->addNode(a0);
+    // _graph->addNode(l1);
+    try{
+        _graph->addEdge(&a0,&l1);
+        _graph->addEdge(&l1,&a0);
+        _graph->addEdge(&b2,&a0);
+        _graph->addEdge(&l1,&b2);
+        _graph->addEdge(&a0,&b2);
+        _graph->addEdge(&a0,&a0);
+
+    }catch(std::string _error){
+        std::cout<<_error<<"\n";
+    }
+
+    std::vector<edge<int>> incident_edge;
+
+    incident_edge = _graph->getIncidentEdge(a0);
+
+    std::cout<<(*_graph);
+
+    std::cout<<"grado di 2: "<<_graph->degree(a0);
+
+    // for(auto &e: incident_edge){
+    //     std::cout<<e;
+    // }
+
+    // std::cout<<"numero archi: "<<_graph->numEdge();
+    // std::cout<<std::endl;
+    // std::cout<<"numero nodi: "<<_graph->numNode();
+    // // _graph->showNode();
+    // std::cout<<std::endl;
+    // std::cout<<"grado di a: "<<_graph->degree(a0);
+
+
 #endif
 
 

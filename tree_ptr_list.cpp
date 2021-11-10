@@ -10,6 +10,7 @@ tree_ptr_list<T>::tree_ptr_list(int _degree): tree<T>()
     //initalization parameter
     degree=_degree;
     root=nullptr;
+
 }
 
 template<class T>
@@ -42,32 +43,46 @@ void tree_ptr_list<T>::addNode(const T* _x,const T *_parent)
     //2. the node parent must exists if different from nullptr
     //3. the parent nullptr means that x is the root 
     //4. x will be the root if parent is nullptr and even the root is nullptr
-    if(_x==nullptr)
-    {
-        throw "You cannot add a null node";
-        //std::cerr<<"non puoi aggiungere un nodo nullo\n";
-        // return;
-    }
 
+    /* Validation of input parameter*/
+    if(_x)
+        x_itr=nodes_map.find(*_x);
+    else{
+        std::string error("you cannot add a null node\n");
+        throw error;
+    }
+    if(_parent){
+        parent_itr=nodes_map.find(*_parent);
+
+        //check the degree of the parent
+        if(((parent_itr->second)->node_list.size())>= degree){
+            std::string error("the node is reached max degree\n");
+            throw error;
+        }
+    }
+    
     //check if x already exists
-    x_itr = nodes_map.find(*_x);
-    if(x_itr == nodes_map.end())
-    {
+    // x_itr = nodes_map.find(*_x);
+    if(x_itr == nodes_map.end()){
         x_ptr = new node<T>(*_x); 
-        nodes_map.insert({x_ptr->value,x_ptr});
+        nodes_map.insert(std::pair<T,node<T>*>(x_ptr->value,x_ptr));
+    }
+    else{
+        std::string error("the node is already inserted\n");
+        throw error;
     }
 
     if(!root)
         root=x_ptr;
 
-    if(_parent) //TODO  //questo è come se fosse if(_parent) da testare il cambiamento 
-    {
-        parent_itr = nodes_map.find(*_parent);
+    if(_parent){
+        // parent_itr = nodes_map.find(*_parent);
         if(parent_itr == nodes_map.end()){
             std::string error("the father entered doesn't exist");
             throw error;
         }
-
+        
+        //questo porta a dei cicli che non sono permessi nell'albero, devo fare un controllo 
         x_ptr->parent = (parent_itr->second);
 
         //update children of the parent
@@ -77,12 +92,31 @@ void tree_ptr_list<T>::addNode(const T* _x,const T *_parent)
     {
         if(x_ptr==root)
             x_ptr->parent=nullptr;
-        else
+        else //TODO qua io lancierei un errore, meglio non dare troppa libertà 
             x_ptr->parent=root;
     }
 }
 
+
+template<class T>
+void tree_ptr_list<T>::addChild(const T *_x, const T* _child){
+    // if(!_x){
+    //     std::string error("you can't insert a chilt to null_ptr");
+    //     throw error;
+    // }
+    // if(!_child){
+    //     std::string error("you can't insert a null child");
+    //     throw error;
+    // }
+
+    // typename std::map<T,node<T>*>::iterator x_itr;
+    
+    // x_itr = nodes_map.find(_x);
+
+}
+
 //return the number of sons for the node x 
+//O(log n)
 template<class T>
 int tree_ptr_list<T>::getDegree(const T &_x)
 {
@@ -191,6 +225,23 @@ void tree_ptr_list<T>::showTree()
     }
 }
 
+template<class T>
+void tree_ptr_list<T>::showStructure(){
+    for(auto &n: nodes_map){
+        if(n.second->parent)
+            std::cout<<*((n.second)->parent)<<"<--";
+        else
+            std::cout<<"// <--";
+
+        std::cout<<*(n.second)<<"--> ";
+
+        for(auto& child: n.second->node_list)
+            std::cout<<*child<<" ";
+        // if(!n.second->node_list.empty()){
+        // }
+        std::cout<<"\n";
+    }
+}
 
 template<class T>
 void tree_ptr_list<T>::showTreePtr()
@@ -204,15 +255,10 @@ void tree_ptr_list<T>::showTreePtr()
         else 
             std::cout<<"null"<<"<---";
     
-        std::cout<<n.second<<" --->  ";
+        std::cout<<(n.second)<<" --->  ";
         //print the sons if the list isn't empty
-        if(!n.second->node_list.empty())
-        {
-            for(auto& child: n.second->node_list)
-                std::cout<<child<<" ";
-        }
-        else 
-            std::cout<<"null";
+        for(auto& child: n.second->node_list)
+            std::cout<<child<<" ";
 
         std::cout<<std::endl;
     }
@@ -233,8 +279,4 @@ std::list<node<T>*>& tree_ptr_list<T>::getNodeList(node<T>* _x){
 
 
 template<class T>
-void tree_ptr_list<T>::showTree2()
-{
-    std::cout<<std::endl;
-
-}
+void tree_ptr_list<T>::showTree2(){}
