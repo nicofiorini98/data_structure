@@ -1,4 +1,7 @@
-#pragma once
+#ifndef GRAPH_INC_LIST_H
+#define GRAPH_INC_LIST_H
+
+
 #include "graph.h"
 #include "edge.h"
 #include <map>
@@ -57,6 +60,8 @@ namespace datalib{
         void showGraphValue() const{};
     };
 
-    #include "graph_inc_list.cpp";
-
 }
+
+#include "graph_inc_list.h"
+
+#endif

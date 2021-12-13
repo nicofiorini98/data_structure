@@ -1,4 +1,6 @@
-#pragma once
+#ifndef TREE_H
+#define TREE_H
+
 #include <vector>
 #include <list>
 #include "node.h"
@@ -48,3 +50,7 @@ namespace datalib{
     };
 
 }
+
+
+
+#endif

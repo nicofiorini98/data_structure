@@ -1,4 +1,5 @@
-#pragma once
+#ifndef GRAPH_H
+#define GRAPH_H
 
 #include <iostream> 
 #include <list>
@@ -55,3 +56,5 @@ namespace datalib{
         // virtual void deleteEdge(const Edge<T> &_edge)=0;               //remove a Edge in the graph
     };
 }
+
+#endif

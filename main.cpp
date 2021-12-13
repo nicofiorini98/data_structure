@@ -48,6 +48,8 @@ int main(){
     std::string a{"a"},l{"l"},b{"b"};
     std::string e{"e"},r{"r"},o{"o"};
 
+    std::cout<<"\n";
+
 #if POS_VECTOR 
 
 

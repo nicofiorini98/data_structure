@@ -1,4 +1,6 @@
-#pragma once
+#ifndef NODE_CPP
+#define NODE_CPP
+
 #include "node.h"
 #include <algorithm>
 
@@ -133,3 +135,5 @@ void node<T>::addChildren(const std::list<node<T>*>& _children){
         }
     }
 }
+
+#endif

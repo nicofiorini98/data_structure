@@ -1,6 +1,8 @@
-#pragma once
+#ifndef EDGE_CPP
+#define EDGE_CPP
 #include "edge.h"
 
+using namespace datalib;
 
 template<class T>
 edge<T>::edge(node<T>* _src,node<T>* _dest,int _weight,const std::string _mark){
@@ -37,3 +39,5 @@ edge<T>::edge(const edge<T> &_x){
 	mark = _x.mark;
 
 }
+
+#endif

@@ -1,4 +1,7 @@
-#pragma once
+#ifndef GRAPH_EDGE_LIST_H 
+#define GRAPH_EDGE_LIST_H
+
+
 #include "graph.h"
 #include <map>
 #include <vector>
@@ -63,9 +66,12 @@ namespace datalib{
                 os<<"\n";
             }
 
+            return os;
         }
     };
-
-    #include "graph_edge_list.cpp";
-
 }
+
+#include "graph_edge_list.cpp"
+
+
+#endif

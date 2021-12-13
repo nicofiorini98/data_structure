@@ -1,13 +1,13 @@
-#pragma once
+#ifndef GRAPH_EDGE_LIST_CPP
+#define	GRAPH_EDGE_LIST_CPP
+
 #include "graph_edge_list.h"
 
+using namespace datalib;
 
 //default constructor
 template<class T>
 graph_edge_list<T>::graph_edge_list(): graph<T>(){
-
-	
-
 }
 
 //this function add a node with an edge to nullptr
@@ -167,3 +167,5 @@ void graph_edge_list<T>::showNode() const{
 
 
 }
+
+#endif

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef EDGE_H
+#define EDGE_H
 #include "node.h"
 
 namespace datalib{
@@ -35,5 +36,8 @@ namespace datalib{
         // friend class graph_adj_list;
         // friend class tree_parent_vector;
     };
-    #include "edge.cpp"
 }
+
+#include "edge.cpp"
+
+#endif

@@ -1,4 +1,6 @@
-#pragma once
+#ifndef TREE_PTR_LIST_CPP
+#define TREE_PTR_LIST_CPP
+
 #include "tree_ptr_list.h"
 #include <stack>
 
@@ -277,6 +279,7 @@ std::list<node<T>*>& tree_ptr_list<T>::getNodeList(node<T>* _x){
 
 };
 
-
 template<class T>
 void tree_ptr_list<T>::showTree2(){}
+
+#endif

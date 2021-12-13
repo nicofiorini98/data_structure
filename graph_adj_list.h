@@ -1,4 +1,5 @@
-#pragma once
+#ifndef GRAPH_ADJ_LIST_H
+#define GRAPH_ADJ_LIST_H
 #include "graph.h"
 // #include "edge.h"
 #include <map>
@@ -52,7 +53,7 @@ namespace datalib{
         //void showGraphPos() const;
         void showGraphValue() const;
     };
-
-    #include "graph_adj_list.cpp";
-
 }
+
+#include "graph_adj_list.cpp"
+#endif

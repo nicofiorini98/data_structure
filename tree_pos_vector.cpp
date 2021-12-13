@@ -1,4 +1,6 @@
-#pragma once
+
+#ifndef TREE_POS_VECTOR_CPP
+#define TREE_POS_VECTOR_CPP
 #include <math.h>
 #include "tree_pos_vector.h"
 #include "tree.h"
@@ -223,3 +225,6 @@ void tree_pos_vector<T>::showTree2(){
     }
 
 }
+
+
+#endif

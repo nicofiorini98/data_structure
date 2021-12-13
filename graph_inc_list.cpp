@@ -1,2 +1,6 @@
-#pragma once 
-#include "graph_inc_list.h"
+#ifndef GRAPH_INC_LIST_CPP
+#define GRAPH_INC_LIST_CPP
+
+
+
+#endif

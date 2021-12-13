@@ -1,4 +1,5 @@
-#pragma once
+#ifndef GRAPH_ADJ_LIST_CPP
+#define GRAPH_ADJ_LIST_CPP
 #include "graph_adj_list.h"
 #include <list>
 
@@ -128,3 +129,4 @@ void graph_adj_list<T>::showGraphValue() const{
 
 
 
+#endif

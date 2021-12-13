@@ -1,4 +1,5 @@
-#pragma once
+#ifndef TREE_POS_VECTOR_H
+#define TREE_POS_VECTOR_H
 #include "tree.h"
 
 /*
@@ -92,3 +93,6 @@ namespace datalib
 }
 
 #include "tree_pos_vector.cpp"
+
+
+#endif

@@ -1,7 +1,10 @@
-#pragma once
+#ifndef TREE_PTR_LIST_H
+#define TREE_PTR_LIST_H
 #include "tree.h"
 #include "node.h"
 #include <map>
+#include <stack>
+
 /**
  * \class Tree
  * \brief This class is a base class for various tree implementations
@@ -146,3 +149,7 @@ namespace datalib{
 }
 
 #include "tree_ptr_list.cpp"
+
+
+
+#endif
