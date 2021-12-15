@@ -5,6 +5,7 @@
 #include "edge.h"
 #include "graph_adj_list.h"
 #include "graph_edge_list.h"
+#include "graph_inc_list.h"
 #include "tree_ptr_list.h"
 #include "tree_pos_vector.h"
 //#include <chrono>
@@ -23,7 +24,8 @@
 #define TREE_PTR_LIST 0
 #define POS_VECTOR 0
 #define GRAPH_ADJ_LIST 0
-#define GRAPH_EDGE_LIST 1
+#define GRAPH_EDGE_LIST 0
+#define GRAPH_INC_LIST 1
 #define PROVA 0 
 
 using namespace datalib;
@@ -78,7 +80,12 @@ int main(){
     vec_node.push_back(&a0);
     vec_node.push_back(&b2);
     vec_node.push_back(&e3);
-    vec_node.push_back(&l1);
+    vec_node.push_back(&boh;
+    graph_inc_list<int> _graph_inc_list;
+
+    _graph_inc_list.addNode(a0);
+
+    _graph_inc_list.shl1);
 
     std::vector<node<int>*>::iterator trovato = prova_trova(vec_node.begin(),vec_node.end(),&l1);
 
@@ -191,7 +198,7 @@ int main(){
 #endif
 
 
-#if 1 
+#if GRAPH_EDGE_LIST
 
     graph_edge_list<int>* _graph = new graph_edge_list<int>();
     
@@ -203,7 +210,6 @@ int main(){
         _graph->addEdge(&b2,&a0);
         _graph->addEdge(&l1,&b2);
         _graph->addEdge(&a0,&b2);
-        _graph->addEdge(&a0,&a0);
 
     }catch(std::string _error){
         std::cout<<_error<<"\n";
@@ -216,21 +222,27 @@ int main(){
     std::cout<<(*_graph);
 
     std::cout<<"grado di 2: "<<_graph->degree(a0);
+    std::cout<<"\n";
 
-    // for(auto &e: incident_edge){
-    //     std::cout<<e;
-    // }
-
-    // std::cout<<"numero archi: "<<_graph->numEdge();
-    // std::cout<<std::endl;
-    // std::cout<<"numero nodi: "<<_graph->numNode();
-    // // _graph->showNode();
-    // std::cout<<std::endl;
-    // std::cout<<"grado di a: "<<_graph->degree(a0);
+    for(auto &e: incident_edge){
+        std::cout<<e;
+    }
+    
 
 
 #endif
 
+#if GRAPH_INC_LIST
+
+    graph_inc_list<int>* _graph_inc_list= new graph_inc_list<int>();
+
+
+    // _graph_inc_list.addNode(a0);
+
+    // _graph_inc_list.showStructure();
+    std::cout<<"corpo di cristo\n";
+
+#endif
 
 
     return 0;

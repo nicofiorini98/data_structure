@@ -144,12 +144,10 @@ namespace datalib{
                 }
                 // for(int i=0; i < t.getNumChildren(n.second);i++ )
             }
+            return os;
         }
     };
 }
 
 #include "tree_ptr_list.cpp"
-
-
-
 #endif

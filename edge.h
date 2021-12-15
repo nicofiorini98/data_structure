@@ -2,6 +2,7 @@
 #define EDGE_H
 #include "node.h"
 
+
 namespace datalib{
 
     template<class T>
@@ -24,8 +25,7 @@ namespace datalib{
         T getSourceValue() const {return (src->value);}
         T getDestinationValue() const {return (dest->value);}
 
-        friend std::ostream &operator<<(std::ostream &os,const edge<T>& _edge)
-        {
+        friend std::ostream &operator<<(std::ostream &os,const edge<T>& _edge){
             os <<"( "<< _edge.getSourceValue()<<" "<< _edge.getDestinationValue()<<" )";
             return os;
         }

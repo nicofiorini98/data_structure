@@ -24,6 +24,8 @@ namespace datalib{
     class graph_inc_list: public graph<T>{
     private: 
 
+        std::map<T,node<T>*> inc_list;        
+
         // bool edge_existence(const T &_src,const T &_dest) const;
         // bool edge_existence(const edge<T> _e) const;
         // std::vector<edge<T>> edge_list; 
@@ -39,22 +41,22 @@ namespace datalib{
         virtual ~graph_inc_list(){} 
 
         ///add a Node x in the graph
-        void addNode(const T &_x){};
+        void addNode(const T &_x);
 
         int degree(const T &_x){}
 
         ///add an Edge (x,y) in the graph
-        void addEdge(const T &_src,const T &_dest){}
+        void addEdge(const T *_src,const T *_dest);
         void addEdge(const edge<T>& _edge){}
         void deleteNode(const T &_x){}                        //remove a Node in the graphj
         void deleteEdge(const T &_src,const T &_dest){}       //remove a Edge in the graph
         // void deleteEdge(const Edge &_edge);               //remove a Edge in the graph
 		// int grade(const T &_x){}
 
-        void getIncidentEdge(const T &_x){}          //return the incident edge of the Node x
+        std::vector<edge<T>> getIncidentEdge(const T &_x){}          //return the incident edge of the Node x
         void getAdjNode(const T &_x){}
 
-        void showStructure() const{};
+        void showStructure() const;
         void showNode() const;
         //void showGraphPos() const;
         void showGraphValue() const{};
@@ -62,6 +64,6 @@ namespace datalib{
 
 }
 
-#include "graph_inc_list.h"
+#include "graph_inc_list.cpp"
 
 #endif

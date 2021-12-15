@@ -2,12 +2,12 @@
 #define	GRAPH_EDGE_LIST_CPP
 
 #include "graph_edge_list.h"
-
 using namespace datalib;
 
 //default constructor
 template<class T>
 graph_edge_list<T>::graph_edge_list(): graph<T>(){
+	
 }
 
 //this function add a node with an edge to nullptr
@@ -19,6 +19,13 @@ void graph_edge_list<T>::addNode(const T &_x){
 	edge_list.push_back(e);
 
 }
+
+// template<class T>
+// void graph_edge_list<T>::addNode(node<T>* _x){
+// 	edge<T> e(_x,nullptr);
+// 	edge_list.push_back(e);
+// }
+
 
 template<class T>
 void graph_edge_list<T>::addEdge(const T *_src,const T *_dest){
@@ -39,22 +46,21 @@ void graph_edge_list<T>::addEdge(const T *_src,const T *_dest){
 	node<T> *src_ptr  = new node<T>(*_src);
 	node<T> *dest_ptr = new node<T>(*_dest);
 
-
 	edge<T> e(src_ptr,dest_ptr);
 
 
-	if(!node_existence(src_ptr->value))
+	//TODO da controllare, non è giusto
+	if(!node_existence(*src_ptr)){
+		this->num_edge++;
+	}
+	if(!node_existence(*dest_ptr)){
 		this->num_node++;
-	if(!node_existence(dest_ptr->value))
-		this->num_node++;
+	}
 
 	edge_list.push_back(e);
 	this->num_edge++;
-
-
 	//ragionare sui grafi orientati e non, in questo caso sto facendo 
 	//i grafi orientati, per i non posso usare un attriibuto dell'arco
-
 }
 
 template<class T>
@@ -80,7 +86,6 @@ std::vector<edge<T>> graph_edge_list<T>::getIncidentEdge(const T &_x){
 		}
 	}
 	return incident_edge;
-	
 }
 
 template<class T>
@@ -95,10 +100,8 @@ void graph_edge_list<T>::deleteNode(const T &_x){
 		else if((i->dest)->value)
 			edge_list.erase(i);
 	}
-	
+
 }
-
-
 
 
 //return true if exists an edge (_src,_dest) in the structure
@@ -144,6 +147,16 @@ template<class T>
 bool graph_edge_list<T>::node_existence(const T &_x) const{
 	for(auto &e:edge_list){
 		if((e.src)->value == _x || (e.dest)->value==_x)
+			return true;
+	}
+	return false;
+}
+
+
+template<class T>
+bool graph_edge_list<T>::node_existence(const node<T> &_x) const{
+	for(auto&e: edge_list){
+		if((e.src)->value == _x.value || (e.dest)->value==_x.value)
 			return true;
 	}
 	return false;

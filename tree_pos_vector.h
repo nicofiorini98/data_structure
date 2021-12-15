@@ -67,7 +67,10 @@ namespace datalib
 
         friend std::istream &operator>>(std::istream &is, tree_pos_vector<T> &t){
 
+            return is;
+
         }
+
         friend std::ostream &operator<<(std::ostream &os, tree_pos_vector<T> &t){
             //pre-conditions
             //format for input of a node: node parent list_children
@@ -93,6 +96,4 @@ namespace datalib
 }
 
 #include "tree_pos_vector.cpp"
-
-
 #endif

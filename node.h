@@ -5,10 +5,15 @@
 #include <list>
 #include <vector>
 #include <algorithm>
+// #include "edge.h"
 
 //todo togliere il pos nella classe node 
 namespace datalib
 {
+
+    template<class T>
+    class edge;
+
     template<class T>
     class tree_pos_vector;
 
@@ -20,6 +25,9 @@ namespace datalib
         
         //list of outgoing nodes  
         std::list<node<T>*> node_list;
+
+        //vector for inc_list
+        std::vector<edge<T>*> edge_list;
 
         node<T>* parent; 
 
@@ -101,6 +109,10 @@ namespace datalib
         
         template<class U>
         friend class graph_edge_list;
+
+        template<class U>
+        friend class graph_inc_list;
+
         // template<class S>
         // std::ostream &operator<<(std::ostream &os, tree_pos_vector<S> &t);
 

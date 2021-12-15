@@ -1,13 +1,10 @@
 #ifndef GRAPH_ADJ_LIST_H
 #define GRAPH_ADJ_LIST_H
 #include "graph.h"
-// #include "edge.h"
 #include <map>
 #include <vector>
 
 namespace datalib{
-
-
 	/**
 	 * \class GraphAdjList
 	 * \brief This class is a data structure for a graph,

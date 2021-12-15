@@ -15,6 +15,7 @@ edge<T>::edge(node<T>* _src,node<T>* _dest,int _weight,const std::string _mark){
 	dest = _dest;
 	weight = _weight;
 	mark = _mark;
+
 }
 
 template<class T>
