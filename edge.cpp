@@ -24,10 +24,12 @@ edge<T>::edge(const T *_src,const T *_dest,int _weight,const std::string _mark){
 		std::string error("you can't add a (nullptr,dest) edge\n");
 		throw error;
 	}
-	src  = new node<T>(_src);
-	dest = new node<T>(_dest);
+
+	src  = new node<T>(*_src);
+	dest = new node<T>(*_dest);
 	weight = _weight;
 	mark = _mark;
+
 }
 
 ///copy costructor

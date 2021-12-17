@@ -26,8 +26,14 @@ namespace datalib{
 
         std::map<T,node<T>*> inc_list;        
 
+        std::vector<edge<T>> edge_list;        
+
         // bool edge_existence(const T &_src,const T &_dest) const;
-        // bool edge_existence(const edge<T> _e) const;
+        bool edge_existence(const edge<T> _e) const;
+        bool node_existence(const T* _n) const;
+
+        typename std::map<T,node<T>*>::iterator getNode(const T* _n) const;
+        typename std::vector<edge<T>>::iterator getEdge(const T* _n) const;
         // std::vector<edge<T>> edge_list; 
         // std::map<T,node<T>*> adj_lists;   
 

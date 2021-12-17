@@ -234,18 +234,35 @@ int main(){
 
 #if GRAPH_INC_LIST
 
-    graph_inc_list<int>* _graph_inc_list= new graph_inc_list<int>();
+    std::cout<<"start test graph_inc_list\n";
+    
+    /* 
+    n=4 m=5
 
+    a -> 0 -> 4       0:(a,b)
+    b -> 2            1:(c,a)
+    c -> 1 -> 3       2:(b,c)
+    d                 
 
-    // _graph_inc_list.addNode(a0);
+    0:(a,b)
+    1:(c,a)
+    2:(b,c)
+    3:(c,d)
+    4:(a,d)
+    */
 
-    // _graph_inc_list.showStructure();
-    std::cout<<"corpo di cristo\n";
+    graph_inc_list<int> _graph_inc_list;
+    try{
+        _graph_inc_list.addNode(a0);
+        _graph_inc_list.addEdge(&a0,nullptr);
+    }catch(std::string _error){
+        std::cout<<_error;
+    }
+
+    _graph_inc_list.showStructure();
+    std::cout<<"finish test graph_inc_list\n";
 
 #endif
 
-
     return 0;
-
-
 }
