@@ -1,9 +1,14 @@
 #ifndef TREE_PTR_LIST_H
 #define TREE_PTR_LIST_H
+#include <iostream>
+#include <fstream>
+#include <sstream>
 #include "tree.h"
 #include "node.h"
 #include <map>
 #include <stack>
+
+
 
 /**
  * \class Tree
@@ -25,7 +30,7 @@ namespace datalib{
 
         std::map<T,node<T>*> nodes_map;
 
-        std::list<node<T>*>& getNodeList(node<T>* _x);
+        std::list<node<T>*>& getNodeList(node<T>* _x); //todo vedere se serve
         
         int getNumChildren(node<T>* _x){return _x->node_list.size();}
 
@@ -47,63 +52,41 @@ namespace datalib{
         friend std::istream &operator>>(std::istream &is, tree_ptr_list<T> &t)
         {
             //pre-conditions
-            //format for input of a node: node parent list_children
-            //Example: {3 1}, { 1 2 }
-            //Example: {a b} {l a}
-            // node x{0};
-            // node parent{0};
+            //the input work with csv format --> node2add, parent
+            //example with string:
+            //
+            //a
+            //a,l
 
-            node<T> *x = new node<T>;
-            node<T> *parent = new node<T>;
-            //get the value of x and parent
-            char tmp;
+            //se il padre non è fornito, il nodo è la radice
 
-            //TODO cambiare tipo di stringa per il valore null
-            std::string parent_string{""};
-            int i = 0;
-            while (is >> tmp)
-            {
-                if (tmp != '{')
-                {
-                    std::cerr << "errore di lettura\n";
-                    is.unget();
-                    is.clear(std::ios_base::failbit);
-                    return is;
-                }
 
-                is >> *x;
-                is >> *parent;
+            std::string line,x_string,parent_string;
+            
+            //read line-by-line 
+            while (std::getline(is, line)) {
 
-                if (!is)
-                {
-                    is.clear(std::ios_base::goodbit);
-                    is >> parent_string;
-                    if (parent_string != "null")
-                    {
-                        is.unget();
-                        is.clear(std::ios_base::failbit);
-                        std::cerr << "errore lettura2\n";
-                        return is;
-                    }
-                }
+                auto *x = new T;
+                auto *parent = new T;
 
-                is >> tmp;
-                if (is && tmp != '}')
-                {
-                    std::cerr << "errore di lettura\n";
-                    is.unget();
-                    is.clear(std::ios_base::failbit);
-                    return is;
-                }
+                std::stringstream str(line);                           //converte la riga in uno stream
+				std::getline(str, x_string, t.delimiter);              //leggo lo stream della riga fino al carattere delimitatore
+				std::stringstream str1(x_string);                      // converte il primo campo in uno stream
+                str1 >> *x;                                            //viene utilizzata la funzione >> per l'input del primo campo
 
-                if (parent_string == "null")
+                std::getline(str, parent_string, t.delimiter);         //continuo a leggere per trovare il secondo campo
+                //todo vedere se conviene utilizzare un carattere delimitatore
+                if (parent_string.empty())                
                 {
                     t.addNode(x, nullptr);
-                    parent_string = ' ';
+                    continue;
                 }
-                else
-                    t.addNode(x, parent);
+
+				std::stringstream str2(parent_string);                 //
+                str2 >> *parent;
+            	t.addNode(x,parent);
             }
+
             return is;
         }
 

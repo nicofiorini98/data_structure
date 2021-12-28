@@ -146,7 +146,7 @@ void tree_pos_vector<T>::addChildren(const T* _x,const std::list<T*> &_children)
         vec_node[pos_childrens]= child2add;
         child2add->pos=pos_childrens;
 
-        (*x_itr)->num_children++;
+        ++(*x_itr)->num_children;
     }
 }
 
@@ -189,7 +189,7 @@ void tree_pos_vector<T>::addChild(const T* _x,const T* _child){
     vec_node[pos_child]= child2add;
     vec_node[pos_child]->pos=pos_child;
 
-    (*x_itr)->num_children++;
+    ++(*x_itr)->num_children;
 }
 
 template <class T>

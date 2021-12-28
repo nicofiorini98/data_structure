@@ -21,7 +21,7 @@ tree_ptr_list<T>::~tree_ptr_list(){
     int j=0;
     //TODO 
     //questo mi genera un segmentation fault, quindi vado ad accedere ad un'area 
-    for(typename std::map<T,node<T>*>::iterator i=nodes_map.begin();  i!=nodes_map.end();i++)
+    for(typename std::map<T,node<T>*>::iterator i=nodes_map.begin();  i!=nodes_map.end();++i)
     {
         // TODO controllare questo pezzo
         std::cout<<"distruttore: "<< j <<"\n";
@@ -136,6 +136,8 @@ T tree_ptr_list<T>::getParent(const T &_x)
     // return *((nodes_map.find(_x)->second->parent)->value);
 
 	//TODO da rifare
+    T boh=_x;
+    return boh;
 
 
 }
@@ -151,6 +153,8 @@ std::list<T>& tree_ptr_list<T>::getChildren(const T &_x){
     // }
 
 	//TODO da rivedere
+    std::list<T> boh = {};
+    return boh;
 
 }
 
@@ -191,7 +195,7 @@ void tree_ptr_list<T>::visitDFS(const T* _root)
                /*  for(itr=childrens.end()--;itr != childrens.begin();itr--)
                     s.push(**itr);
                */
-               for(auto i=(childrens.rbegin());i!=childrens.rend();i++)
+               for(auto i=(childrens.rbegin());i!=childrens.rend();++i)
                     s.push(**i);
             //prendere la lista dei figli di u 
             //ed inserirli nello stack
@@ -229,6 +233,7 @@ void tree_ptr_list<T>::showTree()
 
 template<class T>
 void tree_ptr_list<T>::showStructure(){
+
     for(auto &n: nodes_map){
         if(n.second->parent)
             std::cout<<*((n.second)->parent)<<"<--";

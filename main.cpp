@@ -1,5 +1,6 @@
 #include <iostream> 
 #include <fstream>
+#include <sstream>
 #include <vector>
 #include "node.h"
 #include "edge.h"
@@ -21,17 +22,18 @@
 // std::cout<<"it took the time"<<time_span.count()<<"seconds.";
 
 #define VECTOR_FATHER 0
-#define TREE_PTR_LIST 0
+#define TREE_PTR_LIST 1
 #define POS_VECTOR 0
 #define GRAPH_ADJ_LIST 0
 #define GRAPH_EDGE_LIST 0
-#define GRAPH_INC_LIST 1
+#define GRAPH_INC_LIST 0
 #define PROVA 0 
 
 using namespace datalib;
 
 
 int main(){
+
 /* std::cout << 1234.56789 << "\t\t(defaultfloat)\n"
  // \t\t to line up columns
 << std::fixed << 1234.56789 << "\t(fixed)\n"
@@ -44,11 +46,13 @@ int main(){
     // datalib::node<int> a0{0},l1{1},b2{2};
     // datalib::node<int> e3{3},r4{4},o5{5},n{6};
 
-    int a0{0},l1{1},b2{2};
-    int e3{3},r4{4},o5{5},n{6};
+    //int a0{0},l1{1},b2{2};
+    //int e3{3},r4{4},o5{5},n{6};
 
     std::string a{"a"},l{"l"},b{"b"};
     std::string e{"e"},r{"r"},o{"o"};
+
+
 
     std::cout<<"\n";
 
@@ -106,31 +110,50 @@ int main(){
     // datalib::node<int> a0{0},l1{1},b2{2};
     // datalib::node<int> e3{3},r4{4},o5{5};
 
-    // std::ifstream ist{"../node.txt"};
-    // std::ifstream ist2{"../insert_tree.txt"};
-    std::ofstream os{"../output.txt"};
+    //std::ifstream is{"../node.txt"};
 
-    // ist.open( "../insert_tree.txt",std::ios::in);
+    std::ifstream ist2{"C:\\Users\\1dnic\\Desktop\\my_project\\data_structure\\insert_tree.txt"};
+    //std::ofstream os{"../output.txt"};
+
+	//ist2.open( "C:\Users\1dnic\Desktop\my_project\data_structure\insert_tree.txt",std::ios::in);
+    /*while(ist2.eof())
+    {
+        std::string a;
+        std::cout<< a;
+    }*/
 
     //std::list<node*> children;
 
-    tree_ptr_list<std::string> *t = new tree_ptr_list<std::string>(2);
-    // tree_ptr_list<std::string> tfile;
-    // ist2>>tfile;
+    auto *t = new tree_ptr_list<std::string>(2);
 
-    try{
-        t->addNode(&a);
-        t->addNode(&l,&a);
-        t->addNode(&b,&a);
-        // t->addNode(&e,&a);
-        // t->addNode(&r,&a);
-        // t->addNode(&o,&b);    //
-    }catch(std::string _error){
-        std::cout<<_error<<"\n";
-    }
 
-    // std::cout<<*t;
-    t->showStructure();
+    auto *tfile = new tree_ptr_list<std::string>(5);
+    ist2>>*tfile;
+
+    t->addNode(&a);
+	t->addNode(&l,&a);
+	t->addNode(&b,&a);
+	t->addNode(&e,&l);
+	t->addNode(&r,&l);
+    t->addNode(&o,&b);
+    /*}
+
+
+ //   if(ist2.is_open())
+	//{
+		//ist2 >> *t;
+		//t->addNode(&a);
+		//t->addNode(&l,&a);
+		//t->addNode(&b,&a);
+		// t->addNode(&e,&a);
+		// t->addNode(&r,&a);
+		// t->addNode(&o,&b);   
+    /*}
+    else
+        std::cout << "file non aperto\n";
+    */
+
+    tfile->showStructure();
     // t->showTreePtr();
 
 
@@ -234,7 +257,7 @@ int main(){
 
 #if GRAPH_INC_LIST
 
-    std::cout<<"start test graph_inc_list\n";
+    std::cout<<"stsr\n";
     
     /* 
     n=4 m=5
@@ -251,18 +274,21 @@ int main(){
     4:(a,d)
     */
 
-    graph_inc_list<int> _graph_inc_list;
-    try{
-        _graph_inc_list.addNode(a0);
-        _graph_inc_list.addEdge(&a0,nullptr);
+    int a{ 0 }, b{ 1 }, c{ 2 }, d{ 3 };
+
+	graph_inc_list<int> _graph;
+	try{
+		_graph.addEdge(&a,&b);
+        _graph.addEdge(&c,&a);
+        _graph.addEdge(&b,&c);
+        _graph.addEdge(&c, &d);
+        _graph.addEdge(&a, &d);
     }catch(std::string _error){
-        std::cout<<_error;
+        std::cout<<_error<<"\n";
     }
 
-    _graph_inc_list.showStructure();
-    std::cout<<"finish test graph_inc_list\n";
+    _graph.showStructure();
 
 #endif
-
     return 0;
 }

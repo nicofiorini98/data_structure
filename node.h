@@ -46,6 +46,8 @@ namespace datalib
     public:
         ///\param _value is for initialize the value 
 
+        node(){}
+
         node(T _value);
 
         ~node();
@@ -126,7 +128,7 @@ namespace datalib
     {
         int i=0;
         typename std::vector<node<T>*>::iterator appo;
-        for(appo = begin ; appo != end; appo++){
+        for(appo = begin ; appo != end; ++appo){
 
             //if appo is nullptr, don't check equality, it is certainly different
             if(*appo==nullptr)

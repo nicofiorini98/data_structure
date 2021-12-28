@@ -51,14 +51,14 @@ void graph_edge_list<T>::addEdge(const T *_src,const T *_dest){
 
 	//TODO da controllare, non è giusto
 	if(!node_existence(*src_ptr)){
-		this->num_edge++;
+		++this->num_edge;
 	}
 	if(!node_existence(*dest_ptr)){
-		this->num_node++;
+		++this->num_node;
 	}
 
 	edge_list.push_back(e);
-	this->num_edge++;
+	++this->num_edge;
 	//ragionare sui grafi orientati e non, in questo caso sto facendo 
 	//i grafi orientati, per i non posso usare un attriibuto dell'arco
 }
@@ -93,7 +93,7 @@ void graph_edge_list<T>::deleteNode(const T &_x){
 
 	typename std::vector<edge<T>>::iterator i;
 	typename std::vector<T> appo;
-	for(i = edge_list.begin();i<edge_list.end();i++){
+	for(i = edge_list.begin();i<edge_list.end();++i){
 		if((i->src)->value == _x){
 			edge_list.erase(i);
 		}

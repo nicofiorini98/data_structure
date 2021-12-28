@@ -20,6 +20,7 @@ namespace datalib{
     template<class T>
     class tree {
     protected:
+        char delimiter = ',';
         int num_nodes;
     public: 
         ///Costructor
@@ -27,7 +28,9 @@ namespace datalib{
         ///virtual destructor
         virtual ~tree(){}
 
-        ///return the number of nodes of the Tree 
+        void setDelimiter(const char _delimiter){delimiter = _delimiter;}
+
+			///return the number of nodes of the Tree 
         virtual int numNodes(){return num_nodes;}
         ///return the number of sons for the node x
         // virtual int getDegree(const node<T> &x)=0;

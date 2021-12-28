@@ -17,7 +17,7 @@ namespace datalib{
         edge(node<T>* _src,node<T>* _dest,int _weight=0,const std::string _mark="");
     public: 
         ///costructor
-        edge(const T *_src,const T *_dest,int _weight=0,const std::string _mark=""); 
+        edge(const T *_src,const T *_dest,int _weight=0,const std::string &_mark=""); 
         ///copy costructor
         edge(const edge<T>& _x);
         ~edge(){}
@@ -25,7 +25,7 @@ namespace datalib{
         T getSourceValue() const {return (src->value);}
         T getDestinationValue() const {return (dest->value);}
 
-        friend std::ostream &operator<<(std::ostream &os,const edge<T>& _edge){
+        friend std::ostream& operator<<(std::ostream &os,const edge<T>& _edge){
             os <<"( "<< _edge.getSourceValue()<<" "<< _edge.getDestinationValue()<<" )";
             return os;
         }

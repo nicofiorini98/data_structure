@@ -54,7 +54,7 @@ node<T>* graph_adj_list<T>::private_addNode(const T &_x){
     //if node doesn't exist in the map, create it
     node<T> *src = new node<T>(_x);
     adj_lists.insert(std::pair<T,node<T>*>(src->value,src));
-    this->num_node++;
+    ++this->num_node;
     return src;
 }
 
@@ -65,7 +65,7 @@ void graph_adj_list<T>::addNode(const T &_x){
     //if node doesn't exist in the map, create it
     node<T> *src = new node<T>(_x);
     adj_lists.insert(std::pair<T,node<T>*>(src->value,src));
-    this->num_node++;
+    ++this->num_node;
 }
 
 template<class T>

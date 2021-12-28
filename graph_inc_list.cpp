@@ -8,17 +8,24 @@ using namespace datalib;
 //default constructor
 template<class T>
 graph_inc_list<T>::graph_inc_list():graph<T>(){
+	
 
 }
 
 template<class T>
 void graph_inc_list<T>::addNode(const T &_x){
 
-	node<T>* src_ptr = new node<T>(_x);
-	// inc_list.insert(std::pair<T,node<T>*>(src_ptr->value,src_ptr)); 
-	inc_list.insert({src_ptr->value,src_ptr}); 
-	this->num_node++;
+	node<T>* x_ptr = new node<T>(_x);
 
+	inc_list.insert({x_ptr->value,x_ptr}); 
+	++this->num_node;
+	//std::cout << "inserito nodo:" << *x_ptr;
+
+}
+
+template<class T>
+void graph_inc_list<T>::addEdge(const edge<T>& _edge){
+	addEdge(_edge.getSourceValue(),_edge.getDestinationValue());
 }
 
 template<class T>
@@ -39,22 +46,29 @@ void graph_inc_list<T>::addEdge(const T *_src,const T *_dest){
 		throw error;
 	}
 
-	edge<T> e(_src,_dest); //(non voglio dire niente, ma mesa st'arco viene eliminato)
-	if(edge_existence(e)){
-		std::string error("cannot insert same edge");
+	edge<T>* e = new edge<T>(_src,_dest);
+
+	if(edge_existence(*e)){
+		std::string error("cannot insert same edge\n");
 		throw error;
 	}
 
-	if(!node_existence(_src))
-		addNode(*_src);
-
-	if(!node_existence(_dest))
-		addNode(*_dest);
-
-	edge_list.push_back(e);
-
 	typename std::map<T,node<T>*>::iterator src_itr;
+	src_itr = inc_list.find(*_src);
 
+	if(src_itr==inc_list.end()){
+		addNode(*_src);
+	}
+
+	typename std::map<T,node<T>*>::iterator dest_itr;
+	dest_itr = inc_list.find(*_dest);
+
+	if (dest_itr == inc_list.end()) {
+		addNode(*_dest);
+	}
+	
+	edge_list.push_back(e);
+	//(src_itr->second)->edge_list.push_back(e);  //riga che da problemi, controllare
 
 }
 
@@ -63,21 +77,35 @@ template<class T>
 void graph_inc_list<T>::showStructure() const{
 
 	for(auto &n: inc_list )
+	{
 		std::cout<<*(n.second)<<"\n";
+		//for(auto e: (n.second)->edge_list){
+			//std::cout << e;
+		//}
+	}
 
+
+	/*std::cout << "stampa edge_list\n";
+	for(auto e: this->edge_list)
+	{
+		std::cout << e << "\n";
+	}*/
 }
 
-template<class T>
-bool graph_inc_list<T>::edge_existence(const edge<T> _e) const{
 
-	for(auto &e: edge_list ){
-		if(((e.getSourceValue()) == _e.getSourceValue()) && 
-			 (e.getDestinationValue() == _e.getDestinationValue()))
-			 return true;
-	}
+//TODO controllare
+template<class T>
+bool graph_inc_list<T>::edge_existence(const edge<T> &_e) const{
+
+	//for(auto &e: edge_list ){
+	//	// if(((e.getSourceValue()) == _e.getSourceValue()) && 
+	//	// 	 (e.getDestinationValue() == _e.getDestinationValue()))
+	//	// 	 return true;
+	//}
 	return false;
 }
 
+//TODO controllare
 template<class T>
 bool graph_inc_list<T>::node_existence(const T* _x) const{
 
@@ -88,9 +116,5 @@ bool graph_inc_list<T>::node_existence(const T* _x) const{
 	return false;
 }
 
-template<class T>
-typename std::map<T,node<T>*>::iterator graph_inc_list<T>::getNode(const T* _n) const{
-
-}
 
 #endif

@@ -25,12 +25,11 @@ namespace datalib{
     private: 
 
         std::map<T,node<T>*> inc_list;        
-
-        std::vector<edge<T>> edge_list;        
+        std::vector<edge<T>*> edge_list;        
 
         // bool edge_existence(const T &_src,const T &_dest) const;
-        bool edge_existence(const edge<T> _e) const;
-        bool node_existence(const T* _n) const;
+        bool edge_existence(const edge<T> &_e) const;
+        bool node_existence(const T* _x) const;
 
         typename std::map<T,node<T>*>::iterator getNode(const T* _n) const;
         typename std::vector<edge<T>>::iterator getEdge(const T* _n) const;
@@ -47,25 +46,25 @@ namespace datalib{
         virtual ~graph_inc_list(){} 
 
         ///add a Node x in the graph
-        void addNode(const T &_x);
+        void addNode(const T &_x) override;
 
-        int degree(const T &_x){}
+        int degree(const T& _x) override { return 0; }
 
         ///add an Edge (x,y) in the graph
-        void addEdge(const T *_src,const T *_dest);
-        void addEdge(const edge<T>& _edge){}
-        void deleteNode(const T &_x){}                        //remove a Node in the graphj
-        void deleteEdge(const T &_src,const T &_dest){}       //remove a Edge in the graph
+        void addEdge(const T *_src,const T *_dest)override;
+        void addEdge(const edge<T>& _edge);
+        void deleteNode(const T &_x)override{}                       //remove a Node in the graphj
+        void deleteEdge(const T &_src,const T &_dest)override{}       //remove a Edge in the graph
         // void deleteEdge(const Edge &_edge);               //remove a Edge in the graph
 		// int grade(const T &_x){}
 
-        std::vector<edge<T>> getIncidentEdge(const T &_x){}          //return the incident edge of the Node x
-        void getAdjNode(const T &_x){}
+        std::vector<edge<T>> getIncidentEdge(const T& _x) override { std::vector<edge<T>> togliere;  return togliere; }          //return the incident edge of the Node x
+        void getAdjNode(const T &_x) override{}
 
         void showStructure() const;
         void showNode() const;
         //void showGraphPos() const;
-        void showGraphValue() const{};
+        void showGraphValue() const{}
     };
 
 }
