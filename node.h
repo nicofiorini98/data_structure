@@ -27,7 +27,7 @@ namespace datalib
         std::list<node<T>*> node_list;
 
         //vector for inc_list
-        std::vector<edge<T>*> edge_list;
+        std::vector<edge<T>*> connected_edges;
 
         node<T>* parent; 
 

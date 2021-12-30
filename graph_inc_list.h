@@ -31,10 +31,11 @@ namespace datalib{
         bool edge_existence(const edge<T> &_e) const;
         bool node_existence(const T* _x) const;
 
-        typename std::map<T,node<T>*>::iterator getNode(const T* _n) const;
-        typename std::vector<edge<T>>::iterator getEdge(const T* _n) const;
+        //typename std::map<T,node<T>*>::iterator getNode(const T* _n) const;
+        //typename std::vector<edge<T>>::iterator getEdge(const T* _n) const;
         // std::vector<edge<T>> edge_list; 
         // std::map<T,node<T>*> adj_lists;   
+
 
     public:
         ///Default costructor for the GraphAdjList
@@ -51,11 +52,11 @@ namespace datalib{
         int degree(const T& _x) override { return 0; }
 
         ///add an Edge (x,y) in the graph
-        void addEdge(const T *_src,const T *_dest)override;
+        void addEdge(const T *_src,const T *_dest) override;
         void addEdge(const edge<T>& _edge);
-        void deleteNode(const T &_x)override{}                       //remove a Node in the graphj
+        void deleteNode(const T& _x)override;                         //remove a Node in the graphj
         void deleteEdge(const T &_src,const T &_dest)override{}       //remove a Edge in the graph
-        // void deleteEdge(const Edge &_edge);               //remove a Edge in the graph
+        // void deleteEdge(const Edge &_edge);                        //remove a Edge in the graph
 		// int grade(const T &_x){}
 
         std::vector<edge<T>> getIncidentEdge(const T& _x) override { std::vector<edge<T>> togliere;  return togliere; }          //return the incident edge of the Node x

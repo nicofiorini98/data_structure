@@ -22,11 +22,11 @@
 // std::cout<<"it took the time"<<time_span.count()<<"seconds.";
 
 #define VECTOR_FATHER 0
-#define TREE_PTR_LIST 1
+#define TREE_PTR_LIST 0
 #define POS_VECTOR 0
 #define GRAPH_ADJ_LIST 0
 #define GRAPH_EDGE_LIST 0
-#define GRAPH_INC_LIST 0
+#define GRAPH_INC_LIST 1
 #define PROVA 0 
 
 using namespace datalib;
@@ -257,7 +257,6 @@ int main(){
 
 #if GRAPH_INC_LIST
 
-    std::cout<<"stsr\n";
     
     /* 
     n=4 m=5
@@ -274,20 +273,20 @@ int main(){
     4:(a,d)
     */
 
-    int a{ 0 }, b{ 1 }, c{ 2 }, d{ 3 };
 
-	graph_inc_list<int> _graph;
+
+	graph_inc_list<std::string> _graph;
 	try{
-		_graph.addEdge(&a,&b);
-        _graph.addEdge(&c,&a);
-        _graph.addEdge(&b,&c);
-        _graph.addEdge(&c, &d);
-        _graph.addEdge(&a, &d);
-    }catch(std::string _error){
+        _graph.addEdge(&a, &l);
+        _graph.addEdge(&a, &b);
+        _graph.addEdge(&b, &a);
+        _graph.addEdge(&l, &e);
+        _graph.addEdge(&e, &a);
+    }catch(std::string &_error){
         std::cout<<_error<<"\n";
     }
 
-    _graph.showStructure();
+    _graph.showStructure(); //is only for debug
 
 #endif
     return 0;

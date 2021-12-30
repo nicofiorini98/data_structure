@@ -26,7 +26,7 @@ namespace datalib{
         T getDestinationValue() const {return (dest->value);}
 
         friend std::ostream& operator<<(std::ostream &os,const edge<T>& _edge){
-            os <<"( "<< _edge.getSourceValue()<<" "<< _edge.getDestinationValue()<<" )";
+            os <<_edge.getSourceValue()<<","<< _edge.getDestinationValue()<<"\n";
             return os;
         }
 
