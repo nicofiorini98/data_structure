@@ -24,7 +24,6 @@ tree_ptr_list<T>::~tree_ptr_list(){
     for(typename std::map<T,node<T>*>::iterator i=nodes_map.begin();  i!=nodes_map.end();++i)
     {
         // TODO controllare questo pezzo
-        std::cout<<"distruttore: "<< j <<"\n";
         delete i->second;
         // nodes_map.erase(i); //this bring to segmentation fault 
         j++;
@@ -34,6 +33,7 @@ tree_ptr_list<T>::~tree_ptr_list(){
 template<class T>
 void tree_ptr_list<T>::addNode(const T* _x,const T *_parent)
 {
+
     node<T>* x_ptr;
 
     //x_itr and parent_itr are dependent names
@@ -53,14 +53,20 @@ void tree_ptr_list<T>::addNode(const T* _x,const T *_parent)
         std::string error("you cannot add a null node\n");
         throw error;
     }
+
+
     if(_parent){
         parent_itr=nodes_map.find(*_parent);
-
+        if(parent_itr == nodes_map.end()){
+            std::string error("aooooo");
+            throw error;
+        }
         //check the degree of the parent
         if(((parent_itr->second)->node_list.size())>= degree){
             std::string error("the node is reached max degree\n");
             throw error;
         }
+
     }
     
     //check if x already exists

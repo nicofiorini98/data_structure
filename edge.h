@@ -15,6 +15,7 @@ namespace datalib{
         int weight;
         std::string mark;
         edge(node<T>* _src,node<T>* _dest,int _weight=0,const std::string _mark="");
+        
     public: 
         ///costructor
         edge(const T *_src,const T *_dest,int _weight=0,const std::string &_mark=""); 
@@ -32,6 +33,9 @@ namespace datalib{
 
         template<class U>
         friend class graph_edge_list;
+
+        template<class U>
+        friend class graph_inc_list;
         
         // friend class graph_adj_list;
         // friend class tree_parent_vector;

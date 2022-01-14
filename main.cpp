@@ -49,12 +49,11 @@ int main(){
     //int a0{0},l1{1},b2{2};
     //int e3{3},r4{4},o5{5},n{6};
 
-    std::string a{"a"},l{"l"},b{"b"};
-    std::string e{"e"},r{"r"},o{"o"};
+    std::string a{"a"},b{"b"},c{"c"};
+    std::string d{"d"},e{"e"},f{"f"},g{"g"};
 
 
 
-    std::cout<<"\n";
 
 #if POS_VECTOR 
 
@@ -273,20 +272,45 @@ int main(){
     4:(a,d)
     */
 
-
-
 	graph_inc_list<std::string> _graph;
 	try{
-        _graph.addEdge(&a, &l);
-        _graph.addEdge(&a, &b);
-        _graph.addEdge(&b, &a);
-        _graph.addEdge(&l, &e);
-        _graph.addEdge(&e, &a);
+
+        _graph.addEdge(&a,&b);
+        _graph.addEdge(&b,&a);
+        _graph.addEdge(&a,&c);
+        _graph.addEdge(&c,&a);
+        _graph.addEdge(&a,&d);
+        _graph.addEdge(&d,&a);
+        _graph.addEdge(&b,&c);
+        _graph.addEdge(&c,&b);
+        _graph.addEdge(&c,&d);
+        _graph.addEdge(&d,&c);
+        _graph.addEdge(&c,&e);
+        _graph.addEdge(&e,&c);
+        _graph.addEdge(&e,&f);
+        _graph.addEdge(&f,&e);
+        _graph.addEdge(&f,&g);
+        _graph.addEdge(&g,&f);
+        _graph.addEdge(&e,&g);
+        _graph.addEdge(&g,&e);
+
+        // std::cout<<"il grado del nodo è: "<<_graph.degree("n")<<"\n";
     }catch(std::string &_error){
         std::cout<<_error<<"\n";
     }
+    //_tree_prova.showStructure();
 
-    _graph.showStructure(); //is only for debug
+    tree_ptr_list<std::string> _tree;
+    _graph.breadthFirstSearch(b,_tree);
+    _tree.showStructure();
+
+    // _graph.showStructure(); //is only for debug
+    //_graph.showNode();
+
+    //prova tree
+    // tree_ptr_list<std::string> _tree;
+    // _tree.addNode(&a);
+    //_tree.addNode(&l,&a);
 
 #endif
     return 0;

@@ -7,7 +7,7 @@ using namespace datalib;
 template<class T>
 edge<T>::edge(node<T>* _src,node<T>* _dest,int _weight,const std::string _mark){
 
-	if(src==nullptr){
+	if(_src==nullptr){
 		std::string error("you can't add a (nullptr,dest) edge\n");
 		throw error;
 	}
@@ -21,7 +21,8 @@ edge<T>::edge(node<T>* _src,node<T>* _dest,int _weight,const std::string _mark){
 //todo ricontrollare questa funzione, non sono convinto che va bene 
 template<class T>
 edge<T>::edge(const T *_src,const T *_dest,int _weight,const std::string &_mark){
-	if(src==nullptr){
+
+	if(_src==nullptr){
 		std::string error("you can't add a (nullptr,dest) edge\n");
 		throw error;
 	}

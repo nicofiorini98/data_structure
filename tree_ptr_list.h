@@ -29,7 +29,6 @@ namespace datalib{
         node<T> *root;
 
         std::map<T,node<T>*> nodes_map;
-
         std::list<node<T>*>& getNodeList(node<T>* _x); //todo vedere se serve
         
         int getNumChildren(node<T>* _x){return _x->node_list.size();}
@@ -42,7 +41,7 @@ namespace datalib{
 
         /// \param _degree Costructor with default parameter,
         /// if degree is not specified, Tree doesn't have a particular degree
-        tree_ptr_list(int _degree);
+        tree_ptr_list(int _degree=4);
 
         ///virtual destructor
         ~tree_ptr_list();
@@ -58,7 +57,7 @@ namespace datalib{
             //a
             //a,l
 
-            //se il padre non è fornito, il nodo è la radice
+            //se il padre non Ã¨ fornito, il nodo Ã¨ la radice
 
 
             std::string line,x_string,parent_string;
@@ -112,7 +111,7 @@ namespace datalib{
         ///print the node following a DFS visit
         void visitDFS(const T* _root);
         ///print the node following BFS visit
-        void visitBFS(const T* _root);
+        void visitBFS(const T* _root);  // todo da fare
         void showTree();
         void showTreePtr();
         void showStructure();

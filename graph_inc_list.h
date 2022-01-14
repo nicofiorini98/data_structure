@@ -25,17 +25,17 @@ namespace datalib{
     private: 
 
         std::map<T,node<T>*> inc_list;        
-        std::vector<edge<T>*> edge_list;        
+        std::list<edge<T>*> edge_list;        
 
         // bool edge_existence(const T &_src,const T &_dest) const;
         bool edge_existence(const edge<T> &_e) const;
+        bool edge_existence(const T* _src,const T* _dest) const;
         bool node_existence(const T* _x) const;
 
         //typename std::map<T,node<T>*>::iterator getNode(const T* _n) const;
         //typename std::vector<edge<T>>::iterator getEdge(const T* _n) const;
         // std::vector<edge<T>> edge_list; 
         // std::map<T,node<T>*> adj_lists;   
-
 
     public:
         ///Default costructor for the GraphAdjList
@@ -49,25 +49,30 @@ namespace datalib{
         ///add a Node x in the graph
         void addNode(const T &_x) override;
 
-        int degree(const T& _x) override { return 0; }
+        ///return the max degree of the graph
+        int max_degree() override;
+        ///return the degree of the node _x
+        int degree(const T& _x) override;
 
         ///add an Edge (x,y) in the graph
         void addEdge(const T *_src,const T *_dest) override;
         void addEdge(const edge<T>& _edge);
-        void deleteNode(const T& _x)override;                         //remove a Node in the graphj
-        void deleteEdge(const T &_src,const T &_dest)override{}       //remove a Edge in the graph
-        // void deleteEdge(const Edge &_edge);                        //remove a Edge in the graph
-		// int grade(const T &_x){}
+        void deleteNode(const T& _x)override;                         //remove a Node in the graph
+        void deleteEdge(const T &_src,const T &_dest) override;       //remove a Edge in the graph
+        void deleteEdge(const edge<T>& _edge);                        //remove a Edge in the graph
 
+        //TODO cambiare in list
         std::vector<edge<T>> getIncidentEdge(const T& _x) override { std::vector<edge<T>> togliere;  return togliere; }          //return the incident edge of the Node x
+
+        bool isAdjacent(const T &_src,const T &_dest) override;       //return true if the edge(x,y) exist, else return false
         void getAdjNode(const T &_x) override{}
+        void breadthFirstSearch(const T& _first_node,tree_ptr_list<T>& _tree) override;
 
         void showStructure() const;
         void showNode() const;
-        //void showGraphPos() const;
         void showGraphValue() const{}
-    };
 
+    };
 }
 
 #include "graph_inc_list.cpp"

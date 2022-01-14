@@ -10,6 +10,7 @@
 //todo togliere il pos nella classe node 
 namespace datalib
 {
+    enum marking {unexplored,open,closed};
 
     template<class T>
     class edge;
@@ -23,12 +24,13 @@ namespace datalib
         //only implementation of data structure 
         //can define the parent of a node 
         
+
+        marking mark = unexplored;
+
         //list of outgoing nodes  
         std::list<node<T>*> node_list;
-
         //vector for inc_list
-        std::vector<edge<T>*> connected_edges;
-
+        std::list<edge<T>*> connected_edges;
         node<T>* parent; 
 
         T value;
@@ -59,6 +61,7 @@ namespace datalib
         ///setter
         void setValue(T _value) {value=_value;}
 
+        //todo controllare
         void operator=(const node<T>& x);
         ///overloading operator ==
         bool operator==(const node<T>& x) const;    
