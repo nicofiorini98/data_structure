@@ -1,7 +1,7 @@
 #ifndef TREE_PTR_LIST_H
 #define TREE_PTR_LIST_H
 #include <iostream>
-#include <fstream>
+//#include <fstream>
 #include <sstream>
 #include "tree.h"
 #include "node.h"

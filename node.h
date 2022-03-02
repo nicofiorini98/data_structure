@@ -5,6 +5,7 @@
 #include <list>
 #include <vector>
 #include <algorithm>
+
 // #include "edge.h"
 
 //todo togliere il pos nella classe node 

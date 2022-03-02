@@ -77,13 +77,10 @@ void graph_inc_list<T>::addEdge(const T *_src,const T *_dest){
 	edge<T> *e = new edge<T>(src_itr->second,dest_itr->second);
 	//std::cout<<"boh\n";
 
-
-
 	//aggiungere arco alle strutture
 	edge_list.push_back(e);
 	(src_itr->second)->connected_edges.push_back(e);
 
-	return;
 }
 
 
@@ -164,17 +161,22 @@ int graph_inc_list<T>::max_degree(){
 			max = (n.second)->connected_edges.size();
 	}
 
+	return max;
+
 }
 
 template<class T>
 int graph_inc_list<T>::degree(const T& _x){
 
-	for(auto &n: inc_list){
-		if(*n.second == _x)
-			return ((*n.second).connected_edges.size());
-	}
-	std::string error("degree: il nodo non esiste");
-	throw error;
+	// for(auto &n: inc_list){
+	// 	if(*n.second == _x)
+	// 		return ((*n.second).connected_edges.size());
+	// 	else{
+	// 		std::string error("degree: il nodo non esiste");
+	// 		throw error;
+	// 	}
+	// }
+
 }
 
 //todo controllare
@@ -182,6 +184,8 @@ template<class T>
 bool graph_inc_list<T>::isAdjacent(const T &_src, const T &_dest){
 	//edge<T> e(_src,_dest);
 	//return edge_existence(e);
+	//TODO da fare
+	return false;
 }
 
 
@@ -251,10 +255,6 @@ void graph_inc_list<T>::breadthFirstSearch(const T& _first_node,tree_ptr_list<T>
 		}
 	}
 }
-
-
-
-
 
 
 
