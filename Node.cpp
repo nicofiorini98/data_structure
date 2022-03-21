@@ -1,16 +1,18 @@
 #ifndef NODE_CPP
 #define NODE_CPP
 
-#include "node.h"
+#include "Node.h"
+#include "city.h"
 #include <algorithm>
 
 using namespace datalib;
 
 template<class T>
-node<T>::node(T _value){
+Node<T>::Node(T _value){
 
+    //todo vedere se pos mi serve ancora
     //initialization
-    value=_value;
+    value = _value;
     pos=-1;
     num_children=0;
     parent=nullptr;
@@ -20,7 +22,7 @@ node<T>::node(T _value){
 }
 
 template<class T>
-node<T>::node(T _value,node<T>* _parent){
+Node<T>::Node(T _value, Node<T>* _parent){
 
             value=_value;
             pos=-1;
@@ -31,26 +33,24 @@ node<T>::node(T _value,node<T>* _parent){
 } 
 
 template<class T>
-node<T>::node(const node<T>& x){
-
+Node<T>::Node(const Node<T>& x){
     value = x.value;
     node_list = x.node_list;
     parent = x.parent;
     pos = x.pos;
     num_children = x.num_children;
-    mark=unexplored;
+    mark = unexplored;
+}
+
+
+template<class T>
+Node<T>::~Node(){
 
 }
 
 
 template<class T>
-node<T>::~node(){
-    
-}
-
-
-template<class T>
-bool node<T>::operator==(const node<T>& x) const{
+bool Node<T>::operator==(const Node<T>& x) const{
     if(x.value==value)
         return true;
     else
@@ -58,16 +58,16 @@ bool node<T>::operator==(const node<T>& x) const{
 }
 
 template<class T>
-void node<T>::operator=(const node<T>& x) 
-{
+Node<T>& Node<T>::operator=(const Node<T>& x){
     value = x.value;
     node_list = x.node_list;
     pos = x.pos;
-    parent = x.parent;   
+    parent = x.parent;
+    return *this;
 }
 
 template<class T>
-bool node<T>::operator<(const node<T>& x) const{
+bool Node<T>::operator<(const Node<T>& x) const{
 
     if(x.value<value)
         return true;
@@ -76,7 +76,7 @@ bool node<T>::operator<(const node<T>& x) const{
 }
 
 template<class T>
-bool node<T>::operator<=(const node<T>& x) const{
+bool Node<T>::operator<=(const Node<T>& x) const{
 
     if(x.value<=value)
         return true;
@@ -85,7 +85,7 @@ bool node<T>::operator<=(const node<T>& x) const{
 }
 
 template<class T>
-bool node<T>::operator>(const node<T>& x) const{
+bool Node<T>::operator>(const Node<T>& x) const{
 
     if(x.value>value)
         return true;
@@ -94,7 +94,7 @@ bool node<T>::operator>(const node<T>& x) const{
 }
 
 template<class T>
-bool node<T>::operator>=(const node<T>& x) const{
+bool Node<T>::operator>=(const Node<T>& x) const{
 
     if(x.value>=value)
         return true;
@@ -103,7 +103,7 @@ bool node<T>::operator>=(const node<T>& x) const{
 }
 
 template<class T>
-bool node<T>::operator!=(const node<T>& x) const{
+bool Node<T>::operator!=(const Node<T>& x) const{
     if(x.value==value)
         return false;
     else
@@ -119,9 +119,9 @@ bool node<T>::operator!=(const node<T>& x) const{
 
 // O(n log(n))
 template<class T>
-void node<T>::addChildren(const std::list<node<T>*>& _children){ 
+void Node<T>::addChildren(const std::list<Node<T>*>& _children){
 
-    typename std::list<node<T>*>::iterator itr;
+    typename std::list<Node<T>*>::iterator itr;
 
     for(auto& child: _children)
     {

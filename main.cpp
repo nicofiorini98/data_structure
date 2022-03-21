@@ -3,13 +3,13 @@
 #include <sstream>
 #include <vector>
 #include "city.h"
-#include "node.h"
-#include "edge.h"
-#include "graph_adj_list.h"
-#include "graph_edge_list.h"
-#include "graph_inc_list.h"
-#include "tree_ptr_list.h"
-#include "tree_pos_vector.h"
+#include "Node.h"
+#include "Edge.h"
+#include "GraphAdjList.h"
+#include "GraphEdgeList.h"
+#include "GraphIncList.h"
+#include "TreePtrList.h"
+#include "TreePosVector.h"
 //#include <chrono>
 
 //using namespace std;
@@ -22,12 +22,11 @@
 
 // std::cout<<"it took the time"<<time_span.count()<<"seconds.";
 
-#define VECTOR_FATHER 0
 #define TREE_PTR_LIST 0
 #define POS_VECTOR 0
 #define GRAPH_ADJ_LIST 0
-#define GRAPH_EDGE_LIST 0
-#define GRAPH_INC_LIST 1
+#define GRAPH_EDGE_LIST 1
+#define GRAPH_INC_LIST 0
 #define PROVA 0 
 
 
@@ -44,8 +43,6 @@ int main(){
 < < std::scientific << 1234.56789 << "\t(scientific)\n";
 */
 
-    // datalib::node<std::string> a0{"a"},l1{"l"},b2{"b"};
-    // datalib::node<std::string> e3{"e"},r4{"r"},o5{"o"},n{"n"};
 
     // datalib::node<int> a0{0},l1{1},b2{2};
     // datalib::node<int> e3{3},r4{4},o5{5},n{6};
@@ -53,13 +50,7 @@ int main(){
     //int a0{0},l1{1},b2{2};
     //int e3{3},r4{4},o5{5},n{6};
 
-    std::string a{"a"},b{"b"},c{"c"};
-    std::string d{"d"},e{"e"},f{"f"},g{"g"};
-
-
-
-
-#if POS_VECTOR 
+#if POS_VECTOR
 
 
     std::cout<<"Prova vettore posizione: \n";
@@ -88,7 +79,7 @@ int main(){
     vec_node.push_back(&b2);
     vec_node.push_back(&e3);
     vec_node.push_back(&boh;
-    graph_inc_list<int> _graph_inc_list;
+    GraphIncList<int> _graph_inc_list;
 
     _graph_inc_list.addNode(a0);
 
@@ -110,8 +101,8 @@ int main(){
 
 #if TREE_PTR_LIST
 
-    // datalib::node<int> a0{0},l1{1},b2{2};
-    // datalib::node<int> e3{3},r4{4},o5{5};
+    std::string a{"a"},l{"l"},b{"b"};
+    std::string e{"e"},r{"r"},o{"o"},n{"n"};
 
     //std::ifstream is{"../node.txt"};
 
@@ -127,18 +118,29 @@ int main(){
 
     //std::list<node*> children;
 
-    auto *t = new tree_ptr_list<std::string>(2);
+    auto *t = new TreePtrList<std::string>(2);
 
 
-    auto *tfile = new tree_ptr_list<std::string>(5);
+    auto *tfile = new TreePtrList<std::string>(5);
     ist2>>*tfile;
 
-    t->addNode(&a);
-	t->addNode(&l,&a);
-	t->addNode(&b,&a);
-	t->addNode(&e,&l);
-	t->addNode(&r,&l);
-    t->addNode(&o,&b);
+    try{
+        t->addNode(&a);
+        t->addNode(&l,&a);
+        t->addNode(&b,&a);
+        t->addNode(&e,&l);
+        t->addNode(&r,&l);
+        t->addNode(&o,&b);
+    }
+    catch(std::string error){
+        std::cout<<error<<"\n";
+    }
+
+    t->updateParent(r,b);
+    t->showStructure();
+
+
+
     /*}
 
 
@@ -201,7 +203,7 @@ int main(){
 
 #if GRAPH_ADJ_LIST
 
-    graph_adj_list<int> *_graph = new graph_adj_list<int>();
+    GraphAdjList<int> *_graph = new GraphAdjList<int>();
 
     _graph->addNode(a0); // It's redundant
     _graph->addEdge(l1,b2);
@@ -223,44 +225,38 @@ int main(){
 
 #endif
 
-
 #if GRAPH_EDGE_LIST
 
-    graph_edge_list<int>* _graph = new graph_edge_list<int>();
-    
-    // _graph->addNode(a0);
-    // _graph->addNode(l1);
-    try{
-        _graph->addEdge(&a0,&l1);
-        _graph->addEdge(&l1,&a0);
-        _graph->addEdge(&b2,&a0);
-        _graph->addEdge(&l1,&b2);
-        _graph->addEdge(&a0,&b2);
+    //std::string a{"a"},b{"b"},c{"c"};
+    //std::string d{"d"},e{"e"},f{"f"},g{"g"};
 
-    }catch(std::string _error){
-        std::cout<<_error<<"\n";
+    GraphIncList<std::string> _graph;
+
+    std::fstream input;
+    input.open( "../oriented_graph.txt",std::ios::in);
+
+    if(input.is_open()){
+        input>>_graph;
     }
+    else
+        std::cout<<"file non aperto\n";
 
-    std::vector<edge<int>> incident_edge;
+    //_graph.showStructure();
+    std::list<Edge<std::string>> _list;
+    _graph.getOutgoingEdges("a",_list);
 
-    incident_edge = _graph->getIncidentEdge(a0);
-
-    std::cout<<(*_graph);
-
-    std::cout<<"grado di 2: "<<_graph->degree(a0);
-    std::cout<<"\n";
-
-    for(auto &e: incident_edge){
+    for(auto &e: _list){
         std::cout<<e;
     }
-    
-
 
 #endif
 
 #if GRAPH_INC_LIST
 
-    /* 
+    std::string a{"a"},b{"b"},c{"c"};
+    std::string d{"d"},e{"e"},f{"f"},g{"g"};
+
+    /*
     n=4 m=5
 
     a -> 0 -> 4       0:(a,b)
@@ -275,13 +271,9 @@ int main(){
     4:(a,d)
     */
 
-    node<city> boh(milano);
-    std::cout <<"nodo: " << boh;
-
     //grafo.addEdge(&a,&b);
     //grafo.addEdge(&b,&c);
-
-    /*graph_inc_list<city> graph_city;
+    /*GraphIncList<city> graph_city;
 
 	graph_city.addEdge(&milano,&napoli);
 	graph_city.addEdge(&milano,&roma);
@@ -289,45 +281,54 @@ int main(){
 
     graph_city.showStructure();*/
 
-	// graph_inc_list<std::string> _graph;
-	// try{
+    //grafo per visita in ampiezza
+	GraphIncList<std::string> _graph;
 
-    //     _graph.addEdge(&a,&b);
-    //     _graph.addEdge(&b,&a);
-    //     _graph.addEdge(&a,&c);
-    //     _graph.addEdge(&c,&a);
-    //     _graph.addEdge(&a,&d);
-    //     _graph.addEdge(&d,&a);
-    //     _graph.addEdge(&b,&c);
-    //     _graph.addEdge(&c,&b);
-    //     _graph.addEdge(&c,&d);
-    //     _graph.addEdge(&d,&c);
-    //     _graph.addEdge(&c,&e);
-    //     _graph.addEdge(&e,&c);
-    //     _graph.addEdge(&e,&f);
-    //     _graph.addEdge(&f,&e);
-    //     _graph.addEdge(&f,&g);
-    //     _graph.addEdge(&g,&f);
-    //     _graph.addEdge(&e,&g);
-    //     _graph.addEdge(&g,&e);
+    std::fstream input;
+    input.open( "../oriented_graph.txt",std::ios::in);
 
-    //     // std::cout<<"il grado del nodo è: "<<_graph.degree("n")<<"\n";
-    // }catch(std::string &_error){
-    //     std::cout<<_error<<"\n";
-    // }
-    // //_tree_prova.showStructure();
+    if(input.is_open()){
+        input>>_graph;
+    }
+    else
+        std::cout<<"file non aperto\n";
 
-    // tree_ptr_list<std::string> _tree;
-    // _graph.breadthFirstSearch(b,_tree);
-    // _tree.showStructure();
+    //_graph.showStructure();
 
-    // _graph.showStructure(); //is only for debug
-    //_graph.showNode();
+	/*try{
 
-    //prova tree
-    // tree_ptr_list<std::string> _tree;
-    // _tree.addNode(&a);
-    //_tree.addNode(&l,&a);
+         _graph.addEdge(&a,&d);
+         _graph.addEdge(&d,&a);
+         _graph.addEdge(&a,&b);
+         _graph.addEdge(&b,&a);
+         _graph.addEdge(&a,&c);
+         _graph.addEdge(&c,&a);
+         _graph.addEdge(&b,&c);
+         _graph.addEdge(&c,&b);
+         _graph.addEdge(&c,&d);
+         _graph.addEdge(&d,&c);
+         _graph.addEdge(&c,&e);
+         _graph.addEdge(&e,&c);
+         _graph.addEdge(&e,&f);
+         _graph.addEdge(&f,&e);
+         _graph.addEdge(&f,&g);
+         _graph.addEdge(&g,&f);
+         _graph.addEdge(&e,&g);
+         _graph.addEdge(&g,&e);
+
+         // std::cout<<"il grado del nodo è: "<<_graph.degree("n")<<"\n";
+     }catch(std::string &_error){
+         std::cout<<_error<<"\n";
+     }*/
+    _graph.showStructure();
+
+    std::list<Edge<std::string>> lista;
+    //_graph.getIncomingEdges(g,lista);
+    _graph.getOutgoingEdges(g,lista);
+
+    for(auto& e: lista){
+        //std::cout<<e;
+    }
 
 #endif
     return 0;

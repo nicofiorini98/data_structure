@@ -1,13 +1,13 @@
 #ifndef TREE_PTR_LIST_CPP
 #define TREE_PTR_LIST_CPP
 
-#include "tree_ptr_list.h"
+#include "TreePtrList.h"
 #include <stack>
 
 using namespace datalib;    
 
 template<class T>
-tree_ptr_list<T>::tree_ptr_list(int _degree): tree<T>()
+TreePtrList<T>::TreePtrList(int _degree): Tree<T>()
 {
     //initalization parameter
     degree=_degree;
@@ -16,12 +16,12 @@ tree_ptr_list<T>::tree_ptr_list(int _degree): tree<T>()
 }
 
 template<class T>
-tree_ptr_list<T>::~tree_ptr_list(){
+TreePtrList<T>::~TreePtrList(){
 
     int j=0;
     //TODO 
     //questo mi genera un segmentation fault, quindi vado ad accedere ad un'area 
-    for(typename std::map<T,node<T>*>::iterator i=nodes_map.begin();  i!=nodes_map.end();++i)
+    for(typename std::map<T,Node<T>*>::iterator i=nodes_map.begin(); i != nodes_map.end(); ++i)
     {
         // TODO controllare questo pezzo
         delete i->second;
@@ -31,14 +31,14 @@ tree_ptr_list<T>::~tree_ptr_list(){
 }
 
 template<class T>
-void tree_ptr_list<T>::addNode(const T* _x,const T *_parent)
+void TreePtrList<T>::addNode(const T* _x, const T *_parent)
 {
 
-    node<T>* x_ptr;
+    Node<T>* x_ptr;
 
     //x_itr and parent_itr are dependent names
-    typename std::map<T,node<T>*>::iterator x_itr;
-    typename std::map<T,node<T>*>::iterator parent_itr;
+    typename std::map<T,Node<T>*>::iterator x_itr;
+    typename std::map<T,Node<T>*>::iterator parent_itr;
 
     //pre-conditions: 
     //1. the node x to add must be different from nullptr
@@ -72,8 +72,8 @@ void tree_ptr_list<T>::addNode(const T* _x,const T *_parent)
     //check if x already exists
     // x_itr = nodes_map.find(*_x);
     if(x_itr == nodes_map.end()){
-        x_ptr = new node<T>(*_x); 
-        nodes_map.insert(std::pair<T,node<T>*>(x_ptr->value,x_ptr));
+        x_ptr = new Node<T>(*_x);
+        nodes_map.insert(std::pair<T,Node<T>*>(x_ptr->value, x_ptr));
     }
     else{
         std::string error("the node is already inserted\n");
@@ -107,7 +107,7 @@ void tree_ptr_list<T>::addNode(const T* _x,const T *_parent)
 
 
 template<class T>
-void tree_ptr_list<T>::addChild(const T *_x, const T* _child){
+void TreePtrList<T>::addChild(const T *_x, const T* _child){
     // if(!_x){
     //     std::string error("you can't insert a chilt to null_ptr");
     //     throw error;
@@ -126,7 +126,7 @@ void tree_ptr_list<T>::addChild(const T *_x, const T* _child){
 //return the number of sons for the node x 
 //O(log n)
 template<class T>
-int tree_ptr_list<T>::getDegree(const T &_x)
+int TreePtrList<T>::getDegree(const T &_x)
 {
     return nodes_map.find(_x)->second->node_list.size();
 }
@@ -135,7 +135,7 @@ int tree_ptr_list<T>::getDegree(const T &_x)
 //todo vedere, non mi conviene restituire un puntatore
 
 template<class T>
-T tree_ptr_list<T>::getParent(const T &_x)
+T TreePtrList<T>::getParent(const T &_x)
 {
     //to see if is convenient to return a reference, the client 
     //what he can do with a reference of node?
@@ -149,7 +149,7 @@ T tree_ptr_list<T>::getParent(const T &_x)
 }
 
 template<class T>
-std::list<T>& tree_ptr_list<T>::getChildren(const T &_x){
+std::list<T>& TreePtrList<T>::getChildren(const T &_x){
 
     // typename std::map<T,node<T>*>::iterator itr=nodes_map.find(_x);
 
@@ -164,54 +164,80 @@ std::list<T>& tree_ptr_list<T>::getChildren(const T &_x){
 
 }
 
+template<class T>
+void TreePtrList<T>::updateParent(const T& _x, const T& _new_parent) {
+
+    //preconditions: can't update the roots
+
+    //devo aggiornare parent, togliendo il figlio
+    //devo aggiornare new_parent aggiungendo il figlio
+    //devo aggiornare il puntatore interno al parent di _x
+    Node<T>* x = getNode(_x);
+    Node<T>* parent= x->parent;
+    Node<T>* new_parent = getNode(_new_parent);
+
+    parent->node_list.remove(x);
+    new_parent->addChildren({x});
+    x->parent = new_parent;
+
+
+}
 
 template<class T>
-void tree_ptr_list<T>::visitDFS(const T* _root)
-{
+void TreePtrList<T>::depthSearch(const T* _root){
+    //todo da rifare cambiando il node, così non funziona
+
     //initialize for stack
-    typename std::stack<node<T>> s;
-    typename std::map<T,node<T>*>::iterator itr;
 
-    //pre-conditions: if the node isn't in the tree, return error
-    itr = nodes_map.find(_root->value);
-    if(itr==nodes_map.end())
-    {
-        throw " the node entered for start the visit doesn't exists\n";
-        // std::cerr<<"errore, non c'è il nodo per poter fare la visita\n";
-        // return;
-    }
+//    typename std::stack<Node<T>> s;
+//    typename std::map<T,Node<T>*>::iterator itr;
+//
+//    //pre-conditions: if the node isn't in the tree, return error
+//    itr = nodes_map.find(_root->value);
+//    if(itr==nodes_map.end())
+//    {
+//        throw " the node entered for start the visit doesn't exists\n";
+//        // std::cerr<<"errore, non c'è il nodo per poter fare la visita\n";
+//        // return;
+//    }
+//
+//    s.push(*(*itr).second);
+//    while(!s.empty())
+//    {
+//        Node<T> *u = &s.top();
+//        s.pop();             //pop don't return the value
+//
+//        //todo vedere se è corretto, non mi fido
+//        if(u)
+//        {
+//            //visit u
+//            std::cout<<u->value<<"\n";
+//            typename std::list<Node<T>*> childrens = getChildren(*u);
+//            typename std::list<Node<T>*>::iterator itr;
+//
+//            if(childrens.empty())
+//                u=nullptr;
+//            else
+//               /*  for(itr=childrens.end()--;itr != childrens.begin();itr--)
+//                    s.push(**itr);
+//               */
+//               for(auto i=(childrens.rbegin());i!=childrens.rend();++i)
+//                    s.push(**i);
+//            //prendere la lista dei figli di u
+//            //ed inserirli nello stack
+//        }
+//    }
 
-    s.push(*(*itr).second);
-    while(!s.empty())    
-    {
-        node<T> *u = &s.top();
-        s.pop();             //pop don't return the value
+}
 
-        //todo vedere se è corretto, non mi fido
-        if(u)
-        {
-            //visit u
-            std::cout<<u->value<<"\n";
-            typename std::list<node<T>*> childrens=getChildren(*u);
-            typename std::list<node<T>*>::iterator itr;
-
-            if(childrens.empty())
-                u=nullptr;
-            else
-               /*  for(itr=childrens.end()--;itr != childrens.begin();itr--)
-                    s.push(**itr);
-               */
-               for(auto i=(childrens.rbegin());i!=childrens.rend();++i)
-                    s.push(**i);
-            //prendere la lista dei figli di u 
-            //ed inserirli nello stack
-        }
-    }
+template<class T>
+void TreePtrList<T>::breadthSearch(const T *_root) {
+    //todo implementare
 }
 
 
 template<class T>
-void tree_ptr_list<T>::showTree()
+void TreePtrList<T>::showTree()
 {
     std::cout<<std::endl;
     for(auto& n: nodes_map)
@@ -238,7 +264,7 @@ void tree_ptr_list<T>::showTree()
 }
 
 template<class T>
-void tree_ptr_list<T>::showStructure(){
+void TreePtrList<T>::showStructure(){
 
     for(auto &n: nodes_map){
         if(n.second->parent)
@@ -250,14 +276,12 @@ void tree_ptr_list<T>::showStructure(){
 
         for(auto& child: n.second->node_list)
             std::cout<<*child<<" ";
-        // if(!n.second->node_list.empty()){
-        // }
         std::cout<<"\n";
     }
 }
 
 template<class T>
-void tree_ptr_list<T>::showTreePtr()
+void TreePtrList<T>::showTreePtr()
 {
     std::cout<<std::endl;
     for(auto& n: nodes_map)
@@ -279,9 +303,9 @@ void tree_ptr_list<T>::showTreePtr()
 
 //private function
 template <class T>
-std::list<node<T>*>& tree_ptr_list<T>::getNodeList(node<T>* _x){
+std::list<Node<T>*>& TreePtrList<T>::getNodeList(Node<T>* _x){
 
-            typename std::map<T,node<T>*>::iterator x_itr;
+            typename std::map<T,Node<T>*>::iterator x_itr;
             x_itr = nodes_map.find(_x->value);
             if(x_itr != nodes_map.end()){
                 return (x_itr->second)->node_list;
@@ -291,6 +315,19 @@ std::list<node<T>*>& tree_ptr_list<T>::getNodeList(node<T>* _x){
 };
 
 template<class T>
-void tree_ptr_list<T>::showTree2(){}
+void TreePtrList<T>::showTree2(){}
+
+
+template<class T>
+Node<T>* TreePtrList<T>::getNode(const T _x) {
+
+    for(auto& n: nodes_map){
+        if((n.second)->value == _x)
+            return n.second;
+    }
+    std::string error("non esiste il nodo che cerchi\n");
+    throw error;
+}
+
 
 #endif

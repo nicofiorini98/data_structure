@@ -3,8 +3,8 @@
 
 #include <vector>
 #include <list>
-#include "node.h"
-#include "edge.h"
+#include "Node.h"
+#include "Edge.h"
 
 /**
  * \class Tree
@@ -18,15 +18,15 @@
 namespace datalib{ 
 
     template<class T>
-    class tree {
+    class Tree {
     protected:
         char delimiter = ',';
         int num_nodes;
     public: 
         ///Costructor
-        tree(){num_nodes=0;}
+        Tree(){ num_nodes=0;}
         ///virtual destructor
-        virtual ~tree(){}
+        virtual ~Tree(){}
 
         void setDelimiter(const char _delimiter){delimiter = _delimiter;}
 
@@ -46,6 +46,9 @@ namespace datalib{
         ///add childrens to node
         virtual void addChildren(const T* _x, const std::list<T*> &_children)=0;
         virtual void addChild(const T* _x, const T* _children)=0;
+        virtual void depthSearch(const T* _root)=0;
+        virtual void breadthSearch(const T* _root)=0;
+        virtual void updateParent(const T& _x, const T& _new_parent)=0;
 
         //aggiungi sotto albero
         //rimuovi sotto albero

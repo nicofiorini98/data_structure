@@ -1,11 +1,11 @@
 #ifndef EDGE_CPP
 #define EDGE_CPP
-#include "edge.h"
+#include "Edge.h"
 
 using namespace datalib;
 
 template<class T>
-edge<T>::edge(node<T>* _src,node<T>* _dest,int _weight,const std::string _mark){
+Edge<T>::Edge(Node<T>* _src, Node<T>* _dest, int _weight, const std::string _mark){
 
 	if(_src==nullptr){
 		std::string error("you can't add a (nullptr,dest) edge\n");
@@ -20,15 +20,15 @@ edge<T>::edge(node<T>* _src,node<T>* _dest,int _weight,const std::string _mark){
 
 //todo ricontrollare questa funzione, non sono convinto che va bene 
 template<class T>
-edge<T>::edge(const T *_src,const T *_dest,int _weight,const std::string &_mark){
+Edge<T>::Edge(const T *_src, const T *_dest, int _weight, const std::string &_mark){
 
 	if(_src==nullptr){
 		std::string error("you can't add a (nullptr,dest) edge\n");
 		throw error;
 	}
 
-	src  = new node<T>(*_src);
-	dest = new node<T>(*_dest);
+	src  = new Node<T>(*_src);
+	dest = new Node<T>(*_dest);
 	weight = _weight;
 	mark = _mark;
 
@@ -36,7 +36,7 @@ edge<T>::edge(const T *_src,const T *_dest,int _weight,const std::string &_mark)
 
 ///copy costructor
 template<class T>
-edge<T>::edge(const edge<T> &_x){
+Edge<T>::Edge(const Edge<T> &_x){
 
 	src  = _x.src;
 	dest = _x.dest;

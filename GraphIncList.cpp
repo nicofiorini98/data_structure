@@ -1,21 +1,22 @@
 #ifndef GRAPH_INC_LIST_CPP
 #define GRAPH_INC_LIST_CPP
 
-#include "graph_inc_list.h"
+#include "GraphIncList.h"
+
 
 using namespace datalib;
 
 //default constructor
 template<class T>
-graph_inc_list<T>::graph_inc_list():graph<T>(){
+GraphIncList<T>::GraphIncList():Graph<T>(){
 	
 
 }
 
 template<class T>
-void graph_inc_list<T>::addNode(const T &_x){
+void GraphIncList<T>::addNode(const T &_x){
 
-	node<T>* x_ptr = new node<T>(_x);
+	Node<T>* x_ptr = new Node<T>(_x);
 
 	inc_list.insert({x_ptr->value,x_ptr}); 
 	++this->num_node;
@@ -23,12 +24,12 @@ void graph_inc_list<T>::addNode(const T &_x){
 }
 
 template<class T>
-void graph_inc_list<T>::addEdge(const edge<T>& _edge){
+void GraphIncList<T>::addEdge(const Edge<T>& _edge){
 	addEdge(&(_edge.getSourceValue()),&(_edge.getDestinationValue()));
 }
 
 template<class T>
-void graph_inc_list<T>::addEdge(const T *_src,const T *_dest){
+void GraphIncList<T>::addEdge(const T *_src, const T *_dest){
 
 	//pre-conditions
 	/* 
@@ -53,7 +54,7 @@ void graph_inc_list<T>::addEdge(const T *_src,const T *_dest){
 	}
 
 	//trova il nodo src
-	typename std::map<T,node<T>*>::iterator src_itr;
+	typename std::map<T,Node<T>*>::iterator src_itr;
 	src_itr = inc_list.find(*_src);
 
 	//se src non esiste crealo
@@ -63,7 +64,7 @@ void graph_inc_list<T>::addEdge(const T *_src,const T *_dest){
 	}
 
 	//trova il nodo dest
-	typename std::map<T,node<T>*>::iterator dest_itr;
+	typename std::map<T,Node<T>*>::iterator dest_itr;
 	dest_itr = inc_list.find(*_dest);
 
 	//se dest non esiste crealo
@@ -74,7 +75,7 @@ void graph_inc_list<T>::addEdge(const T *_src,const T *_dest){
 
 	//creazione arco
 	//std::cout<<"arco: "<<*(src_itr->second)<<"\n";
-	edge<T> *e = new edge<T>(src_itr->second,dest_itr->second);
+	Edge<T> *e = new Edge<T>(src_itr->second, dest_itr->second);
 	//std::cout<<"boh\n";
 
 	//aggiungere arco alle strutture
@@ -87,20 +88,20 @@ void graph_inc_list<T>::addEdge(const T *_src,const T *_dest){
 
 
 template <class T>
-void graph_inc_list<T>::deleteNode(const T& _x){
+void GraphIncList<T>::deleteNode(const T& _x){
 
 	//erase the node _x and the edges it is involved in
 
 	//inizio a rimuovere il nodo nella inc_list
 
 	//get the node and erase from the map
-	typename std::map<T,node<T>*>::iterator x_itr;
+	typename std::map<T,Node<T>*>::iterator x_itr;
 	x_itr = inc_list.find(_x);
 	inc_list.erase(x_itr);
 
 	//delete the others edge with _x in others node
 	for(auto &n: inc_list){
-		typename std::list<edge<T>*>::iterator e_itr;
+		typename std::list<Edge<T>*>::iterator e_itr;
 		for(e_itr=(n.second)->connected_edges.begin(); e_itr != (n.second)->connected_edges.end();){
 			if(*((*e_itr)->dest) == _x)
 				e_itr = n.second->connected_edges.erase(e_itr);
@@ -111,7 +112,7 @@ void graph_inc_list<T>::deleteNode(const T& _x){
 	}
 
 	//delete the edge with _x in the edge_lists
-	typename std::list<edge<T>*>::iterator e_itr;
+	typename std::list<Edge<T>*>::iterator e_itr;
 	for(e_itr = edge_list.begin(); e_itr != edge_list.end();){
 		if(*((*e_itr)->src) == _x || *((*e_itr)->dest) == _x ){
 			e_itr = edge_list.erase(e_itr);
@@ -123,11 +124,11 @@ void graph_inc_list<T>::deleteNode(const T& _x){
 }
 
 template<class T>
-void graph_inc_list<T>::deleteEdge(const T &_src,const T &_dest){
+void GraphIncList<T>::deleteEdge(const T &_src, const T &_dest){
 	
 	//delete the edge on inc_lists
 	for(auto &n: inc_list){
-		typename std::list<edge<T>*>::iterator e_itr;
+		typename std::list<Edge<T>*>::iterator e_itr;
 		for(e_itr=(n.second)->connected_edges.begin(); e_itr != (n.second)->connected_edges.end();){
 			if( *(*e_itr)->src == _src  && *(*e_itr)->dest == _dest)
 				e_itr = n.second->connected_edges.erase(e_itr);
@@ -137,7 +138,7 @@ void graph_inc_list<T>::deleteEdge(const T &_src,const T &_dest){
 	}
 
 	//delete edge on edge_lists
-	typename std::list<edge<T>*>::iterator e_itr;
+	typename std::list<Edge<T>*>::iterator e_itr;
 	for(e_itr = edge_list.begin(); e_itr != edge_list.end();){
 		if(*((*e_itr)->src) == _src && *((*e_itr)->dest) == _dest){ 
 			e_itr = edge_list.erase(e_itr);
@@ -148,12 +149,12 @@ void graph_inc_list<T>::deleteEdge(const T &_src,const T &_dest){
 }
 
 template<class T>
-void graph_inc_list<T>::deleteEdge(const edge<T>& e){
+void GraphIncList<T>::deleteEdge(const Edge<T>& e){
 	deleteEdge(e.src,e.dest);
 }
 
 template<class T>
-int graph_inc_list<T>::max_degree(){
+int GraphIncList<T>::maxDegree(){
 
 	int max = 0;
 	for(auto &n: inc_list){
@@ -166,7 +167,7 @@ int graph_inc_list<T>::max_degree(){
 }
 
 template<class T>
-int graph_inc_list<T>::degree(const T& _x){
+int GraphIncList<T>::degree(const T& _x){
 
 	// for(auto &n: inc_list){
 	// 	if(*n.second == _x)
@@ -181,16 +182,16 @@ int graph_inc_list<T>::degree(const T& _x){
 
 //todo controllare
 template<class T>
-bool graph_inc_list<T>::isAdjacent(const T &_src, const T &_dest){
-	//edge<T> e(_src,_dest);
-	//return edge_existence(e);
-	//TODO da fare
+bool GraphIncList<T>::isAdjacent(const T &_src, const T &_dest){
+
+
+
 	return false;
 }
 
 
 template<class T>
-void graph_inc_list<T>::breadthFirstSearch(const T& _first_node,tree_ptr_list<T>& _tree){
+void GraphIncList<T>::breadthSearch(const T& _first_node, TreePtrList<T>& _tree){
 
 	/*
 	 * Algoritmo visitaBFS(vertice s) ---> albero (OK)
@@ -216,7 +217,7 @@ void graph_inc_list<T>::breadthFirstSearch(const T& _first_node,tree_ptr_list<T>
 		n.second->mark = unexplored;
 		
 	//ricerca del nodo da cui partire
-	typename std::map<T,node<T>*>::iterator first_node_itr;
+	typename std::map<T,Node<T>*>::iterator first_node_itr;
 	first_node_itr = inc_list.find(_first_node);
 	if(first_node_itr == inc_list.end()){
 		std::string error("the node for breadth first search doesn't exists in the graph");
@@ -230,13 +231,13 @@ void graph_inc_list<T>::breadthFirstSearch(const T& _first_node,tree_ptr_list<T>
 
 	//inserire il vertice da cui partire nella frontiera (queue)
 	// F.enqueque(s)
-	std::queue<node<T>*> open_node;
+	std::queue<Node<T>*> open_node;
 	open_node.push((first_node_itr->second));
 
 	while(!open_node.empty()){
 
 		//qui prendo il nodo nella coda
-		node<T> *u = open_node.front(); //return a reference to the first element
+		Node<T> *u = open_node.front(); //return a reference to the first element
 		open_node.pop(); 				//remove the first element 
 
 		//visita il vertice u
@@ -257,9 +258,68 @@ void graph_inc_list<T>::breadthFirstSearch(const T& _first_node,tree_ptr_list<T>
 }
 
 
+//potrei usare anche la ricorsione utilizzando lo stack delle chiamate
+template<class T>
+void GraphIncList<T>::depthSearch(const T &_first_node, TreePtrList<T> &_tree) {
+
+    //marcatura di tutti i vertici come inesplorati
+    for(auto &n: inc_list)
+        n.second->mark = unexplored;
+
+    //ricerca del nodo da cui partire
+    typename std::map<T,Node<T>*>::iterator first_node_itr;
+    first_node_itr = inc_list.find(_first_node);
+    if(first_node_itr == inc_list.end()){
+        std::string error("the node for breadth first search doesn't exists in the graph");
+        throw error;
+    }
+
+    _tree.addNode(&(first_node_itr->second)->value);
+    (first_node_itr->second)->mark = open;
+
+    //inserire il vertice da cui partire nella frontiera (stack)
+    std::stack<Node<T>*> open_node;
+    open_node.push((first_node_itr->second));
+
+    while(!open_node.empty()){
+
+        //qui prendo il nodo nella coda
+        Node<T> *u = open_node.top(); //return a reference to the last element inserted
+        open_node.pop(); 				//remove the first element
+
+        //visita il vertice u
+        //typename std::map<T,node<T>*>::iterator u_itr;
+        //u_itr = inc_list.find(*u);
+
+        //if(u->mark == closed)
+            //continue;
+
+        u->mark = closed;
+
+        //visita il vertice u (quindi prendo gli archi), prendo la destinazione del vertice u
+        for(auto &e: u->connected_edges){
+            auto* v = e->dest;
+            if(v->mark == unexplored){
+                v->mark = open; 						//marca v come aperto
+                open_node.push(v);
+                _tree.addNode(&(v->value),&(u->value)); //rendi u padre di v in t
+                _tree.updateParent(v->value,u->value);
+
+            }
+            else if((e->dest)->mark == open){
+                open_node.push(e->dest);
+                _tree.updateParent((e->dest)->value,u->value);
+            }
+        }
+    }
+
+
+
+}
+
 
 template<class T>
-void graph_inc_list<T>::showStructure() const{
+void GraphIncList<T>::showStructure() const{
 
 	for(auto &n: inc_list ){
 		std::cout << *(n.second) << "-->";
@@ -274,7 +334,7 @@ void graph_inc_list<T>::showStructure() const{
 }
 
 template<class T>
-bool graph_inc_list<T>::edge_existence(const edge<T> &_e) const{
+bool GraphIncList<T>::edge_existence(const Edge<T> &_e) const{
 
 	for(auto &e: edge_list ){
 		 if(((e->src) == _e.src) && 
@@ -286,16 +346,16 @@ bool graph_inc_list<T>::edge_existence(const edge<T> &_e) const{
 
 
 template<class T>
-bool graph_inc_list<T>::edge_existence(const T* _src,const T* _dest) const{
+bool GraphIncList<T>::edge_existence(const T* _src, const T* _dest) const{
 
 	//todo controllare
-	edge<T> e(_src,_dest);
+	Edge<T> e(_src, _dest);
 	return edge_existence(e);
 
 }
 
 template<class T>
-bool graph_inc_list<T>::node_existence(const T* _x) const{
+bool GraphIncList<T>::node_existence(const T* _x) const{
 
 	for(auto &n: this->inc_list){
 		if((n.second)->value == *_x)
@@ -306,7 +366,7 @@ bool graph_inc_list<T>::node_existence(const T* _x) const{
 
 
 template<class T>
-void graph_inc_list<T>::showNode() const{
+void GraphIncList<T>::showNode() const{
 	
 	for(auto &n: inc_list ){
 		std::cout << (n.second) << "-->";
@@ -319,5 +379,33 @@ void graph_inc_list<T>::showNode() const{
 		std::cout << *e;
 	}
 }
+
+template<class T>
+void GraphIncList<T>::getIncidentEdges(const T& node, std::list<Edge<T>>& _list) {
+    //posso ritornare direttamente una lista degli archi che stanno in edge_list
+    for(auto& e: edge_list){
+        if(*(e->dest) == node || (*e->src) == node)
+            _list.push_back(*e);
+    }
+}
+
+template<class T>
+void GraphIncList<T>::getOutgoingEdges(const T &node, std::list<Edge<T>>& _list) {
+    for(auto& e: edge_list){
+        if(*(e->src) == node){
+            _list.push_back(*e);
+        }
+    }
+}
+
+template<class T>
+void GraphIncList<T>::getIncomingEdges(const T &node, std::list<Edge<T>>& _list) {
+    for(auto& e: edge_list){
+        if(*(e->dest) == node){
+            _list.push_back(*e);
+        }
+    }
+}
+
 
 #endif

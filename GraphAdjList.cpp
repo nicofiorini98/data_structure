@@ -1,12 +1,12 @@
 #ifndef GRAPH_ADJ_LIST_CPP
 #define GRAPH_ADJ_LIST_CPP
-#include "graph_adj_list.h"
+#include "GraphAdjList.h"
 #include <list>
 
 using namespace datalib;
 
 // template<class T>
-// graph_adj_list<T>::graph_adj_list(const std::vector<Edge> &_edges)
+// GraphAdjList<T>::GraphAdjList(const std::vector<Edge> &_edges)
 // {
 //     for(auto &edge: _edges)
 //         addEdge(*edge.src,*edge.dest);
@@ -15,16 +15,16 @@ using namespace datalib;
 
 //add an Edge O(n log(n))
 template<class T>
-void graph_adj_list<T>::addEdge(const T &_src,const T &_dest)
+void GraphAdjList<T>::addEdge(const T &_src, const T &_dest)
 {
     //Pre-conditions
 
     //if the adjList don't have the src node<T> then add the adjList in the adjLists
-    typename std::map<T,node<T>*>::iterator src_itr  = adj_lists.find(_src);  //O(log (n))
-    typename std::map<T,node<T>*>::iterator dest_itr = adj_lists.find(_dest); //O(log (n))
+    typename std::map<T,Node<T>*>::iterator src_itr  = adj_lists.find(_src);  //O(log (n))
+    typename std::map<T,Node<T>*>::iterator dest_itr = adj_lists.find(_dest); //O(log (n))
 
-    node<T> *src_ptr;
-    node<T> *dest_ptr;
+    Node<T> *src_ptr;
+    Node<T> *dest_ptr;
 
     //create src node and dest node if isn't on the graph
     //else get the pointer from the itr 
@@ -42,34 +42,34 @@ void graph_adj_list<T>::addEdge(const T &_src,const T &_dest)
 }
 
 // template<class T>
-// void graph_adj_list<T>::addEdge(const Edge &_edge){
+// void GraphAdjList<T>::addEdge(const Edge &_edge){
 //     addEdge(*_edge.src,*_edge.dest);
 // }
 
 // O(n)
 //this addNode return a pointer of node 
 template<class T> 
-node<T>* graph_adj_list<T>::private_addNode(const T &_x){
+Node<T>* GraphAdjList<T>::private_addNode(const T &_x){
 
     //if node doesn't exist in the map, create it
-    node<T> *src = new node<T>(_x);
-    adj_lists.insert(std::pair<T,node<T>*>(src->value,src));
+    Node<T> *src = new Node<T>(_x);
+    adj_lists.insert(std::pair<T,Node<T>*>(src->value, src));
     ++this->num_node;
     return src;
 }
 
 // O(n)
 template<class T>
-void graph_adj_list<T>::addNode(const T &_x){
+void GraphAdjList<T>::addNode(const T &_x){
 
     //if node doesn't exist in the map, create it
-    node<T> *src = new node<T>(_x);
-    adj_lists.insert(std::pair<T,node<T>*>(src->value,src));
+    Node<T> *src = new Node<T>(_x);
+    adj_lists.insert(std::pair<T,Node<T>*>(src->value, src));
     ++this->num_node;
 }
 
 template<class T>
-void graph_adj_list<T>::deleteNode(const T &_x){
+void GraphAdjList<T>::deleteNode(const T &_x){
 
     // std::map<int,std::list<node<T>*>>::iterator itr_x= adj_lists.find(x.value);
     // std::map<int,std::list<node<T>*>>::iterator itr; 
@@ -77,19 +77,19 @@ void graph_adj_list<T>::deleteNode(const T &_x){
 }
 
 template<class T>
-void graph_adj_list<T>::deleteEdge(const T &_src,const T &_dest)
+void GraphAdjList<T>::deleteEdge(const T &_src, const T &_dest)
 {
 
 }
 
 // template<class T>
-// void graph_adj_list<T>::deleteEdge(const Edge &_edge){
+// void GraphAdjList<T>::deleteEdge(const Edge &_edge){
 //     deleteEdge(*_edge.src,*_edge.dest);
 
 // }
 
 template<class T>
-void graph_adj_list<T>::showStructure() const{
+void GraphAdjList<T>::showStructure() const{
     
     for (auto &n: adj_lists){
         // print current vertex number
@@ -104,7 +104,7 @@ void graph_adj_list<T>::showStructure() const{
 }
 
 template<class T>
-void graph_adj_list<T>::showNode() const{
+void GraphAdjList<T>::showNode() const{
 
     for(auto &n: adj_lists){
         std::cout<<*(n.second)<<"\n";
@@ -114,7 +114,7 @@ void graph_adj_list<T>::showNode() const{
 }
 
 template<class T>
-void graph_adj_list<T>::showGraphValue() const{
+void GraphAdjList<T>::showGraphValue() const{
 
     // for (auto &n: adj_lists){
     //     // print current vertex number

@@ -8,4 +8,4 @@ set (CMAKE_CXX_STANDARD 14)
 file(GLOB my_sources *.h *.cpp *.tpp)
 
 # aggiungo eseguibile
-add_executable(data_structure ${my_sources})
+add_executable(data_structure ${my_sources} GraphIncMatrix.h)

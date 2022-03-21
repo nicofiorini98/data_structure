@@ -2,15 +2,15 @@
 #ifndef TREE_POS_VECTOR_CPP
 #define TREE_POS_VECTOR_CPP
 #include <math.h>
-#include "tree_pos_vector.h"
-#include "tree.h"
+#include "TreePosVector.h"
+#include "Tree.h"
 
 using namespace datalib;
 
 //I need to know the grade of the tree and the 
 //num_nodes for instatiate the tree
 template<class T>
-tree_pos_vector<T>::tree_pos_vector(int _degree,int _height): tree<T>(){
+TreePosVector<T>::TreePosVector(int _degree, int _height): Tree<T>(){
     //initialization parameter
     degree = _degree;
     root=nullptr;
@@ -30,14 +30,14 @@ tree_pos_vector<T>::tree_pos_vector(int _degree,int _height): tree<T>(){
 }  
 
 template <class T>
-void tree_pos_vector<T>::addNode(const T* _x,const T* _parent){
+void TreePosVector<T>::addNode(const T* _x, const T* _parent){
 
     static int call = 0;
     call++;
 
     //local iterator, typename because are nested dependent names
-    typename std::vector<node<T>*>::iterator x_itr;
-    typename std::vector<node<T>*>::iterator parent_itr;
+    typename std::vector<Node<T>*>::iterator x_itr;
+    typename std::vector<Node<T>*>::iterator parent_itr;
 
     //devo inserire padre e figlio nel vettore, 
     //nel frattempo devo mantenere il vettore abbastanza grande 
@@ -101,7 +101,7 @@ void tree_pos_vector<T>::addNode(const T* _x,const T* _parent){
             throw error;
         }
         else{
-            node<T>* x_ptr = new node<T>(*_x);
+            Node<T>* x_ptr = new Node<T>(*_x);
             root=x_ptr;
             vec_node[1]=x_ptr;
             x_ptr->pos=1;
@@ -112,7 +112,7 @@ void tree_pos_vector<T>::addNode(const T* _x,const T* _parent){
 
 //add childrens to node x, x must exists
 template<class T>
-void tree_pos_vector<T>::addChildren(const T* _x,const std::list<T*> &_children){
+void TreePosVector<T>::addChildren(const T* _x, const std::list<T*> &_children){
     
     /* Preconditions
      * 1. the node _x must exists, and must be in the vec_node
@@ -120,7 +120,7 @@ void tree_pos_vector<T>::addChildren(const T* _x,const std::list<T*> &_children)
      * TODO 3. the child node to be added it must not exist
      */
 
-    typename std::vector<node<T>*>::iterator x_itr;
+    typename std::vector<Node<T>*>::iterator x_itr;
     x_itr= datalib::trova(vec_node.begin(),vec_node.end(),_x);
     
     //preconditions 1 
@@ -138,7 +138,7 @@ void tree_pos_vector<T>::addChildren(const T* _x,const std::list<T*> &_children)
     }
 
     for(auto &n: _children){
-        node<T> *child2add= new node<T>(*n);
+        Node<T> *child2add= new Node<T>(*n);
 
         //add childrens in vec_node in the proper positions
         int pos_childrens=(pos*degree)+ (*x_itr)->num_children;
@@ -151,16 +151,16 @@ void tree_pos_vector<T>::addChildren(const T* _x,const std::list<T*> &_children)
 }
 
 template<class T>
-void tree_pos_vector<T>::addChild(const T* _x,const T* _child){
+void TreePosVector<T>::addChild(const T* _x, const T* _child){
     /* Preconditions
      * 1. the node _x must exists, and must be in the vec_node
      * 2. the nodes to be added must have enough space 
      * 3. the child node to be added it must not exist
      */
 
-    typename std::vector<node<T>*>::iterator x_itr;
+    typename std::vector<Node<T>*>::iterator x_itr;
     x_itr= datalib::trova(vec_node.begin(),vec_node.end(),_x);
-    typename std::vector<node<T>*>::iterator child_itr;
+    typename std::vector<Node<T>*>::iterator child_itr;
     child_itr= datalib::trova(vec_node.begin(),vec_node.end(),_child);
     
     //preconditions 1 
@@ -184,7 +184,7 @@ void tree_pos_vector<T>::addChild(const T* _x,const T* _child){
     int pos = (*x_itr)->pos;
     int pos_child=(pos*degree) + (*x_itr)->num_children;
 
-    node<T> *child2add= new node<T>(*_child);
+    Node<T> *child2add= new Node<T>(*_child);
 
     vec_node[pos_child]= child2add;
     vec_node[pos_child]->pos=pos_child;
@@ -193,7 +193,7 @@ void tree_pos_vector<T>::addChild(const T* _x,const T* _child){
 }
 
 template <class T>
-void tree_pos_vector<T>::showTree(){
+void TreePosVector<T>::showTree(){
 
     std::cout<<"\n\n Stampa di Tree_pos_vector: \n";
 
@@ -214,7 +214,7 @@ void tree_pos_vector<T>::showTree(){
 
 //convention of print tree
 template <class T>
-void tree_pos_vector<T>::showTree2(){
+void TreePosVector<T>::showTree2(){
     //OUTPUT following the conventions of the library
     //{ padre figlio1 } { padre figlio2 } { padre2 figlio1}
 

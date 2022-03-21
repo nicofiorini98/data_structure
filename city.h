@@ -1,3 +1,6 @@
+#ifndef CITY_H
+#define CITY_H
+
 #include <string>
 #include <iostream>
 
@@ -9,8 +12,8 @@ public:
     int key;
     std::string name;
 
-    city();
-    city(int _key,std::string _name): key(_key),name(_name){}
+    city(){key=0;name="molise";}
+    city(int _key,const std::string& _name): key(_key),name(_name){}
 
     //operator =
 	city& operator=(city c){
@@ -67,3 +70,4 @@ public:
 
 };
 
+#endif

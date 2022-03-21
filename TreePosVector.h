@@ -1,6 +1,6 @@
 #ifndef TREE_POS_VECTOR_H
 #define TREE_POS_VECTOR_H
-#include "tree.h"
+#include "Tree.h"
 
 /*
  * Sia T=(N,A), un albero d-ario con n nodi, 
@@ -21,18 +21,18 @@
 namespace datalib
 {
     template<class T>
-    class tree_pos_vector: public tree<T>
+    class TreePosVector: public Tree<T>
     {
     private: 
         ///vector of suitably positioned Nodes
-        std::vector<node<T>*> vec_node;
-        node<T>* root;
+        std::vector<Node<T>*> vec_node;
+        Node<T>* root;
         int max_num_nodes;
         int height;
         ///maximum grade of a Node  
         int degree;
-        int getNumChildren(node<T>* _x){return _x->num_children;}
-        int getPos(node<T>* _x){return _x->pos;}
+        int getNumChildren(Node<T>* _x){return _x->num_children;}
+        int getPos(Node<T>* _x){return _x->pos;}
 
         // void addChildrens(node<T>* _x,const std::list<T*> &_childrens);
 
@@ -43,10 +43,10 @@ namespace datalib
          * \param _max_degree is the maximum grade of the nodes
          */
         
-        tree_pos_vector(int degree, int _height);
+        TreePosVector(int degree, int _height);
 
         //TreePosVector(int _max_grade,int _num_nodes);
-        virtual ~tree_pos_vector(){}
+        virtual ~TreePosVector(){}
 
         int getDegree(const T &x){}
         T getParent(const T &x){}
@@ -65,13 +65,13 @@ namespace datalib
         void showTree2();
         
 
-        friend std::istream &operator>>(std::istream &is, tree_pos_vector<T> &t){
+        friend std::istream &operator>>(std::istream &is, TreePosVector<T> &t){
 
             return is;
 
         }
 
-        friend std::ostream &operator<<(std::ostream &os, tree_pos_vector<T> &t){
+        friend std::ostream &operator<<(std::ostream &os, TreePosVector<T> &t){
             //pre-conditions
             //format for input of a node: node parent list_children
             //Example: ( l a )
@@ -95,5 +95,5 @@ namespace datalib
     };
 }
 
-#include "tree_pos_vector.cpp"
+#include "TreePosVector.cpp"
 #endif

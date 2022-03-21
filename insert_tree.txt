@@ -1,6 +1,14 @@
-a
-l , a
-b ,a		
-e, l
-r,l
-o,l
+a,b
+b,a
+a,c
+c,a
+a,d
+d,a
+c,e
+e,c
+e,f
+f,e
+e,g
+g,e
+g,f
+f,g

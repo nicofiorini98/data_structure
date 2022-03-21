@@ -1,1 +1,18 @@
-0 1 2 3 4 5 6
+a,b
+b,a
+b,c
+c,b
+a,c
+c,a
+a,d
+d,a
+c,e
+e,c
+c,d
+d,c
+e,f
+f,e
+e,g
+g,e
+g,f
+f,g

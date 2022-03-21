@@ -2,8 +2,8 @@
 #define GRAPH_INC_LIST_H
 
 
-#include "graph.h"
-#include "edge.h"
+#include "Graph.h"
+#include "Edge.h"
 #include <map>
 #include <vector>
 
@@ -21,14 +21,14 @@ namespace datalib{
     //this scructure is implemented with vector of edge
 
     template<class T>
-    class graph_inc_list: public graph<T>{
+    class GraphIncList: public Graph<T>{
     private: 
 
-        std::map<T,node<T>*> inc_list;        
-        std::list<edge<T>*> edge_list;        
+        std::map<T,Node<T>*> inc_list;
+        std::list<Edge<T>*> edge_list;
 
         // bool edge_existence(const T &_src,const T &_dest) const;
-        bool edge_existence(const edge<T> &_e) const;
+        bool edge_existence(const Edge<T> &_e) const;
         bool edge_existence(const T* _src,const T* _dest) const;
         bool node_existence(const T* _x) const;
 
@@ -39,34 +39,38 @@ namespace datalib{
 
     public:
         ///Default costructor for the GraphAdjList
-        graph_inc_list();
+        GraphIncList();
 
         ///Costructor with a vector of Edge
-        // graph_adj_list(const std::vector<Edge> &_edges);
+        // GraphAdjList(const std::vector<Edge> &_edges);
         ///virtual Destructor
-        virtual ~graph_inc_list(){} 
+        virtual ~GraphIncList(){}
 
         ///add a Node x in the graph
         void addNode(const T &_x) override;
 
         ///return the max degree of the graph
-        int max_degree() override;
+        int maxDegree() override;
         ///return the degree of the node _x
         int degree(const T& _x) override;
 
         ///add an Edge (x,y) in the graph
         void addEdge(const T *_src,const T *_dest) override;
-        void addEdge(const edge<T>& _edge);
+        void addEdge(const Edge<T>& _edge);
         void deleteNode(const T& _x)override;                         //remove a Node in the graph
         void deleteEdge(const T &_src,const T &_dest) override;       //remove a Edge in the graph
-        void deleteEdge(const edge<T>& _edge);                        //remove a Edge in the graph
+        void deleteEdge(const Edge<T>& _edge);                        //remove a Edge in the graph
 
-        //TODO cambiare in list
-        std::vector<edge<T>> getIncidentEdge(const T& _x) override { std::vector<edge<T>> togliere;  return togliere; }          //return the incident edge of the Node x
+        void getIncidentEdges(const T& node, std::list<Edge<T>>& _list) override;
+        void getOutgoingEdges(const T& node, std::list<Edge<T>>& _list) override;
+        void getIncomingEdges(const T& node, std::list<Edge<T>>& _list) override;
 
         bool isAdjacent(const T &_src,const T &_dest) override;       //return true if the edge(x,y) exist, else return false
-        void getAdjNode(const T &_x) override{}
-        void breadthFirstSearch(const T& _first_node,tree_ptr_list<T>& _tree) override;
+
+        //method for search in Graph
+        void breadthSearch(const T& _first_node, TreePtrList<T>& _tree) override;
+        void depthSearch(const T& _first_node, TreePtrList<T>& _tree) override;
+        void markNode(const T& node,marking mark){}
 
         void showStructure() const;
         void showNode() const;
@@ -75,6 +79,6 @@ namespace datalib{
     };
 }
 
-#include "graph_inc_list.cpp"
+#include "GraphIncList.cpp"
 
 #endif

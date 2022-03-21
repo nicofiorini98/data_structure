@@ -1,6 +1,6 @@
 #ifndef GRAPH_ADJ_LIST_H
 #define GRAPH_ADJ_LIST_H
-#include "graph.h"
+#include "Graph.h"
 #include <map>
 #include <vector>
 
@@ -15,20 +15,20 @@ namespace datalib{
 	*/
 
     template<class T>
-    class graph_adj_list: public graph<T> {
+    class GraphAdjList: public Graph<T> {
     private: 
 
-        std::map<T,node<T>*> adj_lists;   
-        node<T>* private_addNode(const T &_x);
+        std::map<T,Node<T>*> adj_lists;
+        Node<T>* private_addNode(const T &_x);
 
     public:
         ///Default costructor for the GraphAdjList
-        graph_adj_list(){}
+        GraphAdjList(){}
 
         ///Costructor with a vector of Edge
-        // graph_adj_list(const std::vector<Edge> &_edges);
+        // GraphAdjList(const std::vector<Edge> &_edges);
         ///virtual Destructor
-        virtual ~graph_adj_list(){} 
+        virtual ~GraphAdjList(){}
 
         ///add a Node x in the graph
         void addNode(const T &_x);
@@ -52,5 +52,5 @@ namespace datalib{
     };
 }
 
-#include "graph_adj_list.cpp"
+#include "GraphAdjList.cpp"
 #endif
