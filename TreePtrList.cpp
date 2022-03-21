@@ -40,7 +40,7 @@ void TreePtrList<T>::addNode(const T* _x, const T *_parent)
     typename std::map<T,Node<T>*>::iterator x_itr;
     typename std::map<T,Node<T>*>::iterator parent_itr;
 
-    //pre-conditions: 
+    //pre-conditions:
     //1. the node x to add must be different from nullptr
     //2. the node parent must exists if different from nullptr
     //3. the parent nullptr means that x is the root 
@@ -54,19 +54,20 @@ void TreePtrList<T>::addNode(const T* _x, const T *_parent)
         throw error;
     }
 
-
     if(_parent){
         parent_itr=nodes_map.find(*_parent);
+
         if(parent_itr == nodes_map.end()){
             std::string error("aooooo");
             throw error;
         }
+
+        //todo da togliere
         //check the degree of the parent
         if(((parent_itr->second)->node_list.size())>= degree){
             std::string error("the node is reached max degree\n");
             throw error;
         }
-
     }
     
     //check if x already exists
@@ -103,25 +104,16 @@ void TreePtrList<T>::addNode(const T* _x, const T *_parent)
         else //TODO qua io lancierei un errore, meglio non dare troppa libertà 
             x_ptr->parent=root;
     }
+    this->num_nodes++;
 }
-
 
 template<class T>
-void TreePtrList<T>::addChild(const T *_x, const T* _child){
-    // if(!_x){
-    //     std::string error("you can't insert a chilt to null_ptr");
-    //     throw error;
-    // }
-    // if(!_child){
-    //     std::string error("you can't insert a null child");
-    //     throw error;
-    // }
-
-    // typename std::map<T,node<T>*>::iterator x_itr;
-    
-    // x_itr = nodes_map.find(_x);
+void TreePtrList<T>::addChildren(const T *_x, const std::list<T *> &_children) {
+    //todo
 
 }
+
+
 
 //return the number of sons for the node x 
 //O(log n)
@@ -135,33 +127,29 @@ int TreePtrList<T>::getDegree(const T &_x)
 //todo vedere, non mi conviene restituire un puntatore
 
 template<class T>
-T TreePtrList<T>::getParent(const T &_x)
-{
-    //to see if is convenient to return a reference, the client 
-    //what he can do with a reference of node?
-    // return *((nodes_map.find(_x)->second->parent)->value);
-
-	//TODO da rifare
-    T boh=_x;
-    return boh;
-
-
+void TreePtrList<T>::getParent(const T &_x, T& _parent){
+    _parent = (nodes_map.find(_x))->second->parent->value;
 }
 
+
+//append the children node to the list
 template<class T>
-std::list<T>& TreePtrList<T>::getChildren(const T &_x){
+void TreePtrList<T>::getChildren(const T &_x,std::list<T>& _list){
 
-    // typename std::map<T,node<T>*>::iterator itr=nodes_map.find(_x);
+    //find the itr of the target
+    typename std::map<T,Node<T>*>::iterator x_itr;
+    x_itr = nodes_map.find(_x);
 
-    // if(itr!=nodes_map.end())
-    // {
-    //     return (nodes_map.find(_x)->second->node_list);
-    // }
+    //manage a possible error
+    if(x_itr == nodes_map.end()){
+        std::string error("TreePtrList::getChildren il nodo inserito non esiste");
+        throw error;
+    }
 
-	//TODO da rivedere
-    std::list<T> boh = {};
-    return boh;
-
+    //copy the children node into the list
+    for(auto& nodo: x_itr->second->node_list){
+        _list.push_back(nodo->value);
+    }
 }
 
 template<class T>
@@ -179,7 +167,6 @@ void TreePtrList<T>::updateParent(const T& _x, const T& _new_parent) {
     parent->node_list.remove(x);
     new_parent->addChildren({x});
     x->parent = new_parent;
-
 
 }
 

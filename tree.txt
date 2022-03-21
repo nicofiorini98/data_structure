@@ -1,0 +1,6 @@
+a
+l,a
+b,a
+e,l
+r,l
+o,b

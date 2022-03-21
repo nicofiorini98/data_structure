@@ -22,10 +22,10 @@
 
 // std::cout<<"it took the time"<<time_span.count()<<"seconds.";
 
-#define TREE_PTR_LIST 0
+#define TREE_PTR_LIST 1
 #define POS_VECTOR 0
 #define GRAPH_ADJ_LIST 0
-#define GRAPH_EDGE_LIST 1
+#define GRAPH_EDGE_LIST 0
 #define GRAPH_INC_LIST 0
 #define PROVA 0 
 
@@ -42,7 +42,6 @@ int main(){
 << std::fixed << 1234.56789 << "\t(fixed)\n"
 < < std::scientific << 1234.56789 << "\t(scientific)\n";
 */
-
 
     // datalib::node<int> a0{0},l1{1},b2{2};
     // datalib::node<int> e3{3},r4{4},o5{5},n{6};
@@ -101,78 +100,31 @@ int main(){
 
 #if TREE_PTR_LIST
 
-    std::string a{"a"},l{"l"},b{"b"};
-    std::string e{"e"},r{"r"},o{"o"},n{"n"};
+    //std::string a{"a"},l{"l"},b{"b"};
+    //std::string e{"e"},r{"r"},o{"o"},n{"n"};
 
-    //std::ifstream is{"../node.txt"};
-
-    std::ifstream ist2{"C:\\Users\\1dnic\\Desktop\\my_project\\data_structure\\insert_tree.txt"};
+    std::ifstream input;
+    //std::ifstream ist2{"C:\\Users\\1dnic\\Desktop\\my_project\\data_structure\\insert_tree.txt"};
     //std::ofstream os{"../output.txt"};
 
-	//ist2.open( "C:\Users\1dnic\Desktop\my_project\data_structure\insert_tree.txt",std::ios::in);
-    /*while(ist2.eof())
-    {
-        std::string a;
-        std::cout<< a;
-    }*/
+	input.open( "../tree.txt",std::ios::in);
+    auto tree = TreePtrList<std::string>();
 
-    //std::list<node*> children;
+    input>>tree;
 
-    auto *t = new TreePtrList<std::string>(2);
+    std::cout<<"grado nodo a : "<<tree.getDegree("e")<<"\n";
+    std::string boh;
+    tree.getParent("l",boh);
+    std::cout<<"padre di e: " <<boh<<"\n";
 
+    std::list<std::string> _list;
+    tree.getChildren("a",_list);
 
-    auto *tfile = new TreePtrList<std::string>(5);
-    ist2>>*tfile;
-
-    try{
-        t->addNode(&a);
-        t->addNode(&l,&a);
-        t->addNode(&b,&a);
-        t->addNode(&e,&l);
-        t->addNode(&r,&l);
-        t->addNode(&o,&b);
-    }
-    catch(std::string error){
-        std::cout<<error<<"\n";
-    }
-
-    t->updateParent(r,b);
-    t->showStructure();
+    for(auto& child: _list)
+        std::cout<<child;
 
 
-
-    /*}
-
-
- //   if(ist2.is_open())
-	//{
-		//ist2 >> *t;
-		//t->addNode(&a);
-		//t->addNode(&l,&a);
-		//t->addNode(&b,&a);
-		// t->addNode(&e,&a);
-		// t->addNode(&r,&a);
-		// t->addNode(&o,&b);   
-    /*}
-    else
-        std::cout << "file non aperto\n";
-    */
-
-    tfile->showStructure();
-    // t->showTreePtr();
-
-
-    /* Non viene distrutto in maniera appropriata */
-    // tfile.showTree();
-    // tfile.showTreePtr();
-
-    // try{
-    //     t.visitDFS(&a0);
-    // }catch(const char* msg){
-    //     std::cerr<<msg<<"\n";
-    // }
-
-    //std::cout<<"grado nodo a: "<<t.getDegree(a0)<<"\n";
+    //tree.showStructure();
 
 #endif
 
@@ -248,6 +200,7 @@ int main(){
     for(auto &e: _list){
         std::cout<<e;
     }
+
 
 #endif
 

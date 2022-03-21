@@ -50,7 +50,6 @@ namespace datalib{
         virtual void getOutgoingEdges(const T& node, std::list<Edge<T>>& _list)=0;
         virtual void getIncomingEdges(const T& node, std::list<Edge<T>>& _list)=0;
         ///return the adjacent nodes of the Node x
-        virtual void getAdjNode(const T &_x)=0;
         //void getExtremes(Edge* e);                         //return the Node of the Edge //is only for edge list
         //node* getOpposite(Node x,Edge e);                  //return the Node from the opposite side of the Edge  //is only for edge_list
         virtual bool isAdjacent(const T &_src,const T &_dest)=0;       //return true if the edge(x,y) exist, else return false

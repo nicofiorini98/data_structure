@@ -63,25 +63,22 @@ void GraphIncList<T>::addEdge(const T *_src, const T *_dest){
 		src_itr = inc_list.find(*_src);
 	}
 
-	//trova il nodo dest
+	//find dest node
 	typename std::map<T,Node<T>*>::iterator dest_itr;
 	dest_itr = inc_list.find(*_dest);
 
-	//se dest non esiste crealo
+    //create dest if doesn't exists
 	if (dest_itr == inc_list.end()){
 		addNode(*_dest);
 		dest_itr = inc_list.find(*_dest);
 	}
 
-	//creazione arco
-	//std::cout<<"arco: "<<*(src_itr->second)<<"\n";
+	//create edge
 	Edge<T> *e = new Edge<T>(src_itr->second, dest_itr->second);
-	//std::cout<<"boh\n";
 
-	//aggiungere arco alle strutture
+	//add edge to the structure
 	edge_list.push_back(e);
 	(src_itr->second)->connected_edges.push_back(e);
-
 }
 
 

@@ -103,7 +103,6 @@ void GraphEdgeList<T>::deleteNode(const T &_x){
 
 }
 
-
 //return true if exists an edge (_src,_dest) in the structure
 template<class T>
 bool GraphEdgeList<T>::edge_existence(const T &_src, const T &_dest) const{
@@ -120,7 +119,6 @@ bool GraphEdgeList<T>::edge_existence(const T &_src, const T &_dest) const{
 	}
 	return false;
 }
-
 
 template<class T>
 bool GraphEdgeList<T>::edge_existence(const T *_src, const T *_dest) const{
@@ -141,7 +139,6 @@ bool GraphEdgeList<T>::edge_existence(const T *_src, const T *_dest) const{
 	return false;
 }
 
-
 //return true if exists a node _x in the structure
 template<class T>
 bool GraphEdgeList<T>::node_existence(const T &_x) const{
@@ -151,7 +148,6 @@ bool GraphEdgeList<T>::node_existence(const T &_x) const{
 	}
 	return false;
 }
-
 
 template<class T>
 bool GraphEdgeList<T>::node_existence(const Node<T> &_x) const{
@@ -183,7 +179,6 @@ void GraphEdgeList<T>::showNode() const{
 
 template<class T>
 void GraphEdgeList<T>::getIncidentEdges(const T &node, std::list<Edge<T>> &_list) {
-
     //posso ritornare direttamente una lista degli archi che stanno in edge_list
     for(auto& e: edge_list){
         if(*(e->dest) == node || (*e->src) == node)
@@ -207,6 +202,12 @@ void GraphEdgeList<T>::getIncomingEdges(const T &node, std::list<Edge<T>> &_list
             _list.push_back(*e);
         }
     }
+}
+
+template<class T>
+bool GraphEdgeList<T>::isAdjacent(const T &_src, const T &_dest) {
+    //todo
+    return false;
 }
 
 #endif
