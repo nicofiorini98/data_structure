@@ -32,14 +32,14 @@ TreePosVector<T>::TreePosVector(int _degree, int _height): Tree<T>(){
 template <class T>
 void TreePosVector<T>::addNode(const T* _x, const T* _parent){
 
-    static int call = 0;
-    call++;
+    //static int call = 0;
+    //call++;
 
     //local iterator, typename because are nested dependent names
     typename std::vector<Node<T>*>::iterator x_itr;
     typename std::vector<Node<T>*>::iterator parent_itr;
 
-    //devo inserire padre e figlio nel vettore, 
+    //devo inserire padre e figlio nel vettore,
     //nel frattempo devo mantenere il vettore abbastanza grande 
     //devo aggiornare il numero dei nodi
 
@@ -112,12 +112,13 @@ void TreePosVector<T>::addNode(const T* _x, const T* _parent){
 
 //add childrens to node x, x must exists
 template<class T>
-void TreePosVector<T>::addChildren(const T* _x, const std::list<T*> &_children){
+void TreePosVector<T>::addChildren(const T& _x, const std::list<T>& _children){
     
     /* Preconditions
      * 1. the node _x must exists, and must be in the vec_node
      * 2. the nodes to be added must have enough space 
      * TODO 3. the child node to be added it must not exist
+
      */
 
     typename std::vector<Node<T>*>::iterator x_itr;
@@ -149,6 +150,7 @@ void TreePosVector<T>::addChildren(const T* _x, const std::list<T*> &_children){
         ++(*x_itr)->num_children;
     }
 }
+
 
 template<class T>
 void TreePosVector<T>::addChild(const T* _x, const T* _child){

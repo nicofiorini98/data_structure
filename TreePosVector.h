@@ -4,7 +4,7 @@
 
 /*
  * Sia T=(N,A), un albero d-ario con n nodi, 
- * un bettore posizionale è un array P di dimensione n 
+ * un vettore posizionale è un array P di dimensione n
  * tale che P[v] contiene l'informazione associata al nodo v,
  * e tale che l'informazione associata all'i-esimo di v è in posizione P[d*v+i]  
  * per 0<i<d-1     
@@ -34,6 +34,8 @@ namespace datalib
         int getNumChildren(Node<T>* _x){return _x->num_children;}
         int getPos(Node<T>* _x){return _x->pos;}
 
+        void addChild(const T* _x,const T* _child);
+
         // void addChildrens(node<T>* _x,const std::list<T*> &_childrens);
 
     public: 
@@ -55,8 +57,8 @@ namespace datalib
 
         void addNode(const T *_x,const T* _parent=nullptr); //da togliere se non serve il const 
 
-        void addChild(const T* _x,const T* _child);
-        void addChildren(const T* _x, const std::list<T*> &_children);
+        //void addChild(const)
+        void addChildren(const T& _x, const std::list<T>& _children);
         // void addChildrens(node<T>* _x, const std::list<node<T>*> &_childrens);
         // void addChildrens2(node<T>* _x, const std::list<node<T>*> &_childrens);
 
@@ -66,9 +68,7 @@ namespace datalib
         
 
         friend std::istream &operator>>(std::istream &is, TreePosVector<T> &t){
-
             return is;
-
         }
 
         friend std::ostream &operator<<(std::ostream &os, TreePosVector<T> &t){

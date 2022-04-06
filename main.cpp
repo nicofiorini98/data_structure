@@ -53,7 +53,7 @@ int main(){
 
 
     std::cout<<"Prova vettore posizione: \n";
-    datalib::tree_pos_vector<std::string> t(2,3);
+    datalib::TreePosVector<std::string> tree(2,3);
 
     try{
         t.addNode(&a);
@@ -102,6 +102,7 @@ int main(){
 
     //std::string a{"a"},l{"l"},b{"b"};
     //std::string e{"e"},r{"r"},o{"o"},n{"n"};
+    std::string n{"n"},g{"g"};
 
     std::ifstream input;
     //std::ifstream ist2{"C:\\Users\\1dnic\\Desktop\\my_project\\data_structure\\insert_tree.txt"};
@@ -112,17 +113,13 @@ int main(){
 
     input>>tree;
 
-    std::cout<<"grado nodo a : "<<tree.getDegree("e")<<"\n";
-    std::string boh;
-    tree.getParent("l",boh);
-    std::cout<<"padre di e: " <<boh<<"\n";
+    std::cout<<"grado nodo a : "<<tree.getDegree("a")<<"\n";
 
     std::list<std::string> _list;
+    tree.addChildren("a",{g,n});
     tree.getChildren("a",_list);
-
     for(auto& child: _list)
         std::cout<<child;
-
 
     //tree.showStructure();
 
@@ -200,7 +197,6 @@ int main(){
     for(auto &e: _list){
         std::cout<<e;
     }
-
 
 #endif
 

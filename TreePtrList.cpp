@@ -57,6 +57,7 @@ void TreePtrList<T>::addNode(const T* _x, const T *_parent)
     if(_parent){
         parent_itr=nodes_map.find(*_parent);
 
+        //il parent non esiste??
         if(parent_itr == nodes_map.end()){
             std::string error("aooooo");
             throw error;
@@ -108,12 +109,16 @@ void TreePtrList<T>::addNode(const T* _x, const T *_parent)
 }
 
 template<class T>
-void TreePtrList<T>::addChildren(const T *_x, const std::list<T *> &_children) {
-    //todo
+void TreePtrList<T>::addChildren(const T& _x, const std::list<T> &_children) {
 
+    try{
+        for(auto& child: _children)
+            addNode(&child,&_x);
+    }
+    catch(std::string error){
+        std::cout<<error<<"\n";
+    }
 }
-
-
 
 //return the number of sons for the node x 
 //O(log n)
@@ -123,9 +128,7 @@ int TreePtrList<T>::getDegree(const T &_x)
     return nodes_map.find(_x)->second->node_list.size();
 }
 
-//return the pointer to the node of a 
-//todo vedere, non mi conviene restituire un puntatore
-
+//return by referece the parent node of _x
 template<class T>
 void TreePtrList<T>::getParent(const T &_x, T& _parent){
     _parent = (nodes_map.find(_x))->second->parent->value;
@@ -134,7 +137,7 @@ void TreePtrList<T>::getParent(const T &_x, T& _parent){
 
 //append the children node to the list
 template<class T>
-void TreePtrList<T>::getChildren(const T &_x,std::list<T>& _list){
+void TreePtrList<T>::getChildren(const T& _x,std::list<T>& _list){
 
     //find the itr of the target
     typename std::map<T,Node<T>*>::iterator x_itr;
@@ -173,6 +176,7 @@ void TreePtrList<T>::updateParent(const T& _x, const T& _new_parent) {
 template<class T>
 void TreePtrList<T>::depthSearch(const T* _root){
     //todo da rifare cambiando il node, così non funziona
+    //todo non so cosa intendevo, però non funziona
 
     //initialize for stack
 
@@ -297,7 +301,11 @@ std::list<Node<T>*>& TreePtrList<T>::getNodeList(Node<T>* _x){
             if(x_itr != nodes_map.end()){
                 return (x_itr->second)->node_list;
             }
-            else throw "boh";
+            else {
+                std::string error("Error TreePtrList::getNodeList");
+                throw error;
+            }
+
 
 };
 

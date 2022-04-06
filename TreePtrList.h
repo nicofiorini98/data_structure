@@ -27,7 +27,7 @@ namespace datalib{
         Node<T> *root;
 
         std::map<T,Node<T>*> nodes_map;
-        std::list<Node<T>*>& getNodeList(Node<T>* _x); //todo vedere se serve
+        std::list<Node<T>*>& getNodeList(Node<T>* _x);
         
         int getNumChildren(Node<T>* _x){return _x->node_list.size();}
         Node<T>* getNode(const T _x);
@@ -37,10 +37,9 @@ namespace datalib{
 
     public:
 
-
         /// \param _degree Costructor with default parameter,
         /// if degree is not specified, Tree doesn't have a particular degree
-        TreePtrList(int _degree=4);
+        TreePtrList(int _degree=-1);
 
         ///virtual destructor
         ~TreePtrList();
@@ -50,19 +49,20 @@ namespace datalib{
         int getDegree(const T &_x) override;
 
         ///return the parent of the node x
-        void getParent(const T& _x, T& _parent) override;
+        void getParent(const T &_x,T& _parent) override;
 
         ///return a vector of the node x
-        void getChildren(const T &_x,std::list<T>& _list);
+        //void getChildren(const T &_x,std::list<T>& _list);
+        void getChildren(const T &_x, std::list<T>& _list) override;
 
         ///add a node in the Tree
         ///\param _node is the node to add in the Tree
         ///\param _father is the parent of the node to be inserted,
         ///if not specified the node is the root of the Tree
-        void addNode(const T *_x,const T *_parent = nullptr) override;
+        void addNode(const T *_x,const T *_parent) override;
 
         //add children to node _x
-        void addChildren(const T *_x, const std::list<T*> &_children) override;
+        void addChildren(const T& _x, const std::list<T> &_children) override;
 
         //void removeChild(const T& _x);
 
@@ -72,7 +72,7 @@ namespace datalib{
         ///print the node following BFS visit
         void breadthSearch(const T* _root) override;
 
-        void updateParent(const T& _x,const  T& _new_parent);
+        void updateParent(const T& _x,const  T& _new_parent) override;
 
         void showTree();
 
@@ -92,7 +92,6 @@ namespace datalib{
             //example with string:
             //a
             //a,l
-
             //se il padre non è fornito, il nodo è la radice
             std::string line,x_string,parent_string;
 
@@ -102,12 +101,12 @@ namespace datalib{
                 auto *x = new T;
                 auto *parent = new T;
 
-                std::stringstream str(line);                           //converte la riga in uno stream
+                std::stringstream str(line);                       //converte la riga in uno stream
                 std::getline(str, x_string, t.delimiter);              //leggo lo stream della riga fino al carattere delimitatore
-                std::stringstream str1(x_string);                      // converte il primo campo in uno stream
+                std::stringstream str1(x_string);                  // converte il primo campo in uno stream
                 str1 >> *x;                                            //viene utilizzata la funzione >> per l'input del primo campo
-
                 std::getline(str, parent_string, t.delimiter);         //continuo a leggere per trovare il secondo campo
+
                 if (parent_string.empty()){
                     t.addNode(x, nullptr);
                     continue;
@@ -121,7 +120,6 @@ namespace datalib{
         }
 
         friend std::ostream& operator<<(std::ostream& os, TreePtrList<T> t) {
-
             for(auto &n: t.nodes_map){
                 for(auto &child: t.getNodeList(n.second)){
                     os<<"( "<< *(n.second) << " " << *child <<" )"<<"\n";
