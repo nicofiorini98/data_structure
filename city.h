@@ -12,7 +12,7 @@ public:
     int key;
     std::string name;
 
-    city(){key=0;name="molise";}
+    city(){key=0;name="";}
     city(int _key,const std::string& _name): key(_key),name(_name){}
 
     //operator =
@@ -66,8 +66,6 @@ public:
         //os << c.name;
         return is;
     }
-
-
 };
 
 #endif

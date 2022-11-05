@@ -25,7 +25,7 @@ namespace datalib
     {
     private: 
         ///vector of suitably positioned Nodes
-        std::vector<Node<T>*> vec_node;
+        std::vector<Node<T>*> vec_node;  //todo si può trasformare in un array visto che le dimensione sono fisse
         Node<T>* root;
         int max_num_nodes;
         int height;
@@ -43,6 +43,7 @@ namespace datalib
         /**
          * Default costructor
          * \param _max_degree is the maximum grade of the nodes
+         *
          */
         
         TreePosVector(int degree, int _height);
@@ -50,23 +51,27 @@ namespace datalib
         //TreePosVector(int _max_grade,int _num_nodes);
         virtual ~TreePosVector(){}
 
-        int getDegree(const T &x){}
-        T getParent(const T &x){}
-        std::list<T>& getChildren(const T &x){} 
+        int getDegree(const T& _x) override { return 0; }
+        void getParent(const T &_x,T& _parent) override{}
+        
+       void getChildren(const T &x, std::list<T>& _list)override{}
         //void addNode2(const node<T> *_x,const node<T> *_parent=nullptr);
 
-        void addNode(const T *_x,const T* _parent=nullptr); //da togliere se non serve il const 
+        void addNode(const T *_x,const T* _parent=nullptr) override; //da togliere se non serve il const 
 
         //void addChild(const)
-        void addChildren(const T& _x, const std::list<T>& _children);
+        void addChildren(const T& _x, const std::list<T>& _children) override;
         // void addChildrens(node<T>* _x, const std::list<node<T>*> &_childrens);
         // void addChildrens2(node<T>* _x, const std::list<node<T>*> &_childrens);
 
         //only for debug 
         void showTree();
         void showTree2();
-        
 
+        void breadthSearch(const T* _root)override{}
+        void depthSearch(const T* _root)override{}
+
+        void updateParent(const T& _x, const T& _new_parent)override{}
         friend std::istream &operator>>(std::istream &is, TreePosVector<T> &t){
             return is;
         }

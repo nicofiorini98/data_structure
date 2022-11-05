@@ -255,7 +255,6 @@ void GraphIncList<T>::breadthSearch(const T& _first_node, TreePtrList<T>& _tree)
 }
 
 
-//potrei usare anche la ricorsione utilizzando lo stack delle chiamate
 template<class T>
 void GraphIncList<T>::depthSearch(const T &_first_node, TreePtrList<T> &_tree) {
 

@@ -26,7 +26,6 @@ namespace datalib
         //only implementation of data structure 
         //can define the parent of a node 
         
-
         marking mark = unexplored;
 
         //list of outgoing nodes, used for treePtrList
@@ -127,7 +126,7 @@ namespace datalib
     };
 
     //utility function
-    //l'ho fatta perchè io devo vedere se i puntatori sono uguali, 
+    //l'ho fatta perchè io devo vedere se i puntatori sono uguali
     template<class T>
     typename std::vector<Node<T>*>::iterator trova(typename std::vector<Node<T>*>::iterator begin,
                                                    typename std::vector<Node<T>*>::iterator end, const T* value)

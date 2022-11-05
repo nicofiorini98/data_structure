@@ -2,7 +2,8 @@
 #define TREE_PTR_LIST_CPP
 
 #include "TreePtrList.h"
-#include <stack>
+// #include <stack>
+// #include <queue>
 
 using namespace datalib;    
 
@@ -174,56 +175,99 @@ void TreePtrList<T>::updateParent(const T& _x, const T& _new_parent) {
 }
 
 template<class T>
-void TreePtrList<T>::depthSearch(const T* _root){
-    //todo da rifare cambiando il node, così non funziona
-    //todo non so cosa intendevo, però non funziona
+void TreePtrList<T>::depthSearch(const T* _root){ //todo da finire
 
-    //initialize for stack
 
-//    typename std::stack<Node<T>> s;
-//    typename std::map<T,Node<T>*>::iterator itr;
-//
-//    //pre-conditions: if the node isn't in the tree, return error
-//    itr = nodes_map.find(_root->value);
-//    if(itr==nodes_map.end())
-//    {
-//        throw " the node entered for start the visit doesn't exists\n";
-//        // std::cerr<<"errore, non c'è il nodo per poter fare la visita\n";
-//        // return;
-//    }
-//
-//    s.push(*(*itr).second);
-//    while(!s.empty())
-//    {
-//        Node<T> *u = &s.top();
-//        s.pop();             //pop don't return the value
-//
-//        //todo vedere se è corretto, non mi fido
-//        if(u)
-//        {
-//            //visit u
-//            std::cout<<u->value<<"\n";
-//            typename std::list<Node<T>*> childrens = getChildren(*u);
-//            typename std::list<Node<T>*>::iterator itr;
-//
-//            if(childrens.empty())
-//                u=nullptr;
-//            else
-//               /*  for(itr=childrens.end()--;itr != childrens.begin();itr--)
-//                    s.push(**itr);
-//               */
-//               for(auto i=(childrens.rbegin());i!=childrens.rend();++i)
-//                    s.push(**i);
-//            //prendere la lista dei figli di u
-//            //ed inserirli nello stack
-//        }
-//    }
+   std::cout << "Inizio ricerca in profondita partendo da: " << *_root << "\n";
 
+	//initialize for stack
+   std::stack<Node<T>*> stack;
+   typename std::map<T,Node<T>*>::iterator nodes_map_itr;
+
+  ///pre-conditions: if the node isn't in the tree, return error
+  nodes_map_itr = nodes_map.find(*_root);
+
+  if(nodes_map_itr==nodes_map.end()){
+      throw " the node entered for start the visit doesn't exists\n";
+  }
+
+  stack.push((*nodes_map_itr).second); //2 s.push(root)
+  while (!stack.empty())
+  {
+      Node<T>* u = stack.top();
+      stack.pop();                //pop don't return the value
+      std::cout << u->value << "-->";
+
+      //todo vedere se è corretto, non mi fido
+      if (true)
+      {
+          //visit u
+          std::list<T> lista_childrens;
+          getChildren(u->value, lista_childrens);
+
+          typename std::list<T>::iterator itr;
+          //se la lista è vuota non devo aggiungere niente allo stack
+          if (lista_childrens.empty())
+              u = nullptr;
+          else {
+
+              for (auto child_itr = (lista_childrens.rbegin()); child_itr != lista_childrens.rend(); ++child_itr)
+              {
+                  Node<T>* appo = new Node<T>(*child_itr);
+                  stack.push(appo);
+              }
+          }
+      }
+  }
 }
+
 
 template<class T>
 void TreePtrList<T>::breadthSearch(const T *_root) {
     //todo implementare
+
+    //initialize for stack
+    std::queue<Node<T>*> queue;
+    typename std::map<T, Node<T>*>::iterator nodes_map_itr;
+
+    ///pre-conditions: if the node isn't in the tree, return error
+    nodes_map_itr = nodes_map.find(*_root);
+
+    if (nodes_map_itr == nodes_map.end()) {
+        throw " the node entered for start the visit doesn't exists\n";
+    }
+
+    std::cout << "inizio visita in ampiezza\n";
+
+    queue.push((*nodes_map_itr).second); //2 s.push(root)
+    while (!queue.empty())
+    {
+        Node<T>* u = queue.front();
+        queue.pop();                //pop don't return the value
+        //std::cout << u->value << "-->";
+		std::cout << u->value << "-->";
+
+        //todo vedere se è corretto, non mi fido
+        if (true)
+        {
+            //visit u
+            std::list<T> lista_childrens;
+            getChildren(u->value, lista_childrens);
+
+            typename std::list<T>::iterator itr;
+            //se la lista è vuota non devo aggiungere niente allo stack
+            if (lista_childrens.empty())
+                u = nullptr;
+            else {
+
+                for (auto child_itr = (lista_childrens.begin()); child_itr != lista_childrens.end(); ++child_itr)
+                {
+                    Node<T>* appo = new Node<T>(*child_itr);
+                    queue.push(appo);
+                }
+            }
+        }
+    }
 }
 
 
@@ -241,9 +285,7 @@ void TreePtrList<T>::showTree()
     
         std::cout<<n.first<<" --->  ";
         //print the sons if the list isn't empty
-        if(!n.second->node_list.empty())
-        {
-
+        if(!n.second->node_list.empty()){
             for(auto& child: n.second->node_list){
                 std::cout<<child->value<<" ";
             }
@@ -301,13 +343,12 @@ std::list<Node<T>*>& TreePtrList<T>::getNodeList(Node<T>* _x){
             if(x_itr != nodes_map.end()){
                 return (x_itr->second)->node_list;
             }
-            else {
-                std::string error("Error TreePtrList::getNodeList");
-                throw error;
-            }
-
-
+            
+            std::string error("Error TreePtrList::getNodeList");
+            throw error;
+           
 };
+
 
 template<class T>
 void TreePtrList<T>::showTree2(){}

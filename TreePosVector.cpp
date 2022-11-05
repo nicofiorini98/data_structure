@@ -27,21 +27,17 @@ TreePosVector<T>::TreePosVector(int _degree, int _height): Tree<T>(){
 
     // std::cout<<"size of the vector: "<<vec_node.size()<<"\n";
 
-}  
+}
 
 template <class T>
 void TreePosVector<T>::addNode(const T* _x, const T* _parent){
 
-    //static int call = 0;
-    //call++;
+    static int call = 0;
+    call++;
 
     //local iterator, typename because are nested dependent names
     typename std::vector<Node<T>*>::iterator x_itr;
     typename std::vector<Node<T>*>::iterator parent_itr;
-
-    //devo inserire padre e figlio nel vettore,
-    //nel frattempo devo mantenere il vettore abbastanza grande 
-    //devo aggiornare il numero dei nodi
 
     //pre-conditions: 
     //1. the node x to add must be different from nullptr
@@ -67,10 +63,10 @@ void TreePosVector<T>::addNode(const T* _x, const T* _parent){
         throw error;
     }
 
-    //MEGLIO NON FARLO QUI, ANCORA NON SO SE DEVO LANCIARE UN ERRORE PER IL PARENT O NO
-    //vedere dove farlo, perchè senza questo da segmentation fault
-    // if(!root)
-    //     root = x_ptr;
+    // MEGLIO NON FARLO QUI, ANCORA NON SO SE DEVO LANCIARE UN ERRORE PER IL PARENT O NO
+    // vedere dove farlo, perchè senza questo da segmentation fault
+     //if(!root)
+         //root = x_ptr;
 
     // TODO qui devo decide dove vado ad inserire il nodo, e lo devo inserire 
     // in base alla posizione del padre
@@ -121,34 +117,34 @@ void TreePosVector<T>::addChildren(const T& _x, const std::list<T>& _children){
 
      */
 
-    typename std::vector<Node<T>*>::iterator x_itr;
-    x_itr= datalib::trova(vec_node.begin(),vec_node.end(),_x);
-    
-    //preconditions 1 
-    if(x_itr == vec_node.end()){
-        std::string error("error: _x can't be null pointer\n");
-        throw error;
-    }
+    //typename std::vector<Node<T>*>::iterator x_itr;
+    //x_itr= datalib::trova(vec_node.begin(),vec_node.end(),new Node<T>(_x));
+    //
+    ////preconditions 1
+    //if(x_itr == vec_node.end()){
+    //    std::string error("error: _x can't be null pointer\n");
+    //    throw error;
+    //}
 
-    int pos = (*x_itr)->pos;
+    //int pos = (*x_itr)->pos;
 
-    //preconditions 2 
-    if(((*x_itr)->num_children + _children.size()) > degree){
-        std::string error("error: max child node reached\n");
-        throw error;
-    }
+    ////preconditions 2 
+    //if(((*x_itr)->num_children + _children.size()) > this->degree){
+    //    std::string error("error: max child node reached\n");
+    //    throw error;
+    //}
 
-    for(auto &n: _children){
-        Node<T> *child2add= new Node<T>(*n);
+    //for(auto &n: _children){
+    //    Node<T> *child2add= new Node<T>(*n);
 
-        //add childrens in vec_node in the proper positions
-        int pos_childrens=(pos*degree)+ (*x_itr)->num_children;
+    //    //add childrens in vec_node in the proper positions
+    //    int pos_childrens=(pos * this->degree)+ (*x_itr)->num_children;
 
-        vec_node[pos_childrens]= child2add;
-        child2add->pos=pos_childrens;
+    //    vec_node[pos_childrens]= child2add;
+    //    child2add->pos=pos_childrens;
 
-        ++(*x_itr)->num_children;
-    }
+    //    ++(*x_itr)->num_children;
+    //}
 }
 
 
@@ -161,9 +157,14 @@ void TreePosVector<T>::addChild(const T* _x, const T* _child){
      */
 
     typename std::vector<Node<T>*>::iterator x_itr;
-    x_itr= datalib::trova(vec_node.begin(),vec_node.end(),_x);
+
+    //perchè lo trovo in questo modo?? 
+    x_itr = datalib::trova(vec_node.begin(),vec_node.end(),_x);
+    std::cout << "itr: " << **x_itr;
+
+
     typename std::vector<Node<T>*>::iterator child_itr;
-    child_itr= datalib::trova(vec_node.begin(),vec_node.end(),_child);
+    child_itr = datalib::trova(vec_node.begin(),vec_node.end(),_child);
     
     //preconditions 1 
     if(x_itr == vec_node.end()){
@@ -217,13 +218,37 @@ void TreePosVector<T>::showTree(){
 //convention of print tree
 template <class T>
 void TreePosVector<T>::showTree2(){
-    //OUTPUT following the conventions of the library
     //{ padre figlio1 } { padre figlio2 } { padre2 figlio1}
+    std::cout << "\nStampa TreePosVector:\n";
+    //stampa del root
+	
 
-    for(auto &node: vec_node){
-        if(node){
-            
-        }
+	//std::cout << "root: " << this->root->value;
+
+    for(auto&node : vec_node)
+    {
+
+	    if(node != nullptr)
+	    {
+            int pos = node->pos;
+            if (vec_node[pos / 2]!=nullptr)
+                std::cout << *vec_node[pos / 2];
+            else
+                std::cout << "//";
+
+            if (vec_node[pos / 2]!=nullptr)
+                std::cout << "<--" << *vec_node[pos];
+            else
+                std::cout << "//";
+
+			//ciclo per la stampa di ogni ciclo del nodo
+            for(int i=0;i< this->degree;i++)
+            {
+                if (vec_node[pos * 2 +i] != nullptr)
+                    std::cout << "-->" << *vec_node[pos * 2 + i];
+            }
+            std::cout << "\n";
+	    }
     }
 
 }

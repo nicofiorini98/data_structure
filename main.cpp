@@ -22,8 +22,9 @@
 
 // std::cout<<"it took the time"<<time_span.count()<<"seconds.";
 
-#define TREE_PTR_LIST 1
-#define POS_VECTOR 0
+
+#define TREE_PTR_LIST 0
+#define POS_VECTOR 1
 #define GRAPH_ADJ_LIST 0
 #define GRAPH_EDGE_LIST 0
 #define GRAPH_INC_LIST 0
@@ -37,11 +38,6 @@ city napoli(3, "napoli");
 
 int main(){
 
-/* std::cout << 1234.56789 << "\t\t(defaultfloat)\n"
- // \t\t to line up columns
-<< std::fixed << 1234.56789 << "\t(fixed)\n"
-< < std::scientific << 1234.56789 << "\t(scientific)\n";
-*/
 
     // datalib::node<int> a0{0},l1{1},b2{2};
     // datalib::node<int> e3{3},r4{4},o5{5},n{6};
@@ -51,22 +47,21 @@ int main(){
 
 #if POS_VECTOR
 
-
     std::cout<<"Prova vettore posizione: \n";
-    datalib::TreePosVector<std::string> tree(2,3);
-
     try{
-        t.addNode(&a);
-        t.addNode(&l,&a);
-        t.addNode(&b,&a);
-        t.addChild(&l,&a);
-        t.addNode(&r,&l);
-        t.addNode(&o,&b);
+		datalib::TreePosVector<std::string> tree(2, 3);
+		tree.addNode(new std::string("a"),nullptr);  //radice
+		tree.addNode(new std::string("l"),new std::string("a"));
+		tree.addNode(new std::string("b"),new std::string("a"));
+		tree.addNode(new std::string("e"), new std::string("l"));
+		tree.addNode(new std::string("r"), new std::string("l"));
+		tree.addNode(new std::string("o"), new std::string("b"));
+
+        tree.showTree2();
+
     }catch(std::string &error){
         std::cout<<error;
     }
-
-    std::cout<<t;
 
 #endif
 
@@ -100,9 +95,12 @@ int main(){
 
 #if TREE_PTR_LIST
 
-    //std::string a{"a"},l{"l"},b{"b"};
-    //std::string e{"e"},r{"r"},o{"o"},n{"n"};
-    std::string n{"n"},g{"g"};
+   /*
+    * std::string a{"a"},l{"l"},b{"b"};
+    * std::string e{"e"},r{"r"},o{"o"};
+    */
+
+	std::string n{"n"},g{"g"};
 
     std::ifstream input;
     //std::ifstream ist2{"C:\\Users\\1dnic\\Desktop\\my_project\\data_structure\\insert_tree.txt"};
@@ -111,16 +109,22 @@ int main(){
 	input.open( "../tree.txt",std::ios::in);
     auto tree = TreePtrList<std::string>();
 
+    //inizializzazione di tree tramite file
     input>>tree;
 
     std::cout<<"grado nodo a : "<<tree.getDegree("a")<<"\n";
-
     std::list<std::string> _list;
-    tree.addChildren("a",{g,n});
-    tree.getChildren("a",_list);
-    for(auto& child: _list)
-        std::cout<<child;
 
+    
+    tree.depthSearch(new std::string("a"));
+
+    tree.breadthSearch(new std::string("a"));
+
+    //tree.addChildren("a",{g,n});
+    //tree.getChildren("a",_list);
+
+    /*for(auto& child: _list)
+        std::cout<<child;*/
     //tree.showStructure();
 
 #endif

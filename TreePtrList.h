@@ -7,7 +7,7 @@
 #include "Node.h"
 #include <map>
 #include <stack>
-
+#include <queue>
 /**
  * \class Tree
  * \brief This class is a base class for various tree implementations
@@ -42,14 +42,14 @@ namespace datalib{
         TreePtrList(int _degree=-1);
 
         ///virtual destructor
-        ~TreePtrList();
+        ~TreePtrList(); //todo controllare
 
         //friend std::ostream &operator<<(std::ostream &is, TreePtrList<T> &t);
         ///return the number of sons for the node x
-        int getDegree(const T &_x) override;
+        int getDegree(const T &_x) override; //ok
 
         ///return the parent of the node x
-        void getParent(const T &_x,T& _parent) override;
+        void getParent(const T &_x,T& _parent) override; //todo ok se non è root, controllare
 
         ///return a vector of the node x
         //void getChildren(const T &_x,std::list<T>& _list);
@@ -59,7 +59,7 @@ namespace datalib{
         ///\param _node is the node to add in the Tree
         ///\param _father is the parent of the node to be inserted,
         ///if not specified the node is the root of the Tree
-        void addNode(const T *_x,const T *_parent) override;
+        void addNode(const T *_x,const T *_parent) override; //ok, viene usato per l'inizializzazione dell'albero
 
         //add children to node _x
         void addChildren(const T& _x, const std::list<T> &_children) override;
@@ -101,9 +101,9 @@ namespace datalib{
                 auto *x = new T;
                 auto *parent = new T;
 
-                std::stringstream str(line);                       //converte la riga in uno stream
+                std::stringstream str(line);                           //converte la riga in uno stream
                 std::getline(str, x_string, t.delimiter);              //leggo lo stream della riga fino al carattere delimitatore
-                std::stringstream str1(x_string);                  // converte il primo campo in uno stream
+                std::stringstream str1(x_string);                      // converte il primo campo in uno stream
                 str1 >> *x;                                            //viene utilizzata la funzione >> per l'input del primo campo
                 std::getline(str, parent_string, t.delimiter);         //continuo a leggere per trovare il secondo campo
 
