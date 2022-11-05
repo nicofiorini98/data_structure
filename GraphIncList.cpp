@@ -1,5 +1,6 @@
 #ifndef GRAPH_INC_LIST_CPP
 #define GRAPH_INC_LIST_CPP
+#pragma once
 
 #include "GraphIncList.h"
 
@@ -187,6 +188,7 @@ bool GraphIncList<T>::isAdjacent(const T &_src, const T &_dest){
 }
 
 
+//todo aggiustare con l'interfaccia nuova
 template<class T>
 void GraphIncList<T>::breadthSearch(const T& _first_node, TreePtrList<T>& _tree){
 
@@ -223,7 +225,8 @@ void GraphIncList<T>::breadthSearch(const T& _first_node, TreePtrList<T>& _tree)
 
 
 	//l'albero è formato dal solo vertice da cui partire
-	_tree.addNode(&(first_node_itr->second)->value);
+	// _tree.addNode(new)
+	_tree.addNode(new T(first_node_itr->first),nullptr);
 	(first_node_itr->second)->mark = open;
 
 	//inserire il vertice da cui partire nella frontiera (queue)
@@ -246,9 +249,9 @@ void GraphIncList<T>::breadthSearch(const T& _first_node, TreePtrList<T>& _tree)
 		//visita il vertice u (quindi prendo gli archi), prendo la destinazione del vertice u
 		for(auto &e: u->connected_edges){
 		 	if((e->dest)->mark == unexplored){
-		 		(e->dest)->mark = open; 						//marca v come aperto
+		 		(e->dest)->mark = open; 										  //marca v come aperto
 		 		open_node.push(e->dest);						
-		 		_tree.addNode(&((e->dest)->value),&(u->value)); //rendi u padre di v in t
+		 		_tree.addNode(new T((e->dest)->value),new T(u->value)); //rendi u padre di v in t
 		 	}
 		}
 	}
@@ -259,55 +262,55 @@ template<class T>
 void GraphIncList<T>::depthSearch(const T &_first_node, TreePtrList<T> &_tree) {
 
     //marcatura di tutti i vertici come inesplorati
-    for(auto &n: inc_list)
-        n.second->mark = unexplored;
+    // for(auto &n: inc_list)
+    //     n.second->mark = unexplored;
 
-    //ricerca del nodo da cui partire
-    typename std::map<T,Node<T>*>::iterator first_node_itr;
-    first_node_itr = inc_list.find(_first_node);
-    if(first_node_itr == inc_list.end()){
-        std::string error("the node for breadth first search doesn't exists in the graph");
-        throw error;
-    }
+    // //ricerca del nodo da cui partire
+    // typename std::map<T,Node<T>*>::iterator first_node_itr;
+    // first_node_itr = inc_list.find(_first_node);
+    // if(first_node_itr == inc_list.end()){
+    //     std::string error("the node for breadth first search doesn't exists in the graph");
+    //     throw error;
+    // }
 
-    _tree.addNode(&(first_node_itr->second)->value);
-    (first_node_itr->second)->mark = open;
+    // _tree.addNode(&(first_node_itr->second)->value);
+    // (first_node_itr->second)->mark = open;
 
-    //inserire il vertice da cui partire nella frontiera (stack)
-    std::stack<Node<T>*> open_node;
-    open_node.push((first_node_itr->second));
+    // //inserire il vertice da cui partire nella frontiera (stack)
+    // std::stack<Node<T>*> open_node;
+    // open_node.push((first_node_itr->second));
 
-    while(!open_node.empty()){
+    // while(!open_node.empty()){
 
-        //qui prendo il nodo nella coda
-        Node<T> *u = open_node.top(); //return a reference to the last element inserted
-        open_node.pop(); 				//remove the first element
+    //     //qui prendo il nodo nella coda
+    //     Node<T> *u = open_node.top(); //return a reference to the last element inserted
+    //     open_node.pop(); 				//remove the first element
 
-        //visita il vertice u
-        //typename std::map<T,node<T>*>::iterator u_itr;
-        //u_itr = inc_list.find(*u);
+    //     //visita il vertice u
+    //     //typename std::map<T,node<T>*>::iterator u_itr;
+    //     //u_itr = inc_list.find(*u);
 
-        //if(u->mark == closed)
-            //continue;
+    //     //if(u->mark == closed)
+    //         //continue;
 
-        u->mark = closed;
+    //     u->mark = closed;
 
-        //visita il vertice u (quindi prendo gli archi), prendo la destinazione del vertice u
-        for(auto &e: u->connected_edges){
-            auto* v = e->dest;
-            if(v->mark == unexplored){
-                v->mark = open; 						//marca v come aperto
-                open_node.push(v);
-                _tree.addNode(&(v->value),&(u->value)); //rendi u padre di v in t
-                _tree.updateParent(v->value,u->value);
+    //     //visita il vertice u (quindi prendo gli archi), prendo la destinazione del vertice u
+    //     for(auto &e: u->connected_edges){
+    //         auto* v = e->dest;
+    //         if(v->mark == unexplored){
+    //             v->mark = open; 						//marca v come aperto
+    //             open_node.push(v);
+    //             _tree.addNode(&(v->value),&(u->value)); //rendi u padre di v in t
+    //             _tree.updateParent(v->value,u->value);
 
-            }
-            else if((e->dest)->mark == open){
-                open_node.push(e->dest);
-                _tree.updateParent((e->dest)->value,u->value);
-            }
-        }
-    }
+    //         }
+    //         else if((e->dest)->mark == open){
+    //             open_node.push(e->dest);
+    //             _tree.updateParent((e->dest)->value,u->value);
+    //         }
+    //     }
+    // }
 
 
 

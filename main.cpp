@@ -27,10 +27,10 @@
 #define POS_VECTOR 0
 #define GRAPH_ADJ_LIST 0
 #define GRAPH_EDGE_LIST 0
-#define GRAPH_INC_LIST 0
+#define GRAPH_INC_LIST 1
 #define PROVA 0
 #define CITY_TREE_POS_VECTOR 0
-#define CITY_TREE_PTR_LIST 1
+#define CITY_TREE_PTR_LIST 0
 
 
 using namespace datalib;
@@ -41,7 +41,6 @@ city* bolzano = new city(4, "bolzano");
 city* gerusalemme = new city(5, "gerusalemme");
 
 int main(){
-
 
 #if CITY_TREE_POS_VECTOR
     std::cout<<*roma;
@@ -57,7 +56,6 @@ int main(){
     }catch(std::string &error){
         std::cout<<error;
     }
-
 
 
 #endif
@@ -282,42 +280,24 @@ int main(){
     else
         std::cout<<"file non aperto\n";
 
-    //_graph.showStructure();
 
-	/*try{
-
-         _graph.addEdge(&a,&d);
-         _graph.addEdge(&d,&a);
-         _graph.addEdge(&a,&b);
-         _graph.addEdge(&b,&a);
-         _graph.addEdge(&a,&c);
-         _graph.addEdge(&c,&a);
-         _graph.addEdge(&b,&c);
-         _graph.addEdge(&c,&b);
-         _graph.addEdge(&c,&d);
-         _graph.addEdge(&d,&c);
-         _graph.addEdge(&c,&e);
-         _graph.addEdge(&e,&c);
-         _graph.addEdge(&e,&f);
-         _graph.addEdge(&f,&e);
-         _graph.addEdge(&f,&g);
-         _graph.addEdge(&g,&f);
-         _graph.addEdge(&e,&g);
-         _graph.addEdge(&g,&e);
-
-         // std::cout<<"il grado del nodo è: "<<_graph.degree("n")<<"\n";
-     }catch(std::string &_error){
-         std::cout<<_error<<"\n";
-     }*/
     _graph.showStructure();
 
-    std::list<Edge<std::string>> lista;
-    //_graph.getIncomingEdges(g,lista);
-    _graph.getOutgoingEdges(g,lista);
+    TreePtrList<std::string> breadthTree;
+    _graph.breadthSearch("a",breadthTree);
 
-    for(auto& e: lista){
-        //std::cout<<e;
-    }
+    breadthTree.breadthSearch(new std::string("a"));
+
+	std::cout<<"\n show breadthTree\n";
+    breadthTree.showTree();
+
+    // std::list<Edge<std::string>> lista;
+    //_graph.getIncomingEdges(g,lista);
+    // _graph.getOutgoingEdges(g,lista);
+
+    // for(auto& e: lista){
+    //     //std::cout<<e;
+    // }
 
 #endif
     return 0;
