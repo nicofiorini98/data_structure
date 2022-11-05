@@ -51,11 +51,13 @@ int main(){
     try{
 		datalib::TreePosVector<std::string> tree(2, 3);
 		tree.addNode(new std::string("a"),nullptr);  //radice
-		tree.addNode(new std::string("l"),new std::string("a"));
-		tree.addNode(new std::string("b"),new std::string("a"));
+        tree.addChildren("a",{"l","b"});
+		// tree.addNode(new std::string("l"),new std::string("a"));
+		// tree.addNode(new std::string("b"),new std::string("a"));
 		tree.addNode(new std::string("e"), new std::string("l"));
 		tree.addNode(new std::string("r"), new std::string("l"));
 		tree.addNode(new std::string("o"), new std::string("b"));
+
 
         tree.showTree2();
 
