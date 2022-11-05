@@ -29,21 +29,21 @@
 #define GRAPH_EDGE_LIST 0
 #define GRAPH_INC_LIST 0
 #define PROVA 0
-#define CITY_TREE_POS_VECTOR 1
-#define CITY_TREE_PTR_LIST 0
+#define CITY_TREE_POS_VECTOR 0
+#define CITY_TREE_PTR_LIST 1
 
 
 using namespace datalib;
 city* roma    = new city(1, "roma");
 city* milano  = new city(2, "milano");
 city* napoli  = new city(3, "napoli");
-city* bolzano = new city(3, "bolzano");
-city* gerusalemme = new city(3, "gerusalemme");
+city* bolzano = new city(4, "bolzano");
+city* gerusalemme = new city(5, "gerusalemme");
 
 int main(){
 
 
-#if CITY_TREE_PTR_LIST
+#if CITY_TREE_POS_VECTOR
     std::cout<<*roma;
 
     try{
@@ -63,6 +63,18 @@ int main(){
 #endif
 
 #if CITY_TREE_PTR_LIST
+
+    try{
+		datalib::TreePtrList<city> tree;
+		tree.addNode(roma,nullptr);         //radice
+        tree.addChildren(*roma,{*milano,*napoli});
+		tree.addNode(gerusalemme,milano);
+		// tree.addNode(bolzano,napoli);
+        tree.showStructure();
+
+    }catch(std::string &error){
+        std::cout<<error;
+    }
 
 #endif 
 

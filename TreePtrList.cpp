@@ -1,5 +1,6 @@
 #ifndef TREE_PTR_LIST_CPP
 #define TREE_PTR_LIST_CPP
+#pragma once
 
 #include "TreePtrList.h"
 // #include <stack>
@@ -60,7 +61,7 @@ void TreePtrList<T>::addNode(const T* _x, const T *_parent)
 
         //il parent non esiste??
         if(parent_itr == nodes_map.end()){
-            std::string error("aooooo");
+            std::string error("errore, parent non esiste");
             throw error;
         }
 

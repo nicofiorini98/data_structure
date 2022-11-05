@@ -1,6 +1,7 @@
 
 #ifndef TREE_POS_VECTOR_CPP
 #define TREE_POS_VECTOR_CPP
+#pragma once
 #include <math.h>
 #include "TreePosVector.h"
 #include "Tree.h"
