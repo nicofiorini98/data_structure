@@ -24,26 +24,49 @@
 
 
 #define TREE_PTR_LIST 0
-#define POS_VECTOR 1
+#define POS_VECTOR 0
 #define GRAPH_ADJ_LIST 0
 #define GRAPH_EDGE_LIST 0
 #define GRAPH_INC_LIST 0
-#define PROVA 0 
+#define PROVA 0
+#define CITY_TREE_POS_VECTOR 1
+#define CITY_TREE_PTR_LIST 0
 
 
 using namespace datalib;
-city roma(1, "roma");
-city milano(2, "milano");
-city napoli(3, "napoli");
+city* roma    = new city(1, "roma");
+city* milano  = new city(2, "milano");
+city* napoli  = new city(3, "napoli");
+city* bolzano = new city(3, "bolzano");
+city* gerusalemme = new city(3, "gerusalemme");
 
 int main(){
 
 
-    // datalib::node<int> a0{0},l1{1},b2{2};
-    // datalib::node<int> e3{3},r4{4},o5{5},n{6};
+#if CITY_TREE_PTR_LIST
+    std::cout<<*roma;
 
-    //int a0{0},l1{1},b2{2};
-    //int e3{3},r4{4},o5{5},n{6};
+    try{
+		datalib::TreePosVector<city> tree(2, 3);
+		tree.addNode(roma,nullptr);         //radice
+        tree.addChildren(*roma,{*milano,*napoli});
+		tree.addNode(milano,gerusalemme);
+		tree.addNode(napoli,bolzano);
+        tree.showTree2();
+
+    }catch(std::string &error){
+        std::cout<<error;
+    }
+
+
+
+#endif
+
+#if CITY_TREE_PTR_LIST
+
+#endif 
+
+
 
 #if POS_VECTOR
 
@@ -57,7 +80,6 @@ int main(){
 		tree.addNode(new std::string("e"), new std::string("l"));
 		tree.addNode(new std::string("r"), new std::string("l"));
 		tree.addNode(new std::string("o"), new std::string("b"));
-
 
         tree.showTree2();
 

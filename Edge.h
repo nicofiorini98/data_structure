@@ -16,7 +16,7 @@ namespace datalib{
         std::string mark;
         Edge(Node<T>* _src, Node<T>* _dest, int _weight=0, const std::string _mark="");
         
-    public: 
+    public:
         ///costructor
         Edge(const T *_src, const T *_dest, int _weight=0, const std::string &_mark="");
         ///copy costructor
