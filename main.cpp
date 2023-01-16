@@ -272,7 +272,7 @@ int main(){
 	GraphIncList<std::string> _graph;
 
     std::fstream input;
-    input.open( "../oriented_graph.txt",std::ios::in);
+    input.open( "../unoriented_graph_337.txt",std::ios::in);
 
     if(input.is_open()){
         input>>_graph;
@@ -280,16 +280,14 @@ int main(){
     else
         std::cout<<"file non aperto\n";
 
+    TreePtrList<std::string> tree;
+    _graph.depthSearch("b", tree);
+    // _graph.breadthSearch("a",breadthTree);
 
-    _graph.showStructure();
+    // breadthTree.breadthSearch(new std::string("a"));
 
-    TreePtrList<std::string> breadthTree;
-    _graph.breadthSearch("a",breadthTree);
-
-    breadthTree.breadthSearch(new std::string("a"));
-
-	std::cout<<"\n show breadthTree\n";
-    breadthTree.showTree();
+	// std::cout<<"\n show breadthTree\n";
+    tree.showTree();
 
     // std::list<Edge<std::string>> lista;
     //_graph.getIncomingEdges(g,lista);

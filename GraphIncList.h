@@ -58,7 +58,7 @@ namespace datalib{
         void addEdge(const T *_src,const T *_dest) override;
         void addEdge(const Edge<T>& _edge);
         void deleteNode(const T& _x)override;                         //remove a Node in the graph
-        void deleteEdge(const T &_src,const T &_dest) override;       //remove a Edge in the graph
+        void deleteEdge(const T &_src,const T &_dest) override;       //remove a Edge in the graph 
         void deleteEdge(const Edge<T>& _edge);                        //remove a Edge in the graph
 
         void getIncidentEdges(const T& node, std::list<Edge<T>>& _list) override;
