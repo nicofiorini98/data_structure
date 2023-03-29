@@ -2,7 +2,6 @@
 #define NODE_CPP
 
 #include "Node.h"
-#include "city.h"
 #include <algorithm>
 
 using namespace datalib;

@@ -1,8 +1,7 @@
-#ifndef TREE_PTR_LIST_CPP
-#define TREE_PTR_LIST_CPP
-#pragma once
+#ifndef TREE_PTR_LIST_TPP
+#define TREE_PTR_LIST_TPP
 
-#include "TreePtrList.h"
+#include "../include/TreePtrList.h"
 // #include <stack>
 // #include <queue>
 
