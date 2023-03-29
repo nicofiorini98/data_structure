@@ -2,14 +2,14 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
-#include "city.h"
-#include "Node.h"
+#include "./city.h"
 #include "Edge.h"
-#include "GraphAdjList.h"
-#include "GraphEdgeList.h"
-#include "GraphIncList.h"
+#include "Node.h"
 #include "TreePtrList.h"
-#include "TreePosVector.h"
+// #include "GraphAdjList.h"
+// #include "GraphEdgeList.h"
+// #include "GraphIncList.h"
+// #include "TreePosVector.h"
 //#include <chrono>
 
 //using namespace std;
@@ -23,11 +23,11 @@
 // std::cout<<"it took the time"<<time_span.count()<<"seconds.";
 
 
-#define TREE_PTR_LIST 0
+#define TREE_PTR_LIST 1
 #define POS_VECTOR 0
 #define GRAPH_ADJ_LIST 0
 #define GRAPH_EDGE_LIST 0
-#define GRAPH_INC_LIST 1
+#define GRAPH_INC_LIST 0
 #define PROVA 0
 #define CITY_TREE_POS_VECTOR 0
 #define CITY_TREE_PTR_LIST 0
@@ -140,17 +140,24 @@ int main(){
     //std::ifstream ist2{"C:\\Users\\1dnic\\Desktop\\my_project\\data_structure\\insert_tree.txt"};
     //std::ofstream os{"../output.txt"};
 
-	input.open( "../tree.txt",std::ios::in);
+	input.open( "../insert_tree.txt",std::ios::in);
+
+    if(input.is_open()){
+        std::cout << "Failed to open file." << std::endl;
+        return -1;
+    }else{
+        std::cout << "file opened correctly." << std::endl;
+    }
     auto tree = TreePtrList<std::string>();
 
     //inizializzazione di tree tramite file
     input>>tree;
 
-    std::cout<<"grado nodo a : "<<tree.getDegree("a")<<"\n";
-    std::list<std::string> _list;
+    // std::cout<<"grado nodo a : "<<tree.getDegree("a")<<" \n";
+    //std::list<std::string> _list;
 
     
-    tree.depthSearch(new std::string("a"));
+    // tree.depthSearch(new std::string("a"));
 
     tree.breadthSearch(new std::string("a"));
 
@@ -159,7 +166,7 @@ int main(){
 
     /*for(auto& child: _list)
         std::cout<<child;*/
-    //tree.showStructure();
+    // tree.showStructure();
 
 #endif
 

@@ -31,17 +31,19 @@ namespace datalib{
             return os;
         }
 
-        template<class U>
-        friend class GraphEdgeList;
+        //todo ripristinare
+        // template<class U>
+        // friend class GraphEdgeList;
 
-        template<class U>
-        friend class GraphIncList;
+        //todo ripristinare
+        // template<class U>
+        // friend class GraphIncList;
         
         // friend class GraphAdjList;
         // friend class tree_parent_vector;
     };
 }
 
-#include "Edge.cpp"
+#include "../sources/Edge.cpp"
 
 #endif

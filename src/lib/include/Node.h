@@ -5,7 +5,7 @@
 #include <list>
 #include <vector>
 #include <algorithm>
-#include "city.h"
+// #include "city.h"
 
 // #include "edge.h"
 
@@ -104,7 +104,9 @@ namespace datalib
 
         template<class U> 
         friend class TreePtrList;
-
+        
+        //todo ripristinare
+        /* 
         template<class U> 
         friend class TreePosVector;
 
@@ -118,7 +120,7 @@ namespace datalib
         friend class GraphEdgeList;
 
         template<class U>
-        friend class GraphIncList;
+        friend class GraphIncList; */
 
         // template<class S>
         // std::ostream &operator<<(std::ostream &os, tree_pos_vector<S> &t);
@@ -146,6 +148,6 @@ namespace datalib
         return end;
     }
 }
-#include "Node.cpp"
+#include "../sources/Node.cpp"
 
 #endif
