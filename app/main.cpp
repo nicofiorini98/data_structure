@@ -6,6 +6,7 @@
 #include "Edge.h"
 #include "Node.h"
 #include "TreePtrList.h"
+#include <string>
 // #include "GraphAdjList.h"
 // #include "GraphEdgeList.h"
 // #include "GraphIncList.h"
@@ -136,13 +137,13 @@ int main(){
 
 	std::string n{"n"},g{"g"};
 
-    std::ifstream input;
+    std::ifstream input("/home/nico/project/data_structure/tree.txt");
     //std::ifstream ist2{"C:\\Users\\1dnic\\Desktop\\my_project\\data_structure\\insert_tree.txt"};
     //std::ofstream os{"../output.txt"};
 
-	input.open( "../insert_tree.txt",std::ios::in);
+	// input.open("../tree.txt",std::ios_base::in);
 
-    if(input.is_open()){
+    if(!input.is_open()){
         std::cout << "Failed to open file." << std::endl;
         return -1;
     }else{
@@ -151,22 +152,28 @@ int main(){
     auto tree = TreePtrList<std::string>();
 
     //inizializzazione di tree tramite file
+
+    // std::cout<<"prima della stampa\n";
+    // std::string line;
+
+    // input>>line;
+
     input>>tree;
 
-    // std::cout<<"grado nodo a : "<<tree.getDegree("a")<<" \n";
+    std::cout<<"grado nodo a : "<<tree.getDegree("a")<<" \n";
     //std::list<std::string> _list;
 
     
-    // tree.depthSearch(new std::string("a"));
+    tree.depthSearch(new std::string("a"));
 
-    tree.breadthSearch(new std::string("a"));
+    // tree.breadthSearch(new std::string("a"));
 
     //tree.addChildren("a",{g,n});
     //tree.getChildren("a",_list);
 
     /*for(auto& child: _list)
         std::cout<<child;*/
-    // tree.showStructure();
+    tree.showStructure();
 
 #endif
 

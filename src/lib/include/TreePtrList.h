@@ -131,5 +131,5 @@ namespace datalib{
     };
 }
 
-#include "../sources/TreePtrList.cpp"
+#include "../sources/TreePtrList.tpp"
 #endif

@@ -1,5 +1,5 @@
-#ifndef TREE_PTR_LIST_CPP
-#define TREE_PTR_LIST_CPP
+#ifndef TREE_PTR_LIST_TPP
+#define TREE_PTR_LIST_TPP
 
 #include "../include/TreePtrList.h"
 // #include <stack>
@@ -126,7 +126,6 @@ void TreePtrList<T>::addChildren(const T& _x, const std::list<T> &_children) {
 template<class T>
 int TreePtrList<T>::getDegree(const T &_x)
 {
-    std::cout<<"nodo a??: "<<_x<<": \n";
     return nodes_map.find(_x)->second->node_list.size();
 }
 
