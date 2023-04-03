@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.1 FATAL_ERROR)
 
-project(nicoLib VERSION 1 LANGUAGES C CXX)
+project(slothLib VERSION 1 LANGUAGES C CXX)
 
 
 # Global CMake variables are set here
@@ -10,13 +10,14 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 
-# Project/Library Names
-set(LIBRARY_NAME "nico")
-## set(UNIT_TEST_NAME "unit_tests")
+# set(UNIT_TEST_NAME "unit_tests")
+set(TREE_LIB_NAME "sloth_tree")
+set(GRAPH_LIB_NAME "sloth_graph")
+set(UTIL_LIB_NAME "sloth_util")
 set(EXECUTABLE_NAME "executable")
 
+# funzione per l'eseguibile di doxygen
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake/)
-
 include(Docs)
 
 
@@ -29,6 +30,4 @@ add_subdirectory(app)
 #add_subdirectory(tests)
 
 # aggiungo eseguibile
-#add_executable(${EXECUTABLE_NAME} ${my_sources} GraphIncMatrix.h)
-
 # TODO INSTALL TARGETS

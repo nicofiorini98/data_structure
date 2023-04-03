@@ -1,6 +1,5 @@
 #ifndef GRAPH_INC_LIST_CPP
 #define GRAPH_INC_LIST_CPP
-#pragma once
 
 #include "GraphIncList.h"
 

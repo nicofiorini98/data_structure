@@ -52,5 +52,5 @@ namespace datalib{
     };
 }
 
-#include "GraphAdjList.cpp"
+#include "../sources/GraphAdjList.cpp"
 #endif

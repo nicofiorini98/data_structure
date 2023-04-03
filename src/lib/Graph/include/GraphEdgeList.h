@@ -78,5 +78,5 @@ namespace datalib{
 }
 
 
-#include "GraphEdgeList.cpp"
+#include "../sources/GraphEdgeList.cpp"
 #endif

@@ -219,6 +219,7 @@ void TreePtrList<T>::depthSearch(const T* _root){ //todo da finire
           }
       }
   }
+  std::cout<<std::endl;
 }
 
 
