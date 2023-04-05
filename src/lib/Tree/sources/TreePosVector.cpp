@@ -8,7 +8,7 @@
 
 using namespace datalib;
 
-//I need to know the grade of the tree and the 
+//I need to know the grade of the tree and the
 //num_nodes for instatiate the tree
 template<class T>
 TreePosVector<T>::TreePosVector(int _degree, int _height): Tree<T>(){
@@ -40,7 +40,7 @@ void TreePosVector<T>::addNode(const T* _x, const T* _parent){
     typename std::vector<Node<T>*>::iterator x_itr;
     typename std::vector<Node<T>*>::iterator parent_itr;
 
-    //pre-conditions: 
+    //pre-conditions:
     //1. the node x to add must be different from nullptr
     //2. the node parent must exists if different from nullptr
     //3. the parent nullptr means that x is the root if the root exists
@@ -51,7 +51,7 @@ void TreePosVector<T>::addNode(const T* _x, const T* _parent){
         std::string error("you can't add nullptr as a node\n");
         throw error;
     }
-    
+
     //check if x already exists
     //std::cout<<"prima di trova: "<<std::endl<< (*vec_node.begin())->value;
     // if((*vec_node.begin())==nullptr)
@@ -69,7 +69,7 @@ void TreePosVector<T>::addNode(const T* _x, const T* _parent){
      //if(!root)
          //root = x_ptr;
 
-    // TODO qui devo decide dove vado ad inserire il nodo, e lo devo inserire 
+    // TODO qui devo decide dove vado ad inserire il nodo, e lo devo inserire
     // in base alla posizione del padre
 
     if(_parent){
@@ -88,7 +88,7 @@ void TreePosVector<T>::addNode(const T* _x, const T* _parent){
             addChild(_parent,{&a});
         }
         catch(std::string &error){
-            throw error; 
+            throw error;
         }
     }
     else //padre nullo, aggiornare radice
@@ -110,18 +110,18 @@ void TreePosVector<T>::addNode(const T* _x, const T* _parent){
 //add childrens to node x, x must exists
 template<class T>
 void TreePosVector<T>::addChildren(const T& _x, const std::list<T>& _children){
-    
+
     /* Preconditions
      * 1. the node _x must exists, and must be in the vec_node
-     * 2. the nodes to be added must have enough space 
+     * 2. the nodes to be added must have enough space
      * TODO 3. the child node to be added it must not exist
 
      */
 
     typename std::vector<Node<T>*>::iterator x_itr;
     x_itr= datalib::trova(vec_node.begin(),vec_node.end(),new T(_x));
-    
-    
+
+
     //preconditions 1
     if(x_itr == vec_node.end()){
        std::string error("error: _x can't be null pointer\n");
@@ -130,7 +130,7 @@ void TreePosVector<T>::addChildren(const T& _x, const std::list<T>& _children){
 
     int pos = (*x_itr)->pos;
 
-    //preconditions 2 
+    //preconditions 2
     if(((*x_itr)->num_children + _children.size()) > this->degree){
        std::string error("error: max child node reached\n");
        throw error;
@@ -154,27 +154,27 @@ template<class T>
 void TreePosVector<T>::addChild(const T* _x, const T* _child){
     /* Preconditions
      * 1. the node _x must exists, and must be in the vec_node
-     * 2. the nodes to be added must have enough space 
+     * 2. the nodes to be added must have enough space
      * 3. the child node to be added it must not exist
      */
 
     typename std::vector<Node<T>*>::iterator x_itr;
 
-    //perchè lo trovo in questo modo?? 
+    //perchè lo trovo in questo modo??
     x_itr = datalib::trova(vec_node.begin(),vec_node.end(),_x);
     std::cout << "itr: " << **x_itr;
 
 
     typename std::vector<Node<T>*>::iterator child_itr;
     child_itr = datalib::trova(vec_node.begin(),vec_node.end(),_child);
-    
-    //preconditions 1 
+
+    //preconditions 1
     if(x_itr == vec_node.end()){
         std::string error("error: _x can't be null pointer\n");
         throw error;
     }
 
-    //precondition 2 
+    //precondition 2
     if(((*x_itr)->num_children + 1) > degree){
         std::string error("error: max child node reached\n");
         throw error;
@@ -222,7 +222,7 @@ void TreePosVector<T>::showTree2(){
     //{ padre figlio1 } { padre figlio2 } { padre2 figlio1}
     std::cout << "\nStampa TreePosVector:\n";
     //stampa del root
-	
+
 
 	//std::cout << "root: " << this->root->value;
 

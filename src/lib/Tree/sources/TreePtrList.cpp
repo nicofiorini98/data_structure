@@ -1,11 +1,11 @@
 #ifndef TREE_PTR_LIST_TPP
 #define TREE_PTR_LIST_TPP
-
-#include "../include/TreePtrList.h"
+#pragma once
+#include "TreePtrList.h"
 // #include <stack>
 // #include <queue>
 
-using namespace datalib;    
+using namespace datalib;
 
 template<class T>
 TreePtrList<T>::TreePtrList(int _degree): Tree<T>()
@@ -20,13 +20,13 @@ template<class T>
 TreePtrList<T>::~TreePtrList(){
 
     int j=0;
-    //TODO 
-    //questo mi genera un segmentation fault, quindi vado ad accedere ad un'area 
+    //TODO
+    //questo mi genera un segmentation fault, quindi vado ad accedere ad un'area
     for(typename std::map<T,Node<T>*>::iterator i=nodes_map.begin(); i != nodes_map.end(); ++i)
     {
         // TODO controllare questo pezzo
         delete i->second;
-        // nodes_map.erase(i); //this bring to segmentation fault 
+        // nodes_map.erase(i); //this bring to segmentation fault
         j++;
     }
 }
@@ -44,7 +44,7 @@ void TreePtrList<T>::addNode(const T* _x, const T *_parent)
     //pre-conditions:
     //1. the node x to add must be different from nullptr
     //2. the node parent must exists if different from nullptr
-    //3. the parent nullptr means that x is the root 
+    //3. the parent nullptr means that x is the root
     //4. x will be the root if parent is nullptr and even the root is nullptr
 
     /* Validation of input parameter*/
@@ -71,7 +71,7 @@ void TreePtrList<T>::addNode(const T* _x, const T *_parent)
             throw error;
         }
     }
-    
+
     //check if x already exists
     // x_itr = nodes_map.find(*_x);
     if(x_itr == nodes_map.end()){
@@ -92,8 +92,8 @@ void TreePtrList<T>::addNode(const T* _x, const T *_parent)
             std::string error("the father entered doesn't exist");
             throw error;
         }
-        
-        //questo porta a dei cicli che non sono permessi nell'albero, devo fare un controllo 
+
+        //questo porta a dei cicli che non sono permessi nell'albero, devo fare un controllo
         x_ptr->parent = (parent_itr->second);
 
         //update children of the parent
@@ -103,7 +103,7 @@ void TreePtrList<T>::addNode(const T* _x, const T *_parent)
     {
         if(x_ptr==root)
             x_ptr->parent=nullptr;
-        else //TODO qua io lancierei un errore, meglio non dare troppa libertà 
+        else //TODO qua io lancierei un errore, meglio non dare troppa libertà
             x_ptr->parent=root;
     }
     this->num_nodes++;
@@ -121,7 +121,7 @@ void TreePtrList<T>::addChildren(const T& _x, const std::list<T> &_children) {
     }
 }
 
-//return the number of sons for the node x 
+//return the number of sons for the node x
 //O(log n)
 template<class T>
 int TreePtrList<T>::getDegree(const T &_x)
@@ -281,9 +281,9 @@ void TreePtrList<T>::showTree()
         if(n.second->parent!=nullptr){
             std::cout<<((n.second)->parent)->value<<"<---";
         }
-        else 
+        else
             std::cout<<"null"<<"<---";
-    
+
         std::cout<<n.first<<" --->  ";
         //print the sons if the list isn't empty
         if(!n.second->node_list.empty()){
@@ -291,7 +291,7 @@ void TreePtrList<T>::showTree()
                 std::cout<<child->value<<" ";
             }
         }
-        else 
+        else
             std::cout<<"null";
         std::cout<<std::endl;
     }
@@ -323,9 +323,9 @@ void TreePtrList<T>::showTreePtr()
         if(n.second->parent!=nullptr){
             std::cout<<((n.second)->parent)<<"<---";
         }
-        else 
+        else
             std::cout<<"null"<<"<---";
-    
+
         std::cout<<(n.second)<<" --->  ";
         //print the sons if the list isn't empty
         for(auto& child: n.second->node_list)
@@ -344,10 +344,10 @@ std::list<Node<T>*>& TreePtrList<T>::getNodeList(Node<T>* _x){
             if(x_itr != nodes_map.end()){
                 return (x_itr->second)->node_list;
             }
-            
+
             std::string error("Error TreePtrList::getNodeList");
             throw error;
-           
+
 };
 
 

@@ -1,29 +1,16 @@
-#include <iostream> 
+#include <iostream>
 #include <fstream>
 #include <sstream>
 #include <vector>
+#include <string>
+
 #include "./city.h"
 //#include "Edge.h"
 //#include "Node.h"
+#include "TreePosVector.h"
 #include "TreePtrList.h"
-//#include <TreePtrList.h>
-#include <string>
 // #include "GraphAdjList.h"
 // #include "GraphEdgeList.h"
-// #include "GraphIncList.h"
-// #include "TreePosVector.h"
-//#include <chrono>
-
-//using namespace std;
-// //using namespace std::chrono 
-// high_resolution_clock::time_point t1= high_resolution_clock::now();
-
-// high_resolution_clock::time_point t2= high_resolution_clock::now();
-
-// duration<double> time_span=duration_cast<duration<double>>(t2-t1);
-
-// std::cout<<"it took the time"<<time_span.count()<<"seconds.";
-
 
 #define TREE_PTR_LIST 1
 #define POS_VECTOR 0
@@ -76,7 +63,7 @@ int main(){
         std::cout<<error;
     }
 
-#endif 
+#endif
 
 
 
@@ -108,7 +95,7 @@ int main(){
     vec_node.push_back(&a0);
     vec_node.push_back(&b2);
     vec_node.push_back(&e3);
-    vec_node.push_back(&boh;
+    vec_node.push_back(&boh);
     GraphIncList<int> _graph_inc_list;
 
     _graph_inc_list.addNode(a0);
@@ -164,10 +151,10 @@ int main(){
     std::cout<<"grado nodo a : "<<tree.getDegree("a")<<" \n";
     //std::list<std::string> _list;
 
-    
+
     tree.depthSearch(new std::string("a"));
 
-    // tree.breadthSearch(new std::string("a"));
+    tree.breadthSearch(new std::string("a"));
 
     //tree.addChildren("a",{g,n});
     //tree.getChildren("a",_list);
@@ -182,18 +169,18 @@ int main(){
 
     node a(0);
     node l(1);
-    node b(2); 
+    node b(2);
     node e(3);
-    node r(4); 
+    node r(4);
     node o(5);
-    
+
     tree_parent_vector t;
 
 
     t.addNode(&a);
     t.addNode(&l);
     t.addNode(&b);
-    
+
     t.addNode(&e,&l);
     t.addNode(&r,&l);
     t.addNode(&o,&b);
@@ -266,7 +253,7 @@ int main(){
     a -> 0 -> 4       0:(a,b)
     b -> 2            1:(c,a)
     c -> 1 -> 3       2:(b,c)
-    d                 
+    d
 
     0:(a,b)
     1:(c,a)

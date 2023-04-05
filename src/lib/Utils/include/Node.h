@@ -9,7 +9,7 @@
 
 // #include "edge.h"
 
-//todo togliere il pos nella classe node 
+//todo togliere il pos nella classe node
 namespace datalib
 {
     enum marking {unexplored,open,closed};
@@ -23,9 +23,9 @@ namespace datalib
     template<class T>
     class Node{
     private:
-        //only implementation of data structure 
-        //can define the parent of a node 
-        
+        //only implementation of data structure
+        //can define the parent of a node
+
         marking mark = unexplored;
 
         //list of outgoing nodes, used for treePtrList
@@ -41,14 +41,14 @@ namespace datalib
         int pos;
         int num_children;
 
-        //private constructor 
+        //private constructor
         Node(T _value, Node<T>* _parent);
 
         //utility function for TreePtrList
         void addChildren(const std::list<Node<T>*>& _children);
 
     public:
-        ///\param _value is for initialize the value 
+        ///\param _value is for initialize the value
 
         Node(){}
 
@@ -58,7 +58,7 @@ namespace datalib
         ///copy costructor
         Node(const Node<T>& x);
 
-        ///getter  
+        ///getter
         T getValue()const {return value;}
         ///setter
         void setValue(T _value) {value=_value;}
@@ -67,19 +67,19 @@ namespace datalib
         Node<T>& operator=(const Node<T>& x);
         ///overloading operator ==
         bool operator==(const Node<T>& x) const;
-        
+
         ///overloading operator <
         bool operator<(const Node<T>& x) const;
         ///overloading operator <=
         bool operator<=(const Node<T>& x) const;
-        ///overloading operator > 
+        ///overloading operator >
         bool operator>(const Node<T>& x) const;
         ///overloading operator >=
         bool operator>=(const Node<T>& x) const;
         ///overloading operator !=
         bool operator!=(const Node<T>& x) const;
 
-        ///overloading operator >> 
+        ///overloading operator >>
         friend std::istream& operator>>(std::istream &is, Node<T>& _node)
         {
             //make ist throw if it goes bad or fail
@@ -102,25 +102,25 @@ namespace datalib
         // friend class tree_pos_vector;
         // friend class tree_parent_vector;
 
-        template<class U> 
+        template<class U>
         friend class TreePtrList;
-        
+
         //todo ripristinare
-        /* 
-        template<class U> 
+
+        template<class U>
         friend class TreePosVector;
 
-        template<class U> 
+        template<class U>
         friend class GraphAdjList;
 
-        template<class U> 
+        template<class U>
         friend class Edge;
-        
+
         template<class U>
         friend class GraphEdgeList;
 
         template<class U>
-        friend class GraphIncList; */
+        friend class GraphIncList;
 
         // template<class S>
         // std::ostream &operator<<(std::ostream &os, tree_pos_vector<S> &t);
@@ -144,7 +144,7 @@ namespace datalib
             if(**appo==*value){
                 return appo;
             }
-        }    
+        }
         return end;
     }
 }
