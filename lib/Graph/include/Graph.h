@@ -83,12 +83,12 @@ namespace datalib{
                 auto *src = new T;
                 auto *dest= new T;
 
-                std::stringstream str(line);                        //converte la riga in uno stream
+                std::stringstream str(line);                                 //converte la riga in uno stream
                 std::getline(str, src_string, graph.delimiter);              //leggo lo stream della riga fino al carattere delimitatore
-                std::stringstream str1(src_string);                      // converte il primo campo in uno stream
-                str1 >> *src;                                     //viene utilizzata la funzione >> per l'input del primo campo
+                std::stringstream str1(src_string);                          // converte il primo campo in uno stream
+                str1 >> *src;                                                //viene utilizzata la funzione >> per l'input del primo campo
 
-                std::getline(str, dest_string, graph.delimiter);         //continuo a leggere per trovare il secondo campo
+                std::getline(str, dest_string, graph.delimiter);             //continuo a leggere per trovare il secondo campo
 
                 //todo vedere se conviene utilizzare un carattere delimitatore
                 if (dest_string.empty()){

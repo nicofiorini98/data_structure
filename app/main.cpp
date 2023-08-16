@@ -23,6 +23,7 @@
 
 
 using namespace datalib;
+
 city* roma    = new city(1, "roma");
 city* milano  = new city(2, "milano");
 city* napoli  = new city(3, "napoli");
@@ -64,7 +65,6 @@ int main(){
     }
 
 #endif
-
 
 
 #if POS_VECTOR
