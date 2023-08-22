@@ -31,7 +31,7 @@ TreePosVector<T>::TreePosVector(int _degree, int _height): Tree<T>(){
 }
 
 template <class T>
-void TreePosVector<T>::addNode(const T* _x, const T* _parent){
+void TreePosVector<T>::addNode(const T* value, const T* parent){
 
     static int call = 0;
     call++;
@@ -47,7 +47,7 @@ void TreePosVector<T>::addNode(const T* _x, const T* _parent){
     //   otherwise x become the root (only the first node inserted can be the root)
 
     //pre-condition 1
-    if(_x==nullptr){
+    if(value==nullptr){
         std::string error("you can't add nullptr as a node\n");
         throw error;
     }
@@ -57,7 +57,7 @@ void TreePosVector<T>::addNode(const T* _x, const T* _parent){
     // if((*vec_node.begin())==nullptr)
     //     std::cout<<"vettore nodo nullo\n";
 
-    x_itr = datalib::trova(vec_node.begin(), vec_node.end(),_x);
+    x_itr = datalib::trova(vec_node.begin(), vec_node.end(),value);
 
     if(x_itr != vec_node.end()){
         std::string error = "x already exists\n";
@@ -72,9 +72,9 @@ void TreePosVector<T>::addNode(const T* _x, const T* _parent){
     // TODO qui devo decide dove vado ad inserire il nodo, e lo devo inserire
     // in base alla posizione del padre
 
-    if(_parent){
+    if(parent){
 
-        parent_itr = datalib::trova(vec_node.begin(),vec_node.end(),_parent);
+        parent_itr = datalib::trova(vec_node.begin(),vec_node.end(),parent);
 
         //pre-condition 2: parent can't be different from the null_ptr
         if(parent_itr==vec_node.end())
@@ -84,8 +84,8 @@ void TreePosVector<T>::addNode(const T* _x, const T* _parent){
             throw a;
         }
         try{
-            T a = *_x;
-            addChild(_parent,{&a});
+            T a = *value;
+            addChild(parent,{&a});
         }
         catch(std::string &error){
             throw error;
@@ -98,7 +98,7 @@ void TreePosVector<T>::addNode(const T* _x, const T* _parent){
             throw error;
         }
         else{
-            Node<T>* x_ptr = new Node<T>(*_x);
+            Node<T>* x_ptr = new Node<T>(*value);
             root=x_ptr;
             vec_node[1]=x_ptr;
             x_ptr->pos=1;

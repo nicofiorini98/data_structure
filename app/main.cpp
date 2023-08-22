@@ -13,13 +13,13 @@
 // #include "GraphEdgeList.h"
 
 #define TREE_PTR_LIST 1
-#define POS_VECTOR 0
+#define CITY_TREE_PTR_LIST 0
+#define POS_VECTOR 1
+#define CITY_TREE_POS_VECTOR 0
 #define GRAPH_ADJ_LIST 0
 #define GRAPH_EDGE_LIST 0
 #define GRAPH_INC_LIST 0
 #define PROVA 0
-#define CITY_TREE_POS_VECTOR 0
-#define CITY_TREE_PTR_LIST 0
 
 
 using namespace datalib;
@@ -69,7 +69,7 @@ int main(){
 
 #if POS_VECTOR
 
-    std::cout<<"Prova vettore posizione: \n";
+    std::cout<<"\n---------- Prova TreePosVector: ----------\n";
     try{
 		datalib::TreePosVector<std::string> tree(2, 3);
 		tree.addNode(new std::string("a"),nullptr);  //radice
@@ -85,6 +85,8 @@ int main(){
     }catch(std::string &error){
         std::cout<<error;
     }
+    
+    std::cout<<"\n------------------------------------------\n";
 
 #endif
 
@@ -118,6 +120,7 @@ int main(){
 
 #if TREE_PTR_LIST
 
+    std::cout<<"\n---------- Prova TreePtrList posizione: ----------\n";
    /*
     * std::string a{"a"},l{"l"},b{"b"};
     * std::string e{"e"},r{"r"},o{"o"};
@@ -137,20 +140,14 @@ int main(){
     }else{
         std::cout << "file opened correctly." << std::endl;
     }
+
     auto tree = TreePtrList<std::string>();
 
     //inizializzazione di tree tramite file
 
-    // std::cout<<"prima della stampa\n";
-    // std::string line;
-
-    // input>>line;
-
     input>>tree;
 
     std::cout<<"grado nodo a : "<<tree.getDegree("a")<<" \n";
-    //std::list<std::string> _list;
-
 
     tree.depthSearch(new std::string("a"));
 
@@ -162,6 +159,8 @@ int main(){
     /*for(auto& child: _list)
         std::cout<<child;*/
     // tree.showStructure();
+
+    std::cout<<"\n----------------------------------------------\n";
 
 #endif
 

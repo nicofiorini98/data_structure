@@ -46,33 +46,33 @@ namespace datalib{
 
         //friend std::ostream &operator<<(std::ostream &is, TreePtrList<T> &t);
         ///return the number of sons for the node x
-        int getDegree(const T &_x) override; //ok
+        int getDegree(const T &value) override; //ok
 
         ///return the parent of the node x
         void getParent(const T &_x,T& _parent) override; //todo ok se non è root, controllare
 
         ///return a vector of the node x
         //void getChildren(const T &_x,std::list<T>& _list);
-        void getChildren(const T &_x, std::list<T>& _list) override;
+        void getChildren(const T &value, std::list<T>& children) override;
 
         ///add a node in the Tree
         ///\param _node is the node to add in the Tree
         ///\param _father is the parent of the node to be inserted,
         ///if not specified the node is the root of the Tree
-        void addNode(const T *_x,const T *_parent) override; //ok, viene usato per l'inizializzazione dell'albero
+        void addNode(const T *value,const T *parent) override; //ok, viene usato per l'inizializzazione dell'albero
 
         //add children to node _x
-        void addChildren(const T& _x, const std::list<T> &_children) override;
+        void addChildren(const T& value, const std::list<T> &children) override;
 
         //void removeChild(const T& _x);
 
         ///print the node following a DFS visit
-        void depthSearch(const T* _root) override;
+        void depthSearch(const T* root) override;
 
         ///print the node following BFS visit
-        void breadthSearch(const T* _root) override;
+        void breadthSearch(const T* root) override;
 
-        void updateParent(const T& _x,const  T& _new_parent) override;
+        void updateParent(const T& child,const  T& newParent) override;
 
         void showTree();
 

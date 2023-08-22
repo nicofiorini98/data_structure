@@ -95,7 +95,7 @@ namespace datalib{
                     //graph.addEdge(src, nullptr);
                     continue;
                 }
-                std::stringstream str2(dest_string);                 //
+                std::stringstream str2(dest_string);
                 str2 >> *dest;
                 graph.addEdge(src,dest);
             }

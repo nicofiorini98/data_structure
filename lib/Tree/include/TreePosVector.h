@@ -51,16 +51,20 @@ namespace datalib
         //TreePosVector(int _max_grade,int _num_nodes);
         virtual ~TreePosVector(){}
 
-        int getDegree(const T& _x) override { return 0; }
-        void getParent(const T &_x,T& _parent) override{}
+        // todo da implementare
+        int getDegree(const T& value) override { return 0; } 
+
+		//todo da implementare
+        void getParent(const T &value,T& parent) override{}
         
-       void getChildren(const T &x, std::list<T>& _list)override{}
+        //todo da implementare
+        void getChildren(const T &value, std::list<T>& children)override{}
         //void addNode2(const node<T> *_x,const node<T> *_parent=nullptr);
 
-        void addNode(const T *_x,const T* _parent=nullptr) override; //da togliere se non serve il const 
+        void addNode(const T *value,const T* parent=nullptr) override; //da togliere se non serve il const 
 
         //void addChild(const)
-        void addChildren(const T& _x, const std::list<T>& _children) override;
+        void addChildren(const T& value, const std::list<T>& children) override;
         // void addChildrens(node<T>* _x, const std::list<node<T>*> &_childrens);
         // void addChildrens2(node<T>* _x, const std::list<node<T>*> &_childrens);
 
@@ -68,10 +72,13 @@ namespace datalib
         void showTree();
         void showTree2();
 
-        void breadthSearch(const T* _root)override{}
-        void depthSearch(const T* _root)override{}
+        //todo da implementare
+        void breadthSearch(const T* root)override{}
 
-        void updateParent(const T& _x, const T& _new_parent)override{}
+        //todo da implementare
+        void depthSearch(const T* root)override{}
+
+        void updateParent(const T& child, const T& newParent)override{}
         friend std::istream &operator>>(std::istream &is, TreePosVector<T> &t){
             return is;
         }

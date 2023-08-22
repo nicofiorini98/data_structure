@@ -106,7 +106,7 @@ void TreePtrList<T>::addNode(const T* _x, const T *_parent)
         else //TODO qua io lancierei un errore, meglio non dare troppa libertà
             x_ptr->parent=root;
     }
-    this->num_nodes++;
+    this->numNodes++;
 }
 
 template<class T>
@@ -124,9 +124,9 @@ void TreePtrList<T>::addChildren(const T& _x, const std::list<T> &_children) {
 //return the number of sons for the node x
 //O(log n)
 template<class T>
-int TreePtrList<T>::getDegree(const T &_x)
+int TreePtrList<T>::getDegree(const T &value)
 {
-    return nodes_map.find(_x)->second->node_list.size();
+    return nodes_map.find(value)->second->node_list.size();
 }
 
 //return by referece the parent node of _x
@@ -138,11 +138,11 @@ void TreePtrList<T>::getParent(const T &_x, T& _parent){
 
 //append the children node to the list
 template<class T>
-void TreePtrList<T>::getChildren(const T& _x,std::list<T>& _list){
+void TreePtrList<T>::getChildren(const T& value,std::list<T>& children){
 
     //find the itr of the target
     typename std::map<T,Node<T>*>::iterator x_itr;
-    x_itr = nodes_map.find(_x);
+    x_itr = nodes_map.find(value);
 
     //manage a possible error
     if(x_itr == nodes_map.end()){
@@ -152,21 +152,21 @@ void TreePtrList<T>::getChildren(const T& _x,std::list<T>& _list){
 
     //copy the children node into the list
     for(auto& nodo: x_itr->second->node_list){
-        _list.push_back(nodo->value);
+        children.push_back(nodo->value);
     }
 }
 
 template<class T>
-void TreePtrList<T>::updateParent(const T& _x, const T& _new_parent) {
+void TreePtrList<T>::updateParent(const T& child, const T& newParent) {
 
     //preconditions: can't update the roots
 
     //devo aggiornare parent, togliendo il figlio
     //devo aggiornare new_parent aggiungendo il figlio
     //devo aggiornare il puntatore interno al parent di _x
-    Node<T>* x = getNode(_x);
+    Node<T>* x = getNode(child);
     Node<T>* parent= x->parent;
-    Node<T>* new_parent = getNode(_new_parent);
+    Node<T>* new_parent = getNode(newParent);
 
     parent->node_list.remove(x);
     new_parent->addChildren({x});

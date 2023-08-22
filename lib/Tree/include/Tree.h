@@ -21,39 +21,41 @@ namespace datalib{
     class Tree {
     protected:
         char delimiter = ',';
-        int num_nodes;
+        int numNodes;
     public: 
+
         ///Costructor
-        Tree(){ num_nodes=0;}
+        Tree(){ numNodes=0;}
+
         ///virtual destructor
         virtual ~Tree(){}
 
         /// set Delimiter for the input and output of tree
-        void setDelimiter(const char _delimiter){delimiter = _delimiter;}
+        void setDelimiter(const char delimiter){this->delimiter = delimiter;}
 
         ///return the number of nodes of the Tree
-        int numNodes(){return num_nodes;}
+        int getNumNodes(){return numNodes;}
 
         ///return the number of sons for the node x
-        virtual int getDegree(const T &_x)=0;
+        virtual int getDegree(const T &value)=0;
 
         ///return the father of the node x
-        virtual void getParent(const T &_x,T& _parent)=0;
+        virtual void getParent(const T &value,T& parent)=0;
 
         ///return a vector with the children of the node x 
-        virtual void getChildren(const T &_x, std::list<T>& _list)=0;
+        virtual void getChildren(const T &value, std::list<T>& children)=0;
 
         ///add a Node in the Tree 
-        virtual void addNode(const T *_x,const T *_parent)=0;
+        virtual void addNode(const T *value,const T *parent)=0;
 
         ///add childrens to node
-        virtual void addChildren(const T& _x, const std::list<T>& _children)=0;
+        virtual void addChildren(const T& value, const std::list<T>& children)=0;
 
-        virtual void depthSearch(const T* _root)=0;
+        virtual void depthSearch(const T* root)=0;
 
-        virtual void breadthSearch(const T* _root)=0;
+        virtual void breadthSearch(const T* root)=0;
 
-        virtual void updateParent(const T& _x, const T& _new_parent)=0;
+        virtual void updateParent(const T& child, const T& newParent)=0;
 
         ///overloading operator >>
         /*friend std::istream &operator>>(std::istream &is, Tree<T> &t)
@@ -96,7 +98,5 @@ namespace datalib{
     };
 
 }
-
-
 
 #endif
