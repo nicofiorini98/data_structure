@@ -7,17 +7,18 @@
 #include "./city.h"
 //#include "Edge.h"
 //#include "Node.h"
+#include "GraphIncList.h"
 #include "TreePosVector.h"
 #include "TreePtrList.h"
 // #include "GraphAdjList.h"
 // #include "GraphEdgeList.h"
 
-#define TREE_PTR_LIST 1
+#define TREE_PTR_LIST 0
 #define CITY_TREE_PTR_LIST 0
-#define POS_VECTOR 1
+#define POS_VECTOR 0
 #define CITY_TREE_POS_VECTOR 0
 #define GRAPH_ADJ_LIST 0
-#define GRAPH_EDGE_LIST 0
+#define GRAPH_EDGE_LIST 1
 #define GRAPH_INC_LIST 0
 #define PROVA 0
 
@@ -221,7 +222,7 @@ int main(){
     GraphIncList<std::string> _graph;
 
     std::fstream input;
-    input.open( "../oriented_graph.txt",std::ios::in);
+    input.open( "/home/nico/project/data_structure/input_test/oriented_graph.txt",std::ios::in);
 
     if(input.is_open()){
         input>>_graph;
@@ -230,10 +231,10 @@ int main(){
         std::cout<<"file non aperto\n";
 
     //_graph.showStructure();
-    std::list<Edge<std::string>> _list;
-    _graph.getOutgoingEdges("a",_list);
+    std::list<Edge<std::string>> edges;
+    _graph.getOutgoingEdges("a",edges);
 
-    for(auto &e: _list){
+    for(auto &e: edges){
         std::cout<<e;
     }
 
@@ -241,11 +242,11 @@ int main(){
 
 #if GRAPH_INC_LIST
 
+    std::cout<<"\n ------------- Prova GraphIncList ---------------\n";
+
     std::string a{"a"},b{"b"},c{"c"};
     std::string d{"d"},e{"e"},f{"f"},g{"g"};
 
-	//pushato da master
-	//pushato da develop
     /*
     n=4 m=5
 
@@ -261,30 +262,21 @@ int main(){
     4:(a,d)
     */
 
-    //grafo.addEdge(&a,&b);
-    //grafo.addEdge(&b,&c);
-    /*GraphIncList<city> graph_city;
-
-	graph_city.addEdge(&milano,&napoli);
-	graph_city.addEdge(&milano,&roma);
-	graph_city.addEdge(&napoli,&roma);
-
-    graph_city.showStructure();*/
 
     //grafo per visita in ampiezza
-	GraphIncList<std::string> _graph;
+	GraphIncList<std::string> graph;
 
     std::fstream input;
-    input.open( "../unoriented_graph_337.txt",std::ios::in);
+    input.open( "/home/nico/project/data_structure/input_test/oriented_graph.txt",std::ios::in);
 
     if(input.is_open()){
-        input>>_graph;
+        input>>graph;
     }
     else
         std::cout<<"file non aperto\n";
 
     TreePtrList<std::string> tree;
-    _graph.depthSearch("b", tree);
+    graph.depthSearch("b", tree);
     // _graph.breadthSearch("a",breadthTree);
 
     // breadthTree.breadthSearch(new std::string("a"));

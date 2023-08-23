@@ -1,6 +1,6 @@
 #ifndef GRAPH_EDGE_LIST_CPP
 #define	GRAPH_EDGE_LIST_CPP
-
+#pragma once
 #include "GraphEdgeList.h"
 using namespace datalib;
 
@@ -16,19 +16,19 @@ void GraphEdgeList<T>::addNode(const T &_x){
 
 	Node<T>* x_ptr = new Node<T>(_x);
 	Edge<T> e(x_ptr, nullptr);
-	edge_list.push_back(e);
+	edgeList.push_back(e);
 
 }
 
 // template<class T>
 // void GraphEdgeList<T>::addNode(node<T>* _x){
 // 	edge<T> e(_x,nullptr);
-// 	edge_list.push_back(e);
+// 	edgeList.push_back(e);
 // }
 
 
 template<class T>
-void GraphEdgeList<T>::addEdge(const T *_src, const T *_dest){
+void GraphEdgeList<T>::addEdge(const T *srcValue, const T *destValue){
 
 	/* pre-conditions
 	 * 1. we can't add two same edge 
@@ -38,37 +38,37 @@ void GraphEdgeList<T>::addEdge(const T *_src, const T *_dest){
 	// typename std::vector<edge<T>>::iterator src_itr; 
 	// typename std::vector<edge<T>>::iterator dest_itr; 
 
-	if(edge_existence(_src,_dest)){
+	if(edgeExistence(srcValue,destValue)){
 		std::string error("the edge inserted already exist");
 		throw error;
 	}
 
-	Node<T> *src_ptr  = new Node<T>(*_src);
-	Node<T> *dest_ptr = new Node<T>(*_dest);
+	Node<T> *src_ptr  = new Node<T>(*srcValue);
+	Node<T> *dest_ptr = new Node<T>(*destValue);
 
 	Edge<T> e(src_ptr, dest_ptr);
 
 
 	//TODO da controllare, non è giusto
-	if(!node_existence(*src_ptr)){
+	if(!nodeExistence(*src_ptr)){
 		++this->num_edge;
 	}
-	if(!node_existence(*dest_ptr)){
+	if(!nodeExistence(*dest_ptr)){
 		++this->num_node;
 	}
 
-	edge_list.push_back(e);
+	edgeList.push_back(e);
 	++this->num_edge;
 	//ragionare sui grafi orientati e non, in questo caso sto facendo 
 	//i grafi orientati, per i non posso usare un attriibuto dell'arco
 }
 
 template<class T>
-int GraphEdgeList<T>::degree(const T &_x){
+int GraphEdgeList<T>::degree(const T &value){
 
 	int _degree = 0;
-	for(auto &e: edge_list){
-		if((e.src)->value == _x && (e.dest)!=nullptr)
+	for(auto &e: edgeList){
+		if((e.src)->value == value && (e.dest)!=nullptr)
 			_degree++;
 	}
 	return _degree;
@@ -79,7 +79,7 @@ std::vector<Edge<T>> GraphEdgeList<T>::getIncidentEdge(const T &_x){
 
 	std::vector<Edge<T>> incident_edge;
 
-	for(auto &e: edge_list){
+	for(auto &e: edgeList){
 		if((e.src)->value == _x || (e.dest)->value == _x){
 			Edge<T> appo(e);
 			incident_edge.push_back(appo);
@@ -93,24 +93,24 @@ void GraphEdgeList<T>::deleteNode(const T &_x){
 
 	typename std::vector<Edge<T>>::iterator i;
 	typename std::vector<T> appo;
-	for(i = edge_list.begin();i<edge_list.end();++i){
+	for(i = edgeList.begin();i<edgeList.end();++i){
 		if((i->src)->value == _x){
-			edge_list.erase(i);
+			edgeList.erase(i);
 		}
 		else if((i->dest)->value)
-			edge_list.erase(i);
+			edgeList.erase(i);
 	}
 
 }
 
 //return true if exists an edge (_src,_dest) in the structure
 template<class T>
-bool GraphEdgeList<T>::edge_existence(const T &_src, const T &_dest) const{
+bool GraphEdgeList<T>::edgeExistence(const T &_src, const T &_dest) const{
 
 	//TODO da finire
 	// typename std::vector<edge<T>>::iterator appo_itr;
 
-	for(auto &e: edge_list){
+	for(auto &e: edgeList){
 		// if(appo_itr.src == nullptr || appo_itr.dest == nullptr)
 		// 	continue;
 
@@ -121,19 +121,19 @@ bool GraphEdgeList<T>::edge_existence(const T &_src, const T &_dest) const{
 }
 
 template<class T>
-bool GraphEdgeList<T>::edge_existence(const T *_src, const T *_dest) const{
+bool GraphEdgeList<T>::edgeExistence(const T *srcValue, const T *destValue) const{
 
-	if(_src==nullptr){
+	if(srcValue==nullptr){
 		std::string error("arco invalido\n");
 		throw error;
 	}
 	
 
-	for(auto &e: edge_list){
+	for(auto &e: edgeList){
 		// if(appo_itr.src == nullptr || appo_itr.dest == nullptr)
 		// 	continue;
 
-		if((e.src)->value == *_src && (e.dest)->value == *_dest)
+		if((e.src)->value == *srcValue && (e.dest)->value == *destValue)
 			return true;
 	}
 	return false;
@@ -141,8 +141,8 @@ bool GraphEdgeList<T>::edge_existence(const T *_src, const T *_dest) const{
 
 //return true if exists a node _x in the structure
 template<class T>
-bool GraphEdgeList<T>::node_existence(const T &_x) const{
-	for(auto &e:edge_list){
+bool GraphEdgeList<T>::nodeExistence(const T &_x) const{
+	for(auto &e:edgeList){
 		if((e.src)->value == _x || (e.dest)->value==_x)
 			return true;
 	}
@@ -150,9 +150,9 @@ bool GraphEdgeList<T>::node_existence(const T &_x) const{
 }
 
 template<class T>
-bool GraphEdgeList<T>::node_existence(const Node<T> &_x) const{
-	for(auto&e: edge_list){
-		if((e.src)->value == _x.value || (e.dest)->value==_x.value)
+bool GraphEdgeList<T>::nodeExistence(const Node<T> &value) const{
+	for(auto&e: edgeList){
+		if((e.src)->value == value.value || (e.dest)->value==value.value)
 			return true;
 	}
 	return false;
@@ -171,41 +171,41 @@ bool GraphEdgeList<T>::node_existence(const Node<T> &_x) const{
 template<class T>
 void GraphEdgeList<T>::showNode() const{
 
-	for(auto& e: edge_list)
+	for(auto& e: edgeList)
 		std::cout<<"( "<< e.getSourceValue()<<" )\n";
 
 
 }
 
 template<class T>
-void GraphEdgeList<T>::getIncidentEdges(const T &node, std::list<Edge<T>> &_list) {
-    //posso ritornare direttamente una lista degli archi che stanno in edge_list
-    for(auto& e: edge_list){
-        if(*(e->dest) == node || (*e->src) == node)
-            _list.push_back(*e);
+void GraphEdgeList<T>::getIncidentEdges(const T &value, std::list<Edge<T>> &edges) {
+    //posso ritornare direttamente una lista degli archi che stanno in edgeList
+    for(auto& e: edgeList){
+        if(*(e->dest) == value || (*e->src) == value)
+            edges.push_back(*e);
     }
 }
 
 template<class T>
-void GraphEdgeList<T>::getOutgoingEdges(const T &node, std::list<Edge<T>> &_list) {
-    for(auto& e: edge_list){
-        if(*(e->src) == node){
-            _list.push_back(*e);
+void GraphEdgeList<T>::getOutgoingEdges(const T &value, std::list<Edge<T>> &edges) {
+    for(auto& e: edgeList){
+        if(*(e->src) == value){
+            edges.push_back(*e);
         }
     }
 }
 
 template<class T>
-void GraphEdgeList<T>::getIncomingEdges(const T &node, std::list<Edge<T>> &_list) {
-    for(auto& e: edge_list){
-        if(*(e->dest) == node){
-            _list.push_back(*e);
+void GraphEdgeList<T>::getIncomingEdges(const T &value, std::list<Edge<T>> &edges) {
+    for(auto& e: edgeList){
+        if(*(e->dest) == value){
+            edges.push_back(*e);
         }
     }
 }
 
 template<class T>
-bool GraphEdgeList<T>::isAdjacent(const T &_src, const T &_dest) {
+bool GraphEdgeList<T>::isAdjacent(const T &srcValue, const T &destValue) {
     //todo
     return false;
 }

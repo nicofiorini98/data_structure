@@ -32,12 +32,12 @@ namespace datalib{
         }
 
         //todo ripristinare
-        // template<class U>
-        // friend class GraphEdgeList;
+        template<class U>
+        friend class GraphEdgeList;
 
         //todo ripristinare
-        // template<class U>
-        // friend class GraphIncList;
+        template<class W>
+        friend class GraphIncList;
         
         // friend class GraphAdjList;
         // friend class tree_parent_vector;

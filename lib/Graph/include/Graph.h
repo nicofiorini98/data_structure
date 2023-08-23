@@ -25,47 +25,47 @@ namespace datalib{
     private: 
 
     protected:
-        int num_node;
-        int num_edge;
+        int numNodes;
+        int numEdges;
         char delimiter = ',';
 
     public:
 
         Graph(){
-            num_node=0;
-            num_edge=0;
+            numNodes=0;
+            numEdges=0;
         }
         virtual ~Graph(){}
 
         ///return the number of the Node in the graph
-        int numNode(){return num_node;}             
+        int numNode(){return numNodes;}             
         ///return the number of the Edge in the graph
-        int numEdge(){return num_edge;}             
+        int numEdge(){return numEdges;}             
         ///return the grade of the node x 
 
         virtual int maxDegree()=0;                                   //restituisce il grado massimo del grafo
-        virtual int degree(const T &_x)=0;                            //restituisce il grado del nodo
+        virtual int degree(const T &value)=0;                            //restituisce il grado del nodo
         ///return the incident edge of the Node x
-        virtual void getIncidentEdges(const T& node, std::list<Edge<T>>& _list)=0;
-        virtual void getOutgoingEdges(const T& node, std::list<Edge<T>>& _list)=0;
-        virtual void getIncomingEdges(const T& node, std::list<Edge<T>>& _list)=0;
+        virtual void getIncidentEdges(const T& value, std::list<Edge<T>>& edges)=0;
+        virtual void getOutgoingEdges(const T& value, std::list<Edge<T>>& edges)=0;
+        virtual void getIncomingEdges(const T& value, std::list<Edge<T>>& edges)=0;
         ///return the adjacent nodes of the Node x
         //void getExtremes(Edge* e);                         //return the Node of the Edge //is only for edge list
         //node* getOpposite(Node x,Edge e);                  //return the Node from the opposite side of the Edge  //is only for edge_list
-        virtual bool isAdjacent(const T &_src,const T &_dest)=0;       //return true if the edge(x,y) exist, else return false
+        virtual bool isAdjacent(const T &srcValue,const T &destValue)=0;       //return true if the edge(x,y) exist, else return false
 
         //each data structure has own method for add Node and Edge
-        virtual void addNode(const T &_x)=0;                        //add a Node
-        virtual void addEdge(const T *_src,const T *_dest)=0;       //add an Edge
+        virtual void addNode(const T &value)=0;                        //add a Node
+        virtual void addEdge(const T *srcValue,const T *destValue)=0;       //add an Edge
         // virtual void addEdge(const Edge &_edge)=0;               //add an Edge
-        virtual void deleteNode(const T &_x)=0;                     //remove a Node in the graph
-        virtual void deleteEdge(const T &_src,const T &_dest)=0;    //remove a Edge in the graph
+        virtual void deleteNode(const T &value)=0;                     //remove a Node in the graph
+        virtual void deleteEdge(const T &srcValue,const T &destValue)=0;    //remove a Edge in the graph
         // virtual void deleteEdge(const Edge<T> &_edge)=0;         //remove a Edge in the graph
 
         //metodi per fare visite
-        virtual void breadthSearch(const T& _first_node, TreePtrList<T>& _tree){};
-        virtual void depthSearch(const T& _first_node, TreePtrList<T>& _tree){};
-        virtual void markNode(const T& node,marking mark)=0;
+        virtual void breadthSearch(const T& startValue, TreePtrList<T>& tree){};
+        virtual void depthSearch(const T& startValue, TreePtrList<T>& tree){};
+        virtual void markNode(const T& value,marking mark)=0;
         //virtual std::vector<T>& getAdjacentNode(const T& node); //return a vector with the adjacent of node
 
         friend std::istream &operator>>(std::istream &is, Graph<T> &graph){
@@ -74,7 +74,7 @@ namespace datalib{
             //example with string:
 
             //std::cout<<"chiamata funzione\n";
-            std::string line,src_string,dest_string;
+            std::string line,srcString,destString;
 
             //read line-by-line
 
@@ -84,18 +84,18 @@ namespace datalib{
                 auto *dest= new T;
 
                 std::stringstream str(line);                                 //converte la riga in uno stream
-                std::getline(str, src_string, graph.delimiter);              //leggo lo stream della riga fino al carattere delimitatore
-                std::stringstream str1(src_string);                          // converte il primo campo in uno stream
+                std::getline(str, srcString, graph.delimiter);              //leggo lo stream della riga fino al carattere delimitatore
+                std::stringstream str1(srcString);                          // converte il primo campo in uno stream
                 str1 >> *src;                                                //viene utilizzata la funzione >> per l'input del primo campo
 
-                std::getline(str, dest_string, graph.delimiter);             //continuo a leggere per trovare il secondo campo
+                std::getline(str, destString, graph.delimiter);             //continuo a leggere per trovare il secondo campo
 
                 //todo vedere se conviene utilizzare un carattere delimitatore
-                if (dest_string.empty()){
+                if (destString.empty()){
                     //graph.addEdge(src, nullptr);
                     continue;
                 }
-                std::stringstream str2(dest_string);
+                std::stringstream str2(destString);
                 str2 >> *dest;
                 graph.addEdge(src,dest);
             }

@@ -1,5 +1,6 @@
 #ifndef EDGE_CPP
 #define EDGE_CPP
+#pragma once
 #include "Edge.h"
 
 using namespace datalib;
