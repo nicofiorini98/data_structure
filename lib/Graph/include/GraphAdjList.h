@@ -18,8 +18,8 @@ namespace datalib{
     class GraphAdjList: public Graph<T> {
     private: 
 
-        std::map<T,Node<T>*> adj_lists;
-        Node<T>* private_addNode(const T &_x);
+        std::map<T,Node<T>*> adjList;
+        Node<T>* private_addNode(const T &value); // todo vedere se è essenziale
 
     public:
         ///Default costructor for the GraphAdjList
@@ -31,19 +31,19 @@ namespace datalib{
         virtual ~GraphAdjList(){}
 
         ///add a Node x in the graph
-        void addNode(const T &_x);
+        void addNode(const T &value);
 
-        int degree(const T &_x){}
+        int degree(const T &value){}
         ///add an Edge (x,y) in the graph
-        void addEdge(const T &_src,const T &_dest);
+        void addEdge(const T &srcValue,const T &destValue);
         // void addEdge(const edge& _edge);
-        void deleteNode(const T &_x);                        //remove a Node in the graph
-        void deleteEdge(const T &_src,const T &_dest);       //remove a Edge in the graph
+        void deleteNode(const T &value);                        //remove a Node in the graph
+        void deleteEdge(const T &srcValue,const T &destValue);       //remove a Edge in the graph
         // void deleteEdge(const Edge &_edge);               //remove a Edge in the graph
 		// int grade(const T &_x){}
 
-        void getIncidentEdge(const T &_x){}          //return the incident edge of the Node x
-        void getAdjNode(const T &_x){}
+        void getIncidentEdge(const T &value){}          //return the incident edge of the Node x
+        void getAdjNode(const T &value){}
 
         void showStructure() const;
         void showNode() const;

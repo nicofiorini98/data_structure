@@ -10,7 +10,7 @@
 #include "GraphIncList.h"
 #include "TreePosVector.h"
 #include "TreePtrList.h"
-// #include "GraphAdjList.h"
+#include "GraphAdjList.h"
 // #include "GraphEdgeList.h"
 
 #define TREE_PTR_LIST 0
@@ -18,7 +18,7 @@
 #define POS_VECTOR 0
 #define CITY_TREE_POS_VECTOR 0
 #define GRAPH_ADJ_LIST 0
-#define GRAPH_EDGE_LIST 1
+#define GRAPH_EDGE_LIST 0
 #define GRAPH_INC_LIST 0
 #define PROVA 0
 
