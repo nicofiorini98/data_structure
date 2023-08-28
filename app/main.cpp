@@ -4,16 +4,15 @@
 #include <vector>
 #include <string>
 
-#include "./city.h"
-//#include "Edge.h"
-//#include "Node.h"
+#include "./City.h"
+#include "./Coordinates.h"
 #include "GraphIncList.h"
 #include "TreePosVector.h"
 #include "TreePtrList.h"
-#include "GraphAdjList.h"
+// #include "GraphAdjList.h"
 // #include "GraphEdgeList.h"
 
-#define TREE_PTR_LIST 0
+#define TREE_PTR_LIST 1
 #define CITY_TREE_PTR_LIST 0
 #define POS_VECTOR 0
 #define CITY_TREE_POS_VECTOR 0
@@ -25,11 +24,11 @@
 
 using namespace datalib;
 
-city* roma    = new city(1, "roma");
-city* milano  = new city(2, "milano");
-city* napoli  = new city(3, "napoli");
-city* bolzano = new city(4, "bolzano");
-city* gerusalemme = new city(5, "gerusalemme");
+City* roma    = new City(1, "roma");
+City* milano  = new City(2, "milano");
+City* napoli  = new City(3, "napoli");
+City* bolzano = new City(4, "bolzano");
+City* gerusalemme = new City(5, "gerusalemme");
 
 int main(){
 
@@ -127,7 +126,6 @@ int main(){
     * std::string e{"e"},r{"r"},o{"o"};
     */
 
-	std::string n{"n"},g{"g"};
 
     std::ifstream input("/home/nico/project/data_structure/input_test/tree.txt");
     //std::ifstream ist2{"C:\\Users\\1dnic\\Desktop\\my_project\\data_structure\\insert_tree.txt"};
@@ -175,7 +173,6 @@ int main(){
     node o(5);
 
     tree_parent_vector t;
-
 
     t.addNode(&a);
     t.addNode(&l);

@@ -70,6 +70,7 @@ namespace datalib
 
         //only for debug 
         void showTree();
+        
         void showTree2();
 
         //todo da implementare
@@ -79,6 +80,7 @@ namespace datalib
         void depthSearch(const T* root)override{}
 
         void updateParent(const T& child, const T& newParent)override{}
+        
         friend std::istream &operator>>(std::istream &is, TreePosVector<T> &t){
             return is;
         }
