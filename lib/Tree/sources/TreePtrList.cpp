@@ -7,9 +7,9 @@
 
 using namespace datalib;
 
-template <class T> TreePtrList<T>::TreePtrList(int _degree) : Tree<T>() {
+template <class T> TreePtrList<T>::TreePtrList(int degree) : Tree<T>() {
   // initalization parameter
-  degree = _degree;
+  this->degree = degree;
   root = nullptr;
 }
 
@@ -46,8 +46,9 @@ template <class T> void TreePtrList<T>::addNode(const T *value, const T *parent)
   if (value)
     x_itr = nodes_map.find(*value);
   else {
-    std::string error("you cannot add a null node\n");
-    throw error;
+    // std::string error("you cannot add a null node\n");
+    // throw error;
+    throw std::runtime_error("you cannot add a null node");
   }
 
   if (parent) {
@@ -55,16 +56,15 @@ template <class T> void TreePtrList<T>::addNode(const T *value, const T *parent)
 
     // il parent non esiste??
     if (parent_itr == nodes_map.end()) {
-      std::string error("errore, parent non esiste");
-      throw error;
+      throw std::runtime_error("TreePtrList::addNode() error: used parent doesn't exist, you can't add a node without a parent");
+      // std::string error("errore, parent non esiste");
+      // throw error;
     }
 
     // todo da togliere
     // check the degree of the parent
-    if (((parent_itr->second)->node_list.size()) >= degree) {
-      std::string error("the node is reached max degree\n");
-      throw error;
-    }
+    if (((parent_itr->second)->node_list.size()) >= degree) 
+      throw std::runtime_error("TreePtrList::addNode() error: cannot add another node, max degree reached");
   }
 
   // check if x already exists
@@ -73,8 +73,7 @@ template <class T> void TreePtrList<T>::addNode(const T *value, const T *parent)
     x_ptr = new Node<T>(*value);
     nodes_map.insert(std::pair<T, Node<T> *>(x_ptr->value, x_ptr));
   } else {
-    std::string error("the node is already inserted\n");
-    throw error;
+    throw std::runtime_error("TreePtrList::addNode() error: the node is already inserted");
   }
 
   if (!root)
@@ -83,8 +82,7 @@ template <class T> void TreePtrList<T>::addNode(const T *value, const T *parent)
   if (parent) {
     // parent_itr = nodes_map.find(*_parent);
     if (parent_itr == nodes_map.end()) {
-      std::string error("the father entered doesn't exist");
-      throw error;
+      throw std::runtime_error("TreePtrList::addNode() error: the parent entered doesn't exist");
     }
 
     // questo porta a dei cicli che non sono permessi nell'albero, devo fare un
@@ -96,7 +94,7 @@ template <class T> void TreePtrList<T>::addNode(const T *value, const T *parent)
   } else {
     if (x_ptr == root)
       x_ptr->parent = nullptr;
-    else // TODO qua io lancierei un errore, meglio non dare troppa libertà
+    else
       x_ptr->parent = root;
   }
   this->numNodes++;
@@ -162,16 +160,16 @@ void TreePtrList<T>::updateParent(const T &child, const T &newParent) {
 }
 
 template <class T>
-void TreePtrList<T>::depthSearch(const T *startValue) { // todo da finire
+void TreePtrList<T>::depthSearch(const T& startValue) { 
 
-  std::cout << "Inizio ricerca in profondita partendo da: " << *startValue << "\n";
+  std::cout << "Inizio ricerca in profondita partendo da: " << startValue << "\n";
 
   // initialize for stack
   std::stack<Node<T> *> stack;
   typename std::map<T, Node<T> *>::iterator nodes_map_itr;
 
   /// pre-conditions: if the node isn't in the tree, return error
-  nodes_map_itr = nodes_map.find(*startValue);
+  nodes_map_itr = nodes_map.find(startValue);
 
   if (nodes_map_itr == nodes_map.end()) {
     throw " the node entered for start the visit doesn't exists\n";
@@ -183,7 +181,6 @@ void TreePtrList<T>::depthSearch(const T *startValue) { // todo da finire
     stack.pop(); // pop don't return the value
     std::cout << u->value << "-->";
 
-    // todo vedere se è corretto, non mi fido
     if (true) {
       // visit u
       std::list<T> lista_childrens;
@@ -206,7 +203,7 @@ void TreePtrList<T>::depthSearch(const T *startValue) { // todo da finire
   std::cout << std::endl;
 }
 
-template <class T> void TreePtrList<T>::breadthSearch(const T *startValue) {
+template <class T> void TreePtrList<T>::breadthSearch(const T& startValue) {
   // todo implementare
 
   // initialize for stack
@@ -214,7 +211,7 @@ template <class T> void TreePtrList<T>::breadthSearch(const T *startValue) {
   typename std::map<T, Node<T> *>::iterator nodes_map_itr;
 
   /// pre-conditions: if the node isn't in the tree, return error
-  nodes_map_itr = nodes_map.find(*startValue);
+  nodes_map_itr = nodes_map.find(startValue);
 
   if (nodes_map_itr == nodes_map.end()) {
     throw " the node entered for start the visit doesn't exists\n";

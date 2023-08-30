@@ -34,10 +34,10 @@ namespace datalib{
         void setDelimiter(const char delimiter){this->delimiter = delimiter;}
 
         ///return the number of nodes of the Tree
-        int getNumNodes(){return numNodes;}
+        int getNumNodes() const {return numNodes;}
 
         ///return the number of sons for the node x
-        virtual int getDegree(const T &value)=0;
+        virtual int getDegree (const T &value) = 0;
 
         ///return the father of the node x
         virtual void getParent(const T &value,T& parent)=0;
@@ -51,9 +51,9 @@ namespace datalib{
         ///add childrens to node
         virtual void addChildren(const T& value, const std::list<T>& children)=0;
 
-        virtual void depthSearch(const T* root)=0;
+        virtual void depthSearch(const T& startValue)=0;
 
-        virtual void breadthSearch(const T* root)=0;
+        virtual void breadthSearch(const T& startValue)=0;
 
         virtual void updateParent(const T& child, const T& newParent)=0;
 

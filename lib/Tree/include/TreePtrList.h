@@ -19,8 +19,42 @@
  * manage the nullptr for the root and the leafs
  */
 namespace datalib {
+
+/* --------------   Implementazione Iterator  -------------------*/
+
+template <typename TreePtrList> class TreePtrListIterator {
+public:
+  using ValueType = typename TreePtrList::ValueType;
+  using PointerType = ValueType *;
+  using ReferenceType = ValueType &;
+
+  TreePtrListIterator(PointerType ptr) : mPtr(ptr) {}
+
+  // TODO da implementare
+  ReferenceType operator*() const { return *mPtr; }
+  PointerType operator->() { return mPtr; }
+  TreePtrListIterator &operator++();
+  TreePtrListIterator operator++(int);
+  friend bool operator==(const TreePtrListIterator &a,
+                         const TreePtrListIterator &b) {
+    return a.mPtr == b.mPtr;
+  }
+  friend bool operator!=(const TreePtrListIterator &a,
+                         const TreePtrListIterator &b) {
+    return a.mPtr != b.mPtr;
+  }
+
+private:
+  PointerType mPtr;
+};
+
+/* --------------   Implementazione TreePtrList -------------------*/
+
 template <class T> class TreePtrList : public Tree<T> {
 private:
+  using ValueType = T;
+  using Iterator = TreePtrListIterator<TreePtrList<T>>;
+
   int degree;
   Node<T> *root;
 
@@ -34,9 +68,10 @@ private:
   //  void getNode(T _value);
 
 public:
+  Iterator begin() { return Iterator(root); }
   /// \param _degree Costructor with default parameter,
   /// if degree is not specified, Tree doesn't have a particular degree
-  TreePtrList(int _degree = -1);
+  TreePtrList(int degree = -1);
 
   /// virtual destructor
   ~TreePtrList(); // todo controllare
@@ -66,10 +101,10 @@ public:
   // void removeChild(const T& _x);
 
   /// print the node following a DFS visit
-  void depthSearch(const T *root) override;
+  void depthSearch(const T &startValue) override;
 
   /// print the node following BFS visit
-  void breadthSearch(const T *root) override;
+  void breadthSearch(const T &startValue) override;
 
   void updateParent(const T &child, const T &newParent) override;
 

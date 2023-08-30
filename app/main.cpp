@@ -120,7 +120,9 @@ int main(){
 
 #if TREE_PTR_LIST
 
-    std::cout<<"\n---------- Prova TreePtrList posizione: ----------\n";
+    try
+    {
+        std::cout<<"\n---------- Prova TreePtrList posizione: ----------\n";
    /*
     * std::string a{"a"},l{"l"},b{"b"};
     * std::string e{"e"},r{"r"},o{"o"};
@@ -146,11 +148,32 @@ int main(){
 
     input>>tree;
 
-    std::cout<<"grado nodo a : "<<tree.getDegree("a")<<" \n";
+    std::cout<<"Test TreePtrList::getDegree() : "<<tree.getDegree("a")<<" \n";
 
-    tree.depthSearch(new std::string("a"));
+    std::string parent;
+    tree.getParent("l",parent);
+    std::cout<<"Test TreePtrList::getParent() : "<<parent<<" \n";
 
-    tree.breadthSearch(new std::string("a"));
+	//verifica aggiunta nodo -- da migliorare, in questo modo non va bene.
+    std::string boh = "boh";
+    std::string a = "a";
+    tree.addNode(&boh,&a);
+    tree.addChildren("a",{"nodo1","nodo2"});
+    
+
+    std::list<std::string> children;
+    tree.getChildren("a", children);
+    std::cout<<"Test TreePtrList::getChildren(): ";
+    for(auto c: children){
+        std::cout<<c<<" ";
+    }
+    std::cout<<std::endl;
+
+	std::cout<<"Prova depthSearch: \n";
+    tree.depthSearch("a");
+
+	std::cout<<"Prova breadthSearch: \n";
+    tree.breadthSearch("a");
 
     //tree.addChildren("a",{g,n});
     //tree.getChildren("a",_list);
@@ -161,6 +184,12 @@ int main(){
 
     std::cout<<"\n----------------------------------------------\n";
 
+    }
+    catch (const std::exception& e) 
+    {
+        std::cerr << "Exception caught: " << e.what() << std::endl;     
+    }
+    
 #endif
 
 #if TREE_VECTOR_FATHER
