@@ -13,27 +13,26 @@ template <class T> TreePtrList<T>::TreePtrList(int degree) : Tree<T>() {
     root = nullptr;
 }
 
+//TODO debug and see if is there a way to deallocate the map
+//in teoria non c'è bisogno di deallocare la mappa, già dovrebbe pensarci
+//la struttura della mappa
 template <class T> TreePtrList<T>::~TreePtrList() {
 
     std::cout << "------Call ~TreePtrList-----\n";
     int j = 0;
-    // TODO
-    // questo mi genera un segmentation fault, quindi vado ad accedere ad
-    // un'area
     for (typename std::map<T, Node<T> *>::iterator i = nodes_map.begin();
          i != nodes_map.end(); ++i) {
-        // TODO controllare questo pezzo
         delete i->second;
-        // nodes_map.erase(i); //this bring to segmentation fault
+        //nodes_map.erase(i); //this bring to segmentation fault
         j++;
     }
 }
 
 template <class T> void TreePtrList<T>::addRoot(const T &rootValue) {
-  Node<T>* root_ptr = new Node<T>(rootValue);
-  this->nodes_map.insert(std::pair<T, Node<T> *>(root_ptr->value, root_ptr));
-  this->root = root_ptr;
-  this->numNodes++;
+    Node<T> *root_ptr = new Node<T>(rootValue);
+    this->nodes_map.insert(std::pair<T, Node<T> *>(root_ptr->value, root_ptr));
+    this->root = root_ptr;
+    this->numNodes++;
 }
 
 template <class T>
@@ -50,16 +49,6 @@ void TreePtrList<T>::addNode(const T &value, const T &parent) {
     // 2. the node parent must exists if different from nullptr
     // 3. the parent nullptr means that x is the root
     // 4. x will be the root if parent is nullptr and even the root is nullptr
-
-    /* Validation of input parameter*/
-    // TODO non serve più con parametri byReference
-    //  if (value)
-    //    x_itr = nodes_map.find(*value);
-    //  else {
-    //    // std::string error("you cannot add a null node\n");
-    //    // throw error;
-    //    throw std::runtime_error("you cannot add a null node");
-    //  }
 
     // if (parent) {
     parent_itr = nodes_map.find(parent);
@@ -85,15 +74,14 @@ void TreePtrList<T>::addNode(const T &value, const T &parent) {
         x_ptr = new Node<T>(value);
         nodes_map.insert(std::pair<T, Node<T> *>(x_ptr->value, x_ptr));
     } else {
-        throw std::runtime_error(
-            "TreePtrList::addNode() error: the node "+ value + " is already inserted");
+        throw std::runtime_error("TreePtrList::addNode() error: the node " +
+                                 value + " is already inserted");
     }
 
     if (!root)
         root = x_ptr;
 
-    // if (parent) {
-    // parent_itr = nodes_map.find(*_parent);
+    // check if parent exist
     if (parent_itr == nodes_map.end()) {
         throw std::runtime_error("TreePtrList::addNode() error: the parent "
                                  "entered doesn't exist");
@@ -105,15 +93,7 @@ void TreePtrList<T>::addNode(const T &value, const T &parent) {
 
     // update children of the parent
     (x_ptr->parent)->addChildren({x_ptr});
-    // } 
-    
-    //todo questa va in addRoot
-    // else {
-    //     if (x_ptr == root)
-    //         x_ptr->parent = nullptr;
-    //     else
-    //         x_ptr->parent = root;
-    // }
+
     this->numNodes++;
 }
 
@@ -222,7 +202,6 @@ template <class T> void TreePtrList<T>::depthSearch(const T &startValue) {
 }
 
 template <class T> void TreePtrList<T>::breadthSearch(const T &startValue) {
-    // todo implementare
 
     // initialize for stack
     std::queue<Node<T> *> queue;
@@ -244,7 +223,6 @@ template <class T> void TreePtrList<T>::breadthSearch(const T &startValue) {
         // std::cout << u->value << "-->";
         std::cout << u->value << "-->";
 
-        // todo vedere se è corretto, non mi fido
         if (true) {
             // visit u
             std::list<T> lista_childrens;
