@@ -73,7 +73,6 @@ void TreePtrList<T>::addNode(const T &value, const T &parent) {
         // throw error;
     }
 
-    // todo da togliere
     // check the degree of the parent
     if (((parent_itr->second)->node_list.size()) >= degree)
         throw std::runtime_error("TreePtrList::addNode() error: cannot add "

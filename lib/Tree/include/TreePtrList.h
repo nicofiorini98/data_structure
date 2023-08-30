@@ -89,7 +89,7 @@ public:
   // void getChildren(const T &_x,std::list<T>& _list);
   void getChildren(const T &value, std::list<T> &children) override;
 
-  void addRoot(const T& rootValue);
+  void addRoot(const T& rootValue) override;
   /// add a node in the Tree
   ///\param _node is the node to add in the Tree
   ///\param _father is the parent of the node to be inserted,
