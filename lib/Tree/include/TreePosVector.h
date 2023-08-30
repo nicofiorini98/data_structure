@@ -25,18 +25,21 @@ namespace datalib
     {
     private: 
         ///vector of suitably positioned Nodes
-        std::vector<Node<T>*> vec_node;  //todo si può trasformare in un array visto che le dimensione sono fisse
+        std::vector<Node<T>*> vecNode;
         Node<T>* root;
-        int max_num_nodes;
+        int maxNumNodes;
         int height;
-        ///maximum grade of a Node  
+
+        ///maximum degree of a Node  
         int degree;
-        int getNumChildren(Node<T>* _x){return _x->num_children;}
-        int getPos(Node<T>* _x){return _x->pos;}
 
-        void addChild(const T* _x,const T* _child);
+        int getNumChildren(Node<T>* value){return value->num_children;}
 
-        // void addChildrens(node<T>* _x,const std::list<T*> &_childrens);
+        int getPos(Node<T>* value){return value->pos;}
+
+        void addChild(const T* value,const T* child);
+
+        // void addChildren(node<T>* _x,const std::list<T*> &_childrens);
 
     public: 
 
@@ -46,7 +49,7 @@ namespace datalib
          *
          */
         
-        TreePosVector(int degree, int _height);
+        TreePosVector(int maxDegree, int height);
 
         //TreePosVector(int _max_grade,int _num_nodes);
         virtual ~TreePosVector(){}
@@ -61,7 +64,10 @@ namespace datalib
         void getChildren(const T &value, std::list<T>& children)override{}
         //void addNode2(const node<T> *_x,const node<T> *_parent=nullptr);
 
-        void addNode(const T *value,const T* parent=nullptr) override; //da togliere se non serve il const 
+        ///addRoot of the Tree
+        void addRoot(const T& rootValue) override;
+
+        void addNode(const T& value,const T& parent) override; //da togliere se non serve il const 
 
         //void addChild(const)
         void addChildren(const T& value, const std::list<T>& children) override;
@@ -69,15 +75,15 @@ namespace datalib
         // void addChildrens2(node<T>* _x, const std::list<node<T>*> &_childrens);
 
         //only for debug 
-        void showTree();
+        void showTree() const;
         
-        void showTree2();
+        void showStructure() const;
 
         //todo da implementare
-        void breadthSearch(const T* root)override{}
+        void breadthSearch(const T& startValue )override{}
 
         //todo da implementare
-        void depthSearch(const T* root)override{}
+        void depthSearch(const T& startValue )override{}
 
         void updateParent(const T& child, const T& newParent)override{}
         
@@ -107,6 +113,27 @@ namespace datalib
             return os;
         }
     };
+
+    template <class T>
+    typename std::vector<Node<T> *>::iterator
+    trova(typename std::vector<Node<T> *>::iterator begin,
+          typename std::vector<Node<T> *>::iterator end, const T &value) {
+
+        int i = 0;
+        typename std::vector<Node<T> *>::iterator appo;
+        for (appo = begin; appo != end; ++appo) {
+
+            // if appo is nullptr, don't check equality, it is certainly
+            // different
+            if (*appo == nullptr)
+                continue;
+
+            if (**appo == value) {
+                return appo;
+            }
+        }
+        return end;
+    }
 }
 
 #include "../sources/TreePosVector.cpp"

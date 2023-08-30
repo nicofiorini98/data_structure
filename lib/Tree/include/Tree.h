@@ -45,8 +45,10 @@ namespace datalib{
         ///return a vector with the children of the node x 
         virtual void getChildren(const T &value, std::list<T>& children)=0;
 
+		/// add root of the Tree
+        virtual void addRoot(const T& rootValue)=0;
         ///add a Node in the Tree 
-        virtual void addNode(const T *value,const T *parent)=0;
+        virtual void addNode(const T& value,const T& parent)=0;
 
         ///add childrens to node
         virtual void addChildren(const T& value, const std::list<T>& children)=0;

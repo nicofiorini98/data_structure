@@ -59,6 +59,7 @@ private:
   Node<T> *root;
 
   std::map<T, Node<T> *> nodes_map;
+
   std::list<Node<T> *> &getNodeList(Node<T> *value);
 
   int getNumChildren(Node<T> *value) { return value->node_list.size(); }
@@ -88,11 +89,12 @@ public:
   // void getChildren(const T &_x,std::list<T>& _list);
   void getChildren(const T &value, std::list<T> &children) override;
 
+  void addRoot(const T& rootValue);
   /// add a node in the Tree
   ///\param _node is the node to add in the Tree
   ///\param _father is the parent of the node to be inserted,
   /// if not specified the node is the root of the Tree
-  void addNode(const T *value, const T *parent)
+  void addNode(const T& value, const T& parent)
       override; // ok, viene usato per l'inizializzazione dell'albero
 
   // add children to node _x
@@ -145,13 +147,13 @@ public:
           t.delimiter); // continuo a leggere per trovare il secondo campo
 
       if (parent_string.empty()) {
-        t.addNode(x, nullptr);
+        t.addRoot(*x);
         continue;
       }
 
       std::stringstream str2(parent_string);
       str2 >> *parent;
-      t.addNode(x, parent);
+      t.addNode(*x, *parent);
     }
     return is;
   }

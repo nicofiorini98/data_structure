@@ -1,3 +1,4 @@
+#include <exception>
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -71,19 +72,15 @@ int main(){
 
     std::cout<<"\n---------- Prova TreePosVector: ----------\n";
     try{
-		datalib::TreePosVector<std::string> tree(2, 3);
-		tree.addNode(new std::string("a"),nullptr);  //radice
-        tree.addChildren("a",{"l","b"});
-		// tree.addNode(new std::string("l"),new std::string("a"));
-		// tree.addNode(new std::string("b"),new std::string("a"));
-		tree.addNode(new std::string("e"), new std::string("l"));
-		tree.addNode(new std::string("r"), new std::string("l"));
-		tree.addNode(new std::string("o"), new std::string("b"));
+		TreePosVector<std::string> tree(2, 3);
+        tree.addRoot("a");
+        tree.addNode("l","a");
+        tree.addNode("b","a");
 
-        tree.showTree2();
+        tree.showTree();
 
-    }catch(std::string &error){
-        std::cout<<error;
+    }catch(std::exception &error){
+        std::cout<<"Errore --> "<<error.what();
     }
     
     std::cout<<"\n------------------------------------------\n";
@@ -122,7 +119,7 @@ int main(){
 
     try
     {
-        std::cout<<"\n---------- Prova TreePtrList posizione: ----------\n";
+        std::cout<<"\n---------- Prova TreePtrList : ----------\n";
    /*
     * std::string a{"a"},l{"l"},b{"b"};
     * std::string e{"e"},r{"r"},o{"o"};
@@ -157,7 +154,7 @@ int main(){
 	//verifica aggiunta nodo -- da migliorare, in questo modo non va bene.
     std::string boh = "boh";
     std::string a = "a";
-    tree.addNode(&boh,&a);
+    tree.addNode(boh,a);
     tree.addChildren("a",{"nodo1","nodo2"});
     
 
