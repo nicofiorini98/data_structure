@@ -154,6 +154,10 @@ public:
       std::stringstream str2(parent_string);
       str2 >> *parent;
       t.addNode(*x, *parent);
+
+      //deallocate x and parent to avoid memory leak
+      delete x;
+      delete parent;
     }
     return is;
   }
