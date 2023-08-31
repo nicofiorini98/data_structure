@@ -8,14 +8,15 @@
 #include "./City.h"
 #include "./Coordinates.h"
 #include "GraphIncList.h"
+#include "Node.h"
 #include "TreePosVector.h"
 #include "TreePtrList.h"
 // #include "GraphAdjList.h"
 // #include "GraphEdgeList.h"
 
-#define TREE_PTR_LIST 1
+#define TREE_PTR_LIST 0
 #define CITY_TREE_PTR_LIST 0
-#define POS_VECTOR 0
+#define POS_VECTOR 1
 #define CITY_TREE_POS_VECTOR 0
 #define GRAPH_ADJ_LIST 0
 #define GRAPH_EDGE_LIST 0
@@ -72,12 +73,66 @@ int main(){
 
     std::cout<<"\n---------- Prova TreePosVector: ----------\n";
     try{
-		TreePosVector<std::string> tree(2, 3);
-        tree.addRoot("a");
-        tree.addNode("l","a");
-        tree.addNode("b","a");
 
-        tree.showTree();
+
+    std::ifstream input("/home/nico/project/data_structure/input_test/tree.txt");
+    //std::ifstream ist2{"C:\\Users\\1dnic\\Desktop\\my_project\\data_structure\\insert_tree.txt"};
+    //std::ofstream os{"../output.txt"};
+
+	// input.open("../tree.txt",std::ios_base::in);
+
+    if(!input.is_open()){
+        std::cout << "Failed to open file." << std::endl;
+        return -1;
+    }else{
+        std::cout << "file opened correctly." << std::endl;
+    }
+
+    auto tree = new TreePosVector<std::string>(2,3);
+    // auto tree = TreePtrList<std::string>();
+
+    //inizializzazione di tree tramite file
+
+    input>>*tree;
+
+    tree->showTree();
+
+    // std::cout<<"Test TreePtrList::getDegree() : "<<tree.getDegree("a")<<" \n";
+
+    // std::string parent;
+    // tree.getParent("l",parent);
+    // std::cout<<"Test TreePtrList::getParent() : "<<parent<<" \n";
+
+	// //verifica aggiunta nodo -- da migliorare, in questo modo non va bene.
+    // std::string boh = "boh";
+    // std::string a = "a";
+    // tree.addNode(boh,a);
+    // tree.addChildren("a",{"nodo1","nodo2"});
+    
+
+    // std::list<std::string> children;
+    // tree.getChildren("a", children);
+    // std::cout<<"Test TreePtrList::getChildren(): ";
+    // for(auto c: children){
+    //     std::cout<<c<<" ";
+    // }
+    // std::cout<<std::endl;
+
+	// std::cout<<"Prova depthSearch: \n";
+    // tree.depthSearch("a");
+
+	// std::cout<<"Prova breadthSearch: \n";
+    // tree.breadthSearch("a");
+
+    //tree.addChildren("a",{g,n});
+    //tree.getChildren("a",_list);
+
+    /*for(auto& child: _list)
+        std::cout<<child;*/
+    // tree.showStructure();
+
+    std::cout<<"\n----------------------------------------------\n";
+		
 
     }catch(std::exception &error){
         std::cout<<"Errore --> "<<error.what();
