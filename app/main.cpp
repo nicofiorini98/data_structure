@@ -97,7 +97,7 @@ int main(){
 
     tree->showTree();
 
-    // std::cout<<"Test TreePtrList::getDegree() : "<<tree.getDegree("a")<<" \n";
+    std::cout<<"Test TreePtrList::getDegree() : "<<tree->getDegree("a")<<" \n";
 
     // std::string parent;
     // tree.getParent("l",parent);
@@ -131,6 +131,8 @@ int main(){
         std::cout<<child;*/
     // tree.showStructure();
 
+    delete tree;
+    
     std::cout<<"\n----------------------------------------------\n";
 		
 

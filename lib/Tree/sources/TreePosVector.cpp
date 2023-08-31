@@ -30,6 +30,22 @@ TreePosVector<T>::TreePosVector(int maxDegree, int height) : Tree<T>() {
     // std::cout<<"size of the vector: "<<vecNode.size()<<"\n";
 }
 
+
+template <class T>
+int TreePosVector<T>::getDegree(const T &value) {
+    typename std::vector<Node<T> *>::iterator x_itr;
+    x_itr = datalib::trova(vecNode.begin(), vecNode.end(), value);
+    std::cout<<"TreePosVector::getDegree() --> "<<(*x_itr)->value<<"\n";
+
+    return (*x_itr)->num_children;
+};
+
+
+template<class T>
+void getParent(const T &value, T &parent) {
+
+}
+
 template <class T>
 void TreePosVector<T>::addRoot(const T &rootValue){
     Node<T> *x_ptr = new Node<T>(rootValue);
@@ -39,7 +55,7 @@ void TreePosVector<T>::addRoot(const T &rootValue){
 }
 
 template <class T>
-void TreePosVector<T>::addNode(const T& value, const T& parent) {
+void TreePosVector<T>::addNode(const T &value, const T &parent) {
 
     static int call = 0;
     call++;
@@ -48,25 +64,6 @@ void TreePosVector<T>::addNode(const T& value, const T& parent) {
     typename std::vector<Node<T> *>::iterator x_itr;
     typename std::vector<Node<T> *>::iterator parent_itr;
 
-    // pre-conditions:
-    // 1. the node x to add must be different from nullptr
-    // 2. the node parent must exists if different from nullptr
-    // 3. the parent nullptr means that x is the root if the root exists
-    //   otherwise x become the root (only the first node inserted can be the
-    //   root)
-
-    // pre-condition 1
-    //TODO not needed anymore with reference parameter
-    // if (value == nullptr) {
-    //     throw std::runtime_error("TreePosVector::addNode() error: You can't "
-    //                              "add a null value to the Tree");
-    // }
-
-    // check if x already exists
-    // std::cout<<"prima di trova: "<<std::endl<< (*vecNode.begin())->value;
-    // if((*vecNode.begin())==nullptr)
-    //     std::cout<<"vettore nodo nullo\n";
-
     x_itr = datalib::trova(vecNode.begin(), vecNode.end(), value);
 
     if (x_itr != vecNode.end()) {
@@ -74,45 +71,20 @@ void TreePosVector<T>::addNode(const T& value, const T& parent) {
         throw std::runtime_error("TreePosVector::addNode() error: " + error);
     }
 
-    // MEGLIO NON FARLO QUI, ANCORA NON SO SE DEVO LANCIARE UN ERRORE PER IL
-    // PARENT O NO vedere dove farlo, perchè senza questo da segmentation fault
-    // if(!root)
-    // root = x_ptr;
+    parent_itr = datalib::trova(vecNode.begin(), vecNode.end(), parent);
 
-    // TODO qui devo decide dove vado ad inserire il nodo, e lo devo inserire in
-    // base alla posizione del padre
-
-    // if (parent) {
-
-        parent_itr = datalib::trova(vecNode.begin(), vecNode.end(), parent);
-
-        // pre-condition 2: parent can't be different from the null_ptr
-        if (parent_itr == vecNode.end()) {
-            // is only for debugging
-            throw std::runtime_error("TreePosVector::addNode() error: the "
-                                     "parent entered doesn't exist");
-        }
-        try {
-            T a = value;
-            addChild(&parent, &a);
-        } catch (std::string &error) {
-            throw error;
-        }
-    // } 
-
-    //TODO non serve più con addRoot
-    // else // padre nullo, aggiornare radice
-    // {
-    //     if (root) {
-    //         throw std::runtime_error("TreePosVector::addNode() error: root "
-    //                                  "already exist, supply a parent ");
-    //     } else {
-    //         Node<T> *x_ptr = new Node<T>(*value);
-    //         root = x_ptr;
-    //         vecNode[1] = x_ptr;
-    //         x_ptr->pos = 1;
-    //     }
-    // }
+    // pre-condition 2: parent can't be different from the null_ptr
+    if (parent_itr == vecNode.end()) {
+        // is only for debugging
+        throw std::runtime_error("TreePosVector::addNode() error: the "
+                                 "parent entered doesn't exist");
+    }
+    try {
+        T a = value;
+        addChild(&parent, &a);
+    } catch (std::string &error) {
+        throw error;
+    }
 }
 
 // add childrens to node x, x must exists
@@ -183,6 +155,7 @@ void TreePosVector<T>::addChild(const T *value, const T *child) {
         std::string error("error: max child node reached\n");
         throw error;
     }
+    
     // pre-condition 3
     if (child_itr != vecNode.end()) {
         std::string error("the child to add, already exists in tree\n");

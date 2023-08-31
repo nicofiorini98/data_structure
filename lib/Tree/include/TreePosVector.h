@@ -50,7 +50,6 @@ template <class T> class TreePosVector : public Tree<T> {
     // TreePosVector(int _max_grade,int _num_nodes);
     virtual ~TreePosVector() {}
 
-    // todo da implementare
     int getDegree(const T &value) override;
 
     // todo da implementare
