@@ -52,11 +52,9 @@ template <class T> class TreePosVector : public Tree<T> {
 
     int getDegree(const T &value) override;
 
-    // todo da implementare
-    void getParent(const T &value, T &parent) override {}
+    T& getParent(const T& childValue) override;
 
-    // todo da implementare
-    void getChildren(const T &value, std::list<T> &children) override {}
+    std::list<T*> getChildren(const T &parentValue) override; 
     // void addNode2(const node<T> *_x,const node<T> *_parent=nullptr);
 
     /// addRoot of the Tree
@@ -101,11 +99,13 @@ template <class T> class TreePosVector : public Tree<T> {
             auto *parent = new T;
 
             std::stringstream str(line); // converte la riga in uno stream
-            std::getline(str, x_string,
-                         tree.delimiter); // leggo lo stream della riga fino al
-                                          // carattere delimitatore
-            std::stringstream str1(
-                x_string); // converte il primo campo in uno stream
+
+            // leggo lo stream della riga fino al carattere delimitatore
+            std::getline(str, x_string,tree.delimiter); 
+
+            std::stringstream str1(x_string); 
+            // converte il primo campo in uno stream
+
             str1 >> *x; // viene utilizzata la funzione >> per l'input del primo
                         // campo
             std::getline(str, parent_string,
@@ -128,7 +128,6 @@ template <class T> class TreePosVector : public Tree<T> {
         return is;
     }
 
-	//TODO aggiustare in modo che stampi una cosa che si può ripassare in input
     friend std::ostream &operator<<(std::ostream &os, TreePosVector<T> &t) {
         // pre-conditions
         // format for input of a node: node parent list_children

@@ -2,6 +2,7 @@
 #ifndef TREE_POS_VECTOR_CPP
 #define TREE_POS_VECTOR_CPP
 #include "Node.h"
+#include <stdexcept>
 #pragma once
 #include "TreePosVector.h"
 #include "Tree.h"
@@ -35,14 +36,57 @@ template <class T>
 int TreePosVector<T>::getDegree(const T &value) {
     typename std::vector<Node<T> *>::iterator x_itr;
     x_itr = datalib::trova(vecNode.begin(), vecNode.end(), value);
-    std::cout<<"TreePosVector::getDegree() --> "<<(*x_itr)->value<<"\n";
-
-    return (*x_itr)->num_children;
+    // std::cout<<"TreePosVector::getDegree() --> "<<(*x_itr)->value<<"\n";
+    if (x_itr != vecNode.end()) {
+        return (*x_itr)->num_children;
+    } else {
+        throw std::runtime_error(
+            "TreePosVector::getDegree(const T& value) error: nodo " + value +
+            "non presente nell'albero");
+    }
 };
 
 
 template<class T>
-void getParent(const T &value, T &parent) {
+T& TreePosVector<T>::getParent(const T &childValue) {
+
+    typename std::vector<Node<T> *>::iterator x_itr;
+    x_itr = datalib::trova(vecNode.begin(), vecNode.end(), childValue);
+
+
+    //il padre è vecNode[ parteInteraInferiore(index/degree)]
+    if (x_itr != vecNode.end()) {
+        int parte_intera_inferiore = (int)floor(((*x_itr)->pos)/this->degree);
+        return vecNode.at(parte_intera_inferiore)->value;
+    } else {
+        throw std::runtime_error(
+            "TreePosVector::getParent(const T& childValue) error: nodo " + childValue +
+            "non presente nell'albero");
+    }
+
+}
+
+template<class T>
+std::list<T*> TreePosVector<T>::getChildren(const T& parentValue) {
+
+    typename std::vector<Node<T> *>::iterator parent_itr;
+    parent_itr = datalib::trova(vecNode.begin(), vecNode.end(), parentValue);
+
+    //il padre è vecNode[ parteInteraInferiore(index/degree)]
+    if (parent_itr != vecNode.end()) {
+        int i=1;
+        std::list<T*> children;
+        while( i <= (*parent_itr)->num_children ){
+            children.push_back(&(vecNode.at((*parent_itr)->pos + i)->value));
+            i++;
+        }
+
+        return children;
+    } else {
+        throw std::runtime_error(
+            "TreePosVector::getChildren(const T& parentValue) error: nodo " + parentValue +
+            "non presente nell'albero");
+    }
 
 }
 

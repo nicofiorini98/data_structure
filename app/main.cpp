@@ -95,9 +95,22 @@ int main(){
 
     input>>*tree;
 
-    tree->showTree();
 
-    std::cout<<"Test TreePtrList::getDegree() : "<<tree->getDegree("a")<<" \n";
+    std::cout<<"Test TreePosVector::getDegree() : "<<tree->getDegree("a")<<" \n";
+
+	std::string& parent = tree->getParent("l");
+
+    std::list<std::string*> children = tree->getChildren("o");
+
+    for(auto& c: children){
+        std::cout<<"\n--> "<<*c;
+    }
+    std::cout<<std::endl;
+
+    // tree->showTree();
+
+    std::cout<<"the parent of l is: "<<tree->getParent("l")<<"\n";
+
 
     // std::string parent;
     // tree.getParent("l",parent);
@@ -132,7 +145,9 @@ int main(){
     // tree.showStructure();
 
     delete tree;
-    
+
+    std::cout<<"parent: "<<parent<<"\n";
+
     std::cout<<"\n----------------------------------------------\n";
 		
 
