@@ -79,7 +79,7 @@ public:
 
   // friend std::ostream &operator<<(std::ostream &is, TreePtrList<T> &t);
   /// return the number of sons for the node x
-  int getDegree(const T &value) override; // ok
+  int getDegree(const T &value) override; 
 
   T getParent(const T &childValue) override;
   /// return the parent of the node x
@@ -90,8 +90,10 @@ public:
   // void getChildren(const T &_x,std::list<T>& _list);
   std::list<T> getChildren(const T& parentValue) override;
 
+  /// add root in the Tree
   void addRoot(const T& rootValue) override;
-  /// add a node in the Tree
+
+  /// add a node in the Tree, permitted only if root exist
   ///\param _node is the node to add in the Tree
   ///\param _father is the parent of the node to be inserted,
   /// if not specified the node is the root of the Tree

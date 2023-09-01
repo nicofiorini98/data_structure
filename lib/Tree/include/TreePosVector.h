@@ -79,7 +79,7 @@ template <class T> class TreePosVector : public Tree<T> {
     // todo da implementare
     void depthSearch(const T &startValue) override {}
 
-    void updateParent(const T &child, const T &newParent) override {}
+    void updateParent(const T &childValue, const T &newParent) override;
 
 
     /// overloading operator >>

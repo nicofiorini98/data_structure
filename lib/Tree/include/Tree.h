@@ -57,7 +57,7 @@ namespace datalib{
 
         virtual void breadthSearch(const T& startValue)=0;
 
-        virtual void updateParent(const T& child, const T& newParent)=0;
+        virtual void updateParent(const T& childValue, const T& newParent)=0;
 
         ///overloading operator >>
         /*friend std::istream &operator>>(std::istream &is, Tree<T> &t)

@@ -38,6 +38,11 @@ template <class T> void TreePtrList<T>::addRoot(const T &rootValue) {
 template <class T>
 void TreePtrList<T>::addNode(const T &value, const T &parent) {
 
+    if(!this->root){
+        throw std::runtime_error("TreePosVector::addNode() error: root doesn't "
+                                 "exist, insert root before to add other node");
+    }
+
     Node<T> *x_ptr;
 
     // x_itr and parent_itr are dependent names

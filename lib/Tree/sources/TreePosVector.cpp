@@ -101,8 +101,11 @@ void TreePosVector<T>::addRoot(const T &rootValue){
 template <class T>
 void TreePosVector<T>::addNode(const T &value, const T &parent) {
 
-    static int call = 0;
-    call++;
+    
+    if(!this->root){
+        throw std::runtime_error("TreePosVector::addNode() error: root doesn't "
+                                 "exist, insert root before to add other node");
+    }
 
     // local iterator, typename because are nested dependent names
     typename std::vector<Node<T> *>::iterator x_itr;
@@ -190,20 +193,17 @@ void TreePosVector<T>::addChild(const T *value, const T *child) {
 
     // preconditions 1
     if (x_itr == vecNode.end()) {
-        std::string error("error: _x can't be null pointer\n");
-        throw error;
+        throw std::runtime_error("TreePosVector::addChild() error: can't add a null_ptr");
     }
 
     // precondition 2
     if (((*x_itr)->num_children + 1) > degree) {
-        std::string error("error: max child node reached\n");
-        throw error;
+        throw std::runtime_error("TreePosVector::addChild() error: max child nodes reached");
     }
     
     // pre-condition 3
     if (child_itr != vecNode.end()) {
-        std::string error("the child to add, already exists in tree\n");
-        throw error;
+        throw std::runtime_error("TreePosVector::addChild() error: the child to add already exist");
     }
 
     int pos = (*x_itr)->pos;
@@ -235,8 +235,14 @@ template <class T> void TreePosVector<T>::showStructure() const{
 //     return _x->num_children;
 // }
 
+template<class T>
+void TreePosVector<T>::updateParent(const T &childValue, const T &newParent){
+    
+}
+
 // convention of print tree
-template <class T> void TreePosVector<T>::showTree() const{
+template <class T>
+void TreePosVector<T>::showTree() const{
     //{ padre figlio1 } { padre figlio2 } { padre2 figlio1}
     std::cout << "\nStampa TreePosVector:\n";
     // stampa del root

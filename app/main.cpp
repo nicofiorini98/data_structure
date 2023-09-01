@@ -14,9 +14,9 @@
 // #include "GraphAdjList.h"
 // #include "GraphEdgeList.h"
 
-#define TREE_PTR_LIST 0
+#define TREE_PTR_LIST 1
 #define CITY_TREE_PTR_LIST 0
-#define POS_VECTOR 1
+#define POS_VECTOR 0
 #define CITY_TREE_POS_VECTOR 0
 #define GRAPH_ADJ_LIST 0
 #define GRAPH_EDGE_LIST 0
