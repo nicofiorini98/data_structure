@@ -52,9 +52,9 @@ template <class T> class TreePosVector : public Tree<T> {
 
     int getDegree(const T &value) override;
 
-    T& getParent(const T& childValue) override;
+    T getParent(const T& childValue) override;
 
-    std::list<T*> getChildren(const T &parentValue) override; 
+    std::list<T> getChildren(const T &parentValue) override; 
     // void addNode2(const node<T> *_x,const node<T> *_parent=nullptr);
 
     /// addRoot of the Tree

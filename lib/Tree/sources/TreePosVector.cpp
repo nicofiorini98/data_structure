@@ -48,7 +48,7 @@ int TreePosVector<T>::getDegree(const T &value) {
 
 
 template<class T>
-T& TreePosVector<T>::getParent(const T &childValue) {
+T TreePosVector<T>::getParent(const T &childValue) {
 
     typename std::vector<Node<T> *>::iterator x_itr;
     x_itr = datalib::trova(vecNode.begin(), vecNode.end(), childValue);
@@ -57,7 +57,7 @@ T& TreePosVector<T>::getParent(const T &childValue) {
     //il padre è vecNode[ parteInteraInferiore(index/degree)]
     if (x_itr != vecNode.end()) {
         int parte_intera_inferiore = (int)floor(((*x_itr)->pos)/this->degree);
-        return vecNode.at(parte_intera_inferiore)->value;
+        return vecNode[parte_intera_inferiore]->value;
     } else {
         throw std::runtime_error(
             "TreePosVector::getParent(const T& childValue) error: nodo " + childValue +
@@ -67,7 +67,7 @@ T& TreePosVector<T>::getParent(const T &childValue) {
 }
 
 template<class T>
-std::list<T*> TreePosVector<T>::getChildren(const T& parentValue) {
+std::list<T> TreePosVector<T>::getChildren(const T& parentValue) {
 
     typename std::vector<Node<T> *>::iterator parent_itr;
     parent_itr = datalib::trova(vecNode.begin(), vecNode.end(), parentValue);
@@ -75,9 +75,9 @@ std::list<T*> TreePosVector<T>::getChildren(const T& parentValue) {
     //il padre è vecNode[ parteInteraInferiore(index/degree)]
     if (parent_itr != vecNode.end()) {
         int i=1;
-        std::list<T*> children;
+        std::list<T> children;
         while( i <= (*parent_itr)->num_children ){
-            children.push_back(&(vecNode.at((*parent_itr)->pos + i)->value));
+            children.push_back(vecNode.at((*parent_itr)->pos + i)->value);
             i++;
         }
 

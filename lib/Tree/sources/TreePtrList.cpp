@@ -115,17 +115,19 @@ template <class T> int TreePtrList<T>::getDegree(const T &value) {
 }
 
 // return by referece the parent node of _x
-template <class T> void TreePtrList<T>::getParent(const T &value, T &parent) {
-    parent = (nodes_map.find(value))->second->parent->value;
+//TODO controllare se restitiusco il riferimento giusto e non un  valore
+template <class T>
+T TreePtrList<T>::getParent(const T &childValue) {
+    return (nodes_map.find(childValue))->second->parent->value;
 }
 
 // append the children node to the list
 template <class T>
-void TreePtrList<T>::getChildren(const T &value, std::list<T> &children) {
+std::list<T> TreePtrList<T>::getChildren(const T &parentValue) {
 
     // find the itr of the target
     typename std::map<T, Node<T> *>::iterator x_itr;
-    x_itr = nodes_map.find(value);
+    x_itr = nodes_map.find(parentValue);
 
     // manage a possible error
     if (x_itr == nodes_map.end()) {
@@ -134,10 +136,13 @@ void TreePtrList<T>::getChildren(const T &value, std::list<T> &children) {
         throw error;
     }
 
+    std::list<T> children;
+
     // copy the children node into the list
     for (auto &nodo : x_itr->second->node_list) {
-        children.push_back(nodo->value);
+        children.push_back((nodo->value));
     }
+    return children;
 }
 
 template <class T>
@@ -182,9 +187,9 @@ template <class T> void TreePtrList<T>::depthSearch(const T &startValue) {
         if (true) {
             // visit u
             std::list<T> lista_childrens;
-            getChildren(u->value, lista_childrens);
+            lista_childrens = this->getChildren(u->value);
 
-            typename std::list<T>::iterator itr;
+            typename std::list<T*>::iterator itr;
             // se la lista è vuota non devo aggiungere niente allo stack
             if (lista_childrens.empty())
                 u = nullptr;
@@ -192,7 +197,7 @@ template <class T> void TreePtrList<T>::depthSearch(const T &startValue) {
 
                 for (auto child_itr = (lista_childrens.rbegin());
                      child_itr != lista_childrens.rend(); ++child_itr) {
-                    Node<T> *appo = new Node<T>(*child_itr);
+                    Node<T> *appo = new Node<T>((*child_itr));
                     stack.push(appo);
                 }
             }
@@ -226,7 +231,7 @@ template <class T> void TreePtrList<T>::breadthSearch(const T &startValue) {
         if (true) {
             // visit u
             std::list<T> lista_childrens;
-            getChildren(u->value, lista_childrens);
+            lista_childrens = this->getChildren(u->value);
 
             typename std::list<T>::iterator itr;
             // se la lista è vuota non devo aggiungere niente allo stack

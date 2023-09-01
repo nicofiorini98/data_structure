@@ -98,12 +98,12 @@ int main(){
 
     std::cout<<"Test TreePosVector::getDegree() : "<<tree->getDegree("a")<<" \n";
 
-	std::string& parent = tree->getParent("l");
+	std::string parent = tree->getParent("l");
 
-    std::list<std::string*> children = tree->getChildren("o");
+    std::list<std::string> children = tree->getChildren("o");
 
     for(auto& c: children){
-        std::cout<<"\n--> "<<*c;
+        std::cout<<"\n--> "<<c;
     }
     std::cout<<std::endl;
 
@@ -219,19 +219,19 @@ int main(){
 
     std::cout<<"Test TreePtrList::getDegree() : "<<tree.getDegree("a")<<" \n";
 
-    std::string parent;
-    tree.getParent("l",parent);
+    std::string parent = tree.getParent("l");
     std::cout<<"Test TreePtrList::getParent() : "<<parent<<" \n";
+    std::cout<<"Test TreePtrList::getParent() : "<<tree.getParent("l")<<" \n";
 
 	//verifica aggiunta nodo -- da migliorare, in questo modo non va bene.
     std::string boh = "boh";
-    std::string a = "a";
-    tree.addNode(boh,a);
+    std::string s = "a";
+    tree.addNode(boh,s);
     tree.addChildren("a",{"nodo1","nodo2"});
     
 
     std::list<std::string> children;
-    tree.getChildren("a", children);
+    children = tree.getChildren("a");
     std::cout<<"Test TreePtrList::getChildren(): ";
     for(auto c: children){
         std::cout<<c<<" ";

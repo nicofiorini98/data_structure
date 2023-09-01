@@ -81,13 +81,14 @@ public:
   /// return the number of sons for the node x
   int getDegree(const T &value) override; // ok
 
+  T getParent(const T &childValue) override;
   /// return the parent of the node x
-  void getParent(const T &value,
-                 T &parent) override; // todo ok se non è root, controllare
+  // void getParent(const T &value,
+  //                T &parent) override; // todo ok se non è root, controllare
 
   /// return a vector of the node x
   // void getChildren(const T &_x,std::list<T>& _list);
-  void getChildren(const T &value, std::list<T> &children) override;
+  std::list<T> getChildren(const T& parentValue) override;
 
   void addRoot(const T& rootValue) override;
   /// add a node in the Tree

@@ -40,10 +40,10 @@ namespace datalib{
         virtual int getDegree (const T &value) = 0;
 
         ///return the father of the node x
-        virtual T& getParent(const T &childValue)=0;
+        virtual T getParent(const T& childValue)=0;
 
         ///return a vector with the children of the node x 
-        virtual std::list<T*> getChildren(const T& parentValue)=0;
+        virtual std::list<T> getChildren(const T& parentValue)=0;
 
 		/// add root of the Tree
         virtual void addRoot(const T& rootValue)=0;
