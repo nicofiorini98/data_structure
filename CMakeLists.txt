@@ -13,9 +13,9 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libstdc++")
 
 # set(UNIT_TEST_NAME "unit_tests")
-set(TREE_LIB_NAME "sloth_tree")
-set(GRAPH_LIB_NAME "sloth_graph")
-set(UTIL_LIB_NAME "sloth_util")
+set(TREE_LIB_NAME "BradipoLib")
+#set(GRAPH_LIB_NAME "sloth_graph")
+#set(UTIL_LIB_NAME "sloth_util")
 set(EXECUTABLE_NAME "executable")
 
 # funzione per l'eseguibile di doxygen
