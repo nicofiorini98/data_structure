@@ -6,5 +6,5 @@ add_executable(${EXECUTABLE_NAME} ${APP_SOURCES})
 
 target_link_libraries(
     ${EXECUTABLE_NAME}
-    PUBLIC ${TREE_LIB_NAME} ${GRAPH_LIB_NAME})
+    PUBLIC ${BRADIPO_LIB_NAME})
 

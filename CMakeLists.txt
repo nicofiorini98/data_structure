@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.20 FATAL_ERROR)
 
-project(slothLib VERSION 1 LANGUAGES CXX)
+project(BradipoLib VERSION 1 LANGUAGES CXX)
 
 
 # Global CMake variables are set here
@@ -13,7 +13,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libstdc++")
 
 # set(UNIT_TEST_NAME "unit_tests")
-set(TREE_LIB_NAME "BradipoLib")
+set(BRADIPO_LIB_NAME "bradipo")
 #set(GRAPH_LIB_NAME "sloth_graph")
 #set(UTIL_LIB_NAME "sloth_util")
 set(EXECUTABLE_NAME "executable")

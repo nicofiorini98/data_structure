@@ -29,8 +29,9 @@ void GraphIncList<T>::addEdge(const Edge<T>& _edge){
 }
 
 template<class T>
-void GraphIncList<T>::addEdge(const T *srcValue, const T *destValue){
+void GraphIncList<T>::addEdge(const T& srcValue, const T& destValue){
 
+	//TODO passaggio per riferimento
 	//pre-conditions
 	/* 
 	1. if _src or _dest are null, then throw error
@@ -42,35 +43,37 @@ void GraphIncList<T>::addEdge(const T *srcValue, const T *destValue){
 	// typename std::map<T,node<T>*>::iterator dest_itr;
 
 	//cannot insert edge with null_ptr
-	if(srcValue == nullptr || destValue == nullptr){
-		std::string error("node null is not allowed\n");
-		throw error;
-	}
+	//TODO adesso posso toglierlo con il passaggio byReference
+	// if(srcValue == nullptr || destValue == nullptr){
+	// 	std::string error("node null is not allowed\n");
+	// 	throw error;
+	// }
 
 	//se l'arco esiste lancia errore
-	if(edgeExistence(srcValue,destValue)){
+	//TODO controllare
+	if(edgeExistence(&srcValue, &destValue)){
 		std::string error("cannot insert same edge\n");
 		throw error;
 	}
 
 	//trova il nodo src
 	typename std::map<T,Node<T>*>::iterator src_itr;
-	src_itr = incList.find(*srcValue);
+	src_itr = incList.find(srcValue);
 
 	//se src non esiste crealo
 	if(src_itr==incList.end()){
-		addNode(*srcValue);
-		src_itr = incList.find(*srcValue);
+		addNode(srcValue);
+		src_itr = incList.find(srcValue);
 	}
 
 	//find dest node
 	typename std::map<T,Node<T>*>::iterator dest_itr;
-	dest_itr = incList.find(*destValue);
+	dest_itr = incList.find(destValue);
 
     //create dest if doesn't exists
 	if (dest_itr == incList.end()){
-		addNode(*destValue);
-		dest_itr = incList.find(*destValue);
+		addNode(destValue);
+		dest_itr = incList.find(destValue);
 	}
 
 	//create edge
@@ -187,131 +190,131 @@ bool GraphIncList<T>::isAdjacent(const T &_src, const T &_dest){
 }
 
 
-//todo aggiustare con l'interfaccia nuova
-template<class T>
-void GraphIncList<T>::breadthSearch(const T& startValue, TreePtrList<T>& tree){
+// //todo aggiustare con l'interfaccia nuova
+// template<class T>
+// void GraphIncList<T>::breadthSearch(const T& startValue, TreePtrList<T>& tree){
 
-	/*
-	 * Algoritmo visitaBFS(vertice s) ---> albero (OK)
-	 * 	 marca tutti i vertici come inesplorati   (OK)
-	 *   marca il vertice s come aperto
-	 *   T <-- albero formato da un solo vertice s 
-	 * 	 Coda F
-	 *   f.enqueque(s)
-	 *   while(not F.isempty()) do 
-	 *   	u <-- F.dequeue()
-	 *   	marca u come chiuso
-	 *      visita il vertice u
-	 *      for each (arco(u,v)  del grafo) do 
-	 * 			if (v è inesplorato) then
-	 * 				marca il vertice v come aperto
-	 * 				F.enqueque(v)
-	 * 				rendi u padre di v in T
-	 * 	return T.
-	*/
+// 	/*
+// 	 * Algoritmo visitaBFS(vertice s) ---> albero (OK)
+// 	 * 	 marca tutti i vertici come inesplorati   (OK)
+// 	 *   marca il vertice s come aperto
+// 	 *   T <-- albero formato da un solo vertice s 
+// 	 * 	 Coda F
+// 	 *   f.enqueque(s)
+// 	 *   while(not F.isempty()) do 
+// 	 *   	u <-- F.dequeue()
+// 	 *   	marca u come chiuso
+// 	 *      visita il vertice u
+// 	 *      for each (arco(u,v)  del grafo) do 
+// 	 * 			if (v è inesplorato) then
+// 	 * 				marca il vertice v come aperto
+// 	 * 				F.enqueque(v)
+// 	 * 				rendi u padre di v in T
+// 	 * 	return T.
+// 	*/
 
-	//marcatura di tutti i vertici come inesplorati
-	for(auto &n: incList)
-		n.second->mark = unexplored;
+// 	//marcatura di tutti i vertici come inesplorati
+// 	for(auto &n: incList)
+// 		n.second->mark = unexplored;
 		
-	//ricerca del nodo da cui partire
-	typename std::map<T,Node<T>*>::iterator first_node_itr;
-	first_node_itr = incList.find(startValue);
-	if(first_node_itr == incList.end()){
-		std::string error("the node for breadth first search doesn't exists in the graph");
-		throw error;
-	}
+// 	//ricerca del nodo da cui partire
+// 	typename std::map<T,Node<T>*>::iterator first_node_itr;
+// 	first_node_itr = incList.find(startValue);
+// 	if(first_node_itr == incList.end()){
+// 		std::string error("the node for breadth first search doesn't exists in the graph");
+// 		throw error;
+// 	}
 
 
-	//l'albero è formato dal solo vertice da cui partire
-	// _tree.addNode(new)
-	tree.addNode(new T(first_node_itr->first),nullptr);
-	(first_node_itr->second)->mark = open;
+// 	//l'albero è formato dal solo vertice da cui partire
+// 	// _tree.addNode(new)
+// 	tree.addNode(new T(first_node_itr->first),nullptr);
+// 	(first_node_itr->second)->mark = open;
 
-	//inserire il vertice da cui partire nella frontiera (queue)
-	// F.enqueque(s)
-	std::queue<Node<T>*> open_node;
-	open_node.push((first_node_itr->second));
+// 	//inserire il vertice da cui partire nella frontiera (queue)
+// 	// F.enqueque(s)
+// 	std::queue<Node<T>*> open_node;
+// 	open_node.push((first_node_itr->second));
 
-	while(!open_node.empty()){
+// 	while(!open_node.empty()){
 
-		//qui prendo il nodo nella coda
-		Node<T> *u = open_node.front(); //return a reference to the first element
-		open_node.pop(); 				//remove the first element 
+// 		//qui prendo il nodo nella coda
+// 		Node<T> *u = open_node.front(); //return a reference to the first element
+// 		open_node.pop(); 				//remove the first element 
 
-		//visita il vertice u
-		//typename std::map<T,node<T>*>::iterator u_itr;
-		//u_itr = inc_list.find(*u); 
+// 		//visita il vertice u
+// 		//typename std::map<T,node<T>*>::iterator u_itr;
+// 		//u_itr = inc_list.find(*u); 
 		
-		u->mark= closed;
+// 		u->mark= closed;
 		
-		//visita il vertice u (quindi prendo gli archi), prendo la destinazione del vertice u
-		for(auto &e: u->connected_edges){
-		 	if((e->dest)->mark == unexplored){
-		 		(e->dest)->mark = open; 										  //marca v come aperto
-		 		open_node.push(e->dest);						
-		 		tree.addNode(new T((e->dest)->value),new T(u->value)); //rendi u padre di v in t
-		 	}
-		}
-	}
-}
+// 		//visita il vertice u (quindi prendo gli archi), prendo la destinazione del vertice u
+// 		for(auto &e: u->connected_edges){
+// 		 	if((e->dest)->mark == unexplored){
+// 		 		(e->dest)->mark = open; 										  //marca v come aperto
+// 		 		open_node.push(e->dest);						
+// 		 		tree.addNode(new T((e->dest)->value),new T(u->value)); //rendi u padre di v in t
+// 		 	}
+// 		}
+// 	}
+// }
 
 
-template<class T>
-void GraphIncList<T>::depthSearch(const T &startValue, TreePtrList<T> &tree) {
+// template<class T>
+// void GraphIncList<T>::depthSearch(const T &startValue, TreePtrList<T> &tree) {
 
-    // marcatura di tutti i vertici come inesplorati
-    for(auto &n: incList)
-        n.second->mark = unexplored;
+//     // marcatura di tutti i vertici come inesplorati
+//     for(auto &n: incList)
+//         n.second->mark = unexplored;
 
-    //ricerca del nodo da cui partire
-    typename std::map<T,Node<T>*>::iterator first_node_itr;
-    first_node_itr = incList.find(startValue);
-    if(first_node_itr == incList.end()){
-        std::string error("the node for breadth first search doesn't exists in the graph");
-        throw error;
-    }
+//     //ricerca del nodo da cui partire
+//     typename std::map<T,Node<T>*>::iterator first_node_itr;
+//     first_node_itr = incList.find(startValue);
+//     if(first_node_itr == incList.end()){
+//         std::string error("the node for breadth first search doesn't exists in the graph");
+//         throw error;
+//     }
 
-	tree.addNode(new T(first_node_itr->first),nullptr);
-	//marca il vertice iniziale come aperto
-    (first_node_itr->second)->mark = open;
+// 	tree.addNode(new T(first_node_itr->first),nullptr);
+// 	//marca il vertice iniziale come aperto
+//     (first_node_itr->second)->mark = open;
 
-    //inserire il vertice da cui partire nella frontiera (stack)
-    std::stack<Node<T>*> open_node;
-    open_node.push((first_node_itr->second));
+//     //inserire il vertice da cui partire nella frontiera (stack)
+//     std::stack<Node<T>*> open_node;
+//     open_node.push((first_node_itr->second));
 
-    while(!open_node.empty()){
+//     while(!open_node.empty()){
 
-        //qui prendo il nodo nella coda
-        Node<T> *u = open_node.top(); //return a reference to the last element inserted
-        open_node.pop(); 				//remove the first element
+//         //qui prendo il nodo nella coda
+//         Node<T> *u = open_node.top(); //return a reference to the last element inserted
+//         open_node.pop(); 				//remove the first element
 
-        //visita il vertice u
-        //typename std::map<T,node<T>*>::iterator u_itr;
-        //u_itr = inc_list.find(*u);
+//         //visita il vertice u
+//         //typename std::map<T,node<T>*>::iterator u_itr;
+//         //u_itr = inc_list.find(*u);
 
-        //if(u->mark == closed)
-            //continue;
+//         //if(u->mark == closed)
+//             //continue;
 
-        u->mark = closed;
+//         u->mark = closed;
 
-        //visita il vertice u (quindi prendo gli archi), prendo la destinazione del vertice u
-        for(auto &e: u->connected_edges){
-            auto* v = e->dest;
-            if(v->mark == unexplored){
-                v->mark = open; 						//marca v come aperto
-                open_node.push(v);
-                tree.addNode(&(v->value),&(u->value)); //rendi u padre di v in t
-                tree.updateParent(v->value,u->value);
+//         //visita il vertice u (quindi prendo gli archi), prendo la destinazione del vertice u
+//         for(auto &e: u->connected_edges){
+//             auto* v = e->dest;
+//             if(v->mark == unexplored){
+//                 v->mark = open; 						//marca v come aperto
+//                 open_node.push(v);
+//                 tree.addNode(&(v->value),&(u->value)); //rendi u padre di v in t
+//                 tree.updateParent(v->value,u->value);
 
-            }
-            else if((e->dest)->mark == open){
-                open_node.push(e->dest);
-                tree.updateParent((e->dest)->value,u->value);
-            }
-        }
-    }
-}
+//             }
+//             else if((e->dest)->mark == open){
+//                 open_node.push(e->dest);
+//                 tree.updateParent((e->dest)->value,u->value);
+//             }
+//         }
+//     }
+// }
 
 
 template<class T>

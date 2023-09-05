@@ -53,7 +53,7 @@ namespace datalib{
 
         void deleteEdge(const T &srcValue,const T &destValue)override{} //remove a Edge in the graph
 
-        int maxDegree()override{}
+        int maxDegree() override {return 0;}
 
         bool isAdjacent(const T &srcValue,const T &destValue) override;       //return true if the edge(x,y) exist, else return false
 
