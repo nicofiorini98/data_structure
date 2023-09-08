@@ -6,7 +6,7 @@
  * Sia T=(N,A), un albero d-ario con n nodi,
  * un vettore posizionale è un array P di dimensione n
  * tale che P[v] contiene l'informazione associata al nodo v,
- * e tale che l'informazione associata all'i-esimo di v è in posizione P[d*v+i]
+ * e tale che l'informazione associata all'i-esimo figlio di v è in posizione P[d*v+i]
  * per 0<i<d-1
  *
  * Per comodità l'indice 0 lo posso lascia perde.
@@ -36,6 +36,8 @@ template <class T> class TreePosVector : public Tree<T> {
 
     void addChild(const T *value, const T *child);
 
+    void addValuesFromVector(const std::vector<T>& values);
+
     // void addChildren(node<T>* _x,const std::list<T*> &_childrens);
 
   public:
@@ -51,6 +53,9 @@ template <class T> class TreePosVector : public Tree<T> {
     virtual ~TreePosVector() {}
 
     int getDegree(const T &value) override;
+
+    //TODO vedere se conviene metterlo al posto di getDegree
+	int getNumChildren(const T& value);
 
     T getParent(const T& childValue) override;
 
@@ -80,6 +85,9 @@ template <class T> class TreePosVector : public Tree<T> {
     void depthSearch(const T &startValue) override {}
 
     void updateParent(const T &childValue, const T &newParent) override;
+
+    template<class U>
+    friend class DHeap;
 
 
     /// overloading operator >>

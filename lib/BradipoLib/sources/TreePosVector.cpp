@@ -41,10 +41,33 @@ int TreePosVector<T>::getDegree(const T &value) {
         return (*x_itr)->num_children;
     } else {
         throw std::runtime_error(
-            "TreePosVector::getDegree(const T& value) error: nodo " + value +
-            "non presente nell'albero");
+            "TreePosVector::getDegree(const T& value) error: node non presente nell'albero");
     }
 };
+
+
+template<class T>
+int TreePosVector<T>::getNumChildren(const T& value){
+
+    typename std::vector<Node<T> *>::iterator x_itr;
+    x_itr = datalib::trova(vecNode.begin(), vecNode.end(), value);
+
+    int count_children = 0;
+
+    if (x_itr != vecNode.end()) {
+        int pos = (*x_itr)->pos;
+        for(int i=0; i<degree ; i++){
+            if(vecNode[(pos * degree +i )]){
+                count_children++;
+
+            }
+        }
+        return count_children;
+    } else {
+        throw std::runtime_error(
+            "TreePosVector::getDegree(const T& value) error: node non presente nell'albero");
+    }
+}
 
 
 template<class T>
@@ -58,11 +81,8 @@ T TreePosVector<T>::getParent(const T &childValue) {
     if (x_itr != vecNode.end()) {
         int parte_intera_inferiore = (int)floor(((*x_itr)->pos)/this->degree);
         return vecNode[parte_intera_inferiore]->value;
-    } else {
-        throw std::runtime_error(
-            "TreePosVector::getParent(const T& childValue) error: nodo " + childValue +
-            "non presente nell'albero");
-    }
+    } else 
+        throw std::runtime_error("TreePosVector::getParent(const T& childValue) error: nodo non presente nell'albero");
 
 }
 
@@ -76,7 +96,7 @@ std::list<T> TreePosVector<T>::getChildren(const T& parentValue) {
     if (parent_itr != vecNode.end()) {
         int i=1;
         std::list<T> children;
-        while( i <= (*parent_itr)->num_children ){
+        while( i <= this->getNumChildren(parentValue) ){ //  todo cancellare commento(*parent_itr)->num_children
             children.push_back(vecNode.at((*parent_itr)->pos + i)->value);
             i++;
         }
@@ -84,10 +104,27 @@ std::list<T> TreePosVector<T>::getChildren(const T& parentValue) {
         return children;
     } else {
         throw std::runtime_error(
-            "TreePosVector::getChildren(const T& parentValue) error: nodo " + parentValue +
-            "non presente nell'albero");
+            "TreePosVector::getChildren(const T& parentValue) error: nodo non presente nell'albero");
     }
 
+}
+
+//add the values directly in the vector O(n)
+template <class T>
+void TreePosVector<T>::addValuesFromVector(const std::vector<T>& values){
+
+    int i=0;
+
+	for(auto& value: values){
+        
+		Node<T>* nodeValue = new Node<T>(value);
+        nodeValue->pos = i;
+		vecNode[i] = nodeValue;
+		i++;
+
+        //TODO opera di rifacimento per mettere numChildren
+
+	}
 }
 
 template <class T>
@@ -97,6 +134,8 @@ void TreePosVector<T>::addRoot(const T &rootValue){
     vecNode[1] = x_ptr;
     x_ptr->pos = 1;
 }
+
+
 
 template <class T>
 void TreePosVector<T>::addNode(const T &value, const T &parent) {
@@ -114,8 +153,8 @@ void TreePosVector<T>::addNode(const T &value, const T &parent) {
     x_itr = datalib::trova(vecNode.begin(), vecNode.end(), value);
 
     if (x_itr != vecNode.end()) {
-        std::string error = "The node" + value + "already exist in the Tree";
-        throw std::runtime_error("TreePosVector::addNode() error: " + error);
+        // std::string error = "The node" + value + "already exist in the Tree";
+        throw std::runtime_error("TreePosVector::addNode() error: The node already exist in the Tree");
     }
 
     parent_itr = datalib::trova(vecNode.begin(), vecNode.end(), parent);
@@ -157,11 +196,8 @@ void TreePosVector<T>::addChildren(const T &value,
     int pos = (*x_itr)->pos;
 
     // preconditions 2
-    if (((*x_itr)->num_children + children.size()) > this->degree) {
-        throw std::runtime_error(
-            "TreePosVector::addChildren() error: max degree of the node" +
-            value + " reached");
-    }
+    if (((*x_itr)->num_children + children.size()) > this->degree)
+            throw std::runtime_error("TreePosVector::addChildren() error: max degree of the node reached");
 
     for (auto &n : children) {
         Node<T> *child2add = new Node<T>(n);

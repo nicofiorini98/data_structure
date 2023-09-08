@@ -122,6 +122,8 @@ namespace datalib
         template<class U>
         friend class GraphIncList;
 
+        template<class U>
+        friend class DHeap;
         // template<class S>
         // std::ostream &operator<<(std::ostream &os, tree_pos_vector<S> &t);
 

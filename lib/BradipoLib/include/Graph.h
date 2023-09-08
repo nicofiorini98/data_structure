@@ -41,7 +41,7 @@ template <class T> class Graph {
 
     virtual int maxDegree() = 0; // restituisce il grado massimo del grafo
 
-    virtual int degree(const T &value) = 0; // restituisce il grado del nodo
+    virtual int degree(const T &nodeValue) = 0; // restituisce il grado del nodo
 
     /// return the incident edge of the Node x
     virtual void getIncidentEdges(const T &value,

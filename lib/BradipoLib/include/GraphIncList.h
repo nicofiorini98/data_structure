@@ -33,7 +33,7 @@ namespace datalib{
 
         bool edgeExistence(const T* srcValue,const T* destValue) const;
 
-        bool nodeExistence(const T* value) const;
+        bool nodeExistence(const T* nodeValue) const;
 
         //typename std::map<T,node<T>*>::iterator getNode(const T* _n) const;
         //typename std::vector<edge<T>>::iterator getEdge(const T* _n) const;
@@ -56,7 +56,7 @@ namespace datalib{
         int maxDegree() override;
 
         ///Return the degree of the node _x
-        int degree(const T& value) override;
+        int degree(const T& nodeValue) override;
 
         ///Add an Edge (x,y) in the graph
         void addEdge(const T& srcValue,const T& destValue) override;
@@ -65,7 +65,7 @@ namespace datalib{
         void addEdge(const Edge<T>& edge);
 
         ///Delete the node from the Graph
-        void deleteNode(const T& value)override;      
+        void deleteNode(const T& value) override;      
 
         //Remove the Edge in the graph
         void deleteEdge(const T &srcValue,const T &destValue) override;       //remove a Edge in the graph 

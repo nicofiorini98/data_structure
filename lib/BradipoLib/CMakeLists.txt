@@ -6,6 +6,7 @@ set(LIBRARY_HEADERS  ${CMAKE_CURRENT_SOURCE_DIR}/include/TreePtrList.h
                      ${CMAKE_CURRENT_SOURCE_DIR}/include/GraphEdgeList.h
                      ${CMAKE_CURRENT_SOURCE_DIR}/include/Node.h
                      ${CMAKE_CURRENT_SOURCE_DIR}/include/Edge.h
+                     ${CMAKE_CURRENT_SOURCE_DIR}/include/DHeap.h
 )
 
 set(LIBRARY_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/sources/TreePtrList.cpp
@@ -14,6 +15,7 @@ set(LIBRARY_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/sources/TreePtrList.cpp
                     ${CMAKE_CURRENT_SOURCE_DIR}/sources/GraphEdgeList.cpp
                     ${CMAKE_CURRENT_SOURCE_DIR}/sources/Node.cpp
                     ${CMAKE_CURRENT_SOURCE_DIR}/sources/Edge.cpp
+                    ${CMAKE_CURRENT_SOURCE_DIR}/sources/DHeap.cpp
                     )
 
 set(LIBRARY_INCLUDES "./include" )

@@ -11,6 +11,7 @@
 #include "Node.h"
 #include "TreePosVector.h"
 #include "TreePtrList.h"
+#include "DHeap.h"
 // #include "GraphAdjList.h"
 // #include "GraphEdgeList.h"
 
@@ -20,7 +21,8 @@
 #define CITY_TREE_POS_VECTOR 0
 #define GRAPH_ADJ_LIST 0
 #define GRAPH_EDGE_LIST 0
-#define GRAPH_INC_LIST 1
+#define GRAPH_INC_LIST 0 // to do other tests
+#define DHEAP 0
 #define PROVA 0
 
 
@@ -100,7 +102,7 @@ int main(){
 
 	std::string parent = tree->getParent("l");
 
-    std::list<std::string> children = tree->getChildren("o");
+    std::list<std::string> children = tree->getChildren("a");
 
     for(auto& c: children){
         std::cout<<"\n--> "<<c;
@@ -108,6 +110,8 @@ int main(){
     std::cout<<std::endl;
 
     // tree->showTree();
+
+    std::cout<<"getNumChildrenTest: "<<tree->getNumChildren("b")<<"\n";
 
     std::cout<<"the parent of l is: "<<tree->getParent("l")<<"\n";
 
@@ -156,6 +160,23 @@ int main(){
     }
     
     std::cout<<"\n------------------------------------------\n";
+
+#endif
+
+#if DHEAP
+	try{
+
+        DHeap<int> dheap(2,15,{37,22,31,13,15,25,14,7,3,12,9}); // 11 elementi
+        //devo arrivare a vedere questo
+        // {37,22,31,13,15,25,14,nullptr,nullptr,7,3,nullptr,nullptr,12,9} // questo è 2-heap fixato
+        std::cout<<"il max dell'heap è: "<< dheap.findMax()<<"\n";
+
+        std::cout<<"getLeafTest: "<< dheap.getLeaf()<<"\n";
+        std::cout<<"isLeaf(): "<<dheap.isLeaf(37)<<"\n";
+
+    }catch(std::exception &error){
+        std::cout<<"DHeap error caught: "<<error.what()<<"\n";
+    }
 
 #endif
 
@@ -370,14 +391,29 @@ int main(){
     else
         std::cout<<"file non aperto\n";
 
-    TreePtrList<std::string> tree;
+
+    graph.addEdge("a","c"); // OK 
+    graph.addNode("l");     // this is not necessary, only for testing
+    graph.addEdge("l","a"); // OK 
+
+    std::cout<<"numero nodi: "<<graph.numNode()<<"\n"; //OK
+    std::cout<<"numero archi: "<<graph.numEdge()<<"\n";//OK
+    std::cout<<"max degree: "<<graph.maxDegree()<<"\n";
+    std::cout<<"degree of c: "<<graph.degree("c")<<"\n";
+
+
+    graph.showStructure();      // OK
+    graph.deleteEdge("l","a");  // OK
+    graph.showStructure();      // OK
+
+    // TreePtrList<std::string> tree;
     // graph.depthSearch("b", tree);
     // _graph.breadthSearch("a",breadthTree);
 
     // breadthTree.breadthSearch(new std::string("a"));
 
 	// std::cout<<"\n show breadthTree\n";
-    tree.showTree();
+    // tree.showTree();
 
     // std::list<Edge<std::string>> lista;
     //_graph.getIncomingEdges(g,lista);

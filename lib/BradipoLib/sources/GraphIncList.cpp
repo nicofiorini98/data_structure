@@ -1,5 +1,6 @@
 #ifndef GRAPH_INC_LIST_CPP
 #define GRAPH_INC_LIST_CPP
+#include <stdexcept>
 #pragma once
 #include "GraphIncList.h"
 
@@ -82,6 +83,8 @@ void GraphIncList<T>::addEdge(const T& srcValue, const T& destValue){
 	//add edge to the structure
 	edgeList.push_back(e);
 	(src_itr->second)->connected_edges.push_back(e);
+
+	++this->numEdges;
 }
 
 
@@ -163,21 +166,16 @@ int GraphIncList<T>::maxDegree(){
 	}
 
 	return max;
-
 }
 
 template<class T>
-int GraphIncList<T>::degree(const T& _x){
+int GraphIncList<T>::degree(const T& nodeValue){
 
-	// for(auto &n: inc_list){
-	// 	if(*n.second == _x)
-	// 		return ((*n.second).connected_edges.size());
-	// 	else{
-	// 		std::string error("degree: il nodo non esiste");
-	// 		throw error;
-	// 	}
-	// }
-
+	for(auto &n: incList){
+		if((n.first) == nodeValue)
+			return ((*n.second).connected_edges.size());
+	}
+	throw std::runtime_error("GraphIncList<T>::degree(---) error: Il nodo "+nodeValue+ " non esiste");
 }
 
 //todo controllare
@@ -354,10 +352,10 @@ bool GraphIncList<T>::edgeExistence(const T* srcValue, const T* destValue) const
 }
 
 template<class T>
-bool GraphIncList<T>::nodeExistence(const T* value) const{
+bool GraphIncList<T>::nodeExistence(const T* nodeValue) const{
 
 	for(auto &n: this->inc_list){
-		if((n.second)->value == *value)
+		if((n.second)->value == *nodeValue)
 			return true;
 	}
 	return false;
