@@ -31,7 +31,10 @@ namespace datalib{
   		//return the position of the last leaf
 		// int getLeaf();
 
-		void muoviAlto(){}
+		void moveHigh(int posNode);
+
+  		// insert node to leaf and return the position of the leaf
+		int insertToLeaf(const T& nodeValue);
 		void muoviBasso(){}
 
 
@@ -40,7 +43,9 @@ namespace datalib{
         ///Costructor for the GraphAdjList
         DHeap(int degree, int size, const std::vector<T>& values = {});
 
-		int getLeaf();
+		int getLeaf(); //todo to add to private, only for testing here
+
+		void insert(const T& nodeValue);
 
 		bool isLeaf(const T& nodeValue);
 
@@ -51,6 +56,10 @@ namespace datalib{
 		void increase(){}
 
 		void decrease(){}
+
+		void showStructure(){
+			(this->treePosVector)->showStructure();
+		}
 
         ///Destructor
         ~DHeap();

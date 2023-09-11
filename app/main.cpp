@@ -22,7 +22,7 @@
 #define GRAPH_ADJ_LIST 0
 #define GRAPH_EDGE_LIST 0
 #define GRAPH_INC_LIST 0 // to do other tests
-#define DHEAP 0
+#define DHEAP 1
 #define PROVA 0
 
 
@@ -102,7 +102,9 @@ int main(){
 
 	std::string parent = tree->getParent("l");
 
-    std::list<std::string> children = tree->getChildren("a");
+    std::list<std::string> children = tree->getChildren("b");
+
+	std::cout<<"Test TreePosVector::getChildren(\"b\")";
 
     for(auto& c: children){
         std::cout<<"\n--> "<<c;
@@ -166,13 +168,31 @@ int main(){
 #if DHEAP
 	try{
 
-        DHeap<int> dheap(2,15,{37,22,31,13,15,25,14,7,3,12,9}); // 11 elementi
+
+        // {37,22,31,13,15,25,14,7,3,12,9}
+
+        DHeap<int> dheap(2,15); // 11 elementi
+        dheap.insert(3);
+        dheap.insert(14);
+        dheap.insert(22);
+        dheap.insert(13);
+        dheap.insert(15);
+        dheap.insert(31);
+        dheap.insert(25);
+        dheap.insert(37);
+        dheap.insert(7);
+        dheap.insert(12);
+        dheap.insert(9);
+        dheap.showStructure();
+
         //devo arrivare a vedere questo
         // {37,22,31,13,15,25,14,nullptr,nullptr,7,3,nullptr,nullptr,12,9} // questo è 2-heap fixato
-        std::cout<<"il max dell'heap è: "<< dheap.findMax()<<"\n";
 
-        std::cout<<"getLeafTest: "<< dheap.getLeaf()<<"\n";
-        std::cout<<"isLeaf(): "<<dheap.isLeaf(37)<<"\n";
+        // std::cout<<"Il max dell'heap è: "<< dheap.findMax()<<"\n";
+
+        // std::cout<<"getLeafTest: "<< dheap.getLeaf()<<"\n"; // remove to become private
+
+        // std::cout<<"isLeaf(): "<<dheap.isLeaf(9)<<"\n"; // restituisce 
 
     }catch(std::exception &error){
         std::cout<<"DHeap error caught: "<<error.what()<<"\n";

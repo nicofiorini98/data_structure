@@ -65,7 +65,7 @@ int TreePosVector<T>::getNumChildren(const T& value){
         return count_children;
     } else {
         throw std::runtime_error(
-            "TreePosVector::getDegree(const T& value) error: node non presente nell'albero");
+            "TreePosVector::getDegree(const T& value) error: nodo non presente nell'albero");
     }
 }
 
@@ -82,7 +82,7 @@ T TreePosVector<T>::getParent(const T &childValue) {
         int parte_intera_inferiore = (int)floor(((*x_itr)->pos)/this->degree);
         return vecNode[parte_intera_inferiore]->value;
     } else 
-        throw std::runtime_error("TreePosVector::getParent(const T& childValue) error: nodo non presente nell'albero");
+        throw std::runtime_error("TreePosVector::getParent(const T& childValue) error: node doesn't exists in the tree");
 
 }
 
@@ -93,11 +93,12 @@ std::list<T> TreePosVector<T>::getChildren(const T& parentValue) {
     parent_itr = datalib::trova(vecNode.begin(), vecNode.end(), parentValue);
 
     //il padre è vecNode[ parteInteraInferiore(index/degree)]
-    if (parent_itr != vecNode.end()) {
+    /* if (parent_itr != vecNode.end()) {
         int i=1;
         std::list<T> children;
         while( i <= this->getNumChildren(parentValue) ){ //  todo cancellare commento(*parent_itr)->num_children
-            children.push_back(vecNode.at((*parent_itr)->pos + i)->value);
+            int childPos = ((*parent_itr)->pos)*degree + i;
+            children.push_back(vecNode[childPos]->value);
             i++;
         }
 
@@ -105,6 +106,25 @@ std::list<T> TreePosVector<T>::getChildren(const T& parentValue) {
     } else {
         throw std::runtime_error(
             "TreePosVector::getChildren(const T& parentValue) error: nodo non presente nell'albero");
+    } */
+
+    std::list<T> children;
+    if (parent_itr != vecNode.end()) {
+        int pos = (*parent_itr)->pos;
+        for(int i = 0; i < degree ; i++){
+            int childPos = (pos * degree) + i ;
+            
+            if(childPos < vecNode.size() && vecNode[(childPos)]){
+
+                T value = vecNode[childPos]->value;
+
+                children.push_back(vecNode[childPos]->value);
+            }
+        }
+        return children;
+    } else {
+        throw std::runtime_error(
+            "TreePosVector::getChildren(const T& parentValue) error: node doesn't exist in the Tree");
     }
 
 }
@@ -119,12 +139,70 @@ void TreePosVector<T>::addValuesFromVector(const std::vector<T>& values){
         
 		Node<T>* nodeValue = new Node<T>(value);
         nodeValue->pos = i;
-		vecNode[i] = nodeValue;
+		vecNode[i+1] = nodeValue;
 		i++;
 
         //TODO opera di rifacimento per mettere numChildren
 
 	}
+}
+
+template<class T>
+int TreePosVector<T>::getParentPos(int posChild){
+    if(posChild == 1){
+        throw std::runtime_error("TreePosVector<T>::getParentPos : error the node is the Root");
+    }
+
+    int parte_intera_inferiore = (int)floor(((posChild)/this->degree)); 
+    return parte_intera_inferiore;
+
+}
+
+template <class T>
+int TreePosVector<T>::getMaxChildPos(Node<T>* parentValue){
+
+    typename std::vector<Node<T> *>::iterator parent_itr;
+    parent_itr = datalib::trova(vecNode.begin(), vecNode.end(), parentValue);
+
+    if (parent_itr != vecNode.end()) {
+        int pos = (*parent_itr)->pos;
+        // int maxPos = (*parent_itr)->pos;
+        int maxPos = (pos * degree) + 1 ;
+
+        for(int i = 0; i < degree ; i++){
+            int childPos = (pos * degree) + i ;
+            if(childPos < vecNode.size() && vecNode[(childPos)]){
+
+                T maxValue = vecNode[maxPos]->value;
+                T value = vecNode[childPos]->value;
+
+                if(value > maxValue){
+                    maxPos = childPos;
+                }
+                
+                // children.push_back(vecNode[childPos]->value);
+            }
+        }
+        return maxPos;
+    } else {
+        throw std::runtime_error(
+            "TreePosVector::getChildren(const T& parentValue) error: node doesn't exist in the Tree");
+    } 
+}
+template<class T>
+void TreePosVector<T>::swapPositionValue(int posNode1, int posNode2){
+    /* 
+    Pre-conditions 
+    1. Le due posizioni devono stare nel vettore
+     */
+    Node<T>* node1 = this->vecNode[posNode1];
+    //cambio valore e aggiornamento posizione
+    this->vecNode[posNode1] = this->vecNode[posNode2];
+    this->vecNode[posNode1]->pos = posNode1;
+
+    this->vecNode[posNode2] = node1;
+    this->vecNode[posNode2]->pos = posNode2;
+    return;
 }
 
 template <class T>

@@ -34,7 +34,14 @@ template <class T> class TreePosVector : public Tree<T> {
 
     int getPos(Node<T> *value) { return value->pos; }
 
+	//todo controllare parametro passato
+    int getMaxChildPos(Node<T>* value);
+    
+    int getParentPos(int posChild);
+
     void addChild(const T *value, const T *child);
+
+    void swapPositionValue(int posNode1, int posNode2);
 
     void addValuesFromVector(const std::vector<T>& values);
 
