@@ -30,12 +30,12 @@ template <class T> class TreePosVector : public Tree<T> {
     /// maximum degree of a Node
     int degree;
 
-    int getNumChildren(Node<T> *value) { return value->num_children; }
+    // int getNumChildren(Node<T> *value) { return value->num_children; }
 
     int getPos(Node<T> *value) { return value->pos; }
 
 	//todo controllare parametro passato
-    int getMaxChildPos(Node<T>* value);
+    int getMaxChildPos(int posNode);
     
     int getParentPos(int posChild);
 

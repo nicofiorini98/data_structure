@@ -57,7 +57,7 @@ int TreePosVector<T>::getNumChildren(const T& value){
     if (x_itr != vecNode.end()) {
         int pos = (*x_itr)->pos;
         for(int i=0; i<degree ; i++){
-            if(vecNode[(pos * degree +i )]){
+            if(vecNode[(pos * degree) +i ]){
                 count_children++;
 
             }
@@ -138,11 +138,10 @@ void TreePosVector<T>::addValuesFromVector(const std::vector<T>& values){
 	for(auto& value: values){
         
 		Node<T>* nodeValue = new Node<T>(value);
-        nodeValue->pos = i;
+        nodeValue->pos = i+1;
 		vecNode[i+1] = nodeValue;
 		i++;
 
-        //TODO opera di rifacimento per mettere numChildren
 
 	}
 }
@@ -159,18 +158,20 @@ int TreePosVector<T>::getParentPos(int posChild){
 }
 
 template <class T>
-int TreePosVector<T>::getMaxChildPos(Node<T>* parentValue){
+int TreePosVector<T>::getMaxChildPos(int posNode){
 
-    typename std::vector<Node<T> *>::iterator parent_itr;
-    parent_itr = datalib::trova(vecNode.begin(), vecNode.end(), parentValue);
 
-    if (parent_itr != vecNode.end()) {
-        int pos = (*parent_itr)->pos;
+    // typename std::vector<Node<T> *>::iterator parent_itr;
+    // parent_itr = datalib::trova(vecNode.begin(), vecNode.end(), parentValue);
+
+    if (vecNode[posNode]) {
+        // int pos = (*parent_itr)->pos;
+
         // int maxPos = (*parent_itr)->pos;
-        int maxPos = (pos * degree) + 1 ;
+        int maxPos = (posNode * degree) + 1 ;
 
         for(int i = 0; i < degree ; i++){
-            int childPos = (pos * degree) + i ;
+            int childPos = (posNode * degree) + i ;
             if(childPos < vecNode.size() && vecNode[(childPos)]){
 
                 T maxValue = vecNode[maxPos]->value;
@@ -179,8 +180,6 @@ int TreePosVector<T>::getMaxChildPos(Node<T>* parentValue){
                 if(value > maxValue){
                     maxPos = childPos;
                 }
-                
-                // children.push_back(vecNode[childPos]->value);
             }
         }
         return maxPos;

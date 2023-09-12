@@ -2,6 +2,7 @@
 #define DHEAP_CPP
 #include "Node.h"
 #include <cmath>
+#include <vector>
 #pragma once
 
 #include <stdexcept>
@@ -11,31 +12,97 @@
 using namespace datalib;
 
 template <class T>
-DHeap<T>::DHeap(int degree, int size ,const std::vector<T>& values){
+DHeap<T>::DHeap(int degree, int size, const std::vector<T>& values){
 
 	this->degree = degree;
 
-	//todo controllare altezza
-	if(values.size()>=size){
-		throw std::runtime_error("the number of values is bigger than size, use bigger size");
-	}
+	int height = (log(size) / log(this->degree)) + 1;
 
-	int height = log(size) / log(this->degree);
-
-	// std::cout<<"height of heap is: "<< height;
 
 	this->treePosVector = new TreePosVector<T>(this->degree,height);
+	
+	/* 
+	Costruzione di un heap in tempo O(n): 
+	1. Creiamo un albero di taglia e dimensioe appropriata in cui mettiamo gl oggetti dell'array
+ 	*/
 	// std::cout<<(this->heapTree)->vecNode[0]<<"\n";
 
   	// riempimento vettore posizione mantenendo una struttura completa
 	// fino al penultimo livello, il valore 0 deve essere sempre nullo
-	// (this->treePosVector)->addValuesFromVector(values);
- 	
+	this->insertFromArray(values);
 
 	//todo qui va fatto l'heapify
 
 	// (this->treePosVector)->showStructure();
 	
+}
+
+template<class T>
+void DHeap<T>::insertFromArray(const std::vector<T>& values){
+
+    (this->treePosVector)->addValuesFromVector(values);
+
+	// qui vado a chiamare la procedura heapify
+	heapify(1);
+
+}
+
+
+//todo testare
+//procedura che chiama se stessa in modo ricorsivo
+template<class T>
+void DHeap<T>::heapify(int posNode){
+	
+	//devo chiamare la procedura ricorsivamente
+	// per ogni figlio del nodo
+	
+	//caso base
+	//if(T è vuoto){
+		//return
+	//}
+	// si ferma quando sono arrivato alla foglia, non ho niente da aggiustare
+	bool isLeaf = this->isLeaf((this->treePosVector)->vecNode[posNode]->value);
+	if(isLeaf){
+		return;
+	}
+
+	//for each child of vecNode[posNode]
+	//chiama heapify con la posizione del figlio
+	// heapify()
+	for(int i=0; i<degree;i++){
+		if((this->treePosVector)->vecNode[(posNode*2)+i]){
+			this->heapify((posNode*2)+i);
+		}
+	}
+	fixHeap(posNode);
+
+}
+//private
+//TODO to debug
+template<class T>
+void DHeap<T>::fixHeap(int posNode){
+
+	//utilizzato solo internamente
+	T nodeValue = this->treePosVector->vecNode[posNode]->value;
+
+	if(this->isLeaf(nodeValue)){
+		return;
+	}
+	else{
+		//sia u il figlio di v con chiave massima
+		int posMax = (this->treePosVector)->getMaxChildPos(posNode); // todo error here, parent Node to provide
+		T childMaxValue = this->treePosVector->vecNode[posMax]->value;
+		std::cout<<"posMax: "<<posMax<<"\n";
+			
+		//if chiave(V) < chiave(u)
+		if(nodeValue < childMaxValue){
+			//scambia chiave(v),chiave(u)
+			(this->treePosVector)->swapPositionValue(posNode,posMax);
+			// (this->treePosVector)->vecNode[posNode] = childMaxValue;
+			// (this->treePosVector)->vecNode[posMax] = nodeValue;
+		}
+		this->fixHeap(posMax);
+	}
 }
 
 template<class T>
@@ -108,6 +175,7 @@ void DHeap<T>::moveHigh(int posNode){
 
 	while( posNode > 1 && nodeValue > parentValue){
 
+		//get parent positions and swap the values
 		int posParent = (this->treePosVector)->getParentPos(posNode);
 		(this->treePosVector)->swapPositionValue(posNode,posParent);
 		posNode = posParent;
@@ -130,49 +198,19 @@ void DHeap<T>::deleteMax(){
 
 template<class T>
 bool DHeap<T>::isLeaf(const T& nodeValue){
+
 	//ritorna true se il nodo non ha figli
-
-	// std::cout<<"Test TreePosVector::getChildren(\"9\")";
-
-    // std::list<int> children = this->treePosVector->getChildren(nodeValue);
-
-    // for(auto& c: children){
-    //     std::cout<<"\n--> "<<c;
-    // }
-
-	bool test = this->treePosVector->getChildren(nodeValue).empty();
+	int numChildren = (this->treePosVector)->getNumChildren(nodeValue);
+	bool test = numChildren == 0;
 	if(test){
 		return true;
 	}
 	return false;
+
 }
 
-//private
-//TODO to debug
-template<class T>
-void DHeap<T>::fixHeap(int posNode){
 
-	//utilizzato solo internamente
-	T nodeValue = this->treePosVector->vecNode[posNode];
 
-	if(this->isLeaf(nodeValue)){
-		return;
-	}
-	else{
-		//sia u il figlio di v con chiave massima
-		int posMax = (this->treePosVector)->getMaxChildPos(); // todo error here, parent Node to provide
-		T childMaxValue = this->treePosVector->vecNode[posMax];
-		std::cout<<"posMax: "<<posMax<<"\n";
-			
-		//if chiave(V) < chiave(u)
-		if(nodeValue < childMaxValue){
-			//scambia chiave(v),chiave(u)
-			(this->treePosVector)->vecNode[posNode] = childMaxValue;
-			(this->treePosVector)->vecNode[posMax] = nodeValue;
-		}
-		this->fixHeap(posMax);
-	}
-}
 
 template <class T>
 DHeap<T>::~DHeap(){

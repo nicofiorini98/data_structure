@@ -35,17 +35,25 @@ namespace datalib{
 
   		// insert node to leaf and return the position of the leaf
 		int insertToLeaf(const T& nodeValue);
+
+		void insertFromArray(const std::vector<T>& values);
+
+		void heapify(int posNode);
+
 		void muoviBasso(){}
+
+		// bool isLeaf(int posNode);
 
 
 
     public:
         ///Costructor for the GraphAdjList
-        DHeap(int degree, int size, const std::vector<T>& values = {});
+        DHeap(int degree, int size, const std::vector<T>& values);
 
 		int getLeaf(); //todo to add to private, only for testing here
 
 		void insert(const T& nodeValue);
+
 
 		bool isLeaf(const T& nodeValue);
 
