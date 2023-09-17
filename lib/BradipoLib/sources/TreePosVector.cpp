@@ -59,16 +59,14 @@ int TreePosVector<T>::getNumChildren(const T& value){
         for(int i=0; i<degree ; i++){
             if(vecNode[(pos * degree) +i ]){
                 count_children++;
-
             }
         }
         return count_children;
     } else {
         throw std::runtime_error(
-            "TreePosVector::getDegree(const T& value) error: nodo non presente nell'albero");
+            "TreePosVector::getNumChildren(const T& value) error: nodo non presente nell'albero");
     }
 }
-
 
 template<class T>
 T TreePosVector<T>::getParent(const T &childValue) {

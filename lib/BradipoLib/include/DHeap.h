@@ -31,7 +31,10 @@ namespace datalib{
   		//return the position of the last leaf
 		// int getLeaf();
 
+  		//	todo cambiare nome parametri
 		void moveHigh(int posNode);
+
+		void moveLow(int posNode);
 
   		// insert node to leaf and return the position of the leaf
 		int insertToLeaf(const T& nodeValue);
@@ -61,6 +64,8 @@ namespace datalib{
 
 		void deleteMax();
 
+		void deleteValue(const T& nodeValue); 
+		 
 		void increase(){}
 
 		void decrease(){}
