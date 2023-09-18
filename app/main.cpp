@@ -208,8 +208,6 @@ int main(){
 
     _graph_inc_list.addNode(a0);
 
-    _graph_inc_list.shl1);
-
     std::vector<node<int>*>::iterator trovato = prova_trova(vec_node.begin(),vec_node.end(),&l1);
 
     if(trovato != vec_node.end()){

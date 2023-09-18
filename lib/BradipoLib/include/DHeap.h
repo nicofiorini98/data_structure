@@ -8,7 +8,7 @@ namespace datalib{
 
 
 	/**
-	 * \class GraphAdjList
+	 * \class DHeap 
 	 * \brief This class is a data structure for a d-heap,
 	 * is implemented with the TreePosVector.
 	 * 
@@ -20,16 +20,11 @@ namespace datalib{
     private: 
 
 		//this is the data structure
-		// TODO aggiungere struttura dati TreePosVector
 		TreePosVector<T>* treePosVector;
 
 		int degree;
 
   		void fixHeap(int pos);
-
-
-  		//return the position of the last leaf
-		// int getLeaf();
 
   		//	todo cambiare nome parametri
 		void moveHigh(int posNode);
@@ -43,32 +38,28 @@ namespace datalib{
 
 		void heapify(int posNode);
 
-		void muoviBasso(){}
-
-		// bool isLeaf(int posNode);
-
-
-
-    public:
-        ///Costructor for the GraphAdjList
-        DHeap(int degree, int size, const std::vector<T>& values);
-
-		int getLeaf(); //todo to add to private, only for testing here
-
-		void insert(const T& nodeValue);
-
+		int getLeaf(); 
 
 		bool isLeaf(const T& nodeValue);
 
+
+    public:
+
+        ///Costructor for the Heap
+        DHeap(int degree, int size, const std::vector<T>& values);
+
+		/// Insert a value in the heap
+		void insert(const T& nodeValue);
+
+		/// return the max Value of the Heap
 		T findMax(){return this->treePosVector->vecNode[1]->value;}
 
-		void deleteMax();
-
+		/// delete a value from the heap
 		void deleteValue(const T& nodeValue); 
 		 
-		void increase(){}
+		// void increase(){}
 
-		void decrease(){}
+		// void decrease(){}
 
 		void showStructure(){
 			(this->treePosVector)->showStructure();
