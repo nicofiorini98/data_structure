@@ -120,6 +120,12 @@ template <class T> void DHeap<T>::deleteValue(const T &nodeValue) {
         int posLeaf = this->getLeaf();
         int pos2Delete = (*value_itr)->pos;
 
+        if(pos2Delete == posLeaf){
+            delete (this->treePosVector)->vecNode[posLeaf];
+            (this->treePosVector)->vecNode[posLeaf] = nullptr;
+            return;
+        }
+
         (this->treePosVector)->swapPositionValue(posLeaf, pos2Delete);
 
         // cancellare la foglia, deallocazione più puntatore a nullptr
@@ -127,12 +133,15 @@ template <class T> void DHeap<T>::deleteValue(const T &nodeValue) {
         (this->treePosVector)->vecNode[posLeaf] = nullptr;
 
         // prendere il valore spostato ed eseguire muovi alto o muovi basso
-        int posParent = (this->treePosVector)->getParentPos(pos2Delete);
+        int posParent = 1;
+        if(pos2Delete > 1){
+            posParent = (this->treePosVector)->getParentPos(pos2Delete);
+        }
 
         // se il padre è più grande devo provare ad adare in basso
         // altrimenti provo ad andare in alto
         if ((this->treePosVector)->vecNode[posParent]->value >
-            (this->treePosVector)->vecNode[pos2Delete]->value)
+            (this->treePosVector)->vecNode[pos2Delete]->value || posParent == 1)
             moveLow(pos2Delete); // TODO da testare
         else
             moveHigh(pos2Delete); // questo funziona, già testato
@@ -240,14 +249,15 @@ template <class T> void DHeap<T>::moveLow(int posNode) {
     // TODO aggiustare questa logica
     while (true) {
 
-		posChild = (this->treePosVector)->getMaxChildPos(posNode);
 
 		// getting the values from the starting two positions
 		value = (this->treePosVector)->vecNode[posNode]->value;
-		
+
 		if(this->isLeaf(value)){
 			return;
 		}
+
+		posChild = (this->treePosVector)->getMaxChildPos(posNode);
 
 		childValue = (this->treePosVector)->vecNode[posChild]->value;
 
@@ -259,11 +269,7 @@ template <class T> void DHeap<T>::moveLow(int posNode) {
 
         // update the positions for the next cycle
         posNode = posChild;
-        // int posChild = (this->treePosVector)->getMaxChildPos(posNode);
 
-        // // update the values from the starting two positions
-        // value = (this->treePosVector)->vecNode[posNode]->value;
-        // childValue = (this->treePosVector)->vecNode[posChild]->value;
     }
 }
 
@@ -276,6 +282,8 @@ template <class T> bool DHeap<T>::isLeaf(const T &nodeValue) {
 
     // ritorna true se il nodo non ha figli
     int numChildren = (this->treePosVector)->getNumChildren(nodeValue);
+
+    std::cout<<"valore: "<< nodeValue <<" numChildren: -> " << numChildren <<"\n";
 
     if (numChildren == 0)
         return true;

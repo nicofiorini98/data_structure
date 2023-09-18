@@ -166,12 +166,13 @@ int TreePosVector<T>::getMaxChildPos(int posNode){
         // int pos = (*parent_itr)->pos;
 
         // int maxPos = (*parent_itr)->pos;
-        int maxPos = (posNode * degree) + 1 ;
+        int maxPos = (posNode * degree) ;
 
         for(int i = 0; i < degree ; i++){
             int childPos = (posNode * degree) + i ;
             if(childPos < vecNode.size() && vecNode[(childPos)]){
 
+				
                 T maxValue = vecNode[maxPos]->value;
                 T value = vecNode[childPos]->value;
 

@@ -174,7 +174,10 @@ int main(){
         DHeap<int> dheap(2,15,{3,37,22,31,13,15,25,14,7,12,1}); // 11 elementi
 
 
-        dheap.deleteValue(31);
+
+        dheap.deleteValue(3);
+        dheap.deleteValue(37);
+        
 
         dheap.showStructure();
 
