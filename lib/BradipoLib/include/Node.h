@@ -89,9 +89,6 @@ namespace datalib
         ///overloading operator >>
         friend std::istream& operator>>(std::istream &is, Node<T>& node)
         {
-            //make ist throw if it goes bad or fail
-            //is.exceptions(is.exceptions()|std::ios_base::badbit);
-            //is.exceptions(is.exceptions()|std::ios_base::failbit);
             is >> node.value;
             return is;
         }
