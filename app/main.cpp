@@ -15,14 +15,14 @@
 // #include "GraphAdjList.h"
 // #include "GraphEdgeList.h"
 
-#define TREE_PTR_LIST 0
+#define TREE_PTR_LIST 1
 #define CITY_TREE_PTR_LIST 0
 #define POS_VECTOR 0
 #define CITY_TREE_POS_VECTOR 0
 #define GRAPH_ADJ_LIST 0
 #define GRAPH_EDGE_LIST 0
 #define GRAPH_INC_LIST 0 // to do other tests
-#define DHEAP 1
+#define DHEAP 0
 #define PROVA 0
 
 
@@ -173,12 +173,10 @@ int main(){
 
         DHeap<int> dheap(2,15,{3,37,22,31,13,15,25,14,7,12,1}); // 11 elementi
 
-
-
         dheap.deleteValue(3);
         dheap.deleteValue(37);
+        dheap.insert(37);
         
-
         dheap.showStructure();
 
         //devo arrivare a vedere questo
@@ -228,17 +226,16 @@ int main(){
     {
         std::cout<<"\n---------- Prova TreePtrList : ----------\n";
    /*
-    * std::string a{"a"},l{"l"},b{"b"};
+    * std::string a{"a"},l{"l"},b{"b"}j;
     * std::string e{"e"},r{"r"},o{"o"};
     */
 
-
     std::ifstream input("/home/nico/project/data_structure/input_test/tree.txt");
+
     //std::ifstream ist2{"C:\\Users\\1dnic\\Desktop\\my_project\\data_structure\\insert_tree.txt"};
     //std::ofstream os{"../output.txt"};
 
 	// input.open("../tree.txt",std::ios_base::in);
-
     if(!input.is_open()){
         std::cout << "Failed to open file." << std::endl;
         return -1;

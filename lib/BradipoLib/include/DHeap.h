@@ -11,13 +11,13 @@ namespace datalib{
 	 * \class DHeap 
 	 * \brief This class is a data structure for a d-heap,
 	 * is implemented with the TreePosVector.
-	 * 
+	 *
 	 * \author Nico Fiorini
 	*/
 
     template<class T>
     class DHeap {
-    private: 
+    private:
 
 		//this is the data structure
 		TreePosVector<T>* treePosVector;
@@ -26,9 +26,10 @@ namespace datalib{
 
   		void fixHeap(int pos);
 
-  		//	todo cambiare nome parametri
+		// move the node upper if possible
 		void moveHigh(int posNode);
 
+		//move the node down if possible
 		void moveLow(int posNode);
 
   		// insert node to leaf and return the position of the leaf
@@ -57,9 +58,9 @@ namespace datalib{
 		/// delete a value from the heap
 		void deleteValue(const T& nodeValue); 
 		 
+		// TODO implementare change value
 		// void increase(){}
 
-		// void decrease(){}
 
 		void showStructure(){
 			(this->treePosVector)->showStructure();

@@ -7,11 +7,11 @@
 
 using namespace datalib;
 
-template <class T> TreePtrList<T>::TreePtrList(int degree) : Tree<T>() {
-    // initalization parameter
-    this->degree = degree;
+template <class T> TreePtrList<T>::TreePtrList() : Tree<T>() {
+    
     root = nullptr;
 }
+
 
 //TODO debug and see if is there a way to deallocate the map
 //in teoria non c'è bisogno di deallocare la mappa, già dovrebbe pensarci
@@ -27,6 +27,7 @@ template <class T> TreePtrList<T>::~TreePtrList() {
         j++;
     }
 }
+
 
 template <class T> void TreePtrList<T>::addRoot(const T &rootValue) {
     Node<T> *root_ptr = new Node<T>(rootValue);

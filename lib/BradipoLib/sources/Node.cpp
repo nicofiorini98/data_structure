@@ -21,14 +21,14 @@ Node<T>::Node(T _value){
 }
 
 template<class T>
-Node<T>::Node(T _value, Node<T>* _parent){
+Node<T>::Node(T value, Node<T>* parent){
 
-            value=_value;
-            pos=-1;
-            num_children=0;
-            parent=_parent;
-            node_list={};
-            mark=unexplored;
+            this->value = value;
+            pos = -1;
+            num_children = 0;
+            parent = parent;
+            node_list = {};
+            mark = unexplored;
 } 
 
 template<class T>

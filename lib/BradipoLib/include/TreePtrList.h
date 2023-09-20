@@ -10,13 +10,13 @@
 #include <stack>
 /**
  * \class Tree
- * \brief This class is a base class for various tree implementations
- *
+ * \brief This class is an implementation of tree
+ * This is the most flexible implementation of this library, because doesn't have degree
+ * limits of node. Doesn't have limit in terms of size.
  *
  * \author Nico Fiorini
  * \date 03/03/2021
  *
- * manage the nullptr for the root and the leafs
  */
 namespace datalib {
 
@@ -30,11 +30,12 @@ public:
 
   TreePtrListIterator(PointerType ptr) : mPtr(ptr) {}
 
-  // TODO da implementare
+  // TODO vedere se continuare a implementare
   ReferenceType operator*() const { return *mPtr; }
   PointerType operator->() { return mPtr; }
   TreePtrListIterator &operator++();
   TreePtrListIterator operator++(int);
+
   friend bool operator==(const TreePtrListIterator &a,
                          const TreePtrListIterator &b) {
     return a.mPtr == b.mPtr;
@@ -52,10 +53,12 @@ private:
 
 template <class T> class TreePtrList : public Tree<T> {
 private:
+
   using ValueType = T;
   using Iterator = TreePtrListIterator<TreePtrList<T>>;
 
   int degree;
+
   Node<T> *root;
 
   std::map<T, Node<T> *> nodes_map;
@@ -63,31 +66,27 @@ private:
   std::list<Node<T> *> &getNodeList(Node<T> *value);
 
   int getNumChildren(Node<T> *value) { return value->node_list.size(); }
+
   Node<T> *getNode(const T value);
 
-  // get node by value
-  //  void getNode(T _value);
-
 public:
+
+  // TODO togliere o implementare
   Iterator begin() { return Iterator(root); }
-  /// \param _degree Costructor with default parameter,
-  /// if degree is not specified, Tree doesn't have a particular degree
-  TreePtrList(int degree = -1);
+
+  /// Costructor
+  TreePtrList();
 
   /// virtual destructor
-  ~TreePtrList(); // todo controllare
+  // TODO  controllare
+  ~TreePtrList(); 
 
-  // friend std::ostream &operator<<(std::ostream &is, TreePtrList<T> &t);
   /// return the number of sons for the node x
-  int getDegree(const T &value) override; 
+  int getDegree(const T &value) override;
 
   T getParent(const T &childValue) override;
-  /// return the parent of the node x
-  // void getParent(const T &value,
-  //                T &parent) override; // todo ok se non è root, controllare
 
   /// return a vector of the node x
-  // void getChildren(const T &_x,std::list<T>& _list);
   std::list<T> getChildren(const T& parentValue) override;
 
   /// add root in the Tree
@@ -100,14 +99,14 @@ public:
   void addNode(const T& value, const T& parent)
       override; // ok, viene usato per l'inizializzazione dell'albero
 
-  // add children to node _x
+  /// add children to node value
   void addChildren(const T &value, const std::list<T> &children) override;
 
-  // void removeChild(const T& _x);
-
+  // TODO implementare come esempio ? 
   /// print the node following a DFS visit
   void depthSearch(const T &startValue) override;
 
+  // TODO implementare come esempio ?
   /// print the node following BFS visit
   void breadthSearch(const T &startValue) override;
 

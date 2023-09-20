@@ -59,6 +59,8 @@ template <class T> class TreePosVector : public Tree<T> {
     // TreePosVector(int _max_grade,int _num_nodes);
     virtual ~TreePosVector() {}
 
+    // TODO cambiare degree, al momento non fa la cosa giusta
+    /// get Degree of the graph
     int getDegree(const T &value) override;
 
     //TODO vedere se conviene metterlo al posto di getDegree
@@ -67,7 +69,6 @@ template <class T> class TreePosVector : public Tree<T> {
     T getParent(const T& childValue) override;
 
     std::list<T> getChildren(const T &parentValue) override; 
-    // void addNode2(const node<T> *_x,const node<T> *_parent=nullptr);
 
     /// addRoot of the Tree
     void addRoot(const T &rootValue) override;
