@@ -75,7 +75,7 @@ namespace datalib{
         bool isAdjacent(const T &srcValue,const T &destValue) override;       //return true if the edge(x,y) exist, else return false
 
         //method for search in Graph
-        void breadthSearch(const T& startValue, TreePtrList<T>& tree) override{};
+        void breadthSearch(const T& startValue, TreePtrList<T>& tree) override;
 
         void depthSearch(const T& startValue, TreePtrList<T>& tree) override {};
 

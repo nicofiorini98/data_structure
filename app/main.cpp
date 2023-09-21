@@ -15,16 +15,16 @@
 // #include "GraphAdjList.h"
 // #include "GraphEdgeList.h"
 
-#define TREE_PTR_LIST 1
-#define CITY_TREE_PTR_LIST 0
-#define POS_VECTOR 1
-#define CITY_TREE_POS_VECTOR 0
-#define GRAPH_ADJ_LIST 0
+#define TREE_PTR_LIST 0
+#define POS_VECTOR 0
 #define GRAPH_EDGE_LIST 0
-#define GRAPH_INC_LIST 0 // to do other tests
-#define DHEAP 1
-#define PROVA 0
+#define GRAPH_INC_LIST 1 
+#define DHEAP 0
 
+#define CITY_TREE_PTR_LIST 0
+#define CITY_TREE_POS_VECTOR 0
+#define PROVA 0
+#define GRAPH_ADJ_LIST 0
 
 using namespace datalib;
 
@@ -148,16 +148,14 @@ int main(){
         // std::cout<<
         dheap.deleteValue(3);
         dheap.deleteValue(37);
-        dheap.insert(37);
+        // dheap.insert(37);
 
         dheap.showTree();
 
         //devo arrivare a vedere questo
         // {37,22,31,13,15,25,14,nullptr,nullptr,7,3,nullptr,nullptr,12,9} // questo è 2-heap fixato
 
-        // std::cout<<"Il max dell'heap è: "<< dheap.findMax()<<"\n";
-
-        // std::cout<<"getLeafTest: "<< dheap.getLeaf()<<"\n"; // remove to become private
+        std::cout<<"\n----- \nIl max dell'heap è: "<< dheap.findMax()<<"\n";
 
         // std::cout<<"isLeaf(): "<<dheap.isLeaf(9)<<"\n"; // restituisce 
 
@@ -313,20 +311,22 @@ int main(){
     //std::string a{"a"},b{"b"},c{"c"};
     //std::string d{"d"},e{"e"},f{"f"},g{"g"};
 
-    GraphIncList<std::string> _graph;
+    GraphIncList<std::string> graph;
 
     std::fstream input;
     input.open( "/home/nico/project/data_structure/input_test/oriented_graph.txt",std::ios::in);
 
     if(input.is_open()){
-        input>>_graph;
+        input>>graph;
+        graph.showStructure();
+
     }
     else
         std::cout<<"file non aperto\n";
 
     //_graph.showStructure();
     std::list<Edge<std::string>> edges;
-    _graph.getOutgoingEdges("a",edges);
+    graph.getOutgoingEdges("a",edges);
 
     for(auto &e: edges){
         std::cout<<e;
@@ -388,10 +388,11 @@ int main(){
     // graph.depthSearch("b", tree);
     // _graph.breadthSearch("a",breadthTree);
 
-    // breadthTree.breadthSearch(new std::string("a"));
+    TreePtrList<std::string> tree;
+    graph.breadthSearch("a",tree);
 
 	// std::cout<<"\n show breadthTree\n";
-    // tree.showTree();
+    tree.showStructure();
 
     // std::list<Edge<std::string>> lista;
     //_graph.getIncomingEdges(g,lista);

@@ -9,6 +9,7 @@ using namespace datalib;
 
 template <class T> TreePtrList<T>::TreePtrList() : Tree<T>() {
     
+    degree=-1;
     root = nullptr;
 }
 
@@ -278,6 +279,7 @@ template <class T> void TreePtrList<T>::showTree() {
 
 template <class T> void TreePtrList<T>::showStructure() {
 
+    std::cout<<"TreePtrList relations: \n";
     for (auto &n : nodes_map) {
         if (n.second->parent)
             std::cout << *((n.second)->parent) << "<--";
