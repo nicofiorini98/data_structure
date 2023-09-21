@@ -24,11 +24,12 @@ namespace datalib{
 
         std::vector<Edge<T>> edgeList;
 
+        //TODO vedere se servono tutti e due 
         bool edgeExistence(const T *srcValue,const T *destValue) const;
         bool edgeExistence(const T &srcValue,const T &destValue) const;
+
         bool nodeExistence(const T &value) const;
         bool nodeExistence(const Node<T> &value) const;
-        //void addNode(Node<T> *_x);
 
     public:
         ///Default costructor for the GraphAdjList

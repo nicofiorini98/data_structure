@@ -257,8 +257,6 @@ template <class T> bool DHeap<T>::isLeaf(const T &nodeValue) {
     // ritorna true se il nodo non ha figli
     int numChildren = (this->treePosVector)->getNumChildren(nodeValue);
 
-    std::cout<<"valore: "<< nodeValue <<" numChildren: -> " << numChildren <<"\n";
-
     if (numChildren == 0)
         return true;
 

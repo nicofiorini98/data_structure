@@ -62,6 +62,10 @@ namespace datalib{
 		// void increase(){}
 
 
+		void showTree(){
+			(this->treePosVector)->showTree();
+		}	
+		
 		void showStructure(){
 			(this->treePosVector)->showStructure();
 		}
@@ -69,7 +73,6 @@ namespace datalib{
         ///Destructor
         ~DHeap();
 
-        
     };
 }
 

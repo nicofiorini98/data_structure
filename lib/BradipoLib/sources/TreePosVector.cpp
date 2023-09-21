@@ -359,7 +359,7 @@ void TreePosVector<T>::showTree() const{
     std::cout << "\nStampa TreePosVector:\n";
     // stampa del root
 
-    std::cout << "root: " << this->root->value;
+    std::cout << "root: " << this->vecNode[1]->value;
 
     for (auto &node : vecNode) {
 

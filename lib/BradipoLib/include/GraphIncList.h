@@ -9,7 +9,6 @@
 
 namespace datalib{
 
-
 	/**
 	 * \class GraphAdjList
 	 * \brief This class is a data structure for a graph,
@@ -35,17 +34,12 @@ namespace datalib{
 
         bool nodeExistence(const T* nodeValue) const;
 
-        //typename std::map<T,node<T>*>::iterator getNode(const T* _n) const;
-        //typename std::vector<edge<T>>::iterator getEdge(const T* _n) const;
-        // std::vector<edge<T>> edge_list; 
-        // std::map<T,node<T>*> adj_lists;   
 
     public:
         ///Default costructor for the GraphAdjList
         GraphIncList();
 
         ///Costructor with a vector of Edge
-        // GraphAdjList(const std::vector<Edge> &_edges);
         ///virtual Destructor
         virtual ~GraphIncList(){}
 

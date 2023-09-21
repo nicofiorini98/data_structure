@@ -17,12 +17,12 @@
 
 #define TREE_PTR_LIST 1
 #define CITY_TREE_PTR_LIST 0
-#define POS_VECTOR 0
+#define POS_VECTOR 1
 #define CITY_TREE_POS_VECTOR 0
 #define GRAPH_ADJ_LIST 0
 #define GRAPH_EDGE_LIST 0
 #define GRAPH_INC_LIST 0 // to do other tests
-#define DHEAP 0
+#define DHEAP 1
 #define PROVA 0
 
 
@@ -73,9 +73,9 @@ int main(){
 
 #if POS_VECTOR
 
-    std::cout<<"\n---------- Prova TreePosVector: ----------\n";
     try{
 
+    std::cout<<"\n+++++++++++++ Test TreePosVector: ++++++++++\n";
 
     std::ifstream input("/home/nico/project/data_structure/input_test/tree.txt");
     //std::ifstream ist2{"C:\\Users\\1dnic\\Desktop\\my_project\\data_structure\\insert_tree.txt"};
@@ -117,38 +117,8 @@ int main(){
 
     std::cout<<"the parent of l is: "<<tree->getParent("l")<<"\n";
 
+    tree->showTree();
 
-    // std::string parent;
-    // tree.getParent("l",parent);
-    // std::cout<<"Test TreePtrList::getParent() : "<<parent<<" \n";
-
-	// //verifica aggiunta nodo -- da migliorare, in questo modo non va bene.
-    // std::string boh = "boh";
-    // std::string a = "a";
-    // tree.addNode(boh,a);
-    // tree.addChildren("a",{"nodo1","nodo2"});
-    
-
-    // std::list<std::string> children;
-    // tree.getChildren("a", children);
-    // std::cout<<"Test TreePtrList::getChildren(): ";
-    // for(auto c: children){
-    //     std::cout<<c<<" ";
-    // }
-    // std::cout<<std::endl;
-
-	// std::cout<<"Prova depthSearch: \n";
-    // tree.depthSearch("a");
-
-	// std::cout<<"Prova breadthSearch: \n";
-    // tree.breadthSearch("a");
-
-    //tree.addChildren("a",{g,n});
-    //tree.getChildren("a",_list);
-
-    /*for(auto& child: _list)
-        std::cout<<child;*/
-    // tree.showStructure();
 
     delete tree;
 
@@ -161,23 +131,26 @@ int main(){
         std::cout<<"Errore --> "<<error.what();
     }
     
-    std::cout<<"\n------------------------------------------\n";
 
 #endif
 
+/* ------------------- Testinge DHeap ------------------- */
 #if DHEAP
 	try{
+
+        std::cout<<"\n++++++++++++++ Testing DHeap +++++++++++++++\n";
 
 
         // {37,22,31,13,15,25,14,7,3,12,9}
 
         DHeap<int> dheap(2,15,{3,37,22,31,13,15,25,14,7,12,1}); // 11 elementi
 
+        // std::cout<<
         dheap.deleteValue(3);
         dheap.deleteValue(37);
         dheap.insert(37);
-        
-        dheap.showStructure();
+
+        dheap.showTree();
 
         //devo arrivare a vedere questo
         // {37,22,31,13,15,25,14,nullptr,nullptr,7,3,nullptr,nullptr,12,9} // questo è 2-heap fixato
@@ -224,7 +197,7 @@ int main(){
 
     try
     {
-        std::cout<<"\n---------- Prova TreePtrList : ----------\n";
+        std::cout<<"\n++++++++++ Prova TreePtrList : ++++++++++\n";
    /*
     * std::string a{"a"},l{"l"},b{"b"}j;
     * std::string e{"e"},r{"r"},o{"o"};
@@ -264,24 +237,18 @@ int main(){
 
     std::list<std::string> children;
     children = tree.getChildren("a");
-    std::cout<<"Test TreePtrList::getChildren(): ";
+
+    std::cout<<"------ \n Test TreePtrList::getChildren(): ";
     for(auto c: children){
         std::cout<<c<<" ";
     }
     std::cout<<std::endl;
 
-	std::cout<<"Prova depthSearch: \n";
+	std::cout<<"------\n Prova depthSearch: \n";
     tree.depthSearch("a");
 
 	std::cout<<"Prova breadthSearch: \n";
     tree.breadthSearch("a");
-
-    //tree.addChildren("a",{g,n});
-    //tree.getChildren("a",_list);
-
-    /*for(auto& child: _list)
-        std::cout<<child;*/
-    // tree.showStructure();
 
     std::cout<<"\n----------------------------------------------\n";
 

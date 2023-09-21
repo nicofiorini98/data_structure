@@ -33,23 +33,31 @@ template <class T> class Graph {
     }
     virtual ~Graph() {}
 
+    //TODO change name
     /// return the number of the Node in the graph
     int numNode() { return numNodes; }
+    
+    //TODO change name
     /// return the number of the Edge in the graph
     int numEdge() { return numEdges; }
-    /// return the grade of the node x
+    
+    /// return the degree of the graph
+    virtual int maxDegree() = 0; 
+    
+    // TODO implementare setDelimiter
 
-    virtual int maxDegree() = 0; // restituisce il grado massimo del grafo
+    /// return the degree of nodeValue
+    virtual int degree(const T &nodeValue) = 0; 
 
-    virtual int degree(const T &nodeValue) = 0; // restituisce il grado del nodo
-
-    /// return the incident edge of the Node x
+    /// return the incident edges of value
     virtual void getIncidentEdges(const T &value,
                                   std::list<Edge<T>> &edges) = 0;
 
+    /// return the outgoing edges of value
     virtual void getOutgoingEdges(const T &value,
                                   std::list<Edge<T>> &edges) = 0;
 
+    /// return the incoming edges of value
     virtual void getIncomingEdges(const T &value,
                                   std::list<Edge<T>> &edges) = 0;
 
