@@ -372,9 +372,10 @@ int main(){
 
     graph.addEdge("a","c"); // OK 
     graph.addNode("l");     // this is not necessary, only for testing
-    graph.addEdge("l","a"); // OK 
+    graph.addEdge("l","a"); // OK
 
-    std::cout<<"numero nodi: "<<graph.numNode()<<"\n"; //OK
+    std::cout<<"virtual method: "<<graph.getNumNode()<<"\n";
+
     std::cout<<"numero archi: "<<graph.numEdge()<<"\n";//OK
     std::cout<<"max degree: "<<graph.maxDegree()<<"\n";
     std::cout<<"degree of c: "<<graph.degree("c")<<"\n";

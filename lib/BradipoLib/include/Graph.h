@@ -1,6 +1,7 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 
+#include "BasicGraph.h"
 #include "Edge.h"
 #include "Node.h"
 #include "TreePtrList.h"
@@ -19,23 +20,22 @@ namespace datalib {
  * \date 02/03/2021
  */
 
-template <class T> class Graph {
+template <class T> class Graph: public BasicGraph<T> {
   private:
   protected:
-    int numNodes;
     int numEdges;
     char delimiter = ',';
 
   public:
     Graph() {
-        numNodes = 0;
+        this->numNodes = 0;
         numEdges = 0;
     }
     virtual ~Graph() {}
 
     //TODO change name
     /// return the number of the Node in the graph
-    int numNode() { return numNodes; }
+    int getNumNode() { return this->numNodes; }
     
     //TODO change name
     /// return the number of the Edge in the graph
@@ -48,6 +48,8 @@ template <class T> class Graph {
 
     /// return the degree of nodeValue
     virtual int degree(const T &nodeValue) = 0; 
+    
+    
 
     /// return the incident edges of value
     virtual void getIncidentEdges(const T &value,
@@ -90,7 +92,11 @@ template <class T> class Graph {
 
     virtual void depthSearch(const T &startValue, TreePtrList<T> &tree){};
 
-    virtual void markNode(const T &value, marking mark) = 0;
+
+    //Inherited 
+	virtual void setValue(const T oldValue,const T& newValue) override {};
+    
+    virtual void markNode(const T &value, marking mark) override {};
 
     // virtual std::vector<T>& getAdjacentNode(const T& node); //return a vector
     // with the adjacent of node

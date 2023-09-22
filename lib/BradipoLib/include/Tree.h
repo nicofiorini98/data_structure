@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <list>
+#include "BasicGraph.h"
 #include "Node.h"
 #include "Edge.h"
 
@@ -18,14 +19,14 @@
 namespace datalib{ 
 
     template<class T>
-    class Tree {
+    class Tree: public BasicGraph<T> {
     protected:
         char delimiter = ',';
-        int numNodes;
+        // int numNodes;
     public: 
 
         ///Costructor
-        Tree(){ numNodes = 0;}
+        Tree(){ this->numNodes = 0;}
 
 
         ///virtual destructor
@@ -35,7 +36,7 @@ namespace datalib{
         void setDelimiter(const char delimiter){this->delimiter = delimiter;}
 
         ///return the number of nodes of the Tree
-        int getNumNodes() const {return numNodes;}
+        // int getNumNodes() const {return this->numNodes;}
 
         ///return the number of sons for the node x
         virtual int getDegree (const T &value) = 0;
@@ -60,9 +61,14 @@ namespace datalib{
 
 		//TODO implementare in un esempio
         virtual void breadthSearch(const T& startValue)=0;
-
-		//fondamentale per la ricerca
         
+        //TODO implementare
+        virtual void setValue(const T oldValue,const T& newValue){}
+    
+        //TODO implementare
+        virtual void markNode(const T &value, marking mark){}
+
+		//used in the searches
         virtual void updateParent(const T& childValue, const T& newParent)=0;
 
 

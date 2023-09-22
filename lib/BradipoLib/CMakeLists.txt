@@ -1,6 +1,7 @@
 set(LIBRARY_HEADERS  ${CMAKE_CURRENT_SOURCE_DIR}/include/TreePtrList.h
                      ${CMAKE_CURRENT_SOURCE_DIR}/include/TreePosVector.h
                      ${CMAKE_CURRENT_SOURCE_DIR}/include/Tree.h
+                     ${CMAKE_CURRENT_SOURCE_DIR}/include/BasicGraph.h
                      ${CMAKE_CURRENT_SOURCE_DIR}/include/Graph.h
                      ${CMAKE_CURRENT_SOURCE_DIR}/include/GraphIncList.h
                      ${CMAKE_CURRENT_SOURCE_DIR}/include/GraphEdgeList.h
