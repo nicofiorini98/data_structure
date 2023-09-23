@@ -51,12 +51,17 @@ namespace datalib{
 
 		/// Insert a value in the heap
 		void insert(const T& nodeValue);
+		
+		/// destroy a value and return a copy of destroyed value
+		T popMaxValue();
 
 		/// return the max Value of the Heap
-		T findMax(){return this->treePosVector->vecNode[1]->value;}
+		T getMaxValue();
 
 		/// delete a value from the heap
-		void deleteValue(const T& nodeValue); 
+		void deleteValue(const T& nodeValue);
+
+		bool isEmpty();
 		 
 		// TODO implementare change value
 		// void increase(){}
@@ -64,7 +69,7 @@ namespace datalib{
 
 		void showTree(){
 			(this->treePosVector)->showTree();
-		}	
+		}
 		
 		void showStructure(){
 			(this->treePosVector)->showStructure();

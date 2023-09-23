@@ -18,8 +18,9 @@
 #define TREE_PTR_LIST 0
 #define POS_VECTOR 0
 #define GRAPH_EDGE_LIST 0
-#define GRAPH_INC_LIST 1 
-#define DHEAP 0
+#define GRAPH_INC_LIST 0
+#define DHEAP 1
+#define HEAP_SORT 1
 
 #define CITY_TREE_PTR_LIST 0
 #define CITY_TREE_POS_VECTOR 0
@@ -155,7 +156,11 @@ int main(){
         //devo arrivare a vedere questo
         // {37,22,31,13,15,25,14,nullptr,nullptr,7,3,nullptr,nullptr,12,9} // questo è 2-heap fixato
 
-        std::cout<<"\n----- \nIl max dell'heap è: "<< dheap.findMax()<<"\n";
+        std::cout<<"\n----- \nIl max dell'heap è: "<< dheap.getMaxValue()<<"\n";
+
+        dheap.popMaxValue();
+
+        std::cout<<"\n----- \nIl max dell'heap è: "<< dheap.getMaxValue()<<"\n";
 
         // std::cout<<"isLeaf(): "<<dheap.isLeaf(9)<<"\n"; // restituisce 
 
@@ -164,32 +169,36 @@ int main(){
     }
 
 #endif
+    
+#if HEAP_SORT
+    
+    try{
+        
+        // TODO risolvere per valori uguali, l'heap deve poter avere due valori uguali
+        std::cout<<"\n++++++++++++++ Testing HeapSort +++++++++++++++\n";
+        std::vector<int> unordered_int = {1,2,3,4,5,6,7,8,9,10,11};
+        
+        DHeap<int> dheap(2,unordered_int.size(),unordered_int);
+        
+        std::vector<int> ordered_int;
+        
+        //algoritmo heap sort
+        while(!dheap.isEmpty()){
+            ordered_int.push_back(dheap.popMaxValue());
+        }
+        
+        std::cout<<"Vettore ordinato in senso decrescente: \n";
+        for(auto& value: ordered_int){
+            std::cout<<value<<" ";
+        }
 
-#if PROVA
-
-    std::vector<node<int>*> vec_node;
-
-    vec_node.push_back(&a0);
-    vec_node.push_back(&b2);
-    vec_node.push_back(&e3);
-    vec_node.push_back(&boh);
-    GraphIncList<int> _graph_inc_list;
-
-    _graph_inc_list.addNode(a0);
-
-    std::vector<node<int>*>::iterator trovato = prova_trova(vec_node.begin(),vec_node.end(),&l1);
-
-    if(trovato != vec_node.end()){
-        std::cout<<"vettore trovato: "<<*trovato<<"\n";
-    }
-
-    int i=0;
-    for(auto &n: vec_node){
-        std::cout<<"pointer: "<<n<<"\n";
-        i++;
+        std::cout<<"\n-------------- end HeapSort ---------------\n";
+    }catch(std::exception &error){
+        std::cout<<"Heap sort error: "<<error.what()<<"\n";
     }
 
 #endif
+
 
 #if TREE_PTR_LIST
 
@@ -256,54 +265,6 @@ int main(){
         std::cerr << "Exception caught: " << e.what() << std::endl;     
     }
     
-#endif
-
-#if TREE_VECTOR_FATHER
-
-    node a(0);
-    node l(1);
-    node b(2);
-    node e(3);
-    node r(4);
-    node o(5);
-
-    tree_parent_vector t;
-
-    t.addNode(&a);
-    t.addNode(&l);
-    t.addNode(&b);
-
-    t.addNode(&e,&l);
-    t.addNode(&r,&l);
-    t.addNode(&o,&b);
-
-    t.showTree();
-    t.showTree();
-
-#endif
-
-#if GRAPH_ADJ_LIST
-
-    GraphAdjList<int> *_graph = new GraphAdjList<int>();
-
-    _graph->addNode(a0); // It's redundant
-    _graph->addEdge(l1,b2);
-    _graph->addEdge(b2,a0);
-    _graph->addEdge(a0,l1);
-    _graph->addEdge(a0,e3);
-    _graph->addEdge(b2,e3);
-
-    std::cout<<"\n\n";
-    _graph->showStructure();
-    //graph->deleteEdge(a,c);
-
-    //graph.addNode(h);
-    //graph->showGraph();
-    std::cout<<std::endl;
-
-    //delete graph;
-    //std::cout<<"grafo distrutto\n";
-
 #endif
 
 #if GRAPH_EDGE_LIST

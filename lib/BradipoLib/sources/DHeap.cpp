@@ -89,6 +89,28 @@ template <class T> void DHeap<T>::fixHeap(int posNode) {
     }
 }
 
+
+template<class T>
+T DHeap<T>::getMaxValue(){
+    if(!this->isEmpty()){
+        return this->treePosVector->vecNode[1]->value;
+    }else{
+        throw std::runtime_error("DHeap<T>::getMaxValue() error: the instance is empty, can't get max value");
+    }
+}
+
+template <class T>
+T DHeap<T>::popMaxValue(){
+
+    if(!this->isEmpty()){
+        T value = this->getMaxValue();
+        this->deleteValue(this->getMaxValue());
+        return value;
+    }else{
+        throw std::runtime_error("DHeap::popMaxValue() error: the instance is empty, can't return the max value");
+    }
+}
+
 template <class T> void DHeap<T>::deleteValue(const T &nodeValue) {
     // trovare il nodo da cancellare
     // scambiarlo con una foglia in modo che mantengo la struttura
@@ -138,6 +160,14 @@ template <class T> void DHeap<T>::deleteValue(const T &nodeValue) {
         throw std::runtime_error(
             "DHeap::deleteValue error: the value to delete doesn't exist");
     }
+}
+
+template<class T>
+bool DHeap<T>::isEmpty(){
+    if((this->treePosVector)->vecNode[1])
+        return false;
+    else
+        return true;
 }
 
 template <class T> int DHeap<T>::getLeaf() {
@@ -226,9 +256,7 @@ template <class T> void DHeap<T>::moveLow(int posNode) {
 	T value,childValue;
     
 
-    // TODO aggiustare questa logica
     while (true) {
-
 
 		// getting the values from the starting two positions
 		value = (this->treePosVector)->vecNode[posNode]->value;
