@@ -280,7 +280,7 @@ template <class T> void DHeap<T>::moveLow(int posNode) {
 		childValue = (this->treePosVector)->vecNode[posChild]->value;
 
         // todo add min
-        if(this->isMin){
+        if(!this->isMin){
             if(value > childValue )
                 return;
         }else{
