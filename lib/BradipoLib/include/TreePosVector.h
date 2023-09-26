@@ -35,7 +35,7 @@ template <class T> class TreePosVector : public Tree<T> {
     int getPos(Node<T> *value) { return value->pos; }
 
 	//todo controllare parametro passato
-    int getMaxChildPos(int posNode);
+    int getMaxChildPos(int posNode,bool isMin);
     
     int getParentPos(int posChild);
 

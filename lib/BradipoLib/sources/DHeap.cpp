@@ -12,9 +12,10 @@
 using namespace datalib;
 
 template <class T>
-DHeap<T>::DHeap(int degree, int size, const std::vector<T> &values) {
+DHeap<T>::DHeap(int degree, int size, bool isMin, const std::vector<T> &values) {
 
     this->degree = degree;
+    this->isMin = isMin;
 
     int height = (log(size) / log(this->degree)) + 1;
 
@@ -25,15 +26,11 @@ DHeap<T>::DHeap(int degree, int size, const std::vector<T> &values) {
     1. Creiamo un albero di taglia e dimensioe appropriata in cui mettiamo gl
     oggetti dell'array
     */
-    // std::cout<<(this->heapTree)->vecNode[0]<<"\n";
 
     // riempimento vettore posizione mantenendo una struttura completa
     // fino al penultimo livello, il valore 0 deve essere sempre nullo
     this->insertFromArray(values);
 
-    // todo qui va fatto l'heapify
-
-    // (this->treePosVector)->showStructure();
 }
 
 template <class T>
@@ -41,7 +38,6 @@ void DHeap<T>::insertFromArray(const std::vector<T> &values) {
 
     (this->treePosVector)->addValuesFromVector(values);
 
-    // qui vado a chiamare la procedura heapify
     heapify(1);
 }
 
@@ -76,12 +72,14 @@ template <class T> void DHeap<T>::fixHeap(int posNode) {
         return;
     } else {
 
-        int posMax =(this->treePosVector)->getMaxChildPos(posNode);
+        int posMax = (this->treePosVector)->getMaxChildPos(posNode,this->isMin);
 
         T childMaxValue = this->treePosVector->vecNode[posMax]->value;
 
 		//if node is smaller than the maxChild, swap the positions
-        if (nodeValue < childMaxValue) {
+        if (!this->isMin && nodeValue < childMaxValue) {
+            (this->treePosVector)->swapPositionValue(posNode, posMax);
+        }else if(this->isMin && nodeValue > childMaxValue){
             (this->treePosVector)->swapPositionValue(posNode, posMax);
         }
 
@@ -91,7 +89,7 @@ template <class T> void DHeap<T>::fixHeap(int posNode) {
 
 
 template<class T>
-T DHeap<T>::getMaxValue(){
+T DHeap<T>::getFirstValue(){
     if(!this->isEmpty()){
         return this->treePosVector->vecNode[1]->value;
     }else{
@@ -100,11 +98,11 @@ T DHeap<T>::getMaxValue(){
 }
 
 template <class T>
-T DHeap<T>::popMaxValue(){
+T DHeap<T>::popValue(){
 
     if(!this->isEmpty()){
-        T value = this->getMaxValue();
-        this->deleteValue(this->getMaxValue());
+        T value = this->getFirstValue();
+        this->deleteValue(this->getFirstValue());
         return value;
     }else{
         throw std::runtime_error("DHeap::popMaxValue() error: the instance is empty, can't return the max value");
@@ -119,7 +117,7 @@ template <class T> void DHeap<T>::deleteValue(const T &nodeValue) {
 
     // search position of the node to delete
 
-    // get the iterator
+    // get the iterator of the node
     typename std::vector<Node<T> *>::iterator value_itr;
     value_itr = datalib::trova((this->treePosVector)->vecNode.begin(),
                                (this->treePosVector)->vecNode.end(), nodeValue);
@@ -148,14 +146,25 @@ template <class T> void DHeap<T>::deleteValue(const T &nodeValue) {
             posParent = (this->treePosVector)->getParentPos(pos2Delete);
         }
 
+        // TODO add min
         // if the parent is bigger, try to push down the node, 
         //otherwise push up the node
-        if ((this->treePosVector)->vecNode[posParent]->value >
-            (this->treePosVector)->vecNode[pos2Delete]->value || posParent == 1)
-            moveLow(pos2Delete);
-        else
-            moveHigh(pos2Delete); 
+        if (!this->isMin) {
+            if ((this->treePosVector)->vecNode[posParent]->value >
+                    (this->treePosVector)->vecNode[pos2Delete]->value ||
+                posParent == 1)
+                moveLow(pos2Delete);
+            else
+                moveHigh(pos2Delete);
 
+        } else {
+            if ((this->treePosVector)->vecNode[posParent]->value >
+                    (this->treePosVector)->vecNode[pos2Delete]->value ||
+                posParent == 1)
+                moveLow(pos2Delete);
+            else
+                moveHigh(pos2Delete);
+        }
     } else {
         throw std::runtime_error(
             "DHeap::deleteValue error: the value to delete doesn't exist");
@@ -183,7 +192,7 @@ template <class T> int DHeap<T>::getLeaf() {
 }
 
 template <class T> void DHeap<T>::insert(const T &nodeValue) {
-    // aggiungere il nodo dopo l'ultima foglia
+    // add the node to the last leaf
     //  int lastLeaf = this->getLeaf();
     int lastLeaf = this->insertToLeaf(nodeValue);
 
@@ -226,6 +235,7 @@ template <class T> void DHeap<T>::moveHigh(int posNode) {
                         ->vecNode[this->treePosVector->getParentPos(posNode)]
                         ->value;
 
+    // add min
     while (posNode > 1 && nodeValue > parentValue) {
 
         // get parent positions and swap the values
@@ -265,12 +275,18 @@ template <class T> void DHeap<T>::moveLow(int posNode) {
 			return;
 		}
 
-		posChild = (this->treePosVector)->getMaxChildPos(posNode);
+		posChild = (this->treePosVector)->getMaxChildPos(posNode,this->isMin);
 
 		childValue = (this->treePosVector)->vecNode[posChild]->value;
 
-		if(value > childValue )
-			return;
+        // todo add min
+        if(this->isMin){
+            if(value > childValue )
+                return;
+        }else{
+            if(value <childValue)
+            return;
+        }
 
         (this->treePosVector)->swapPositionValue(posNode, posChild);
 

@@ -156,7 +156,7 @@ int TreePosVector<T>::getParentPos(int posChild){
 }
 
 template <class T>
-int TreePosVector<T>::getMaxChildPos(int posNode){
+int TreePosVector<T>::getMaxChildPos(int posNode,bool isMin){
 
 
     // typename std::vector<Node<T> *>::iterator parent_itr;
@@ -166,22 +166,24 @@ int TreePosVector<T>::getMaxChildPos(int posNode){
         // int pos = (*parent_itr)->pos;
 
         // int maxPos = (*parent_itr)->pos;
-        int maxPos = (posNode * degree) ;
+        int priorPos = (posNode * degree) ;
 
         for(int i = 0; i < degree ; i++){
             int childPos = (posNode * degree) + i ;
             if(childPos < vecNode.size() && vecNode[(childPos)]){
 
 				
-                T maxValue = vecNode[maxPos]->value;
+                T maxValue = vecNode[priorPos]->value;
                 T value = vecNode[childPos]->value;
 
-                if(value > maxValue){
-                    maxPos = childPos;
+                if(!isMin && value > maxValue){
+                    priorPos = childPos;
+                }else if(isMin && value < maxValue){
+                    priorPos = childPos;
                 }
             }
         }
-        return maxPos;
+        return priorPos;
     } else {
         throw std::runtime_error(
             "TreePosVector::getChildren(const T& parentValue) error: node doesn't exist in the Tree");

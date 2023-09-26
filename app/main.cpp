@@ -19,8 +19,9 @@
 #define POS_VECTOR 0
 #define GRAPH_EDGE_LIST 0
 #define GRAPH_INC_LIST 0
-#define DHEAP 1
-#define HEAP_SORT 1
+#define DHEAP_MAX 1
+#define DHEAP_MIN 1
+#define HEAP_SORT 0
 
 #define CITY_TREE_PTR_LIST 0
 #define CITY_TREE_POS_VECTOR 0
@@ -134,31 +135,29 @@ int main(){
 #endif
 
 /* ------------------- Testinge DHeap ------------------- */
-#if DHEAP
+#if DHEAP_MAX
 	try{
 
-        std::cout<<"\n++++++++++++++ Testing DHeap +++++++++++++++\n";
+        std::cout<<"\n++++++++++++++ Testing DHeap MAX +++++++++++++++\n";
 
 
         // {37,22,31,13,15,25,14,7,3,12,9}
 
-        DHeap<int> dheap(2,15,{3,37,22,31,13,15,25,14,7,12,1}); // 11 elementi
+        DHeap<int> dheap(2,15,false,{3,37,22,31,13,15,25,14,7,12,38}); // 11 elementi
 
-        // std::cout<<
-        dheap.deleteValue(3);
-        dheap.deleteValue(37);
-        // dheap.insert(37);
+        // dheap.deleteValue(3);
+        // dheap.deleteValue(37);
 
         dheap.showTree();
 
         //devo arrivare a vedere questo
         // {37,22,31,13,15,25,14,nullptr,nullptr,7,3,nullptr,nullptr,12,9} // questo è 2-heap fixato
 
-        std::cout<<"\n----- \nIl max dell'heap è: "<< dheap.getMaxValue()<<"\n";
+        std::cout<<"\n----- \nIl max dell'heap è: "<< dheap.getFirstValue()<<"\n";
 
-        dheap.popMaxValue();
+        dheap.popValue();
 
-        std::cout<<"\n----- \nIl max dell'heap è: "<< dheap.getMaxValue()<<"\n";
+        std::cout<<"\n----- \nIl max dell'heap è: "<< dheap.getFirstValue()<<"\n";
 
         // std::cout<<"isLeaf(): "<<dheap.isLeaf(9)<<"\n"; // restituisce 
 
@@ -167,6 +166,39 @@ int main(){
     }
 
 #endif
+
+#if DHEAP_MIN
+	try{
+
+        std::cout<<"\n++++++++++++++ Testing DHeap MIN +++++++++++++++\n";
+
+
+        // {37,22,31,13,15,25,14,7,3,12,9}
+
+        DHeap<int> dheap(2,15,true,{3,37,22,31,13,15,25,14,7,12,1}); // 11 elementi
+
+        // dheap.deleteValue(3);
+        // dheap.deleteValue(37);
+
+        dheap.showTree();
+
+        //devo arrivare a vedere questo
+        // {37,22,31,13,15,25,14,nullptr,nullptr,7,3,nullptr,nullptr,12,9} // questo è 2-heap fixato
+
+        std::cout<<"\n----- \nIl min dell'heap è: "<< dheap.getFirstValue()<<"\n";
+
+        dheap.popValue();
+
+        std::cout<<"\n----- \nIl min dell'heap è: "<< dheap.getFirstValue()<<"\n";
+
+        // std::cout<<"isLeaf(): "<<dheap.isLeaf(9)<<"\n"; // restituisce 
+
+    }catch(std::exception &error){
+        std::cout<<"DHeap error caught: "<<error.what()<<"\n";
+    }
+
+#endif
+
     
 #if HEAP_SORT
     
