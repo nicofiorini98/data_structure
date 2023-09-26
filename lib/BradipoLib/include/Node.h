@@ -54,7 +54,7 @@ namespace datalib
     public:
         ///\param value is for initialize the value
 
-        Node(){}
+        // Node(){}
 
         Node(T value);
 
@@ -74,7 +74,6 @@ namespace datalib
 
         ///overloading operator ==
         bool operator==(const Node<T>& x) const;
-
         ///overloading operator <
         bool operator<(const Node<T>& x) const;
         ///overloading operator <=
@@ -93,7 +92,6 @@ namespace datalib
             return is;
         }
 
-        //TODO Controllare questa funzione
         ///overloading operator <<
         friend std::ostream &operator<<(std::ostream &os,const Node<T>& node)
         {
@@ -102,9 +100,16 @@ namespace datalib
         }
 
         template<class U>
-        friend class TreePtrList;
+        friend class BasicGraph;
 
-        //todo ripristinare
+        template<class U>
+        friend class Graph;
+
+        template<class U>
+        friend class Tree;
+
+        template<class U>
+        friend class TreePtrList;
 
         template<class U>
         friend class TreePosVector;

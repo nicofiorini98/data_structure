@@ -61,20 +61,25 @@ namespace datalib{
         ///Delete the node from the Graph
         void deleteNode(const T& value) override;      
 
-        //Remove the Edge in the graph
-        void deleteEdge(const T &srcValue,const T &destValue) override;       //remove a Edge in the graph 
+        ///Remove the Edge in the graph
+        void deleteEdge(const T &srcValue,const T &destValue) override;
 
-        void deleteEdge(const Edge<T>& edge);                        //remove a Edge in the graph
+        ///Remove the Edge in the graph
+        void deleteEdge(const Edge<T>& edge);                        
 
+        /// Get the incident edges of a graph
         void getIncidentEdges(const T& value, std::list<Edge<T>>& edges) override;
 
+        /// Get the outgoing edges of a graph
         void getOutgoingEdges(const T& value, std::list<Edge<T>>& edges) override;
 
+        /// Get the incoming edges of a graph
         void getIncomingEdges(const T& value, std::list<Edge<T>>& edges) override;
 
-        bool isAdjacent(const T &srcValue,const T &destValue) override;       //return true if the edge(x,y) exist, else return false
+        /// return true if destValue is adjacent to srcValue
+        bool isAdjacent(const T &srcValue,const T &destValue) override;
 
-        //method for search in Graph
+        ///method for search in Graph
         void breadthSearch(const T& startValue, TreePtrList<T>& tree) override;
 
         void depthSearch(const T& startValue, TreePtrList<T>& tree) override {};

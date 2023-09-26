@@ -6,16 +6,16 @@
 using namespace datalib;
 
 template<class T>
-Edge<T>::Edge(Node<T>* _src, Node<T>* _dest, int _weight, const std::string _mark){
+Edge<T>::Edge(Node<T>* src, Node<T>* dest, int weight, const std::string mark){
 
-	if(_src==nullptr){
+	if(src==nullptr){
 		std::string error("you can't add a (nullptr,dest) edge\n");
 		throw error;
 	}
-	src  = _src;
-	dest = _dest;
-	weight = _weight;
-	mark = _mark;
+	this->src  = src;
+	this->dest = dest;
+	this->weight = weight;
+	this->mark = mark;
 
 }
 

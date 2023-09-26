@@ -7,11 +7,10 @@
 using namespace datalib;
 
 template<class T>
-Node<T>::Node(T _value){
+Node<T>::Node(T value){
 
-    //todo vedere se pos mi serve ancora
     //initialization
-    value = _value;
+    this->value = value;
     pos=-1;
     num_children=0;
     parent=nullptr;

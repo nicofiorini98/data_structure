@@ -14,33 +14,35 @@ namespace datalib{
         Node<T>* dest;
         int weight;
         std::string mark;
-        Edge(Node<T>* _src, Node<T>* _dest, int _weight=0, const std::string _mark="");
+        Edge(Node<T>* src, Node<T>* dest, int weight=0, const std::string mark="");
         
     public:
-        ///costructor
+        /// public costructor
         Edge(const T *_src, const T *_dest, int _weight=0, const std::string &_mark="");
+        
         ///copy costructor
         Edge(const Edge<T>& _x);
+        
+        // Destructor
         ~Edge(){}
 
+        /// get the src Value
         T getSourceValue() const {return (src->value);}
+        
+        //get dest Value
         T getDestinationValue() const {return (dest->value);}
 
-        friend std::ostream& operator<<(std::ostream &os,const Edge<T>& _edge){
-            os <<_edge.getSourceValue()<<","<< _edge.getDestinationValue()<<"\n";
+        friend std::ostream& operator<<(std::ostream &os,const Edge<T>& edge){
+            os <<edge.getSourceValue()<<","<< edge.getDestinationValue()<<"\n";
             return os;
         }
 
-        //todo ripristinare
         template<class U>
         friend class GraphEdgeList;
 
-        //todo ripristinare
-        template<class W>
+        template<class U>
         friend class GraphIncList;
         
-        // friend class GraphAdjList;
-        // friend class tree_parent_vector;
     };
 }
 

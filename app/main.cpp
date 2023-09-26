@@ -51,8 +51,6 @@ int main(){
     }catch(std::string &error){
         std::cout<<error;
     }
-
-
 #endif
 
 #if CITY_TREE_PTR_LIST
