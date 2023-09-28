@@ -175,7 +175,7 @@ int main(){
 
         // dheap.deleteValue(3);
         // dheap.deleteValue(37);
-        dheap.setValue(3,-1);
+        dheap.setValue(3,40);
 
         dheap.showTree();
 
@@ -187,8 +187,6 @@ int main(){
         dheap.popValue();
 
         std::cout<<"\n----- \nIl min dell'heap è: "<< dheap.getFirstValue()<<"\n";
-
-        // std::cout<<"isLeaf(): "<<dheap.isLeaf(9)<<"\n"; // restituisce 
 
     }catch(std::exception &error){
         std::cout<<"DHeap error caught: "<<error.what()<<"\n";

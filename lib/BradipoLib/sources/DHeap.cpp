@@ -216,24 +216,20 @@ void DHeap<T>::setValue(const T& oldValue,const T& newValue){
             posParent = (this->treePosVector)->getParentPos(posValue);
         }
 
-        // TODO add min
         // if the parent is bigger, try to push down the node, 
         //otherwise push up the node
         if (!this->isMin) {
             if ((this->treePosVector)->vecNode[posParent]->value >
-                    (this->treePosVector)->vecNode[posValue]->value ||
-                posParent == 1)
+                    (this->treePosVector)->vecNode[posValue]->value)
                 moveLow(posValue);
             else
                 moveHigh(posValue);
 
         } else {
-            if ((this->treePosVector)->vecNode[posParent]->value >
-                    (this->treePosVector)->vecNode[posValue]->value ||
-                posParent == 1)
-                moveLow(posValue);
-            else
+            if ((this->treePosVector)->vecNode[posParent]->value > (this->treePosVector)->vecNode[posValue]->value)
                 moveHigh(posValue);
+            else
+                moveLow(posValue);
         }
     } else {
         throw std::runtime_error(
@@ -279,19 +275,38 @@ template <class T> void DHeap<T>::moveHigh(int posNode) {
                         ->value;
 
     // add min
-    while (posNode > 1 && nodeValue > parentValue) {
+    if(!this->isMin){
+        while (posNode > 1 && nodeValue > parentValue) {
 
-        // get parent positions and swap the values
-        int posParent = (this->treePosVector)->getParentPos(posNode);
-        (this->treePosVector)->swapPositionValue(posNode, posParent);
-        posNode = posParent;
+            // get parent positions and swap the values
+            int posParent = (this->treePosVector)->getParentPos(posNode);
+            (this->treePosVector)->swapPositionValue(posNode, posParent);
+            posNode = posParent;
 
-        // update parent value if the node has parent
-        if (posNode > 1) {
-            parentValue =
-                (this->treePosVector)
-                    ->vecNode[this->treePosVector->getParentPos(posNode)]
-                    ->value;
+            // update parent value if the node has parent
+            if (posNode > 1) {
+                parentValue =
+                    (this->treePosVector)
+                        ->vecNode[this->treePosVector->getParentPos(posNode)]
+                        ->value;
+            }
+        }
+        
+    }else{
+        while (posNode > 1 && nodeValue < parentValue) {
+
+            // get parent positions and swap the values
+            int posParent = (this->treePosVector)->getParentPos(posNode);
+            (this->treePosVector)->swapPositionValue(posNode, posParent);
+            posNode = posParent;
+
+            // update parent value if the node has parent
+            if (posNode > 1) {
+                parentValue =
+                    (this->treePosVector)
+                        ->vecNode[this->treePosVector->getParentPos(posNode)]
+                        ->value;
+            }
         }
     }
     return;
