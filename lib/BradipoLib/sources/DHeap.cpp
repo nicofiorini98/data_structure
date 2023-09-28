@@ -199,6 +199,49 @@ template <class T> void DHeap<T>::insert(const T &nodeValue) {
     moveHigh(lastLeaf);
 }
 
+template<class T>
+void DHeap<T>::setValue(const T& oldValue,const T& newValue){
+    
+    typename std::vector<Node<T> *>::iterator value_itr;
+    value_itr = datalib::trova((this->treePosVector)->vecNode.begin(),
+                               (this->treePosVector)->vecNode.end(), oldValue);
+
+    if (value_itr != (this->treePosVector)->vecNode.end()) {
+
+        int posValue = (*value_itr)->pos;
+        (*value_itr)->value = newValue;
+		// get the parent of the node if exist
+        int posParent = 1;
+        if(posValue > 1){
+            posParent = (this->treePosVector)->getParentPos(posValue);
+        }
+
+        // TODO add min
+        // if the parent is bigger, try to push down the node, 
+        //otherwise push up the node
+        if (!this->isMin) {
+            if ((this->treePosVector)->vecNode[posParent]->value >
+                    (this->treePosVector)->vecNode[posValue]->value ||
+                posParent == 1)
+                moveLow(posValue);
+            else
+                moveHigh(posValue);
+
+        } else {
+            if ((this->treePosVector)->vecNode[posParent]->value >
+                    (this->treePosVector)->vecNode[posValue]->value ||
+                posParent == 1)
+                moveLow(posValue);
+            else
+                moveHigh(posValue);
+        }
+    } else {
+        throw std::runtime_error(
+            "DHeap::changeValue error: the value to change doesn't exist");
+    }
+
+}
+
 template <class T> int DHeap<T>::insertToLeaf(const T &nodeValue) {
 
     if (!(this->treePosVector)->vecNode[1]) {

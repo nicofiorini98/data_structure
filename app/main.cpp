@@ -19,7 +19,7 @@
 #define POS_VECTOR 0
 #define GRAPH_EDGE_LIST 0
 #define GRAPH_INC_LIST 0
-#define DHEAP_MAX 1
+#define DHEAP_MAX 0
 #define DHEAP_MIN 1
 #define HEAP_SORT 0
 
@@ -27,14 +27,10 @@
 #define CITY_TREE_POS_VECTOR 0
 #define PROVA 0
 #define GRAPH_ADJ_LIST 0
+#define CITY 0
+#define DIJKSTRA 0
 
 using namespace datalib;
-
-City* roma    = new City(1, "roma");
-City* milano  = new City(2, "milano");
-City* napoli  = new City(3, "napoli");
-City* bolzano = new City(4, "bolzano");
-City* gerusalemme = new City(5, "gerusalemme");
 
 int main(){
 
@@ -170,7 +166,7 @@ int main(){
 #if DHEAP_MIN
 	try{
 
-        std::cout<<"\n++++++++++++++ Testing DHeap MIN +++++++++++++++\n";
+        std::cout<<"\n++++++++++++++ Testing DHeap MIN +++++++++++++++++\n";
 
 
         // {37,22,31,13,15,25,14,7,3,12,9}
@@ -179,6 +175,7 @@ int main(){
 
         // dheap.deleteValue(3);
         // dheap.deleteValue(37);
+        dheap.setValue(3,-1);
 
         dheap.showTree();
 
@@ -393,6 +390,56 @@ int main(){
     // for(auto& e: lista){
     //     //std::cout<<e;
     // }
+
+#endif
+    
+#if CITY
+    City city;
+    std::fstream input;
+    input.open( "/home/nico/project/data_structure/input_test/city_graph.txt",std::ios::in);
+
+    GraphIncList<City> cityGraph;
+    if(input.is_open()){
+        while(!input.eof()){
+            Edge<City> edge;
+            input>>edge;
+            double weight = calculateDistance(edge.getSourceValue(),edge.getDestinationValue());
+            edge.setWeight(weight);
+            cityGraph.addEdge(edge);
+        }
+    }
+    else
+        std::cout<<"file non aperto\n";
+    
+    cityGraph.showStructure();
+
+#endif
+
+#if 1
+    /* 
+    algorimo Dijkstra(grafo G,vertice s)->albero
+    for(each)(vertice u in G) do Dsu <- +inf
+     T = albero formato dal solo vertice s
+     Dheap S
+     Dss = 0
+     S.insert(s,0)
+
+     while( not S.isEmpty())do
+       u = s.popValue()
+       for each(arco(u,v)in G)do
+            if(Dsv == inf)then
+                s.insert(v,Dsu + w(u,v))
+                Dsv = Dsu + w(u,w)
+                rendi u padre di v in T
+            else if(Dsu + w(u,v)<Dsv)then
+                s.decreaseKey(v,Dsv-(Dsu-w(u,v)))
+                rendi u nuovo padre di v in T
+    
+    return T
+    */
+    /* Come posso rappresentare le distanze tra i nodi?
+     * Devo fare una struct per inserire nell'heap le distanze tra i nodi
+     */
 
 #endif
     return 0;

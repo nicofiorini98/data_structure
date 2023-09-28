@@ -62,6 +62,9 @@ namespace datalib{
 
 		/// delete a value from the heap
 		void deleteValue(const T& nodeValue);
+		
+		/// change Value
+		void setValue(const T& oldValue,const T& newValue);
 
 		/// return true if the Heap is empty
 		bool isEmpty();

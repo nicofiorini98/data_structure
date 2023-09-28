@@ -1,4 +1,7 @@
-set(APP_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/main.cpp")
+set(APP_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
+                ${CMAKE_CURRENT_SOURCE_DIR}/City.h)
+
+                
 
 add_executable(${EXECUTABLE_NAME} ${APP_SOURCES})
 

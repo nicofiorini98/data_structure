@@ -81,8 +81,7 @@ void TreePtrList<T>::addNode(const T &value, const T &parent) {
         x_ptr = new Node<T>(value);
         nodes_map.insert(std::pair<T, Node<T> *>(x_ptr->value, x_ptr));
     } else {
-        throw std::runtime_error("TreePtrList::addNode() error: the node " +
-                                 value + " is already inserted");
+        throw std::runtime_error("TreePtrList::addNode() error: the node is already inserted");
     }
 
     if (!root)

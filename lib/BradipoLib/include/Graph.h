@@ -74,7 +74,8 @@ template <class T> class Graph: public BasicGraph<T> {
     virtual void addNode(const T &value) = 0; // add a Node
 
     virtual void addEdge(const T& srcValue,
-                         const T& destValue) = 0; // add an Edge
+                         const T& destValue,
+                         double weight = 0) = 0; // add an Edge
 
     // virtual void addEdge(const Edge &_edge)=0;               //add an Edge
 

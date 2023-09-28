@@ -37,12 +37,12 @@ Edge<T>::Edge(const T *_src, const T *_dest, int _weight, const std::string &_ma
 
 ///copy costructor
 template<class T>
-Edge<T>::Edge(const Edge<T> &_x){
+Edge<T>::Edge(const Edge<T> &x){
 
-	src  = _x.src;
-	dest = _x.dest;
-	weight = _x.weight;
-	mark = _x.mark;
+	this->src  = x.src;
+	this->dest = x.dest;
+	weight = x.weight;
+	mark = x.mark;
 
 }
 

@@ -25,12 +25,12 @@ void GraphIncList<T>::addNode(const T &_x){
 }
 
 template<class T>
-void GraphIncList<T>::addEdge(const Edge<T>& _edge){
-	addEdge(&(_edge.getSourceValue()),&(_edge.getDestinationValue()));
+void GraphIncList<T>::addEdge(const Edge<T>& edge){
+	addEdge((edge.getSourceValue()),(edge.getDestinationValue()));
 }
 
 template<class T>
-void GraphIncList<T>::addEdge(const T& srcValue, const T& destValue){
+void GraphIncList<T>::addEdge(const T& srcValue, const T& destValue,double weight){
 
 	//TODO passaggio per riferimento
 	//pre-conditions
@@ -62,7 +62,7 @@ void GraphIncList<T>::addEdge(const T& srcValue, const T& destValue){
 	src_itr = incList.find(srcValue);
 
 	//se src non esiste crealo
-	if(src_itr==incList.end()){
+	if(src_itr == incList.end()){
 		addNode(srcValue);
 		src_itr = incList.find(srcValue);
 	}
@@ -77,6 +77,7 @@ void GraphIncList<T>::addEdge(const T& srcValue, const T& destValue){
 		dest_itr = incList.find(destValue);
 	}
 
+	//TODO to create edge with weight
 	//create edge
 	Edge<T> *e = new Edge<T>(src_itr->second, dest_itr->second);
 
@@ -175,7 +176,7 @@ int GraphIncList<T>::degree(const T& nodeValue){
 		if((n.first) == nodeValue)
 			return ((*n.second).connected_edges.size());
 	}
-	throw std::runtime_error("GraphIncList<T>::degree(---) error: Il nodo "+nodeValue+ " non esiste");
+	throw std::runtime_error("GraphIncList<T>::degree(---) error: The node inserted doesn't exist");
 }
 
 //todo controllare
@@ -326,9 +327,9 @@ void GraphIncList<T>::showStructure() const{
 		}
 		std::cout << "\n";
 	}
-	std::cout<<"GraphEdgeList structures:\n";
+	std::cout<<"\n +++++++++\nGraphEdgeList structures:\n";
 	for(auto &e: edgeList){
-		std::cout << *e;
+		std::cout << *e<<"\n";
 	}
 }
 

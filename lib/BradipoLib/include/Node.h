@@ -54,7 +54,7 @@ namespace datalib
     public:
         ///\param value is for initialize the value
 
-        // Node(){}
+        Node(){}
 
         Node(T value);
 
