@@ -472,13 +472,16 @@ int main(){
             // std::cout<<city.getDistance()<<"->"<<city.getCity()<<std::endl;
         }
 
+        distanceHeap.showStructure();
+
         // T = albero formato dal solo vertice s (parto da Roma) provare anche da Veroli
-        TreePtrList<City> tree;
-        City startValue("Roma",41.9028, 12.4964);
-        tree.addRoot(startValue);
+        // TreePtrList<City> tree;
+        // City startValue("Roma",41.9028, 12.4964);
+        // tree.addRoot(startValue);
         
         //aggiornare distanza da Roma->Roma Dss=0
-        distanceHeap.setValue({"Roma"},{"Roma",0});
+        // distanceHeap.setValue({"Roma"},{"Roma",0});
+        // distanceHeap.showStructure();
         
     }
     else

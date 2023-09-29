@@ -332,7 +332,8 @@ template <class T> void DHeap<T>::moveLow(int posNode) {
 		// getting the values from the starting two positions
 		value = (this->treePosVector)->vecNode[posNode]->value;
 
-		if(value && this->isLeaf(value)){
+        // TODO value is not permitted here
+		if((this->treePosVector)->vecNode[posNode] && this->isLeaf(value)){
 			return;
 		}
 

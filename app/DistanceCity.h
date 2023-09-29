@@ -56,6 +56,21 @@ class DistanceCity {
     // operator!=
     bool operator!=(const DistanceCity &city) const { return this->distance != city.distance; }
 
+    // operator<<
+    friend std::ostream &operator<<(std::ostream &os, DistanceCity city) {
+        // os << c.key;
+        // os << city.name << ";" << city.latitude << ";" << city.longitude;
+        os << city.city;
+        return os;
+    }
+
+    // operator >>
+    friend std::istream &operator>>(std::istream &is, DistanceCity& city) {
+        
+        
+        return is;
+    }
+
 };
 
 

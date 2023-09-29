@@ -29,7 +29,7 @@ template <class T> class BasicGraph {
     /// return the number of the Node in the graph
     int getNumNode() { return numNodes; }
 	
-	  virtual T getValue(T key){std::cout<<key<<"\n";}
+	  // virtual T getValue(T key){std::cout<<key<<"\n";}
 	
 	  virtual void setValue(const T oldValue,const T& newValue) = 0;
     
