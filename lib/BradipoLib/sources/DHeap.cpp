@@ -45,10 +45,10 @@ void DHeap<T>::insertFromArray(const std::vector<T> &values) {
 // procedura che chiama se stessa in modo ricorsivo
 template <class T> void DHeap<T>::heapify(int posNode) {
 
-    // base case
-    // if(T è vuoto){
-    // return
-    //}
+    //make sure that the function doesn't continue if the pos is bigger than vector
+    if(posNode >= (this->treePosVector)->vecNode.size())
+        return;
+
     bool isLeaf = this->isLeaf((this->treePosVector)->vecNode[posNode]->value);
     if (isLeaf) {
         return;
@@ -57,7 +57,7 @@ template <class T> void DHeap<T>::heapify(int posNode) {
     // for each child of vecNode[posNode]
     // call heapify with the child positions 
     for (int i = 0; i < degree; i++) {
-        if ((this->treePosVector)->vecNode[(posNode * 2) + i]) {
+        if (( this->treePosVector)->vecNode[(posNode * 2) + i]) {
             this->heapify((posNode * 2) + i);
         }
     }
@@ -67,6 +67,7 @@ template <class T> void DHeap<T>::heapify(int posNode) {
 template <class T> void DHeap<T>::fixHeap(int posNode) {
 
     T nodeValue = this->treePosVector->vecNode[posNode]->value;
+    // std::cout<<"fixheap call with value: "<<nodeValue<<std::endl;
 
     if (this->isLeaf(nodeValue)) {
         return;
@@ -109,6 +110,7 @@ T DHeap<T>::popValue(){
     }
 }
 
+//TODO to test the min, like setValue
 template <class T> void DHeap<T>::deleteValue(const T &nodeValue) {
     // trovare il nodo da cancellare
     // scambiarlo con una foglia in modo che mantengo la struttura
@@ -146,7 +148,6 @@ template <class T> void DHeap<T>::deleteValue(const T &nodeValue) {
             posParent = (this->treePosVector)->getParentPos(pos2Delete);
         }
 
-        // TODO add min
         // if the parent is bigger, try to push down the node, 
         //otherwise push up the node
         if (!this->isMin) {
@@ -329,7 +330,7 @@ template <class T> void DHeap<T>::moveLow(int posNode) {
 		// getting the values from the starting two positions
 		value = (this->treePosVector)->vecNode[posNode]->value;
 
-		if(this->isLeaf(value)){
+		if(value && this->isLeaf(value)){
 			return;
 		}
 

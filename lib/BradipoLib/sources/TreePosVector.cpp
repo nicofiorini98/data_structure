@@ -57,7 +57,7 @@ int TreePosVector<T>::getNumChildren(const T& value){
     if (x_itr != vecNode.end()) {
         int pos = (*x_itr)->pos;
         for(int i=0; i<degree ; i++){
-            if(vecNode[(pos * degree) +i ]){
+            if(vecNode[(pos * degree) +i ] && (pos*degree+i) < vecNode.size()){
                 count_children++;
             }
         }

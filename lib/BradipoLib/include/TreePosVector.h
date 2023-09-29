@@ -169,7 +169,7 @@ template <class T> class TreePosVector : public Tree<T> {
 };
 
 template <class T>
-typename std::vector<Node<T> *>::iterator
+typename std::vector<Node<T>*>::iterator
 trova(typename std::vector<Node<T> *>::iterator begin,
       typename std::vector<Node<T> *>::iterator end, const T &value) {
 
