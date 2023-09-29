@@ -41,6 +41,7 @@ namespace datalib{
 
         ///Costructor with a vector of Edge
         ///virtual Destructor
+        //TODO to implement and delete all the pointer in map and the pointer in edgeList
         virtual ~GraphIncList(){}
 
         ///add a Node x in the graph
@@ -65,7 +66,7 @@ namespace datalib{
         void deleteEdge(const T &srcValue,const T &destValue) override;
 
         ///Remove the Edge in the graph
-        void deleteEdge(const Edge<T>& edge);                        
+        void deleteEdge(const Edge<T>& edge);                    
 
         /// Get the incident edges of a graph
         void getIncidentEdges(const T& value, std::list<Edge<T>>& edges) override;
@@ -83,6 +84,9 @@ namespace datalib{
         void breadthSearch(const T& startValue, TreePtrList<T>& tree) override;
 
         void depthSearch(const T& startValue, TreePtrList<T>& tree) override {};
+        
+        /// return all node in the graph
+        void getAllNodeValues(std::list<T>& nodesList);
 
         void markNode(const T& value,marking mark) override {}
 

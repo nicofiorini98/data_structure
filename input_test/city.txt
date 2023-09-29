@@ -1,4 +1,4 @@
-Roma; 41.9028; 12.4964,
+Roma; 41.9028; 12.4964
 Milano; 45.4642; 9.1900
 Napoli; 40.8522; 14.2681 
 Firenze; 43.7696; 11.255
@@ -15,6 +15,27 @@ Campobasso; 41.5603; 14.6627
 Foggia; 41.4622; 15.5446
 Perugia; 43.1107;12.3908
 Grosseto; 42.7635;11.1124
-L'aquila;42.3498;13.3995
-potenza;40.6404;15.8056
-messina;38.1937;15.5542
+Aquila;42.3498;13.3995
+Potenza;40.6404;15.8056
+Messina;38.1937;15.5542
+Veroli;41.6960;13.4129
+
+Ancona
+Aquila
+Bari
+Bologna
+Bolzano
+Campobasso
+Catanzaro
+Firenze
+Foggia
+Genova
+Grosseto
+Messina
+Milano
+Perugia
+Pisa
+Potenza
+Roma
+Torino
+Venezia

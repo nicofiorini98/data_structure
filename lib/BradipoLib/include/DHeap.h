@@ -49,7 +49,7 @@ namespace datalib{
     public:
 
         ///Costructor for the Heap
-        DHeap(int degree, int size,bool isMin, const std::vector<T>& values);
+        DHeap(int degree, int size,bool isMin, const std::vector<T>& values={});
 
 		/// Insert a value in the heap
 		void insert(const T& nodeValue);

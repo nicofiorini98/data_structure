@@ -23,6 +23,8 @@ class City {
         this->longitude = 0;
     }
     
+    City(const std::string name):name(name){}
+    
     City(const std::string &name, double lat, double lon)
         : name(name), latitude(lat), longitude(lon) {}
 

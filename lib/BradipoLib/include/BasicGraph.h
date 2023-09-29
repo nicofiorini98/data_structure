@@ -21,7 +21,7 @@ template <class T> class BasicGraph {
 
   public:
     BasicGraph() {
-		numNodes=0;	
+		  numNodes=0;	
     }
 
     virtual ~BasicGraph() {}
@@ -29,9 +29,9 @@ template <class T> class BasicGraph {
     /// return the number of the Node in the graph
     int getNumNode() { return numNodes; }
 	
-	// T getValue();
+	  virtual T getValue(T key){std::cout<<key<<"\n";}
 	
-	virtual void setValue(const T oldValue,const T& newValue) = 0;
+	  virtual void setValue(const T oldValue,const T& newValue) = 0;
     
     virtual void markNode(const T &value, marking mark) = 0;
 

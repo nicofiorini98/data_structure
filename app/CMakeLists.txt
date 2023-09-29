@@ -1,5 +1,6 @@
 set(APP_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
-                ${CMAKE_CURRENT_SOURCE_DIR}/City.h)
+                ${CMAKE_CURRENT_SOURCE_DIR}/City.h
+                ${CMAKE_CURRENT_SOURCE_DIR}/DistanceCity.h)
 
                 
 

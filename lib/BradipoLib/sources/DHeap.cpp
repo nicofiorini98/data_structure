@@ -29,7 +29,9 @@ DHeap<T>::DHeap(int degree, int size, bool isMin, const std::vector<T> &values) 
 
     // riempimento vettore posizione mantenendo una struttura completa
     // fino al penultimo livello, il valore 0 deve essere sempre nullo
-    this->insertFromArray(values);
+    if(!values.empty()){
+        this->insertFromArray(values);
+    }
 
 }
 

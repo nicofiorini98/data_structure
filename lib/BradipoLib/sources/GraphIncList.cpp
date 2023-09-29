@@ -89,6 +89,16 @@ void GraphIncList<T>::addEdge(const T& srcValue, const T& destValue,double weigh
 }
 
 
+template<class T>
+void GraphIncList<T>::getAllNodeValues(std::list<T>& nodesList){
+	nodesList.clear();
+
+	for(auto &n: incList){
+		nodesList.push_back(n.first);
+	}	
+	return;
+	
+}
 
 
 template <class T>

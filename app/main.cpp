@@ -12,6 +12,7 @@
 #include "TreePosVector.h"
 #include "TreePtrList.h"
 #include "DHeap.h"
+#include "DistanceCity.h"
 // #include "GraphAdjList.h"
 // #include "GraphEdgeList.h"
 
@@ -20,7 +21,7 @@
 #define GRAPH_EDGE_LIST 0
 #define GRAPH_INC_LIST 0
 #define DHEAP_MAX 0
-#define DHEAP_MIN 1
+#define DHEAP_MIN 0
 #define HEAP_SORT 0
 
 #define CITY_TREE_PTR_LIST 0
@@ -28,7 +29,8 @@
 #define PROVA 0
 #define GRAPH_ADJ_LIST 0
 #define CITY 0
-#define DIJKSTRA 0
+#define DIJKSTRA 1
+
 
 using namespace datalib;
 
@@ -139,7 +141,7 @@ int main(){
 
         // {37,22,31,13,15,25,14,7,3,12,9}
 
-        DHeap<int> dheap(2,15,false,{3,37,22,31,13,15,25,14,7,12,38}); // 11 elementi
+        DHeap<int> dheap(2,15,true,{3,8,1,1,37,22,31,13,15,25,14,7,12,38}); // 11 elementi
 
         // dheap.deleteValue(3);
         // dheap.deleteValue(37);
@@ -201,15 +203,15 @@ int main(){
         
         // TODO risolvere per valori uguali, l'heap deve poter avere due valori uguali
         std::cout<<"\n++++++++++++++ Testing HeapSort +++++++++++++++\n";
-        std::vector<int> unordered_int = {1,2,3,4,5,6,7,8,9,10,11};
+        std::vector<int> unordered_int = {1,2,3,4,13,53,14,56,5,6,7,8,9,10,11};
         
-        DHeap<int> dheap(2,unordered_int.size(),unordered_int);
+        DHeap<int> dheap(2,unordered_int.size(),true,unordered_int);
         
         std::vector<int> ordered_int;
         
         //algoritmo heap sort
         while(!dheap.isEmpty()){
-            ordered_int.push_back(dheap.popMaxValue());
+            ordered_int.push_back(dheap.popValue());
         }
         
         std::cout<<"Vettore ordinato in senso decrescente: \n";
@@ -413,7 +415,8 @@ int main(){
 
 #endif
 
-#if 1
+#if DIJKSTRA 
+
     /* 
     algorimo Dijkstra(grafo G,vertice s)->albero
     for(each)(vertice u in G) do Dsu <- +inf
@@ -436,8 +439,50 @@ int main(){
     return T
     */
     /* Come posso rappresentare le distanze tra i nodi?
+     * posso usare std::pair<int,Node<T>>
      * Devo fare una struct per inserire nell'heap le distanze tra i nodi
      */
+    
+
+    std::fstream input;
+    input.open( "/home/nico/project/data_structure/input_test/city_graph.txt",std::ios::in);
+
+    GraphIncList<City> cityGraph;
+    if(input.is_open()){
+        // TODO aggiungere il peso in graphIncList
+        // input all the edges in the graph
+        while(!input.eof()){
+            Edge<City> edge;
+            input>>edge;
+            double weight = calculateDistance(edge.getSourceValue(),edge.getDestinationValue());
+            edge.setWeight(weight);
+            cityGraph.addEdge(edge);
+        }
+
+        std::list<City> cities;
+        cityGraph.getAllNodeValues(cities);
+            
+        DHeap<DistanceCity> distanceHeap(2,cities.size(),true);
+
+        // parto dal nodo Roma per il calcolo delle distanze
+        // for(each)(vertice u in G) do Dsu <- +inf
+        for(auto &c: cities){
+            DistanceCity city(10000,c);
+            distanceHeap.insert(city);
+            // std::cout<<city.getDistance()<<"->"<<city.getCity()<<std::endl;
+        }
+
+        // T = albero formato dal solo vertice s (parto da Roma) provare anche da Veroli
+        TreePtrList<City> tree;
+        City startValue("Roma",41.9028, 12.4964);
+        tree.addRoot(startValue);
+        
+        //aggiornare distanza da Roma->Roma Dss=0
+        distanceHeap.setValue({"Roma"},{"Roma",0});
+        
+    }
+    else
+        std::cout<<"file non aperto\n";
 
 #endif
     return 0;
