@@ -86,7 +86,7 @@ namespace datalib{
     };
 }
 
-#include "../sources/DHeap.cpp"
+#include "../sources/DHeap2.cpp"
 
 
 #endif /* DHEAP_H */

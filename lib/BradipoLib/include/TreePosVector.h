@@ -94,7 +94,7 @@ template <class T> class TreePosVector : public Tree<T> {
 
     void updateParent(const T &childValue, const T &newParent) override;
 
-    template<class U>
+    template<class U,class W>
     friend class DHeap;
 
 

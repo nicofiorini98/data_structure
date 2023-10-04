@@ -5,7 +5,7 @@
 #include <vector>
 #pragma once
 
-#include "DHeap.h"
+#include "DHeap2.h"
 #include "TreePosVector.h"
 #include <stdexcept>
 

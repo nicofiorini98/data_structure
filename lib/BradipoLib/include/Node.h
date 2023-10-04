@@ -126,7 +126,7 @@ namespace datalib
         template<class U>
         friend class GraphIncList;
 
-        template<class U>
+        template<class U,class W>
         friend class DHeap;
 
     };

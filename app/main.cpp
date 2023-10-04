@@ -21,7 +21,7 @@
 #define GRAPH_EDGE_LIST 0
 #define GRAPH_INC_LIST 0
 #define DHEAP_MAX 0
-#define DHEAP_MIN 0
+#define DHEAP_MIN 1
 #define HEAP_SORT 0
 
 #define CITY_TREE_PTR_LIST 0
@@ -29,7 +29,7 @@
 #define PROVA 0
 #define GRAPH_ADJ_LIST 0
 #define CITY 0
-#define DIJKSTRA 1
+#define DIJKSTRA 0
 
 
 using namespace datalib;
@@ -170,25 +170,26 @@ int main(){
 
         std::cout<<"\n++++++++++++++ Testing DHeap MIN +++++++++++++++++\n";
 
+        DHeap<int,std::string> dheap(2,15);
 
         // {37,22,31,13,15,25,14,7,3,12,9}
 
-        DHeap<int> dheap(2,15,true,{3,37,22,31,13,15,25,14,7,12,1}); // 11 elementi
+        // DHeap<int> dheap(2,15,true,{3,37,22,31,13,15,25,14,7,12,1}); // 11 elementi
 
         // dheap.deleteValue(3);
         // dheap.deleteValue(37);
-        dheap.setValue(3,40);
+        // dheap.setValue(3,40);
 
-        dheap.showTree();
+        // dheap.showTree();
 
         //devo arrivare a vedere questo
         // {37,22,31,13,15,25,14,nullptr,nullptr,7,3,nullptr,nullptr,12,9} // questo è 2-heap fixato
 
-        std::cout<<"\n----- \nIl min dell'heap è: "<< dheap.getFirstValue()<<"\n";
+        // std::cout<<"\n----- \nIl min dell'heap è: "<< dheap.getFirstValue()<<"\n";
 
-        dheap.popValue();
+        // dheap.popValue();
 
-        std::cout<<"\n----- \nIl min dell'heap è: "<< dheap.getFirstValue()<<"\n";
+        // std::cout<<"\n----- \nIl min dell'heap è: "<< dheap.getFirstValue()<<"\n";
 
     }catch(std::exception &error){
         std::cout<<"DHeap error caught: "<<error.what()<<"\n";
