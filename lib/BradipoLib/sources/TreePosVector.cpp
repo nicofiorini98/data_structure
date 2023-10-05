@@ -140,7 +140,6 @@ void TreePosVector<T>::addValuesFromVector(const std::vector<T>& values){
 		vecNode[i+1] = nodeValue;
 		i++;
 
-
 	}
 }
 

@@ -21,8 +21,8 @@
 #define GRAPH_EDGE_LIST 0
 #define GRAPH_INC_LIST 0
 #define DHEAP_MAX 0
-#define DHEAP_MIN 1
-#define HEAP_SORT 0
+#define DHEAP_MIN 0
+#define HEAP_SORT 1
 
 #define CITY_TREE_PTR_LIST 0
 #define CITY_TREE_POS_VECTOR 0
@@ -33,6 +33,14 @@
 
 
 using namespace datalib;
+
+// output stream to print std::pair
+template <typename T1, typename T2>
+std::ostream &operator<<(std::ostream &os, const std::pair<T1, T2> &p) {
+    // os << "(" << p.first << "," << p.second << ")";
+    os << p.first ;
+    return os;
+}
 
 int main(){
 
@@ -132,7 +140,7 @@ int main(){
 
 #endif
 
-/* ------------------- Testinge DHeap ------------------- */
+/* ------------------- Testing DHeap ------------------- */
 #if DHEAP_MAX
 	try{
 
@@ -170,7 +178,28 @@ int main(){
 
         std::cout<<"\n++++++++++++++ Testing DHeap MIN +++++++++++++++++\n";
 
-        DHeap<int,std::string> dheap(2,15);
+        DHeap<int,std::string> dheap(2,15,true);
+        
+        std::ifstream input("/home/nico/project/data_structure/input_test/heap_int_string.txt");
+        
+        if(!input.is_open()){
+            std::cout << "Failed to open file." << std::endl;
+            return -1;
+        }else{
+            std::cout << "file opened correctly." << std::endl;
+            input>>dheap;
+        }
+    
+
+        dheap.deleteByKey(37);
+        dheap.deleteByKey(11);
+        dheap.deleteByKey(3);
+        
+        dheap.changeKey(300,"c");
+        dheap.changeValue(300,"d");
+        
+
+        // dheap.deleteByValue("undici");
 
         // {37,22,31,13,15,25,14,7,3,12,9}
 
@@ -180,7 +209,8 @@ int main(){
         // dheap.deleteValue(37);
         // dheap.setValue(3,40);
 
-        // dheap.showTree();
+        dheap.showTree();
+        dheap.showStructure();
 
         //devo arrivare a vedere questo
         // {37,22,31,13,15,25,14,nullptr,nullptr,7,3,nullptr,nullptr,12,9} // questo è 2-heap fixato
@@ -203,21 +233,32 @@ int main(){
     try{
         
         // TODO risolvere per valori uguali, l'heap deve poter avere due valori uguali
-        std::cout<<"\n++++++++++++++ Testing HeapSort +++++++++++++++\n";
-        std::vector<int> unordered_int = {1,2,3,4,13,53,14,56,5,6,7,8,9,10,11};
+        DHeap<int,std::string> dheap(2,15,false);
         
-        DHeap<int> dheap(2,unordered_int.size(),true,unordered_int);
+        std::ifstream input("/home/nico/project/data_structure/input_test/heap_int_string.txt");
         
-        std::vector<int> ordered_int;
+        if(!input.is_open()){
+            std::cout << "Failed to open file." << std::endl;
+            return -1;
+        }else{
+            std::cout << "file opened correctly." << std::endl;
+            input>>dheap;
+        }
+        
+        dheap.showTree();
+        
+        std::vector<std::pair<int,std::string>> ordered_int;
         
         //algoritmo heap sort
         while(!dheap.isEmpty()){
-            ordered_int.push_back(dheap.popValue());
+            std::pair<int,std::string> boh = dheap.popValue();
+            // std::cout<<"popValue: "<<boh<<std::endl;
+            ordered_int.push_back(boh);
         }
         
         std::cout<<"Vettore ordinato in senso decrescente: \n";
         for(auto& value: ordered_int){
-            std::cout<<value<<" ";
+            std::cout<<value.first<<" ";
         }
 
         std::cout<<"\n-------------- end HeapSort ---------------\n";

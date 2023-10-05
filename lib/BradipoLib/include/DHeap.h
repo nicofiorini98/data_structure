@@ -34,7 +34,7 @@ namespace datalib{
 		void moveLow(int posNode);
 
   		/// insert node to leaf and return the position of the leaf
-		int insertToLeaf(std::pair<K,T>& value);
+		int insertToLeaf(const std::pair<K,T>& value);
 
 		int insertToLeaf(const K& key, const T& value);
 
@@ -46,6 +46,16 @@ namespace datalib{
 		int getLeaf(); 
 
 		bool isLeaf(const K& keyValue);
+		
+		int findByKey(const K& keyValue);
+
+		int findByValue(const T& value);
+		
+		void deleteByPos(int pos);
+
+		int getChildPos(int posNode);
+
+		bool isLeaf(const std::pair<K,T>& value);
 
     public:
 
@@ -72,34 +82,28 @@ namespace datalib{
 		
 		/// change Value
 		/// TODO da vedere meglio
-		void setValue(const K& oldValue,const K& newValue);
+		void changeValue(const K& key,const T& value );
 		
 		/// decreaseKey 
-		void decreaseKey(const T& value);
+		void changeKey(const K& newKey, const T& element);
 
-		void increaseKey(const T& value);
+		// void increaseKey(const T& value);
 
 		/// return true if the Heap is empty
 		bool isEmpty();
 
 		/// show the tree of the heap
-		void showTree(){
-			std::cout<<"Implementa buono a nulla che non sei altro"<<std::endl;
-			// (this->treePosVector)->showTree();
-		}
+		void showTree();
 		
 		/// show the structure behind the treePosVector
-		void showStructure(){
-			std::cout<<"Implementa buono a nulla che non sei altro"<<std::endl;
-			// (this->treePosVector)->showStructure();
-		}
+		void showStructure();
 		
 		friend std::ostream& operator<<(std::ostream& os,DHeap<K,T> heap){
 			//TODO implementare
 			return os;
 		}
 
-		friend std::istream& operator>(std::istream& is,DHeap<K,T> heap){
+		friend std::istream& operator>>(std::istream& is,DHeap<K,T>& heap){
 
 			while(!is.eof()){
 				std::string line;
@@ -115,15 +119,14 @@ namespace datalib{
 				
 				heap.insert(pair);
 			}
-        
         	return is;	
-			
 		}
 		
         ///Destructor
         ~DHeap();
 
     };
+
 }
 
 #include "../sources/DHeap.cpp"
