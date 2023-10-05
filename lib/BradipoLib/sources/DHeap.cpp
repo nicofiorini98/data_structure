@@ -11,8 +11,8 @@
 
 using namespace datalib;
 
-#define vec (this->treePosVector)->vecNode
-#define tree (this->treePosVector)
+#define VEC (this->treePosVector)->vecNode
+#define TREE (this->treePosVector)
     
 template <class K, class T>
 DHeap<K, T>::DHeap(int degree, int size, bool isMin,
@@ -98,7 +98,7 @@ void DHeap<K, T>::fixHeap(int posNode) {
 template <class K,class T>
 std::pair<K,T> DHeap<K, T>::getFirstValue() {
     if (!this->isEmpty()) {
-        return vec[1]->value;
+        return VEC[1]->value;
     } else {
         throw std::runtime_error("DHeap<K,T>::getMaxValue() error: the "
                                  "instance is empty, can't get max value");
@@ -152,32 +152,32 @@ void DHeap<K, T>::deleteByPos(int pos2Delete){
         int posLeaf = this->getLeaf();
 
         if (pos2Delete == posLeaf) {
-            delete vec[posLeaf];
-            vec[posLeaf] = nullptr;
+            delete VEC[posLeaf];
+            VEC[posLeaf] = nullptr;
             return;
         }
 
-        tree->swapPositionValue(posLeaf, pos2Delete);
+        TREE->swapPositionValue(posLeaf, pos2Delete);
 
         // delete node, and assign the nullptr to the position deleted
-        delete vec[posLeaf];
-        vec[posLeaf] = nullptr;
+        delete VEC[posLeaf];
+        VEC[posLeaf] = nullptr;
 
         // get the parent of the node if exist
         int posParent = 1;
         if (pos2Delete > 1) {
-            posParent = tree->getParentPos(pos2Delete);
+            posParent = TREE->getParentPos(pos2Delete);
         }
 
         // if the parent is bigger, try to push down the node,
         // otherwise push up the node
         if (!this->isMin) {
-            if (vec[posParent]->value.first > vec[pos2Delete]->value.first || posParent == 1)
+            if (VEC[posParent]->value.first > VEC[pos2Delete]->value.first || posParent == 1)
                 moveLow(pos2Delete);
             else
                 moveHigh(pos2Delete);
         } else {
-            if (vec[posParent]->value.first < vec[pos2Delete]->value.first || posParent == 1)
+            if (VEC[posParent]->value.first < VEC[pos2Delete]->value.first || posParent == 1)
                 moveLow(pos2Delete);
             else
                 moveHigh(pos2Delete);
@@ -190,7 +190,7 @@ void DHeap<K, T>::deleteByPos(int pos2Delete){
 
 template <class K,class T>
 bool DHeap<K, T>::isEmpty() {
-    if (vec[1])
+    if (VEC[1])
         return false;
     else
         return true;
@@ -201,7 +201,7 @@ int DHeap<K, T>::getLeaf() {
 
     Node<std::pair<K,T>> *leaf;
 
-    for (auto &value : vec) {
+    for (auto &value : VEC) {
         if (value)
             leaf = value;
     }
@@ -227,7 +227,7 @@ void DHeap<K, T>::changeValue(const K& key, const T& newValue) {
 
     if (posKey != -1) {
         
-        (vec[posKey]->value).second = newValue;
+        (VEC[posKey]->value).second = newValue;
 
     } else {
         throw std::runtime_error(
@@ -243,26 +243,26 @@ void DHeap<K,T>::changeKey(const K& newKey, const T& element){
     int posValue = this->findByValue(element);
     // std::cout<<"change Key: "<<posValue<<std::endl;
     
-    vec[posValue]->value.first = newKey;
+    VEC[posValue]->value.first = newKey;
     
     if (posValue != -1) {
 
         // get the parent of the node if exist
         int posParent = 1;
         if (posValue > 1) {
-            posParent = tree->getParentPos(posValue);
+            posParent = TREE->getParentPos(posValue);
         }
 
         // if the parent is bigger, try to push down the node,
         // otherwise push up the node
         if (!this->isMin) {
-            if ((vec[posParent]->value).first > (vec[posValue]->value).first)
+            if ((VEC[posParent]->value).first > (VEC[posValue]->value).first)
                 moveLow(posValue);
             else
                 moveHigh(posValue);
 
         } else {
-            if (vec[posParent]->value < vec[posValue]->value)
+            if (VEC[posParent]->value > VEC[posValue]->value)
                 moveHigh(posValue);
             else
                 moveLow(posValue);
@@ -280,15 +280,15 @@ void DHeap<K,T>::changeKey(const K& newKey, const T& element){
 template <class K, class T>
 int DHeap<K, T>::insertToLeaf(const std::pair<K,T>& value) {
 
-    if (!vec[1]) {
-        tree->addRoot(value);
+    if (!VEC[1]) {
+        TREE->addRoot(value);
         return 1;
     } else {
         int lastLeaf = getLeaf();
 
         Node<std::pair<K,T>> *leaf = new Node<std::pair<K,T>>(value);
         leaf->pos = lastLeaf + 1;
-        vec[lastLeaf + 1] = leaf;
+        VEC[lastLeaf + 1] = leaf;
         return (lastLeaf + 1);
     }
 }
@@ -300,7 +300,7 @@ void DHeap<K, T>::moveHigh(int posNode) {
     1.  1 =< posNode <= vecNode.size()
      */
 
-    if (posNode < 1 && posNode < vec.size()) {
+    if (posNode < 1 && posNode < VEC.size()) {
         throw std::runtime_error(
             "the position is not permitted in the structure");
     }
@@ -309,21 +309,21 @@ void DHeap<K, T>::moveHigh(int posNode) {
         return;
     }
 
-    std::pair<K,T> nodeValue = vec[posNode]->value;
+    std::pair<K,T> nodeValue = VEC[posNode]->value;
 
-    std::pair<K,T> parentValue = vec[tree->getParentPos(posNode)]->value;
+    std::pair<K,T> parentValue = VEC[TREE->getParentPos(posNode)]->value;
 
     if (!this->isMin) {
         while (posNode > 1 && nodeValue.first > parentValue.first) {
 
             // get parent positions and swap the values
-            int posParent = tree->getParentPos(posNode);
-            tree->swapPositionValue(posNode, posParent);
+            int posParent = TREE->getParentPos(posNode);
+            TREE->swapPositionValue(posNode, posParent);
             posNode = posParent;
 
             // update parent value if the node has parent
             if (posNode > 1) {
-                parentValue = vec[tree->getParentPos(posNode)]->value;
+                parentValue = VEC[TREE->getParentPos(posNode)]->value;
             }
         }
 
@@ -331,13 +331,13 @@ void DHeap<K, T>::moveHigh(int posNode) {
         while (posNode > 1 && nodeValue.first < parentValue.first) {
 
             // get parent positions and swap the values
-            int posParent = tree->getParentPos(posNode);
-            tree->swapPositionValue(posNode, posParent);
+            int posParent = TREE->getParentPos(posNode);
+            TREE->swapPositionValue(posNode, posParent);
             posNode = posParent;
 
             // update parent value if the node has parent
             if (posNode > 1) {
-                parentValue = vec[tree->getParentPos(posNode)]->value;
+                parentValue = VEC[TREE->getParentPos(posNode)]->value;
             }
         }
     }
@@ -359,15 +359,15 @@ void DHeap<K, T>::moveLow(int posNode) {
     while (true) {
 
         // getting the values from the starting two positions
-        value = vec[posNode]->value;
+        value = VEC[posNode]->value;
 
-        if (vec[posNode] && this->isLeaf(value)) {
+        if (VEC[posNode] && this->isLeaf(value)) {
             return;
         }
 
         posChild = this->getChildPos(posNode);
 
-        childValue = vec[posChild]->value;
+        childValue = VEC[posChild]->value;
 
         if (!this->isMin) {
             if (value.first > childValue.first)
@@ -378,7 +378,7 @@ void DHeap<K, T>::moveLow(int posNode) {
         }
 
 
-        tree->swapPositionValue(posNode, posChild);
+        TREE->swapPositionValue(posNode, posChild);
 
         // update the positions for the next cycle
         posNode = posChild;
@@ -405,7 +405,7 @@ int DHeap<K,T>::getChildPos(int posNode){
     // typename std::vector<Node<T> *>::iterator parent_itr;
     // parent_itr = datalib::trova(vecNode.begin(), vecNode.end(), parentValue);
 
-    if (vec[posNode]) {
+    if (VEC[posNode]) {
         // int pos = (*parent_itr)->pos;
 
         // int maxPos = (*parent_itr)->pos;
@@ -413,11 +413,11 @@ int DHeap<K,T>::getChildPos(int posNode){
 
         for(int i = 0; i < degree ; i++){
             int childPos = (posNode * degree) + i ;
-            if(childPos < vec.size() && vec[(childPos)]){
+            if(childPos < VEC.size() && VEC[(childPos)]){
 
 				
-                std::pair<K,T> maxValue = vec[priorPos]->value;
-                std::pair<K,T> value = vec[childPos]->value;
+                std::pair<K,T> maxValue = VEC[priorPos]->value;
+                std::pair<K,T> value = VEC[childPos]->value;
 
                 if(!this->isMin && value.first > maxValue.first){
                     priorPos = childPos;
@@ -438,9 +438,8 @@ int DHeap<K,T>::getChildPos(int posNode){
 template <class K,class T>
 int DHeap<K,T>::findByKey(const K& keyValue){
 
-    #define vec (this->treePosVector)->vecNode
 
-    for(auto& node: vec){
+    for(auto& node: VEC){
         if(node && (node->value).first == keyValue){
             return node->pos;
         }
@@ -451,9 +450,8 @@ int DHeap<K,T>::findByKey(const K& keyValue){
 template <class K,class T>
 int DHeap<K,T>::findByValue(const T& value){
 
-    #define vec (this->treePosVector)->vecNode
 
-    for(auto& node: vec){
+    for(auto& node: VEC){
         if(node && (node->value).second == value){
             return node->pos;
         }
@@ -472,7 +470,7 @@ void DHeap<K,T>::showStructure(){
         return; 
     }
 
-    for (auto &node : vec) {
+    for (auto &node : VEC) {
         if(node){
             std::cout<<*node<<"\n";
         }
@@ -489,22 +487,22 @@ void DHeap<K,T>::showTree(){
     if(this->isEmpty()){
         return; 
     }
-    std::cout << vec[1]->value;
+    std::cout << VEC[1]->value;
 
-    for (auto &node : vec) {
+    for (auto &node : VEC) {
 
         if (node != nullptr) {
             int pos = node->pos;
-            if (vec[pos / 2] != nullptr)
-                std::cout << *vec[pos / 2];
+            if (VEC[pos / 2] != nullptr)
+                std::cout << *VEC[pos / 2];
 
-            if (vec[pos / 2] != nullptr)
-                std::cout << "<--" << *vec[pos];
+            if (VEC[pos / 2] != nullptr)
+                std::cout << "<--" << *VEC[pos];
 
             // printing each node
             for (int i = 0; i < this->degree; i++) {
-                if (vec[pos * 2 + i] != nullptr)
-                    std::cout << "-->" << *vec[pos * 2 + i];
+                if (VEC[pos * 2 + i] != nullptr)
+                    std::cout << "-->" << *VEC[pos * 2 + i];
             }
             std::cout << "\n";
         }
