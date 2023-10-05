@@ -29,11 +29,11 @@ template <class T> class BasicGraph {
     /// return the number of the Node in the graph
     int getNumNode() { return numNodes; }
 	
-	  // virtual T getValue(T key){std::cout<<key<<"\n";}
+	  virtual T getValue(const T& nodeValue) const = 0;
 	
-	  virtual void setValue(const T oldValue,const T& newValue) = 0;
+	  virtual void setValue(const T& oldValue,const T& newValue) = 0;
     
-    virtual void markNode(const T &value, marking mark) = 0;
+    virtual void markNode(const T& value, marking mark) = 0;
 
 };
 } // namespace datalib

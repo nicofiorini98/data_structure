@@ -26,7 +26,7 @@ void GraphIncList<T>::addNode(const T &_x){
 
 template<class T>
 void GraphIncList<T>::addEdge(const Edge<T>& edge){
-	addEdge((edge.getSourceValue()),(edge.getDestinationValue()));
+	addEdge(edge.getSourceValue(),edge.getDestinationValue(),edge.getWeight());
 }
 
 template<class T>
@@ -79,13 +79,68 @@ void GraphIncList<T>::addEdge(const T& srcValue, const T& destValue,double weigh
 
 	//TODO to create edge with weight
 	//create edge
-	Edge<T> *e = new Edge<T>(src_itr->second, dest_itr->second);
+	Edge<T> *e = new Edge<T>(src_itr->second, dest_itr->second,weight);
 
 	//add edge to the structure
 	edgeList.push_back(e);
 	(src_itr->second)->connected_edges.push_back(e);
 
 	++this->numEdges;
+}
+
+template <class T>
+T GraphIncList<T>::getValue(const T& nodeValue)const {
+	//trova il nodo src
+	//
+
+	// return (this->incList[nodeValue])->value;
+	typename std::map<T,Node<T>*>::const_iterator valueItr;
+	valueItr = incList.find(nodeValue);
+	
+	if(valueItr != incList.end()){
+		return (*valueItr).first;
+	}else{
+		throw std::runtime_error("GraphIncList<T>::getValue error: nodeValue doesn't exists in the Graph");
+	}
+}
+
+//TODO non è banale, in quanto devo mantenere anche le relazioni tra i nodi
+//trovo ogni arco che punta a quel nodo, e aggiorno il valore con un nuovo nodo allocato
+template <class T>
+void GraphIncList<T>::setValue(const T& oldValue,const T& newValue){
+	
+	//creare un nuovo nodo oldValue
+	Node<T>* newNode = new Node(newValue);
+	
+	//trova il nodo src e aggiorno il valore, assegnando anche una nuova 
+	//chiave alla mappa
+	typename std::map<T,Node<T>*>::iterator oldItr;
+	oldItr = incList.find(oldValue);
+	Node<T>* oldNode = (*oldItr).second;
+	
+	//aggiorno il puntatore al nuovo nodo ad ogni arco
+	for(auto& e: edgeList){
+		if(e->src == oldNode){
+			e->src = newNode;
+		}else if(e->dest == oldNode){
+			e->dest = newNode;
+		}
+	}
+
+	newNode->connected_edges = oldNode->connected_edges;
+
+
+	if(oldItr != incList.end()){
+		// ((*oldItr).second)->value = newValue;
+		// incList[newValue] = incList[oldValue];
+		// incList.erase(oldValue);
+		incList.erase(oldValue);
+		incList.insert(std::pair<T,Node<T>*>(newValue,newNode));
+		return;
+
+	}else{
+		throw std::runtime_error("GraphIncList<T>::getValue error: nodeValue doesn't exists in the Graph");
+	}
 }
 
 
@@ -189,7 +244,7 @@ int GraphIncList<T>::degree(const T& nodeValue){
 	throw std::runtime_error("GraphIncList<T>::degree(---) error: The node inserted doesn't exist");
 }
 
-//todo controllare
+//TODO controllare
 template<class T>
 bool GraphIncList<T>::isAdjacent(const T &_src, const T &_dest){
 

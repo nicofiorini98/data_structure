@@ -141,9 +141,9 @@ bool GraphEdgeList<T>::edgeExistence(const T *srcValue, const T *destValue) cons
 
 //return true if exists a node _x in the structure
 template<class T>
-bool GraphEdgeList<T>::nodeExistence(const T &_x) const{
+bool GraphEdgeList<T>::nodeExistence(const T &x) const{
 	for(auto &e:edgeList){
-		if((e.src)->value == _x || (e.dest)->value==_x)
+		if((e.src)->value == x || (e.dest)->value==x)
 			return true;
 	}
 	return false;

@@ -293,6 +293,19 @@ int DHeap<K, T>::insertToLeaf(const std::pair<K,T>& value) {
     }
 }
 
+/// get Key by Value
+template<class K, class T>
+K DHeap<K, T>::getKeyByValue(const T& value){
+    int posValue = this->findByValue(value);
+    
+    if(posValue != -1){
+        return VEC[posValue]->value.first;
+    }else{
+        throw std::runtime_error("DHeap<K, T>::getKeyByValue error: the value to search doesn't exists");
+    }
+
+}
+
 template <class K, class T>
 void DHeap<K, T>::moveHigh(int posNode) {
     /*

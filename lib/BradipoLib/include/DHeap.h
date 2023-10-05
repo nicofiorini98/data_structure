@@ -67,7 +67,7 @@ namespace datalib{
 
 		void insert(const std::pair<K,T>& value);
 
-		void insert(const K& key,const T& value);
+		// void insert(const std::pair<K,T>& value);
 		
 		/// destroy a value and return a copy of destroyed value
 		std::pair<K,T> popValue();
@@ -86,6 +86,9 @@ namespace datalib{
 		
 		/// decreaseKey 
 		void changeKey(const K& newKey, const T& element);
+
+		/// get Key by Value
+		K getKeyByValue(const T& value);
 
 		// void increaseKey(const T& value);
 

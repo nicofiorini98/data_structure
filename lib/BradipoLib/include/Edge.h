@@ -28,8 +28,8 @@ namespace datalib{
         
         // Destructor
         ~Edge(){
-            delete src;
-            delete dest;
+            // delete src;
+            // delete dest;
         }
 
         /// get the src Value
@@ -38,7 +38,7 @@ namespace datalib{
         //get dest Value
         T getDestinationValue() const {return (dest->value);}
         
-        double getWeight(){return this->weight;}
+        double getWeight() const {return this->weight;}
         
         void setWeight(double weight){this->weight = weight;}
 

@@ -22,14 +22,14 @@
 #define GRAPH_INC_LIST 0
 #define DHEAP_MAX 0
 #define DHEAP_MIN 0
-#define HEAP_SORT 1
+#define HEAP_SORT 0
 
 #define CITY_TREE_PTR_LIST 0
 #define CITY_TREE_POS_VECTOR 0
 #define PROVA 0
 #define GRAPH_ADJ_LIST 0
 #define CITY 0
-#define DIJKSTRA 0
+#define DIJKSTRA 1
 
 
 using namespace datalib;
@@ -487,7 +487,7 @@ int main(){
     
 
     std::fstream input;
-    input.open( "/home/nico/project/data_structure/input_test/city_graph.txt",std::ios::in);
+    input.open( "/home/nico/project/data_structure/input_test/mini_city_graph.txt",std::ios::in);
 
     GraphIncList<City> cityGraph;
     if(input.is_open()){
@@ -501,29 +501,80 @@ int main(){
             cityGraph.addEdge(edge);
         }
 
-        std::list<City> cities;
-        cityGraph.getAllNodeValues(cities);
-            
-        DHeap<DistanceCity> distanceHeap(2,cities.size(),true);
+        DHeap<double,City> S(2,cityGraph.getNumNode(),true);
 
         // parto dal nodo Roma per il calcolo delle distanze
         // for(each)(vertice u in G) do Dsu <- +inf
-        for(auto &c: cities){
-            DistanceCity city(10000,c);
-            distanceHeap.insert(city);
-            // std::cout<<city.getDistance()<<"->"<<city.getCity()<<std::endl;
-        }
+        // for(auto &c: cities){
+        //     std::pair<double,City> city(10000,c);
+        //     S.insert(city);
+        // }
 
-        distanceHeap.showStructure();
+        // distanceHeap.showStructure();
 
         // T = albero formato dal solo vertice s (parto da Roma) provare anche da Veroli
-        // TreePtrList<City> tree;
-        // City startValue("Roma",41.9028, 12.4964);
-        // tree.addRoot(startValue);
+        TreePtrList<City> tree;
+        City startValue = cityGraph.getValue({"Roma"});
+        startValue.setDistance(0);
+
+        cityGraph.setValue({"Roma"},startValue);
+
+        tree.addRoot(startValue);
         
+        
+        S.insert(std::pair<double,City>(0,startValue));
         //aggiornare distanza da Roma->Roma Dss=0
         // distanceHeap.setValue({"Roma"},{"Roma",0});
-        // distanceHeap.showStructure();
+        
+        // City boh = {dio}
+        // cityGraph.setValue({"Roma"},{"Veroli"});
+        
+
+        while(!S.isEmpty()){
+            City u = S.popValue().second;
+            std::cout<<"city: "<<u<<std::endl;
+
+            //get all outgoing edges from city u
+            std::list<Edge<City>> edges;
+            cityGraph.getOutgoingEdges(u,edges);
+
+            #define dest e.getDestinationValue()
+            #define src e.getSourceValue()
+            for(auto& e: edges){
+                // std::cout<<"outgoingEdges: "<<e<<std::endl;
+                double Dsv = dest.getDistance();
+                double Dsu = src.getDistance();
+                double weight = e.getWeight();
+
+                if(Dsv >= 10000){
+                    Dsv = Dsu + weight;
+                    S.insert(std::pair<double,City>(Dsv,dest));
+                    tree.addNode(dest, src);
+                    
+                    //update the distance of dest
+                    City newDistance = dest; 
+                    newDistance.setDistance(Dsv);
+                    cityGraph.setValue(dest,newDistance); 
+
+                }else if(Dsu + weight < Dsv){
+                    Dsv = Dsu + weight;
+                    S.changeKey(Dsv, dest);
+                    
+                    //update the distance of dest
+                    City newDistance = dest; 
+                    newDistance.setDistance(Dsv);
+                    cityGraph.setValue(dest,newDistance); 
+                    tree.updateParent(dest, src);
+                }
+            }
+
+            
+        }
+
+        // cityGraph.showStructure();
+        // S.showTree();
+
+        tree.showTree();
         
     }
     else

@@ -15,12 +15,16 @@ class City {
     double latitude;
     double longitude;
 
+    //utility for Dijkstra
+    double distance;
+
   public:
 
     City(){
         this->name      = "";
         this->latitude  = 0;
         this->longitude = 0;
+        distance = 10000;
     }
     
     City(const std::string name):name(name){}
@@ -32,11 +36,15 @@ class City {
     std::string getName()const {return this->name;}
     double getLatitude()const {return this->latitude;}
     double getLongitude()const{return this->longitude;}
+    double getDistance()const {return this->distance;}
+    void setDistance(double distance){this->distance = distance;}
+    
     // operator =
-    City &operator=(const City &city) {
+    City& operator=(const City &city) {
         this->latitude = city.latitude;
         this->longitude = city.longitude;
         this->name = city.name;
+        this->distance = city.distance;
         return *this;
     }
 
@@ -57,6 +65,7 @@ class City {
 
     // operator!=
     bool operator!=(const City &city) const { return this->name != city.name; }
+    
 
     // operator<<
     friend std::ostream &operator<<(std::ostream &os, City city) {

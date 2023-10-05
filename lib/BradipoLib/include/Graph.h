@@ -93,9 +93,9 @@ template <class T> class Graph: public BasicGraph<T> {
 
     virtual void depthSearch(const T &startValue, TreePtrList<T> &tree){};
 
+	virtual T getValue(const T& nodeValue) const override = 0;
 
-    //Inherited 
-	virtual void setValue(const T oldValue,const T& newValue) override {};
+	virtual void setValue(const T& oldValue,const T& newValue) override = 0;
     
     virtual void markNode(const T &value, marking mark) override {};
 

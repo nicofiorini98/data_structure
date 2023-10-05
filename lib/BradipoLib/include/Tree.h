@@ -63,10 +63,13 @@ namespace datalib{
         virtual void breadthSearch(const T& startValue)=0;
         
         //TODO implementare
-        virtual void setValue(const T oldValue,const T& newValue){}
+	    virtual T getValue(const T& nodeValue) const override {return nodeValue;}
+
+        //TODO implementare
+        virtual void setValue(const T& oldValue,const T& newValue) override{}
     
         //TODO implementare
-        virtual void markNode(const T &value, marking mark){}
+        virtual void markNode(const T &value, marking mark) override{}
 
 		//used in the searches
         virtual void updateParent(const T& childValue, const T& newParent)=0;

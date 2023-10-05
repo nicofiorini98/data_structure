@@ -53,8 +53,12 @@ namespace datalib{
         ///Return the degree of the node _x
         int degree(const T& nodeValue) override;
 
+	    T getValue(const T& nodeValue) const override;
+        
+        void setValue(const T& oldValue,const T& newValue) override;
+
         ///Add an Edge (x,y) in the graph
-        void addEdge(const T& srcValue,const T& destValue,double weight =0) override;
+        void addEdge(const T& srcValue,const T& destValue,double weight = 0) override;
 
         ///Add an Edge (x,y) in the graph
         void addEdge(const Edge<T>& edge);
