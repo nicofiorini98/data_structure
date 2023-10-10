@@ -98,69 +98,19 @@ template <class T> class TreePosVector : public Tree<T> {
     friend class DHeap;
 
 
-    /// overloading operator >>
-    friend std::istream &operator>>(std::istream &is, TreePosVector<T> &tree) {
-        // pre-conditions
-        // the input work with csv format --> node2add, parent
-        // example with string:
-        // a
-        // a,l
-        // se il padre non è fornito, il nodo è la radice
-        std::string line, x_string, parent_string;
-
-        // read line-by-line
-        while (std::getline(is, line)) {
-
-            auto *x = new T;
-            auto *parent = new T;
-
-            std::stringstream str(line); // converte la riga in uno stream
-
-            // leggo lo stream della riga fino al carattere delimitatore
-            std::getline(str, x_string,tree.delimiter); 
-
-            std::stringstream str1(x_string); 
-            // converte il primo campo in uno stream
-
-            str1 >> *x; // viene utilizzata la funzione >> per l'input del primo
-                        // campo
-            std::getline(str, parent_string,
-                         tree.delimiter); // continuo a leggere per trovare il
-                                          // secondo campo
-
-            if (parent_string.empty()) {
-                tree.addRoot(*x);
-                continue;
-            }
-
-            std::stringstream str2(parent_string);
-            str2 >> *parent;
-            tree.addNode(*x, *parent);
-
-            // deallocate x and parent to avoid memory leak
-            delete x;
-            delete parent;
-        }
-        return is;
-    }
+    
 
     friend std::ostream &operator<<(std::ostream &os, TreePosVector<T> &t) {
-        // pre-conditions
-        // format for input of a node: node parent list_children
-        // Example: ( l a )
-        // Example: (a b) (l a)
 
-        // os<<"\n\n Stampa di Tree_pos_vector: \n";
         for (auto &n : t.vec_node) {
-            // don't consider nullptr as node
             if (!n)
                 continue;
 
             for (int i = 0; i < t.getNumChildren(n); i++) {
                 if (i != 0)
                     os << " ";
-                os << "( " << *n << " "
-                   << *(t.vec_node[(t.getPos(n) * (t.degree)) + i]) << " )";
+                os << *n << " "
+                   << *(t.vec_node[(t.getPos(n) * (t.degree)) + i]);
             }
             os << "\n";
         }

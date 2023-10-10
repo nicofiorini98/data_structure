@@ -487,7 +487,7 @@ int main(){
     
 
     std::fstream input;
-    input.open( "/home/nico/project/data_structure/input_test/mini_city_graph.txt",std::ios::in);
+    input.open( "/home/nico/project/data_structure/input_test/city_graph.txt",std::ios::in);
 
     GraphIncList<City> cityGraph;
     if(input.is_open()){
@@ -500,6 +500,12 @@ int main(){
             edge.setWeight(weight);
             cityGraph.addEdge(edge);
         }
+
+        std::ofstream cytyGraphdotFile("/home/nico/project/data_structure/output_test/cityGraph.dot",std::ios::out);
+        
+        cityGraph.outputDotFile(cytyGraphdotFile);
+        
+        cytyGraphdotFile.close();
 
         DHeap<double,City> S(2,cityGraph.getNumNode(),true);
 
@@ -525,14 +531,9 @@ int main(){
         S.insert(std::pair<double,City>(0,startValue));
         //aggiornare distanza da Roma->Roma Dss=0
         // distanceHeap.setValue({"Roma"},{"Roma",0});
-        
-        // City boh = {dio}
-        // cityGraph.setValue({"Roma"},{"Veroli"});
-        
 
         while(!S.isEmpty()){
             City u = S.popValue().second;
-            std::cout<<"city: "<<u<<std::endl;
 
             //get all outgoing edges from city u
             std::list<Edge<City>> edges;
@@ -541,7 +542,6 @@ int main(){
             #define dest e.getDestinationValue()
             #define src e.getSourceValue()
             for(auto& e: edges){
-                // std::cout<<"outgoingEdges: "<<e<<std::endl;
                 double Dsv = dest.getDistance();
                 double Dsu = src.getDistance();
                 double weight = e.getWeight();
@@ -573,8 +573,13 @@ int main(){
 
         // cityGraph.showStructure();
         // S.showTree();
+        // tree.showTree();
 
-        tree.showTree();
+        std::ofstream dotFile("/home/nico/project/data_structure/output_test/minimum_spanning_tree.dot",std::ios::out);
+        
+        tree.outputDotFile(dotFile);
+        
+        dotFile.close();
         
     }
     else

@@ -337,4 +337,28 @@ template <class T> Node<T> *TreePtrList<T>::getNode(const T value) {
     throw error;
 }
 
+
+template <class T>
+std::ostream& TreePtrList<T>::outputDotFile(std::ostream& dotFile){
+
+
+    // Write the DOT file content
+    dotFile << "digraph G {" << std::endl;
+    
+    for(auto& n: nodes_map){
+        if (!n.second->node_list.empty()) {
+            for (auto &child : n.second->node_list) {
+                dotFile<<n.first<<" -> ";
+                dotFile<< child->value << "\n";
+            }
+        }
+    }
+
+    dotFile << "}" << std::endl;
+
+    std::cout << "DOT file generated as graph.dot" << std::endl;
+    
+    return dotFile;
+}
+
 #endif

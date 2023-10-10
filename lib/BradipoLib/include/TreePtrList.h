@@ -112,6 +112,7 @@ public:
 
   void updateParent(const T &child, const T &newParent) override;
 
+
   void showTree();
 
   void showTreePtr();
@@ -122,58 +123,17 @@ public:
   // aggiungi sotto albero
   // rimuovi sotto albero
 
-  /// overloading operator >>
-  friend std::istream &operator>>(std::istream &is, TreePtrList<T> &t) {
-    // pre-conditions
-    // the input work with csv format --> node2add, parent
-    // example with string:
-    // a
-    // a,l
-    // se il padre non è fornito, il nodo è la radice
-    std::string line, x_string, parent_string;
-
-    // read line-by-line
-    while (std::getline(is, line)) {
-
-      auto *x = new T;
-      auto *parent = new T;
-
-      std::stringstream str(line); // converte la riga in uno stream
-      std::getline(str, x_string,
-                   t.delimiter); // leggo lo stream della riga fino al carattere
-                                 // delimitatore
-      std::stringstream str1(x_string); // converte il primo campo in uno stream
-      str1 >> *x; // viene utilizzata la funzione >> per l'input del primo campo
-      std::getline(
-          str, parent_string,
-          t.delimiter); // continuo a leggere per trovare il secondo campo
-
-      if (parent_string.empty()) {
-        t.addRoot(*x);
-        continue;
-      }
-
-      std::stringstream str2(parent_string);
-      str2 >> *parent;
-      t.addNode(*x, *parent);
-
-      //deallocate x and parent to avoid memory leak
-      delete x;
-      delete parent;
-    }
-    return is;
-  }
+  std::ostream& outputDotFile(std::ostream& dotFile);
 
   friend std::ostream &operator<<(std::ostream &os, TreePtrList<T> t) {
     for (auto &n : t.nodes_map) {
       for (auto &child : t.getNodeList(n.second)) {
-        os << "( " << *(n.second) << " " << *child << " )"
-           << "\n";
+        os << *(n.second) << " " << *child <<"\n";
       }
-      // for(int i=0; i < t.getNumChildren(n.second);i++ )
     }
     return os;
   }
+
 };
 } // namespace datalib
 

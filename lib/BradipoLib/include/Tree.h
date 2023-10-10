@@ -21,8 +21,6 @@ namespace datalib{
     template<class T>
     class Tree: public BasicGraph<T> {
     protected:
-        char delimiter = ',';
-        // int numNodes;
     public: 
 
         ///Costructor
@@ -32,8 +30,6 @@ namespace datalib{
         ///virtual destructor
         virtual ~Tree(){}
 
-        /// set Delimiter for the input and output of tree
-        void setDelimiter(const char delimiter){this->delimiter = delimiter;}
 
         ///return the number of nodes of the Tree
         // int getNumNodes() const {return this->numNodes;}
@@ -56,10 +52,10 @@ namespace datalib{
         ///add childrens to node value
         virtual void addChildren(const T& value, const std::list<T>& children)=0;
 
-		//TODO implementare in un esempio
+        //TODO da controllare
         virtual void depthSearch(const T& startValue)=0;
 
-		//TODO implementare in un esempio
+        //TODO da controllare
         virtual void breadthSearch(const T& startValue)=0;
         
         //TODO implementare
@@ -74,7 +70,47 @@ namespace datalib{
 		//used in the searches
         virtual void updateParent(const T& childValue, const T& newParent)=0;
 
+        /// overloading operator >>
+        friend std::istream &operator>>(std::istream &is, Tree<T> &t) {
+            // pre-conditions
+            // the input work with csv format --> node2add, parent
+            // example with string:
+            // a,l
+            std::string line, x_string, parent_string;
 
+            // read line-by-line
+            while (std::getline(is, line)) {
+
+                auto *x = new T;
+                auto *parent = new T;
+
+                std::stringstream str(line); // converte la riga in uno stream
+                std::getline(str, x_string,
+                             t.delimiter); // leggo lo stream della riga fino al
+                                           // carattere delimitatore
+                std::stringstream str1(
+                    x_string); // converte il primo campo in uno stream
+                str1 >> *x; // viene utilizzata la funzione >> per l'input del
+                            // primo campo
+                std::getline(str, parent_string,
+                             t.delimiter); // continuo a leggere per trovare il
+                                           // secondo campo
+
+                if (parent_string.empty()) {
+                    t.addRoot(*x);
+                    continue;
+                }
+
+                std::stringstream str2(parent_string);
+                str2 >> *parent;
+                t.addNode(*x, *parent);
+
+                // deallocate x and parent to avoid memory leak
+                delete x;
+                delete parent;
+            }
+            return is;
+        }
     };
 }
 

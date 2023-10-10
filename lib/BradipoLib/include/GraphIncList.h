@@ -93,6 +93,8 @@ namespace datalib{
         void getAllNodeValues(std::list<T>& nodesList);
 
         void markNode(const T& value,marking mark) override {}
+        
+        std::ostream& outputDotFile(std::ostream& dotfile);
 
         void showStructure() const;
 

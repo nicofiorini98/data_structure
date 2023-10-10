@@ -10,6 +10,10 @@ set(CMAKE_CXX_STANDARD_LIBRARIES "-lstdc++")
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+find_path(GRAPHVIZ_INCLUDE_DIRS NAMES graphviz/cgraph.h)
+find_library(GRAPHVIZ_LIBRARIES NAMES cgraph)
+
+
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libstdc++")
 
 # set(UNIT_TEST_NAME "unit_tests")

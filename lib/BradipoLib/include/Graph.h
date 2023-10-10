@@ -24,32 +24,24 @@ template <class T> class Graph: public BasicGraph<T> {
   private:
   protected:
     int numEdges;
-    char delimiter = ',';
 
   public:
-    Graph() {
-        this->numNodes = 0;
+    Graph(): BasicGraph<T>(){
         numEdges = 0;
     }
+
     virtual ~Graph() {}
 
-    //TODO change name
     /// return the number of the Node in the graph
-    int getNumNode() { return this->numNodes; }
     
-    //TODO change name
     /// return the number of the Edge in the graph
     int numEdge() { return numEdges; }
     
     /// return the degree of the graph
     virtual int maxDegree() = 0; 
     
-    // TODO implementare setDelimiter
-
     /// return the degree of nodeValue
     virtual int degree(const T &nodeValue) = 0; 
-    
-    
 
     /// return the incident edges of value
     virtual void getIncidentEdges(const T &value,
@@ -64,7 +56,7 @@ template <class T> class Graph: public BasicGraph<T> {
                                   std::list<Edge<T>> &edges) = 0;
 
     /// return the adjacent nodes of the Node x
-    // void getExtremes(Edge* e);                         //return the Node of
+    // void getExtremes(Edge* e);
 
     virtual bool isAdjacent(const T &srcValue, const T &destValue) = 0;
     // return true if the edge(x,y) exist,
@@ -134,6 +126,7 @@ template <class T> class Graph: public BasicGraph<T> {
                 // graph.addEdge(src, nullptr);
                 continue;
             }
+
             std::stringstream str2(destString);
             str2 >> *dest;
             graph.addEdge(*src, *dest);

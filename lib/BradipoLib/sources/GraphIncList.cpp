@@ -431,6 +431,27 @@ bool GraphIncList<T>::nodeExistence(const T* nodeValue) const{
 
 
 template<class T>
+std::ostream& GraphIncList<T>::outputDotFile(std::ostream& dotFile){
+	dotFile<<"digraph G {\n";
+	for(auto &n: incList ){
+		for(auto &e: (n.second)->connected_edges){
+			dotFile<< (n.second)->value << " -> ";
+			dotFile<< e->dest->value<<" [label=\""<<e->getWeight()<<"\"]";
+			dotFile<< "\n";
+		}
+	}
+	dotFile<<"}";
+	return dotFile;
+}
+
+/* digraph G {
+  A -> B [label="5"];
+  B -> C [label="3"];
+  C -> D [label="7"];
+  D -> A [label="2"];
+} */
+
+template<class T>
 void GraphIncList<T>::showNode() const{
 	
 	for(auto &n: incList ){

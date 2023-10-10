@@ -39,8 +39,8 @@ Edge<T>::Edge(const T *_src, const T *_dest, int _weight, const std::string &_ma
 template<class T>
 Edge<T>::Edge(const Edge<T> &x){
 
-	this->src  = x.src;
-	this->dest = x.dest;
+	this->src  = new Node(*(x.src));
+	this->dest = new Node(*(x.dest));
 	weight = x.weight;
 	mark = x.mark;
 
