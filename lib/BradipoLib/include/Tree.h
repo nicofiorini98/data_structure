@@ -30,10 +30,6 @@ namespace datalib{
         ///virtual destructor
         virtual ~Tree(){}
 
-
-        ///return the number of nodes of the Tree
-        // int getNumNodes() const {return this->numNodes;}
-
         ///return the number of sons for the node x
         virtual int getDegree (const T &value) = 0;
 
@@ -45,6 +41,8 @@ namespace datalib{
 
 		/// add root in the Tree
         virtual void addRoot(const T& rootValue)=0;
+        
+        virtual std::list<Edge<T>>& getAllEdges(std::list<Edge<T>>& edges)=0;
 
         ///add a Node in the Tree 
         virtual void addNode(const T& value,const T& parent)=0;
@@ -110,6 +108,16 @@ namespace datalib{
                 delete parent;
             }
             return is;
+        }
+
+        /// overloading operator >>
+        friend std::ostream &operator<<(std::ostream &os, Tree<T> &t) {
+            std::list<Edge<T>> edges;
+            // edges = t.getAllEdges(edges);
+            for(auto &e: t.getAllEdges(edges)){
+                os<<e<<"\n";
+            }
+            return os;
         }
     };
 }

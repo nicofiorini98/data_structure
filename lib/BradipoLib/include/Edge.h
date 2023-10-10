@@ -28,8 +28,8 @@ namespace datalib{
         
         // Destructor
         ~Edge(){
-            delete src;
-            delete dest;
+            // delete src;
+            // delete dest;
         }
 
         /// get the src Value

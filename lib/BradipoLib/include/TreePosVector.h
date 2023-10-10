@@ -63,6 +63,9 @@ template <class T> class TreePosVector : public Tree<T> {
     /// get Degree of the graph
     int getDegree(const T &value) override;
 
+
+    virtual std::list<Edge<T>>& getAllEdges(std::list<Edge<T>>& edges)override{};
+
     //TODO vedere se conviene metterlo al posto di getDegree
 	int getNumChildren(const T& value);
 

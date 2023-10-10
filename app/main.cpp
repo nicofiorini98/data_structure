@@ -327,6 +327,8 @@ int main(){
     tree.breadthSearch("a");
 
     std::cout<<"\n----------------------------------------------\n";
+    
+    std::list<Edge<std::string>> edges;
 
     }
     catch (const std::exception& e) 
@@ -509,22 +511,13 @@ int main(){
 
         DHeap<double,City> S(2,cityGraph.getNumNode(),true);
 
-        // parto dal nodo Roma per il calcolo delle distanze
-        // for(each)(vertice u in G) do Dsu <- +inf
-        // for(auto &c: cities){
-        //     std::pair<double,City> city(10000,c);
-        //     S.insert(city);
-        // }
-
-        // distanceHeap.showStructure();
-
-        // T = albero formato dal solo vertice s (parto da Roma) provare anche da Veroli
+        //initialization spanning tree
         TreePtrList<City> tree;
 
         City startValue = cityGraph.getValue({"Roma"});
         startValue.setDistance(0);
 
-        //aggiorno la citta di partenza con distance = 0
+        //aggiorno la start city with distance 0
         cityGraph.setValue({"Roma"},startValue);
 
         tree.addRoot(startValue);
@@ -575,6 +568,7 @@ int main(){
         // cityGraph.showStructure();
         // S.showTree();
         // tree.showTree();
+        std::cout<<"spanning tree edge list: "<<tree<<std::endl;
 
         std::ofstream dotFile("/home/nico/project/data_structure/output_test/minimum_spanning_tree.dot",std::ios::out);
         

@@ -337,10 +337,25 @@ template <class T> Node<T> *TreePtrList<T>::getNode(const T value) {
     throw error;
 }
 
+template <class T>
+std::list<Edge<T>>& TreePtrList<T>::getAllEdges(std::list<Edge<T>>& edges){
+
+    edges.clear(); 
+    
+    for(auto& n: nodes_map){
+        if (!n.second->node_list.empty()) {
+            for (auto &child : n.second->node_list) {
+                Edge<T> e(&n.second->value,&child->value);
+                edges.push_back(e);
+            }
+        }
+    }
+    return edges;
+}
+
 
 template <class T>
 std::ostream& TreePtrList<T>::outputDotFile(std::ostream& dotFile){
-
 
     // Write the DOT file content
     dotFile << "digraph G {" << std::endl;

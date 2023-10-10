@@ -20,9 +20,6 @@
  */
 namespace datalib {
 
-
-/* --------------   Implementazione TreePtrList -------------------*/
-
 template <class T> class TreePtrList : public Tree<T> {
 private:
 
@@ -62,8 +59,7 @@ public:
   ///\param _node is the node to add in the Tree
   ///\param _father is the parent of the node to be inserted,
   /// if not specified the node is the root of the Tree
-  void addNode(const T& value, const T& parent)
-      override; // ok, viene usato per l'inizializzazione dell'albero
+  void addNode(const T& value, const T& parent)override;
 
   /// add children to node value
   void addChildren(const T &value, const std::list<T> &children) override;
@@ -90,15 +86,17 @@ public:
   // rimuovi sotto albero
 
   std::ostream& outputDotFile(std::ostream& dotFile);
+  
+  std::list<Edge<T>>& getAllEdges(std::list<Edge<T>>& edges) override;
 
-  friend std::ostream &operator<<(std::ostream &os, TreePtrList<T> t) {
-    for (auto &n : t.nodes_map) {
-      for (auto &child : t.getNodeList(n.second)) {
-        os << *(n.second) << " " << *child <<"\n";
-      }
-    }
-    return os;
-  }
+  // friend std::ostream &operator<<(std::ostream &os, TreePtrList<T> t) {
+  //   for (auto &n : t.nodes_map) {
+  //     for (auto &child : t.getNodeList(n.second)) {
+  //       os << *(n.second) << " " << *child <<"\n";
+  //     }
+  //   }
+  //   return os;
+  // }
 
 };
 } // namespace datalib
