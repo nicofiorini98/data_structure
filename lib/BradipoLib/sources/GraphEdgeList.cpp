@@ -178,6 +178,16 @@ void GraphEdgeList<T>::showNode() const{
 }
 
 template<class T>
+std::list<Edge<T>>& GraphEdgeList<T>::getAllEdges(std::list<Edge<T>> &edges){
+	edges.clear();	
+	
+	for(auto &e: this->edgeList){
+		edges.push_back(e);
+	}
+	return edges;
+}
+
+template<class T>
 void GraphEdgeList<T>::getIncidentEdges(const T &value, std::list<Edge<T>> &edges) {
     //posso ritornare direttamente una lista degli archi che stanno in edgeList
     for(auto& e: edgeList){

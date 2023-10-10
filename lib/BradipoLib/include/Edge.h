@@ -75,6 +75,9 @@ namespace datalib{
         
 
         template<class U>
+        friend class Graph;
+
+        template<class U>
         friend class GraphEdgeList;
 
         template<class U>

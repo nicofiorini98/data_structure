@@ -520,17 +520,17 @@ int main(){
 
         // T = albero formato dal solo vertice s (parto da Roma) provare anche da Veroli
         TreePtrList<City> tree;
+
         City startValue = cityGraph.getValue({"Roma"});
         startValue.setDistance(0);
 
+        //aggiorno la citta di partenza con distance = 0
         cityGraph.setValue({"Roma"},startValue);
 
         tree.addRoot(startValue);
         
-        
         S.insert(std::pair<double,City>(0,startValue));
         //aggiornare distanza da Roma->Roma Dss=0
-        // distanceHeap.setValue({"Roma"},{"Roma",0});
 
         while(!S.isEmpty()){
             City u = S.popValue().second;
@@ -541,6 +541,7 @@ int main(){
 
             #define dest e.getDestinationValue()
             #define src e.getSourceValue()
+
             for(auto& e: edges){
                 double Dsv = dest.getDistance();
                 double Dsu = src.getDistance();

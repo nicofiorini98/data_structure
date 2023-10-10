@@ -53,6 +53,8 @@ namespace datalib{
         ///Return the degree of the node _x
         int degree(const T& nodeValue) override;
 
+        std::list<Edge<T>>& getAllEdges(std::list<Edge<T>> &edges) override;
+
 	    T getValue(const T& nodeValue) const override;
         
         void setValue(const T& oldValue,const T& newValue) override;
@@ -93,8 +95,6 @@ namespace datalib{
         void getAllNodeValues(std::list<T>& nodesList);
 
         void markNode(const T& value,marking mark) override {}
-        
-        std::ostream& outputDotFile(std::ostream& dotfile);
 
         void showStructure() const;
 

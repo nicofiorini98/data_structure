@@ -41,7 +41,9 @@ template <class T> class Graph: public BasicGraph<T> {
     virtual int maxDegree() = 0; 
     
     /// return the degree of nodeValue
-    virtual int degree(const T &nodeValue) = 0; 
+    virtual int degree(const T &nodeValue) = 0;
+
+    virtual std::list<Edge<T>>& getAllEdges(std::list<Edge<T>> &edges) = 0;
 
     /// return the incident edges of value
     virtual void getIncidentEdges(const T &value,
@@ -139,10 +141,26 @@ template <class T> class Graph: public BasicGraph<T> {
 
     friend std::ostream &operator<<(std::ostream &os, Graph<T> &graph) {
 
-        // todo finire questa funzione
-        // std::list<Edge<T>> lista =
-
+        std::list<Edge<T>> edges;
+        for(auto &e: graph.getAllEdges(edges)){
+            os<<e<<"\n";            
+        }
         return os;
+    }
+
+    std::ostream &outputDotFile(std::ostream &dotFile) {
+        std::list<Edge<T>> edges;
+
+        dotFile << "digraph G {\n";
+        for (auto &e : this->getAllEdges(edges)) {
+
+                dotFile << (e.src)->value << " -> ";
+                dotFile << (e.dest)->value << " [label=\"" << e.getWeight() << "\"]";
+                dotFile << "\n";
+        }
+
+        dotFile << "}";
+        return dotFile;
     }
 };
 } // namespace datalib

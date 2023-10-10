@@ -62,6 +62,9 @@ namespace datalib{
 
 		// int grade(const T &_x){}
 
+        std::list<Edge<T>>& getAllEdges(std::list<Edge<T>> &edges) override;
+        
+        //TODO controllare
         std::vector<Edge<T>> getIncidentEdge(const T &value);          //return the incident edge of the Node x
 
         void getIncidentEdges(const T& node,std::list<Edge<T>>& edges) override;
@@ -79,13 +82,7 @@ namespace datalib{
         //method for search on graph
         void markNode(const T& value,marking mark){}
 
-        friend std::ostream& operator<<(std::ostream& os,const GraphEdgeList<T> &_graph){
-            for(auto &e: _graph.edge_list){
-                os<<e;
-                os<<"\n";
-            }
-            return os;
-        }
+        
     };
     
 }
