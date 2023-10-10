@@ -20,42 +20,11 @@
  */
 namespace datalib {
 
-/* --------------   Implementazione Iterator  -------------------*/
-
-template <typename TreePtrList> class TreePtrListIterator {
-public:
-  using ValueType = typename TreePtrList::ValueType;
-  using PointerType = ValueType *;
-  using ReferenceType = ValueType &;
-
-  TreePtrListIterator(PointerType ptr) : mPtr(ptr) {}
-
-  // TODO vedere se continuare a implementare
-  ReferenceType operator*() const { return *mPtr; }
-  PointerType operator->() { return mPtr; }
-  TreePtrListIterator &operator++();
-  TreePtrListIterator operator++(int);
-
-  friend bool operator==(const TreePtrListIterator &a,
-                         const TreePtrListIterator &b) {
-    return a.mPtr == b.mPtr;
-  }
-  friend bool operator!=(const TreePtrListIterator &a,
-                         const TreePtrListIterator &b) {
-    return a.mPtr != b.mPtr;
-  }
-
-private:
-  PointerType mPtr;
-};
 
 /* --------------   Implementazione TreePtrList -------------------*/
 
 template <class T> class TreePtrList : public Tree<T> {
 private:
-
-  using ValueType = T;
-  using Iterator = TreePtrListIterator<TreePtrList<T>>;
 
   int degree;
 
@@ -70,9 +39,6 @@ private:
   Node<T> *getNode(const T value);
 
 public:
-
-  // TODO togliere o implementare
-  Iterator begin() { return Iterator(root); }
 
   /// Costructor
   TreePtrList();
