@@ -25,7 +25,7 @@ private:
 
   int degree;
 
-  Node<T> *root;
+  // Node<T> *root;
 
   std::map<T, Node<T> *> nodes_map;
 

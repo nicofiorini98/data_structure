@@ -10,7 +10,7 @@ using namespace datalib;
 template <class T> TreePtrList<T>::TreePtrList() : Tree<T>() {
     
     degree=-1;
-    root = nullptr;
+    this->root = nullptr;
 }
 
 
@@ -84,8 +84,8 @@ void TreePtrList<T>::addNode(const T &value, const T &parent) {
         throw std::runtime_error("TreePtrList::addNode() error: the node is already inserted");
     }
 
-    if (!root)
-        root = x_ptr;
+    if (!this->root)
+        this->root = x_ptr;
 
     // check if parent exist
     if (parent_itr == nodes_map.end()) {

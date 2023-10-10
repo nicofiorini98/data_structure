@@ -23,7 +23,7 @@ template <class T> class TreePosVector : public Tree<T> {
   private:
     /// vector of suitably positioned Nodes
     std::vector<Node<T> *> vecNode;
-    Node<T> *root;
+    // Node<T> *root;
     int maxNumNodes;
     int height;
 

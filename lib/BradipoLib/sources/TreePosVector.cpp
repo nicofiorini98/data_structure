@@ -16,7 +16,7 @@ template <class T>
 TreePosVector<T>::TreePosVector(int maxDegree, int height) : Tree<T>() {
     // initialization parameter
     this->degree = maxDegree;
-    root = nullptr;
+    this->root = nullptr;
     this->height = height;
 
     // computation of maxNumNodes allowed from the data_structure
@@ -207,7 +207,7 @@ void TreePosVector<T>::swapPositionValue(int posNode1, int posNode2){
 template <class T>
 void TreePosVector<T>::addRoot(const T &rootValue){
     Node<T> *x_ptr = new Node<T>(rootValue);
-    root = x_ptr;
+    this->root = x_ptr;
     vecNode[1] = x_ptr;
     x_ptr->pos = 1;
 }
