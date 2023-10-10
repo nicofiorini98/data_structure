@@ -64,9 +64,9 @@ template <class T> class TreePosVector : public Tree<T> {
     int getDegree(const T &value) override;
 
 
-    virtual std::list<Edge<T>>& getAllEdges(std::list<Edge<T>>& edges)override{};
+    /// return a list of Edges of the Tree
+    std::list<Edge<T>>& getAllEdges(std::list<Edge<T>>& edges) override;
 
-    //TODO vedere se conviene metterlo al posto di getDegree
 	int getNumChildren(const T& value);
 
     T getParent(const T& childValue) override;
@@ -76,18 +76,16 @@ template <class T> class TreePosVector : public Tree<T> {
     /// addRoot of the Tree
     void addRoot(const T &rootValue) override;
 
-    void addNode(const T &value,
-                 const T &parent) override; // da togliere se non serve il const
+    /// addNode in the Tree
+    void addNode(const T &value,const T &parent) override;
 
     // void addChild(const)
     void addChildren(const T &value, const std::list<T> &children) override;
-    // void addChildrens(node<T>* _x, const std::list<node<T>*> &_childrens);
-    // void addChildrens2(node<T>* _x, const std::list<node<T>*> &_childrens);
 
     // only for debug
-    void showTree() const;
+    // void showTree() const;
 
-    void showStructure() const;
+    // void showStructure() const;
 
     // todo da implementare
     void breadthSearch(const T &startValue) override {}
@@ -100,25 +98,6 @@ template <class T> class TreePosVector : public Tree<T> {
     template<class U,class W>
     friend class DHeap;
 
-
-    
-
-    friend std::ostream &operator<<(std::ostream &os, TreePosVector<T> &t) {
-
-        for (auto &n : t.vec_node) {
-            if (!n)
-                continue;
-
-            for (int i = 0; i < t.getNumChildren(n); i++) {
-                if (i != 0)
-                    os << " ";
-                os << *n << " "
-                   << *(t.vec_node[(t.getPos(n) * (t.degree)) + i]);
-            }
-            os << "\n";
-        }
-        return os;
-    }
 };
 
 template <class T>

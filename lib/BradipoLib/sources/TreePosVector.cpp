@@ -330,18 +330,18 @@ void TreePosVector<T>::addChild(const T *value, const T *child) {
     ++(*x_itr)->num_children;
 }
 
-template <class T> void TreePosVector<T>::showStructure() const{
+// template <class T> void TreePosVector<T>::showStructure() const{
 
-    std::cout << "\n\n Stampa di Tree_pos_vector: \n";
+//     std::cout << "\n\n Stampa di Tree_pos_vector: \n";
 
-    for (auto &n : vecNode) {
-        if (n) {
-            std::cout << n->value << ", puntatore: " << n << "\n";
-        } else if (n == nullptr)
-            std::cout << "nullptr\n";
-    }
-    std::cout << std::endl;
-}
+//     for (auto &n : vecNode) {
+//         if (n) {
+//             std::cout << n->value << ", puntatore: " << n << "\n";
+//         } else if (n == nullptr)
+//             std::cout << "nullptr\n";
+//     }
+//     std::cout << std::endl;
+// }
 
 // template <class T>
 // int tree_pos_vector<T>::getNumChildren(node<T>* _x){
@@ -354,36 +354,62 @@ void TreePosVector<T>::updateParent(const T &childValue, const T &newParent){
 }
 
 // convention of print tree
-template <class T>
-void TreePosVector<T>::showTree() const{
-    //{ padre figlio1 } { padre figlio2 } { padre2 figlio1}
-    std::cout << "\nStampa TreePosVector:\n";
-    // stampa del root
+// template <class T>
+// void TreePosVector<T>::showTree() const{
+//     //{ padre figlio1 } { padre figlio2 } { padre2 figlio1}
+//     std::cout << "\nStampa TreePosVector:\n";
+//     // stampa del root
 
-    std::cout << "root: " << this->vecNode[1]->value;
+//     std::cout << "root: " << this->vecNode[1]->value;
+
+//     for (auto &node : vecNode) {
+
+//         if (node != nullptr) {
+//             int pos = node->pos;
+//             if (vecNode[pos / 2] != nullptr)
+//                 std::cout << *vecNode[pos / 2];
+//             // else
+//             //     std::cout << "//";
+
+//             if (vecNode[pos / 2] != nullptr)
+//                 std::cout << "<--" << *vecNode[pos];
+//             // else
+//             //     std::cout << "//";
+
+//             // ciclo per la stampa di ogni ciclo del nodo
+//             for (int i = 0; i < this->degree; i++) {
+//                 if (vecNode[pos * 2 + i] != nullptr)
+//                     std::cout << "-->" << *vecNode[pos * 2 + i];
+//             }
+//             std::cout << "\n";
+//         }
+//     }
+// }
+
+template<class T>
+std::list<Edge<T>>& TreePosVector<T>::getAllEdges(std::list<Edge<T>>& edges){
+
+    edges.clear();
 
     for (auto &node : vecNode) {
 
         if (node != nullptr) {
             int pos = node->pos;
-            if (vecNode[pos / 2] != nullptr)
-                std::cout << *vecNode[pos / 2];
-            // else
-            //     std::cout << "//";
-
-            if (vecNode[pos / 2] != nullptr)
-                std::cout << "<--" << *vecNode[pos];
-            // else
-            //     std::cout << "//";
 
             // ciclo per la stampa di ogni ciclo del nodo
             for (int i = 0; i < this->degree; i++) {
-                if (vecNode[pos * 2 + i] != nullptr)
-                    std::cout << "-->" << *vecNode[pos * 2 + i];
+                if (vecNode[pos * 2 + i] != nullptr){
+                    Edge<T> e(&(vecNode[pos]->value),&(vecNode[pos*2+i]->value));
+                    edges.push_back(e);
+                    // std::cout<<;
+                    // std::cout << *vecNode[pos];
+                    // std::cout << "-->" << *vecNode[pos * 2 + i];
+                }
             }
             std::cout << "\n";
         }
     }
+    return edges;
 }
 
 template <class T>

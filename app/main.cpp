@@ -17,7 +17,7 @@
 // #include "GraphEdgeList.h"
 
 #define TREE_PTR_LIST 0
-#define POS_VECTOR 0
+#define POS_VECTOR 1
 #define GRAPH_EDGE_LIST 0
 #define GRAPH_INC_LIST 0
 #define DHEAP_MAX 0
@@ -29,7 +29,7 @@
 #define PROVA 0
 #define GRAPH_ADJ_LIST 0
 #define CITY 0
-#define DIJKSTRA 1
+#define DIJKSTRA 0
 
 
 using namespace datalib;
@@ -100,7 +100,6 @@ int main(){
     // auto tree = TreePtrList<std::string>();
 
     //inizializzazione di tree tramite file
-
     input>>*tree;
 
 
@@ -123,7 +122,8 @@ int main(){
 
     std::cout<<"the parent of l is: "<<tree->getParent("l")<<"\n";
 
-    tree->showTree();
+    // tree->showTree();
+    std::cout<<std::endl<<"operator<<: "<<*tree;
 
 
     delete tree;
