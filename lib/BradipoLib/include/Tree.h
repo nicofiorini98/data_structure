@@ -46,6 +46,8 @@ template <class T> class Tree : public BasicGraph<T> {
 
     /// add a Node in the Tree
     virtual void addNode(const T &value, const T &parent) = 0;
+    
+    // virtual void deleteNode(const T& value)=0;
 
     /// add childrens to node value
     virtual void addChildren(const T &value, const std::list<T> &children) = 0;
@@ -57,10 +59,10 @@ template <class T> class Tree : public BasicGraph<T> {
     virtual void breadthSearch(const T &startValue) = 0;
 
     // TODO implementare
-    virtual T getValue(const T &nodeValue) const override { return nodeValue; }
+    virtual T getValue(const T &nodeValue) const override = 0;
 
     // TODO implementare
-    virtual void setValue(const T &oldValue, const T &newValue) override {}
+    virtual void setValue(const T &oldValue, const T &newValue) override = 0;
 
     // TODO implementare
     virtual void markNode(const T &value, marking mark) override {}

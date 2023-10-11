@@ -46,6 +46,7 @@ int TreePosVector<T>::getDegree(const T &value) {
 };
 
 
+
 template<class T>
 int TreePosVector<T>::getNumChildren(const T& value){
 
@@ -144,6 +145,34 @@ void TreePosVector<T>::addValuesFromVector(const std::vector<T>& values){
 }
 
 template<class T>
+T TreePosVector<T>::getValue(const T& nodeValue) const{
+
+    typename std::vector<Node<T> *>::const_iterator x_itr;
+    x_itr = datalib::trova(vecNode.begin(), vecNode.end(), nodeValue);
+    
+    if(x_itr != vecNode.end()){
+        return (*x_itr)->value;
+    }else{
+        throw std::runtime_error("TreePosVector<T>::getValue : error the node with this value doesn't exists");
+    }
+
+}
+
+template<class T>
+void TreePosVector<T>::setValue(const T &oldValue, const T &newValue){
+
+    typename std::vector<Node<T> *>::iterator oldItr;
+    oldItr = datalib::trova(vecNode.begin(), vecNode.end(), oldValue);
+    
+    if(oldItr != vecNode.end()){
+        (*oldItr)->value = newValue;
+        return;
+    }else{
+        throw std::runtime_error("TreePosVector<T>::setValue : error the oldValue node to change doesn't exists"); }
+
+}
+
+template<class T>
 int TreePosVector<T>::getParentPos(int posChild){
     if(posChild == 1){
         throw std::runtime_error("TreePosVector<T>::getParentPos : error the node is the Root");
@@ -158,8 +187,6 @@ template <class T>
 int TreePosVector<T>::getMaxChildPos(int posNode,bool isMin){
 
 
-    // typename std::vector<Node<T> *>::iterator parent_itr;
-    // parent_itr = datalib::trova(vecNode.begin(), vecNode.end(), parentValue);
 
     if (vecNode[posNode]) {
         // int pos = (*parent_itr)->pos;
@@ -249,6 +276,43 @@ void TreePosVector<T>::addNode(const T &value, const T &parent) {
         throw error;
     }
 }
+
+template<class T>
+bool TreePosVector<T>::isLeaf(const T& value){
+    // ritorna true se il nodo non ha figli
+    int numChildren = this->getNumChildren(value);
+
+    if (numChildren == 0)
+        return true;
+
+    return false;
+}
+
+
+// template <class T>
+// void TreePosVector<T>::deleteNode(const T& value){
+
+//     typename std::vector<Node<T> *>::iterator valueItr;
+//     valueItr = datalib::trova(vecNode.begin(), vecNode.end(), value);
+    
+//     if(valueItr != vecNode.end()){
+//         if(this->isLeaf((*valueItr)->value)){
+//             //cancella nodo e return
+//             int pos = (*valueItr)->pos;
+//             delete (*valueItr);
+//             this->vecNode[pos] = nullptr;
+//             return;
+//         }
+
+//         this->getChildren((*valueItr)->value)
+//         for(auto& n: )
+                
+
+//     }else{
+//         throw std::runtime_error("the node to delete doesn't exists");
+//     }
+
+// }
 
 // add childrens to node x, x must exists
 template <class T>
@@ -392,21 +456,14 @@ std::list<Edge<T>>& TreePosVector<T>::getAllEdges(std::list<Edge<T>>& edges){
     edges.clear();
 
     for (auto &node : vecNode) {
-
         if (node != nullptr) {
             int pos = node->pos;
-
-            // ciclo per la stampa di ogni ciclo del nodo
             for (int i = 0; i < this->degree; i++) {
                 if (vecNode[pos * 2 + i] != nullptr){
                     Edge<T> e(&(vecNode[pos]->value),&(vecNode[pos*2+i]->value));
                     edges.push_back(e);
-                    // std::cout<<;
-                    // std::cout << *vecNode[pos];
-                    // std::cout << "-->" << *vecNode[pos * 2 + i];
                 }
             }
-            std::cout << "\n";
         }
     }
     return edges;

@@ -151,6 +151,56 @@ std::list<T> TreePtrList<T>::getChildren(const T &parentValue) {
     return children;
 }
 
+template<class T>
+T TreePtrList<T>::getValue(const T& nodeValue) const{
+
+    typename std::map<T, Node<T> *>::const_iterator valueItr;
+    valueItr = nodes_map.find(nodeValue);
+    
+    if(valueItr != nodes_map.end()){
+        return ((*valueItr).second)->value;
+    }else{
+        throw std::runtime_error("TreePtrList<T>::getValue : error the node with this value doesn't exists");
+    }
+
+}
+
+template<class T>
+void TreePtrList<T>::setValue(const T &oldValue, const T &newValue){
+
+    //allocate the new Node 
+    Node<T>* newNode = new Node(newValue);
+    
+    //trova il nodo src e aggiorno il valore, assegnando anche una nuova 
+	//chiave alla mappa
+	typename std::map<T,Node<T>*>::iterator oldItr;
+	oldItr = nodes_map.find(oldValue);
+	Node<T>* oldNode = (*oldItr).second;
+    
+    if(oldItr == nodes_map.end()){
+        delete newNode;
+        throw std::runtime_error("TreePtrList<T>::SetValue : error the oldValue node to change doesn't exists");
+    }
+
+    for(auto& n: nodes_map){
+        for(auto& child: (n.second)->node_list){
+            if(child->value == oldValue){
+                child = newNode;
+            }                  
+        }
+	}
+    
+	newNode->node_list = oldNode->node_list;
+
+    nodes_map.erase(oldValue);
+    nodes_map.insert(std::pair<T,Node<T>*>(newValue,newNode));
+    delete oldNode;
+    return;
+
+}
+
+
+
 template <class T>
 void TreePtrList<T>::updateParent(const T &child, const T &newParent) {
 
@@ -255,61 +305,60 @@ template <class T> void TreePtrList<T>::breadthSearch(const T &startValue) {
     }
 }
 
-template <class T> void TreePtrList<T>::showTree() {
-    std::cout << std::endl;
-    for (auto &n : nodes_map) {
-        if (n.second->parent != nullptr) {
-            std::cout << ((n.second)->parent)->value << "<---";
-        } else
-            std::cout << "null"
-                      << "<---";
+// template <class T> void TreePtrList<T>::showTree() { std::cout << std::endl;
+//     for (auto &n : nodes_map) {
+//         if (n.second->parent != nullptr) {
+//             std::cout << ((n.second)->parent)->value << "<---";
+//         } else
+//             std::cout << "null"
+//                       << "<---";
 
-        std::cout << n.first << " --->  ";
-        // print the sons if the list isn't empty
-        if (!n.second->node_list.empty()) {
-            for (auto &child : n.second->node_list) {
-                std::cout << child->value << " ";
-            }
-        } else
-            std::cout << "null";
-        std::cout << std::endl;
-    }
-}
+//         std::cout << n.first << " --->  ";
+//         // print the sons if the list isn't empty
+//         if (!n.second->node_list.empty()) {
+//             for (auto &child : n.second->node_list) {
+//                 std::cout << child->value << " ";
+//             }
+//         } else
+//             std::cout << "null";
+//         std::cout << std::endl;
+//     }
+// }
 
-template <class T> void TreePtrList<T>::showStructure() {
+// template <class T> void TreePtrList<T>::showStructure() {
 
-    std::cout<<"TreePtrList relations: \n";
-    for (auto &n : nodes_map) {
-        if (n.second->parent)
-            std::cout << *((n.second)->parent) << "<--";
-        else
-            std::cout << "// <--";
+//     std::cout<<"TreePtrList relations: \n";
+//     for (auto &n : nodes_map) {
+//         if (n.second->parent)
+//             std::cout << *((n.second)->parent) << "<--";
+//         else
+//             std::cout << "// <--";
 
-        std::cout << *(n.second) << "--> ";
+//         std::cout << *(n.second) << "--> ";
 
-        for (auto &child : n.second->node_list)
-            std::cout << *child << " ";
-        std::cout << "\n";
-    }
-}
+//         for (auto &child : n.second->node_list)
+//             std::cout << *child << " ";
+//         std::cout << "\n";
+//     }
+// }
 
-template <class T> void TreePtrList<T>::showTreePtr() {
-    std::cout << std::endl;
-    for (auto &n : nodes_map) {
-        if (n.second->parent != nullptr) {
-            std::cout << ((n.second)->parent) << "<---";
-        } else
-            std::cout << "null"
-                      << "<---";
+// template <class T> void TreePtrList<T>::showTreePtr() {
+//     std::cout << std::endl;
+//     for (auto &n : nodes_map) {
+//         if (n.second->parent != nullptr) {
+//             std::cout << ((n.second)->parent) << "<---";
+//         } else
+//             std::cout << "null"
+//                       << "<---";
 
-        std::cout << (n.second) << " --->  ";
-        // print the sons if the list isn't empty
-        for (auto &child : n.second->node_list)
-            std::cout << child << " ";
+//         std::cout << (n.second) << " --->  ";
+//         // print the sons if the list isn't empty
+//         for (auto &child : n.second->node_list)
+//             std::cout << child << " ";
 
-        std::cout << std::endl;
-    }
-}
+//         std::cout << std::endl;
+//     }
+// }
 
 // private function
 template <class T>
@@ -325,7 +374,6 @@ std::list<Node<T> *> &TreePtrList<T>::getNodeList(Node<T> *value) {
     throw error;
 };
 
-template <class T> void TreePtrList<T>::showTree2() {}
 
 template <class T> Node<T> *TreePtrList<T>::getNode(const T value) {
 

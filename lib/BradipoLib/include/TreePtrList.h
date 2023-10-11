@@ -27,7 +27,7 @@ private:
 
   // Node<T> *root;
 
-  std::map<T, Node<T> *> nodes_map;
+  std::map<T, Node<T>*> nodes_map;
 
   std::list<Node<T> *> &getNodeList(Node<T> *value);
 
@@ -43,9 +43,15 @@ public:
   /// virtual destructor
   // TODO  controllare
   ~TreePtrList(); 
+  
 
   /// return the number of sons for the node x
   int getDegree(const T &value) override;
+
+  /// return the nodeValue in the TreePtrList if exists
+  T getValue(const T &nodeValue) const override;
+
+  void setValue(const T &oldValue, const T &newValue) override;
 
   T getParent(const T &childValue) override;
 
@@ -75,28 +81,16 @@ public:
   void updateParent(const T &child, const T &newParent) override;
 
 
-  void showTree();
+  // void showTree();
 
-  void showTreePtr();
+  // void showTreePtr();
 
-  void showStructure();
+  // void showStructure();
 
-  void showTree2();
-  // aggiungi sotto albero
-  // rimuovi sotto albero
 
   std::ostream& outputDotFile(std::ostream& dotFile);
   
   std::list<Edge<T>>& getAllEdges(std::list<Edge<T>>& edges) override;
-
-  // friend std::ostream &operator<<(std::ostream &os, TreePtrList<T> t) {
-  //   for (auto &n : t.nodes_map) {
-  //     for (auto &child : t.getNodeList(n.second)) {
-  //       os << *(n.second) << " " << *child <<"\n";
-  //     }
-  //   }
-  //   return os;
-  // }
 
 };
 } // namespace datalib

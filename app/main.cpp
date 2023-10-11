@@ -16,8 +16,8 @@
 // #include "GraphAdjList.h"
 // #include "GraphEdgeList.h"
 
-#define TREE_PTR_LIST 0
-#define POS_VECTOR 1
+#define TREE_PTR_LIST 1
+#define POS_VECTOR 0
 #define GRAPH_EDGE_LIST 0
 #define GRAPH_INC_LIST 0
 #define DHEAP_MAX 0
@@ -102,7 +102,6 @@ int main(){
     //inizializzazione di tree tramite file
     input>>*tree;
 
-
     std::cout<<"Test TreePosVector::getDegree() : "<<tree->getDegree("a")<<" \n";
 
 	std::string parent = tree->getParent("l");
@@ -123,7 +122,12 @@ int main(){
     std::cout<<"the parent of l is: "<<tree->getParent("l")<<"\n";
 
     // tree->showTree();
-    std::cout<<std::endl<<"operator<<: "<<*tree;
+    std::cout<<std::endl<<"operator<< with old value: "<<*tree<<"\n";
+    
+    std::cout<<"get the value :" <<tree->getValue("a")<<std::endl;
+    tree->setValue("a","j");
+    
+    std::cout<<"operator << with new value j"<<*tree;
 
 
     delete tree;
@@ -318,6 +322,7 @@ int main(){
     for(auto c: children){
         std::cout<<c<<" ";
     }
+
     std::cout<<std::endl;
 
 	std::cout<<"------\n Prova depthSearch: \n";
@@ -325,8 +330,12 @@ int main(){
 
 	std::cout<<"Prova breadthSearch: \n";
     tree.breadthSearch("a");
-
+    
     std::cout<<"\n----------------------------------------------\n";
+    
+    std::cout<<tree.getValue("a")<<"\n";
+    tree.setValue("a","j");
+    tree.breadthSearch("j");
     
     std::list<Edge<std::string>> edges;
 

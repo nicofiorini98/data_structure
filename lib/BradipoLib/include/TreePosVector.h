@@ -42,6 +42,8 @@ template <class T> class TreePosVector : public Tree<T> {
     void addChild(const T *value, const T *child);
 
     void swapPositionValue(int posNode1, int posNode2);
+    
+    bool isLeaf(const T& value);
 
     void addValuesFromVector(const std::vector<T>& values);
 
@@ -67,6 +69,14 @@ template <class T> class TreePosVector : public Tree<T> {
     /// return a list of Edges of the Tree
     std::list<Edge<T>>& getAllEdges(std::list<Edge<T>>& edges) override;
 
+    // TODO implementare
+    /// return an Object value
+    T getValue(const T &nodeValue) const override;
+
+    // TODO implementare
+    void setValue(const T &oldValue, const T &newValue) override;
+
+    /// return the number of children of value node
 	int getNumChildren(const T& value);
 
     T getParent(const T& childValue) override;
@@ -78,6 +88,10 @@ template <class T> class TreePosVector : public Tree<T> {
 
     /// addNode in the Tree
     void addNode(const T &value,const T &parent) override;
+    
+    /// delete the node in the Tree
+    /// TODO implementare come rimuovi sotto albero
+    // virtual void deleteNode(const T& value) override{};
 
     // void addChild(const)
     void addChildren(const T &value, const std::list<T> &children) override;
@@ -107,6 +121,27 @@ trova(typename std::vector<Node<T> *>::iterator begin,
 
     int i = 0;
     typename std::vector<Node<T> *>::iterator appo;
+    for (appo = begin; appo != end; ++appo) {
+
+        // if appo is nullptr, don't check equality, it is certainly
+        // different
+        if (*appo == nullptr)
+            continue;
+
+        if (**appo == value) {
+            return appo;
+        }
+    }
+    return end;
+}
+
+template <class T>
+typename std::vector<Node<T>*>::const_iterator
+trova(typename std::vector<Node<T> *>::const_iterator begin,
+      typename std::vector<Node<T> *>::const_iterator end, const T &value) {
+
+    int i = 0;
+    typename std::vector<Node<T> *>::const_iterator appo;
     for (appo = begin; appo != end; ++appo) {
 
         // if appo is nullptr, don't check equality, it is certainly
