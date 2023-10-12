@@ -22,7 +22,7 @@ TreePosVector<T>::TreePosVector(int maxDegree, int height) : Tree<T>() {
     // computation of maxNumNodes allowed from the data_structure
     maxNumNodes = 0;
     for (int i = 0; i <= height; i++) {
-        maxNumNodes += pow(degree, i);
+        maxNumNodes += pow(this->degree, i);
     }
 
     // initialization vector (nullptr)
@@ -32,18 +32,18 @@ TreePosVector<T>::TreePosVector(int maxDegree, int height) : Tree<T>() {
 }
 
 
-template <class T>
-int TreePosVector<T>::getDegree(const T &value) {
-    typename std::vector<Node<T> *>::iterator x_itr;
-    x_itr = datalib::trova(vecNode.begin(), vecNode.end(), value);
-    // std::cout<<"TreePosVector::getDegree() --> "<<(*x_itr)->value<<"\n";
-    if (x_itr != vecNode.end()) {
-        return (*x_itr)->num_children;
-    } else {
-        throw std::runtime_error(
-            "TreePosVector::getDegree(const T& value) error: node non presente nell'albero");
-    }
-};
+// template <class T>
+// int TreePosVector<T>::getDegree(const T &value) const {
+//     typename std::vector<Node<T> *>::iterator x_itr;
+//     x_itr = datalib::trova(vecNode.begin(), vecNode.end(), value);
+//     // std::cout<<"TreePosVector::getDegree() --> "<<(*x_itr)->value<<"\n";
+//     if (x_itr != vecNode.end()) {
+//         return (*x_itr)->num_children;
+//     } else {
+//         throw std::runtime_error(
+//             "TreePosVector::getDegree(const T& value) error: node non presente nell'albero");
+//     }
+// };
 
 
 
@@ -57,8 +57,8 @@ int TreePosVector<T>::getNumChildren(const T& value){
 
     if (x_itr != vecNode.end()) {
         int pos = (*x_itr)->pos;
-        for(int i=0; i<degree ; i++){
-            if(vecNode[(pos * degree) +i ] && (pos*degree+i) < vecNode.size()){
+        for(int i=0; i<this->degree ; i++){
+            if(vecNode[(pos * (this->degree)) +i ] && (pos*(this->degree)+i) < vecNode.size()){
                 count_children++;
             }
         }
@@ -110,8 +110,8 @@ std::list<T> TreePosVector<T>::getChildren(const T& parentValue) {
     std::list<T> children;
     if (parent_itr != vecNode.end()) {
         int pos = (*parent_itr)->pos;
-        for(int i = 0; i < degree ; i++){
-            int childPos = (pos * degree) + i ;
+        for(int i = 0; i < (this->degree) ; i++){
+            int childPos = (pos * (this->degree)) + i ;
             
             if(childPos < vecNode.size() && vecNode[(childPos)]){
 
@@ -192,10 +192,10 @@ int TreePosVector<T>::getMaxChildPos(int posNode,bool isMin){
         // int pos = (*parent_itr)->pos;
 
         // int maxPos = (*parent_itr)->pos;
-        int priorPos = (posNode * degree) ;
+        int priorPos = (posNode * (this->degree));
 
-        for(int i = 0; i < degree ; i++){
-            int childPos = (posNode * degree) + i ;
+        for(int i = 0; i < (this->degree) ; i++){
+            int childPos = (posNode * (this->degree)) + i ;
             if(childPos < vecNode.size() && vecNode[(childPos)]){
 
 				
@@ -374,7 +374,7 @@ void TreePosVector<T>::addChild(const T *value, const T *child) {
     }
 
     // precondition 2
-    if (((*x_itr)->num_children + 1) > degree) {
+    if (((*x_itr)->num_children + 1) > (this->degree)) {
         throw std::runtime_error("TreePosVector::addChild() error: max child nodes reached");
     }
     
@@ -384,7 +384,7 @@ void TreePosVector<T>::addChild(const T *value, const T *child) {
     }
 
     int pos = (*x_itr)->pos;
-    int pos_child = (pos * degree) + (*x_itr)->num_children;
+    int pos_child = (pos * (this->degree)) + (*x_itr)->num_children;
 
     Node<T> *child2add = new Node<T>(*child);
 
@@ -451,14 +451,14 @@ void TreePosVector<T>::updateParent(const T &childValue, const T &newParent){
 // }
 
 template<class T>
-std::list<Edge<T>>& TreePosVector<T>::getAllEdges(std::list<Edge<T>>& edges){
+std::list<Edge<T>>& TreePosVector<T>::getAllEdges(std::list<Edge<T>>& edges) const{
 
     edges.clear();
 
     for (auto &node : vecNode) {
         if (node != nullptr) {
             int pos = node->pos;
-            for (int i = 0; i < this->degree; i++) {
+            for (int i = 0; i < (this->degree); i++) {
                 if (vecNode[pos * 2 + i] != nullptr){
                     Edge<T> e(&(vecNode[pos]->value),&(vecNode[pos*2+i]->value));
                     edges.push_back(e);

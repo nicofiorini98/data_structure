@@ -22,30 +22,47 @@ template <class T> class Tree : public BasicGraph<T> {
   protected:
     
     Node<T> *root;
+    int degree;
 
   public:
     /// Costructor
     Tree() { this->numNodes = 0; }
+    
+    Tree(const Tree<T>& tree){
 
+        this->degree = tree.getDegree(); 
+        this->addRoot(tree.getRoot());
+        
+        std::list<Edge<T>> ed;
+        for(auto& e: tree.getAllEdges(ed)){
+            this->addNode(e.getDestinationValue(), e.getSourceValue());
+        }
+    }
+    
     /// virtual destructor
     virtual ~Tree() {}
 
     /// return the number of sons for the node x
-    virtual int getDegree(const T &value) = 0;
+    int getDegree() const {return this->degree;}
 
     /// return the father of the node childValue
     virtual T getParent(const T &childValue) = 0;
 
     /// return a list with the children of the node parentValue
-    virtual std::list<T> getChildren(const T &parentValue) = 0;
+    virtual std::list<T> getChildren(const T& parentValue)=0;
 
     /// add root in the Tree
-    virtual void addRoot(const T &rootValue) = 0;
+    virtual void addRoot(const T &rootValue){};
+    
+    /// get the root of the Tree
+    virtual T getRoot() const{
+        return root->value;
+    };
 
-    virtual std::list<Edge<T>> &getAllEdges(std::list<Edge<T>> &edges) = 0;
+    virtual std::list<Edge<T>> &getAllEdges(std::list<Edge<T>> &edges) const = 0;
 
     /// add a Node in the Tree
-    virtual void addNode(const T &value, const T &parent) = 0;
+    virtual void addNode(const T &value, const T &parent){}
     
     // virtual void deleteNode(const T& value)=0;
 

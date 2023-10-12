@@ -7,11 +7,25 @@
 
 using namespace datalib;
 
-template <class T> TreePtrList<T>::TreePtrList() : Tree<T>() {
+template <class T>
+TreePtrList<T>::TreePtrList() : Tree<T>() {
     
-    degree=-1;
+    this->degree=-1;
     this->root = nullptr;
 }
+
+// template <class T>
+// TreePtrList<T>::TreePtrList(const TreePtrList<T>& tree){
+
+//     this->degree = tree.getDegree(); 
+//     this->addRoot(tree.getRoot());
+    
+//     std::list<Edge<T>> ed;
+//     for(auto& e: tree.getAllEdges(ed)){
+//         this->addNode(e.getDestinationValue(), e.getSourceValue());
+//     }
+    
+// }
 
 
 //TODO debug and see if is there a way to deallocate the map
@@ -70,7 +84,7 @@ void TreePtrList<T>::addNode(const T &value, const T &parent) {
     }
 
     // check the degree of the parent
-    if (((parent_itr->second)->node_list.size()) >= degree)
+    if (((parent_itr->second)->node_list.size()) >= (this->degree))
         throw std::runtime_error("TreePtrList::addNode() error: cannot add "
                                  "another node, max degree reached");
     // }
@@ -114,11 +128,6 @@ void TreePtrList<T>::addChildren(const T &value, const std::list<T> &children) {
     }
 }
 
-// return the number of sons for the node x
-// O(log n)
-template <class T> int TreePtrList<T>::getDegree(const T &value) {
-    return nodes_map.find(value)->second->node_list.size();
-}
 
 // return by referece the parent node of _x
 //TODO controllare se restitiusco il riferimento giusto e non un  valore
@@ -129,7 +138,7 @@ T TreePtrList<T>::getParent(const T &childValue) {
 
 // append the children node to the list
 template <class T>
-std::list<T> TreePtrList<T>::getChildren(const T &parentValue) {
+std::list<T> TreePtrList<T>::getChildren(const T& parentValue) {
 
     // find the itr of the target
     typename std::map<T, Node<T> *>::iterator x_itr;
@@ -386,7 +395,7 @@ template <class T> Node<T> *TreePtrList<T>::getNode(const T value) {
 }
 
 template <class T>
-std::list<Edge<T>>& TreePtrList<T>::getAllEdges(std::list<Edge<T>>& edges){
+std::list<Edge<T>>& TreePtrList<T>::getAllEdges(std::list<Edge<T>>& edges) const{
 
     edges.clear(); 
     

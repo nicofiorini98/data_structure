@@ -23,7 +23,7 @@ namespace datalib {
 template <class T> class TreePtrList : public Tree<T> {
 private:
 
-  int degree;
+  // int degree;
 
   // Node<T> *root;
 
@@ -39,14 +39,19 @@ public:
 
   /// Costructor
   TreePtrList();
-
+  
+  /// Copy Costructor
+  TreePtrList(const TreePtrList<T>& tree):Tree<T>(tree){}
+  
   /// virtual destructor
-  // TODO  controllare
+  /// TODO controllare
   ~TreePtrList(); 
   
 
   /// return the number of sons for the node x
-  int getDegree(const T &value) override;
+  // int getDegree()const override {return this->degree;}
+
+  std::list<Edge<T>>& getAllEdges(std::list<Edge<T>>& edges) const override;
 
   /// return the nodeValue in the TreePtrList if exists
   T getValue(const T &nodeValue) const override;
@@ -90,7 +95,6 @@ public:
 
   std::ostream& outputDotFile(std::ostream& dotFile);
   
-  std::list<Edge<T>>& getAllEdges(std::list<Edge<T>>& edges) override;
 
 };
 } // namespace datalib

@@ -28,7 +28,7 @@ template <class T> class TreePosVector : public Tree<T> {
     int height;
 
     /// maximum degree of a Node
-    int degree;
+    // int degree;
 
     // int getNumChildren(Node<T> *value) { return value->num_children; }
 
@@ -58,16 +58,40 @@ template <class T> class TreePosVector : public Tree<T> {
 
     TreePosVector(int maxDegree, int height);
 
+    TreePosVector(const TreePosVector<T>& tree){
+        // initialization parameter
+        this->degree = tree.degree;
+        // this->root = ;
+        this->height = tree.height;
+
+        // computation of maxNumNodes allowed from the data_structure
+        maxNumNodes = 0;
+        for (int i = 0; i <= this->height; i++) {
+            maxNumNodes += pow(this->degree, i);
+        }
+
+        // initialization vector (nullptr)
+        vecNode.resize(this->maxNumNodes);
+
+        this->addRoot(tree.getRoot());
+        
+        std::list<Edge<T>> ed;
+        for(auto& e: tree.getAllEdges(ed)){
+            this->addNode(e.getDestinationValue(), e.getSourceValue());
+        }
+
+    }
+
     // TreePosVector(int _max_grade,int _num_nodes);
     virtual ~TreePosVector() {}
 
     // TODO cambiare degree, al momento non fa la cosa giusta
     /// get Degree of the graph
-    int getDegree(const T &value) override;
+    // int getDegree()const override;
 
 
     /// return a list of Edges of the Tree
-    std::list<Edge<T>>& getAllEdges(std::list<Edge<T>>& edges) override;
+    std::list<Edge<T>>& getAllEdges(std::list<Edge<T>>& edges) const override;
 
     // TODO implementare
     /// return an Object value
