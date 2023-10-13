@@ -22,15 +22,17 @@ using namespace datalib;
 // output stream to print std::pair
 template <typename T1, typename T2>
 std::ostream &operator<<(std::ostream &os, const std::pair<T1, T2> &p) {
-    // os << "(" << p.first << "," << p.second << ")";
     os << p.first ;
     return os;
 }
 
 int main(){
 
-    // testTreePtrList();
-    testCopyCostructor();
+    testTreePtrList();
+    // testCopyCostructor();
+    // testGraphCopyCostructor();
+    // testGraphEdgeList();
+
 
 #if DIJKSTRA 
 
@@ -87,11 +89,11 @@ int main(){
         //initialization spanning tree
         TreePtrList<City> tree;
 
-        City startValue = cityGraph.getValue({"Roma"});
+        City startValue = cityGraph.getValue({"Veroli"});
         startValue.setDistance(0);
 
         //aggiorno la start city with distance 0
-        cityGraph.setValue({"Roma"},startValue);
+        cityGraph.setValue({"Veroli"},startValue);
 
         tree.addRoot(startValue);
         
@@ -146,6 +148,8 @@ int main(){
         std::ofstream dotFile("/home/nico/project/data_structure/output_test/minimum_spanning_tree.dot",std::ios::out);
         
         tree.outputDotFile(dotFile);
+        
+        graphImage("minimum_spanning_tree.dot","minimum_spanning_tree.png");
         
         dotFile.close();
         

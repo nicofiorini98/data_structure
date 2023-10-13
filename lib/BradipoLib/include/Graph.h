@@ -29,6 +29,7 @@ template <class T> class Graph: public BasicGraph<T> {
     Graph(): BasicGraph<T>(){
         numEdges = 0;
     }
+    
 
     virtual ~Graph() {}
 
@@ -43,18 +44,18 @@ template <class T> class Graph: public BasicGraph<T> {
     /// return the degree of nodeValue
     virtual int degree(const T &nodeValue) = 0;
 
-    virtual std::list<Edge<T>>& getAllEdges(std::list<Edge<T>> &edges) = 0;
+    virtual std::list<Edge<T>>& getAllEdges(std::list<Edge<T>> &edges) const = 0;
 
     /// return the incident edges of value
-    virtual void getIncidentEdges(const T &value,
+    virtual std::list<Edge<T>>& getIncidentEdges(const T &value,
                                   std::list<Edge<T>> &edges) = 0;
 
     /// return the outgoing edges of value
-    virtual void getOutgoingEdges(const T &value,
+    virtual std::list<Edge<T>>& getOutgoingEdges(const T &value,
                                   std::list<Edge<T>> &edges) = 0;
 
     /// return the incoming edges of value
-    virtual void getIncomingEdges(const T &value,
+    virtual std::list<Edge<T>>& getIncomingEdges(const T &value,
                                   std::list<Edge<T>> &edges) = 0;
 
     /// return the adjacent nodes of the Node x
@@ -67,9 +68,11 @@ template <class T> class Graph: public BasicGraph<T> {
     // each data structure has own method for add Node and Edge
     virtual void addNode(const T &value) = 0; // add a Node
 
+    virtual void addEdge(const Edge<T>& edge) = 0;
+
     virtual void addEdge(const T& srcValue,
                          const T& destValue,
-                         double weight = 0) = 0; // add an Edge
+                         double weight = 0)=0; // add an Edge
 
     // virtual void addEdge(const Edge &_edge)=0;               //add an Edge
 
@@ -148,7 +151,7 @@ template <class T> class Graph: public BasicGraph<T> {
         return os;
     }
 
-    std::ostream &outputDotFile(std::ostream &dotFile) {
+    std::ostream &outputDotFile(std::ostream &dotFile)const override{
         std::list<Edge<T>> edges;
 
         dotFile << "digraph G {\n";

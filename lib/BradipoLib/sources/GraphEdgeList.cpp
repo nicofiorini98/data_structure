@@ -1,5 +1,6 @@
 #ifndef GRAPH_EDGE_LIST_CPP
 #define	GRAPH_EDGE_LIST_CPP
+#include <stdexcept>
 #pragma once
 #include "GraphEdgeList.h"
 using namespace datalib;
@@ -8,6 +9,11 @@ using namespace datalib;
 template<class T>
 GraphEdgeList<T>::GraphEdgeList(): Graph<T>(){
 	
+}
+
+template <class T>
+GraphEdgeList<T>::~GraphEdgeList(){
+		
 }
 
 //this function add a node with an edge to nullptr
@@ -20,6 +26,7 @@ void GraphEdgeList<T>::addNode(const T &_x){
 
 }
 
+
 // template<class T>
 // void GraphEdgeList<T>::addNode(node<T>* _x){
 // 	edge<T> e(_x,nullptr);
@@ -28,7 +35,7 @@ void GraphEdgeList<T>::addNode(const T &_x){
 
 
 template<class T>
-void GraphEdgeList<T>::addEdge(const T *srcValue, const T *destValue){
+void GraphEdgeList<T>::addEdge(const T& srcValue, const T& destValue,double weight){
 
 	/* pre-conditions
 	 * 1. we can't add two same edge 
@@ -43,25 +50,27 @@ void GraphEdgeList<T>::addEdge(const T *srcValue, const T *destValue){
 		throw error;
 	}
 
-	Node<T> *src_ptr  = new Node<T>(*srcValue);
-	Node<T> *dest_ptr = new Node<T>(*destValue);
+	Node<T> *src_ptr  = new Node<T>(srcValue);
+	Node<T> *dest_ptr = new Node<T>(destValue);
 
 	Edge<T> e(src_ptr, dest_ptr);
 
 
+
 	//TODO da controllare, non è giusto
 	if(!nodeExistence(*src_ptr)){
-		++this->num_edge;
+		++this->numEdges;
 	}
 	if(!nodeExistence(*dest_ptr)){
-		++this->num_node;
+		++this->numNodes;
 	}
 
 	edgeList.push_back(e);
-	++this->num_edge;
+	++this->numEdges;
 	//ragionare sui grafi orientati e non, in questo caso sto facendo 
 	//i grafi orientati, per i non posso usare un attriibuto dell'arco
 }
+
 
 template<class T>
 int GraphEdgeList<T>::degree(const T &value){
@@ -72,6 +81,36 @@ int GraphEdgeList<T>::degree(const T &value){
 			_degree++;
 	}
 	return _degree;
+
+}
+
+template <class T>
+T GraphEdgeList<T>::getValue(const T& value) const{
+
+	for(auto& e : edgeList){
+		if((e.dest)->value == value){
+			return (e.dest)->value;
+		}else if((e.src)->value == value){
+			return (e.src)->value;
+		}
+	}
+	
+	throw std::runtime_error("GraphEdgeList::getValue error: the value to get doesn't exists");
+	
+}
+
+
+template <class T>
+void GraphEdgeList<T>::setValue(const T& oldValue, const T& newValue){
+	for(auto& e : edgeList){
+		if((e.dest)->value == oldValue){
+			(e.dest)->value= newValue;
+		}else if((e.src)->value == oldValue){
+			(e.src)->value= newValue;
+			(e.src)->value;
+		}
+	}
+	// throw std::runtime_error("GraphEdgeList::setValue error: the value to change doesn't exists");
 }
 
 template<class T>
@@ -97,7 +136,7 @@ void GraphEdgeList<T>::deleteNode(const T &_x){
 		if((i->src)->value == _x){
 			edgeList.erase(i);
 		}
-		else if((i->dest)->value)
+		else if((i->dest))
 			edgeList.erase(i);
 	}
 
@@ -178,7 +217,7 @@ void GraphEdgeList<T>::showNode() const{
 }
 
 template<class T>
-std::list<Edge<T>>& GraphEdgeList<T>::getAllEdges(std::list<Edge<T>> &edges){
+std::list<Edge<T>>& GraphEdgeList<T>::getAllEdges(std::list<Edge<T>> &edges) const{
 	edges.clear();	
 	
 	for(auto &e: this->edgeList){
@@ -188,30 +227,33 @@ std::list<Edge<T>>& GraphEdgeList<T>::getAllEdges(std::list<Edge<T>> &edges){
 }
 
 template<class T>
-void GraphEdgeList<T>::getIncidentEdges(const T &value, std::list<Edge<T>> &edges) {
+std::list<Edge<T>>& GraphEdgeList<T>::getIncidentEdges(const T &value, std::list<Edge<T>> &edges) {
     //posso ritornare direttamente una lista degli archi che stanno in edgeList
     for(auto& e: edgeList){
-        if(*(e->dest) == value || (*e->src) == value)
-            edges.push_back(*e);
+        if((e.dest)->value == value || (e.src)->value == value)
+            edges.push_back(e);
     }
+	return edges;
 }
 
 template<class T>
-void GraphEdgeList<T>::getOutgoingEdges(const T &value, std::list<Edge<T>> &edges) {
+std::list<Edge<T>>& GraphEdgeList<T>::getOutgoingEdges(const T &value, std::list<Edge<T>> &edges) {
     for(auto& e: edgeList){
-        if(*(e->src) == value){
-            edges.push_back(*e);
+        if((e.src)->value == value){
+            edges.push_back(e);
         }
     }
+	return edges;
 }
 
 template<class T>
-void GraphEdgeList<T>::getIncomingEdges(const T &value, std::list<Edge<T>> &edges) {
+std::list<Edge<T>>& GraphEdgeList<T>::getIncomingEdges(const T &value, std::list<Edge<T>> &edges) {
     for(auto& e: edgeList){
-        if(*(e->dest) == value){
-            edges.push_back(*e);
+        if((e.dest)->value == value){
+            edges.push_back(e);
         }
     }
+	return edges;
 }
 
 template<class T>

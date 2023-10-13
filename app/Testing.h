@@ -11,6 +11,8 @@
 #include "TreePosVector.h"
 #include "TreePtrList.h"
 #include "DHeap.h"
+#include "GraphEdgeList.h"
+#include "BasicGraph.h"
 
 #define TREE_PTR_LIST 0
 #define POS_VECTOR 0
@@ -20,6 +22,54 @@
 #define DHEAP_MIN 0
 #define HEAP_SORT 0
 #define COPY_COSTRUCTOR 1
+
+//Required GraphViz installed on the system
+template <class T>
+void printPngImage(Graph<T>* graph,const std::string& nameFileDot, const std::string& nameFilePng){
+
+    std::string path = "/home/nico/project/data_structure/output_test/";
+    std::string nameDotFile = path + nameFileDot;
+
+    std::ofstream dotFile(nameDotFile,std::ios::out);
+
+    graph->outputDotFile(dotFile);
+
+    dotFile<<std::endl;
+    
+    std::string pngName = path + nameFilePng;
+    std::string command = "dot -Tpng " + std::string(nameDotFile) + " -o " + std::string(pngName);
+    
+    int result = system(command.c_str());
+
+    if (result == 0) {
+        std::cout << "Graph generation successful. Output image saved as " << nameFilePng<< std::endl;
+    } else {
+        std::cerr << "Graph generation failed. Check if GraphViz is installed and the DOT file exists." << std::endl;
+    }
+    
+    dotFile.close();
+
+}
+
+void graphImage(const std::string& nameFileDot, const std::string& nameFilePng){
+
+    // std::string pathInput = "/home/nico/project/data_structure/input_test/";
+    std::string pathOutput = "/home/nico/project/data_structure/output_test/";
+    std::string nameDotFile = pathOutput+ nameFileDot;
+    std::string pngName = pathOutput + nameFilePng;
+
+    std::string command = "dot -Tpng " + std::string(nameDotFile) + " -o " + std::string(pngName);
+    
+    int result = system(command.c_str());
+
+    if (result == 0) {
+        std::cout << "Graph generation successful. Output image saved as " << nameFilePng<< std::endl;
+    } else {
+        std::cerr << "Graph generation failed. Check if GraphViz is installed and the DOT file exists." << std::endl;
+    }
+    
+
+}
 
 
 /* ++++++++++++++++++ test TreePtrList +++++++++++++++++++ */
@@ -53,6 +103,19 @@ inline int testTreePtrList(){
 
     input>>tree;
 
+    std::list<std::string> values;
+    std::cout<<"ordine depthSearch: \n";
+    for(auto& value: tree.depthSearch("a",values)){
+        std::cout<<value<<"-->";
+    }
+    std::cout<<std::endl;
+
+    std::cout<<"ordine breadth: \n";
+    for(auto& value: tree.breadthSearch("a",values)){
+        std::cout<<value<<"-->";
+    } 
+    std::cout<<std::endl;
+    
     std::cout<<"Test TreePtrList::getDegree() : "<<tree.getDegree()<<" \n";
 
     std::string parent = tree.getParent("l");
@@ -76,17 +139,15 @@ inline int testTreePtrList(){
 
     std::cout<<std::endl;
 
-	std::cout<<"------\n Prova depthSearch: \n";
-    tree.depthSearch("a");
+    ;
 
-	std::cout<<"Prova breadthSearch: \n";
-    tree.breadthSearch("a");
+	// std::cout<<"Prova breadthSearch: \n";
+    // tree.breadthSearch("a",values);
     
     std::cout<<"\n----------------------------------------------\n";
     
     std::cout<<tree.getValue("a")<<"\n";
     tree.setValue("a","j");
-    tree.breadthSearch("j");
     
     std::list<Edge<std::string>> edges;
 
@@ -166,37 +227,35 @@ inline int testTreePosVector(){
 	return 0;
 }
 
-/* ++++++++++++++++++ test TreePosVector +++++++++++++++++++ */
+/* ++++++++++++++++++ test GraphEdgeList +++++++++++++++++++ */
 #if 1
 inline int testGraphEdgeList(){
 
-    GraphIncList<std::string> graph;
+	std::cout<<"\n ------------- Prova GraphEdgeList ---------------\n";
+    GraphEdgeList<std::string> graph;
 
     std::fstream input;
-    input.open( "/home/nico/project/data_structure/input_test/oriented_graph.txt",std::ios::in);
+    input.open("/home/nico/project/data_structure/input_test/oriented_graph.txt",std::ios::in);
 
-    if(input.is_open()){
+    if(input.is_open())
         input>>graph;
-        graph.showStructure();
-
-    }
-    else
+    else{
         std::cout<<"file non aperto\n";
+        return -1;
+    }
+    
+    std::cout<<graph.getValue("a")<<"\n";
+    graph.setValue("a","j");
 
-    //_graph.showStructure();
-    std::list<Edge<std::string>> edges;
-    graph.getOutgoingEdges("a",edges);
-
-    for(auto &e: edges){
-        std::cout<<e;
-    }	
+    printPngImage(&graph,"edge.dot","edge.png");
+    
 	return 0;
 }
 #endif
 
 /* ++++++++++++++++++ test GraphIncList +++++++++++++++++++ */
 inline int testGraphIncList(){
-	std::cout<<"\n ------------- Prova GraphIncList ---------------\n";
+	std::cout<<"\n ------------- Test GraphIncList ---------------\n";
 
     //grafo per visita in ampiezza
 	GraphIncList<std::string> graph;
@@ -403,3 +462,46 @@ inline int testCopyCostructor(){
 	return 0;
 }
 
+inline int testGraphCopyCostructor(){
+	try
+    {
+        std::cout<<"\n++++++++++ Prova Graph copy costructor: ++++++++++\n";
+    /*
+    * std::string a{"a"},l{"l"},b{"b"}j;
+    * std::string e{"e"},r{"r"},o{"o"};
+    */
+
+    std::ifstream input("/home/nico/project/data_structure/input_test/oriented_graph.txt");
+
+    //std::ifstream ist2{"C:\\Users\\1dnic\\Desktop\\my_project\\data_structure\\insert_tree.txt"};
+    //std::ofstream os{"../output.txt"};
+
+	// input.open("../tree.txt",std::ios_base::in);
+    if(!input.is_open()){
+        std::cout << "Failed to open file." << std::endl;
+        return -1;
+    }else{
+        std::cout << "file opened correctly." << std::endl;
+    }
+
+    auto graph = GraphEdgeList<std::string>();
+
+    //inizializzazione di tree tramite file
+    input>>graph;
+
+	std::cout<<"tree: \n"<<graph;
+    GraphEdgeList<std::string> copyGraph(graph);
+	std::cout<<"copyTree: \n"<<copyGraph;
+	
+	
+    
+    
+
+    }
+    catch (const std::exception& e) 
+    {
+        std::cerr << "Exception caught: " << e.what() << std::endl;     
+    }
+
+	return 0;
+}

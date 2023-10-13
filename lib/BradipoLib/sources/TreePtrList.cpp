@@ -1,5 +1,6 @@
 #ifndef TREE_PTR_LIST_TPP
 #define TREE_PTR_LIST_TPP
+#include <stdexcept>
 #pragma once
 #include "TreePtrList.h"
 // #include <stack>
@@ -138,10 +139,10 @@ T TreePtrList<T>::getParent(const T &childValue) {
 
 // append the children node to the list
 template <class T>
-std::list<T> TreePtrList<T>::getChildren(const T& parentValue) {
+std::list<T> TreePtrList<T>::getChildren(const T& parentValue) const {
 
     // find the itr of the target
-    typename std::map<T, Node<T> *>::iterator x_itr;
+    typename std::map<T, Node<T> *>::const_iterator x_itr;
     x_itr = nodes_map.find(parentValue);
 
     // manage a possible error
@@ -227,27 +228,30 @@ void TreePtrList<T>::updateParent(const T &child, const T &newParent) {
     x->parent = new_parent;
 }
 
-template <class T> void TreePtrList<T>::depthSearch(const T &startValue) {
+template <class T> 
+std::list<T>& TreePtrList<T>::depthSearch(const T &startValue,std::list<T>& values) const{
 
-    std::cout << "Inizio ricerca in profondita partendo da: " << startValue
-              << "\n";
+    values.clear();
 
     // initialize for stack
     std::stack<Node<T> *> stack;
-    typename std::map<T, Node<T> *>::iterator nodes_map_itr;
+    typename std::map<T, Node<T> *>::const_iterator nodes_map_itr;
 
     /// pre-conditions: if the node isn't in the tree, return error
     nodes_map_itr = nodes_map.find(startValue);
 
     if (nodes_map_itr == nodes_map.end()) {
-        throw " the node entered for start the visit doesn't exists\n";
+        throw std::runtime_error("TreePtrList::depthSearch() error: the node for starting the search doesn't exists\n");
     }
 
     stack.push((*nodes_map_itr).second); // 2 s.push(root)
     while (!stack.empty()) {
         Node<T> *u = stack.top();
         stack.pop(); // pop don't return the value
-        std::cout << u->value << "-->";
+
+        //push the node in the values to return
+        values.push_back(u->value);
+        
 
         if (true) {
             // visit u
@@ -269,13 +273,16 @@ template <class T> void TreePtrList<T>::depthSearch(const T &startValue) {
         }
     }
     std::cout << std::endl;
+    return values;
 }
 
-template <class T> void TreePtrList<T>::breadthSearch(const T &startValue) {
+template <class T>
+std::list<T>& TreePtrList<T>::breadthSearch(const T &startValue,std::list<T>& values) const {
 
+    values.clear();
     // initialize for stack
     std::queue<Node<T> *> queue;
-    typename std::map<T, Node<T> *>::iterator nodes_map_itr;
+    typename std::map<T, Node<T> *>::const_iterator nodes_map_itr;
 
     /// pre-conditions: if the node isn't in the tree, return error
     nodes_map_itr = nodes_map.find(startValue);
@@ -290,8 +297,9 @@ template <class T> void TreePtrList<T>::breadthSearch(const T &startValue) {
     while (!queue.empty()) {
         Node<T> *u = queue.front();
         queue.pop(); // pop don't return the value
-        // std::cout << u->value << "-->";
-        std::cout << u->value << "-->";
+        //push the node in the values to return
+        values.push_back(u->value);
+        
 
         if (true) {
             // visit u
@@ -312,6 +320,7 @@ template <class T> void TreePtrList<T>::breadthSearch(const T &startValue) {
             }
         }
     }
+    return values;
 }
 
 // template <class T> void TreePtrList<T>::showTree() { std::cout << std::endl;

@@ -38,11 +38,21 @@ namespace datalib{
     public:
         ///Default costructor for the GraphAdjList
         GraphIncList();
+        
+        /// CopyCostructor
+        GraphIncList(const GraphIncList<T>& otherGraph) {
+            std::list<Edge<T>> edges;
+            this->numEdges = otherGraph.numEdges;
+            for(auto& e: otherGraph.getAllEdges(edges)){
+                this->addEdge(e.getSourceValue(),e.getDestinationValue(),e.getWeight());
+            }
+        }
+        
 
         ///Costructor with a vector of Edge
         ///virtual Destructor
         //TODO to implement and delete all the pointer in map and the pointer in edgeList
-        virtual ~GraphIncList(){}
+        virtual ~GraphIncList();
 
         ///add a Node x in the graph
         void addNode(const T &value) override;
@@ -53,7 +63,7 @@ namespace datalib{
         ///Return the degree of the node _x
         int degree(const T& nodeValue) override;
 
-        std::list<Edge<T>>& getAllEdges(std::list<Edge<T>> &edges) override;
+        std::list<Edge<T>>& getAllEdges(std::list<Edge<T>> &edges) const override;
 
 	    T getValue(const T& nodeValue) const override;
         
@@ -63,7 +73,7 @@ namespace datalib{
         void addEdge(const T& srcValue,const T& destValue,double weight = 0) override;
 
         ///Add an Edge (x,y) in the graph
-        void addEdge(const Edge<T>& edge);
+        void addEdge(const Edge<T>& edge)override;
 
         ///Delete the node from the Graph
         void deleteNode(const T& value) override;      
@@ -75,13 +85,13 @@ namespace datalib{
         void deleteEdge(const Edge<T>& edge);                    
 
         /// Get the incident edges of a graph
-        void getIncidentEdges(const T& value, std::list<Edge<T>>& edges) override;
+        std::list<Edge<T>>& getIncidentEdges(const T& value, std::list<Edge<T>>& edges) override;
 
         /// Get the outgoing edges of a graph
-        void getOutgoingEdges(const T& value, std::list<Edge<T>>& edges) override;
+        std::list<Edge<T>>& getOutgoingEdges(const T& value, std::list<Edge<T>>& edges) override;
 
         /// Get the incoming edges of a graph
-        void getIncomingEdges(const T& value, std::list<Edge<T>>& edges) override;
+        std::list<Edge<T>>& getIncomingEdges(const T& value, std::list<Edge<T>>& edges) override;
 
         /// return true if destValue is adjacent to srcValue
         bool isAdjacent(const T &srcValue,const T &destValue) override;

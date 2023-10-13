@@ -83,7 +83,7 @@ template <class T> class TreePosVector : public Tree<T> {
     }
 
     // TreePosVector(int _max_grade,int _num_nodes);
-    virtual ~TreePosVector() {}
+    virtual ~TreePosVector();
 
     // TODO cambiare degree, al momento non fa la cosa giusta
     /// get Degree of the graph
@@ -105,7 +105,7 @@ template <class T> class TreePosVector : public Tree<T> {
 
     T getParent(const T& childValue) override;
 
-    std::list<T> getChildren(const T &parentValue) override; 
+    std::list<T> getChildren(const T &parentValue) const override; 
 
     /// addRoot of the Tree
     void addRoot(const T &rootValue) override;
@@ -126,12 +126,10 @@ template <class T> class TreePosVector : public Tree<T> {
     // void showStructure() const;
 
     // todo da implementare
-    void breadthSearch(const T &startValue) override {}
+    std::list<T>& breadthSearch(const T &startValue,std::list<T>& values)const override{}
 
     // todo da implementare
-    void depthSearch(const T &startValue) override {}
-
-    void updateParent(const T &childValue, const T &newParent) override;
+    std::list<T>& depthSearch(const T &startValue, std::list<T>&values) const override{}
 
     template<class U,class W>
     friend class DHeap;

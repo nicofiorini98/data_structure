@@ -35,22 +35,34 @@ namespace datalib{
         ///Default costructor for the GraphAdjList
         GraphEdgeList();
 
+        GraphEdgeList(const GraphEdgeList<T>& otherGraph) {
+            std::list<Edge<T>> edges;
+            this->numEdges = otherGraph.numEdges;
+            for(auto& e: otherGraph.getAllEdges(edges)){
+                this->addEdge(e.getSourceValue(),e.getDestinationValue(),e.getWeight());
+            }
+        }
+
         ///Costructor with a vector of Edge
         // GraphAdjList(const std::vector<Edge> &_edges);
         ///virtual Destructor
-        virtual ~GraphEdgeList(){}
+        virtual ~GraphEdgeList();
 
         ///add a Node x in the graph
         void addNode(const T &value) override;
+        
+        T getValue(const T& value) const override;
+
+        void setValue(const T& oldValue, const T& newValue)  override;
 
         int degree(const T &value)   override;
 
         ///add an Edge (x,y) in the graph
-        void addEdge(const T *srcValue,const T *destValue) override;
+        void addEdge(const T& srcValue, const T& destValue, double weight = 0)override; // add an Edge
         
-        void addEdge(const Edge<T>& edge){}; //todo aggiungere nell'interfaccia
+        void addEdge(const Edge<T>& edge)override{}; //todo aggiungere nell'interfaccia
 
-        void deleteNode(const T &value)override;                        //remove a Node in the graph
+        void deleteNode(const T &value)override;                       //remove a Node in the graph
 
         void deleteEdge(const T &srcValue,const T &destValue)override{} //remove a Edge in the graph
 
@@ -62,16 +74,16 @@ namespace datalib{
 
 		// int grade(const T &_x){}
 
-        std::list<Edge<T>>& getAllEdges(std::list<Edge<T>> &edges) override;
+        std::list<Edge<T>>& getAllEdges(std::list<Edge<T>> &edges) const override;
         
         //TODO controllare
         std::vector<Edge<T>> getIncidentEdge(const T &value);          //return the incident edge of the Node x
 
-        void getIncidentEdges(const T& node,std::list<Edge<T>>& edges) override;
+        std::list<Edge<T>>& getIncidentEdges(const T& node,std::list<Edge<T>>& edges) override;
 
-        void getOutgoingEdges(const T& node,std::list<Edge<T>>& edges) override;
+        std::list<Edge<T>>& getOutgoingEdges(const T& node,std::list<Edge<T>>& edges) override;
 
-        void getIncomingEdges(const T& node,std::list<Edge<T>>& edges) override;
+        std::list<Edge<T>>& getIncomingEdges(const T& node,std::list<Edge<T>>& edges) override;
 
         void showStructure() const{}
 
@@ -80,7 +92,7 @@ namespace datalib{
         void showGraphValue() const{};
 
         //method for search on graph
-        void markNode(const T& value,marking mark){}
+        void markNode(const T& value,marking mark)override{}
 
         
     };

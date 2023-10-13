@@ -41,6 +41,9 @@ template <class T> class Tree : public BasicGraph<T> {
     
     /// virtual destructor
     virtual ~Tree() {}
+    
+    //TODO implementare
+    std::ostream &outputDotFile(std::ostream &dotFile)const override{std::cout<<"implementare outputDotfile\n";}
 
     /// return the number of sons for the node x
     int getDegree() const {return this->degree;}
@@ -49,7 +52,7 @@ template <class T> class Tree : public BasicGraph<T> {
     virtual T getParent(const T &childValue) = 0;
 
     /// return a list with the children of the node parentValue
-    virtual std::list<T> getChildren(const T& parentValue)=0;
+    virtual std::list<T> getChildren(const T& parentValue) const = 0;
 
     /// add root in the Tree
     virtual void addRoot(const T &rootValue){};
@@ -69,23 +72,19 @@ template <class T> class Tree : public BasicGraph<T> {
     /// add childrens to node value
     virtual void addChildren(const T &value, const std::list<T> &children) = 0;
 
-    // TODO da controllare
-    virtual void depthSearch(const T &startValue) = 0;
+    virtual std::list<T>& depthSearch(const T &startValue,std::list<T>& values) const = 0;
 
-    // TODO da controllare
-    virtual void breadthSearch(const T &startValue) = 0;
+    virtual std::list<T>& breadthSearch(const T &startValue,std::list<T>& values) const = 0;
 
-    // TODO implementare
     virtual T getValue(const T &nodeValue) const override = 0;
 
-    // TODO implementare
     virtual void setValue(const T &oldValue, const T &newValue) override = 0;
 
     // TODO implementare
     virtual void markNode(const T &value, marking mark) override {}
 
     // used in the searches
-    virtual void updateParent(const T &childValue, const T &newParent) = 0;
+    // virtual void updateParent(const T &childValue, const T &newParent) = 0;
 
     /// overloading operator >>
     friend std::istream &operator>>(std::istream &is, Tree<T> &t) {

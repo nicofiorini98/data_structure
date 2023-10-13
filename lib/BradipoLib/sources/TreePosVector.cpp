@@ -32,6 +32,13 @@ TreePosVector<T>::TreePosVector(int maxDegree, int height) : Tree<T>() {
 }
 
 
+template <class T>
+TreePosVector<T>::~TreePosVector() {
+    for(auto& n : vecNode){
+        delete n;
+    }
+}
+
 // template <class T>
 // int TreePosVector<T>::getDegree(const T &value) const {
 //     typename std::vector<Node<T> *>::iterator x_itr;
@@ -86,9 +93,9 @@ T TreePosVector<T>::getParent(const T &childValue) {
 }
 
 template<class T>
-std::list<T> TreePosVector<T>::getChildren(const T& parentValue) {
+std::list<T> TreePosVector<T>::getChildren(const T& parentValue) const {
 
-    typename std::vector<Node<T> *>::iterator parent_itr;
+    typename std::vector<Node<T> *>::const_iterator parent_itr;
     parent_itr = datalib::trova(vecNode.begin(), vecNode.end(), parentValue);
 
     //il padre è vecNode[ parteInteraInferiore(index/degree)]
@@ -412,10 +419,6 @@ void TreePosVector<T>::addChild(const T *value, const T *child) {
 //     return _x->num_children;
 // }
 
-template<class T>
-void TreePosVector<T>::updateParent(const T &childValue, const T &newParent){
-    
-}
 
 // convention of print tree
 // template <class T>

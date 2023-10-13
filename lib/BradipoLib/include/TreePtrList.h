@@ -61,7 +61,7 @@ public:
   T getParent(const T &childValue) override;
 
   /// return a vector of the node x
-  std::list<T> getChildren(const T& parentValue) override;
+  std::list<T> getChildren(const T& parentValue) const override;
 
   /// add root in the Tree
   void addRoot(const T& rootValue) override;
@@ -73,25 +73,15 @@ public:
   void addNode(const T& value, const T& parent)override;
 
   /// add children to node value
-  void addChildren(const T &value, const std::list<T> &children) override;
+  void addChildren(const T &value, const std::list<T> &children)override;
 
-  // TODO implementare come esempio ? 
   /// print the node following a DFS visit
-  void depthSearch(const T &startValue) override;
+  std::list<T>& depthSearch(const T &startValue,std::list<T>& values) const override;
 
-  // TODO implementare come esempio ?
   /// print the node following BFS visit
-  void breadthSearch(const T &startValue) override;
+  std::list<T>& breadthSearch(const T &startValue,std::list<T>& values) const override;
 
-  void updateParent(const T &child, const T &newParent) override;
-
-
-  // void showTree();
-
-  // void showTreePtr();
-
-  // void showStructure();
-
+  void updateParent(const T &child, const T &newParent);
 
   std::ostream& outputDotFile(std::ostream& dotFile);
   

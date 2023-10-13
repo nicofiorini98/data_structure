@@ -9,9 +9,19 @@ using namespace datalib;
 
 //default constructor
 template<class T>
-GraphIncList<T>::GraphIncList():Graph<T>(){
-	
+GraphIncList<T>::GraphIncList():Graph<T>(){}
 
+template <class T>
+GraphIncList<T>::~GraphIncList(){
+	
+	for(auto& n: this->incList){
+		delete n.second;
+	}
+	for(auto&e: this->edgeList){
+		e->src = nullptr;
+		e->dest = nullptr;
+		delete e;
+	}
 }
 
 template<class T>
@@ -448,7 +458,7 @@ void GraphIncList<T>::showNode() const{
 
 //TODO testare con l'output
 template<class T>
-std::list<Edge<T>>& GraphIncList<T>::getAllEdges(std::list<Edge<T>> &edges){
+std::list<Edge<T>>& GraphIncList<T>::getAllEdges(std::list<Edge<T>> &edges)const{
 	edges.clear();	
 	
 	for(auto &e: this->edgeList){
@@ -459,30 +469,33 @@ std::list<Edge<T>>& GraphIncList<T>::getAllEdges(std::list<Edge<T>> &edges){
 }
 
 template<class T>
-void GraphIncList<T>::getIncidentEdges(const T& value, std::list<Edge<T>>& edges) {
+std::list<Edge<T>>& GraphIncList<T>::getIncidentEdges(const T& value, std::list<Edge<T>>& edges) {
     //posso ritornare direttamente una lista degli archi che stanno in edgeList
     for(auto& e: edgeList){
         if(*(e->dest) == value || (*e->src) == value)
             edges.push_back(*e);
     }
+	return edges;
 }
 
 template<class T>
-void GraphIncList<T>::getOutgoingEdges(const T &value, std::list<Edge<T>>& edges) {
+std::list<Edge<T>>& GraphIncList<T>::getOutgoingEdges(const T &value, std::list<Edge<T>>& edges) {
     for(auto& e: edgeList){
         if(*(e->src) == value){
             edges.push_back(*e);
         }
     }
+	return edges;
 }
 
 template<class T>
-void GraphIncList<T>::getIncomingEdges(const T &value, std::list<Edge<T>>& edges) {
+std::list<Edge<T>>& GraphIncList<T>::getIncomingEdges(const T &value, std::list<Edge<T>>& edges) {
     for(auto& e: edgeList){
         if(*(e->dest) == value){
             edges.push_back(*e);
         }
     }
+	return edges;
 }
 
 

@@ -40,6 +40,10 @@ template <class T> class BasicGraph {
     /// change the node in the object structure from oldValue to newValue
 	  virtual void setValue(const T& oldValue,const T& newValue) = 0;
     
+
+    /// 
+    virtual std::ostream &outputDotFile(std::ostream &dotFile) const = 0;
+    
     /// utility function to mark node for helping to the types of search
     virtual void markNode(const T& value, marking mark) = 0;
     
