@@ -26,24 +26,22 @@ template <class T> class Graph: public BasicGraph<T> {
     int numEdges;
 
   public:
+    
+    /// Costructor
     Graph(): BasicGraph<T>(){
         numEdges = 0;
     }
     
-
+    /// virtual Destructor
     virtual ~Graph() {}
 
-    /// return the number of the Node in the graph
-    
     /// return the number of the Edge in the graph
-    int numEdge() { return numEdges; }
-    
-    /// return the degree of the graph
-    virtual int maxDegree() = 0; 
+    int numEdge() { return numEdges;}
     
     /// return the degree of nodeValue
     virtual int degree(const T &nodeValue) = 0;
 
+    /// return all the Edge in the graph into a list
     virtual std::list<Edge<T>>& getAllEdges(std::list<Edge<T>> &edges) const = 0;
 
     /// return the incident edges of value
@@ -62,73 +60,68 @@ template <class T> class Graph: public BasicGraph<T> {
     // void getExtremes(Edge* e);
 
     virtual bool isAdjacent(const T &srcValue, const T &destValue) = 0;
-    // return true if the edge(x,y) exist,
-    // else return false
 
-    // each data structure has own method for add Node and Edge
+    /// add the node Value in the structure
     virtual void addNode(const T &value) = 0; // add a Node
 
+    /// add the edge in the structure and create the nodes if doesn't exists
     virtual void addEdge(const Edge<T>& edge) = 0;
 
+    /// add the edge in the structure and create the nodes if doesn't exists
     virtual void addEdge(const T& srcValue,
                          const T& destValue,
                          double weight = 0)=0; // add an Edge
 
-    // virtual void addEdge(const Edge &_edge)=0;               //add an Edge
-
+    /// delete the node Value in the structure
     virtual void deleteNode(const T &value) = 0; // remove a Node in the graph
 
+    /// delete the edge in the structure
     virtual void
     deleteEdge(const T &srcValue,
                const T &destValue) = 0; // remove a Edge in the graph
 
-    // virtual void deleteEdge(const Edge<T> &_edge)=0;         //remove a Edge
-    // in the graph
 
-    // metodi per fare visite
+    /// return a list with the order based in breadthSearch
     virtual void breadthSearch(const T &startValue, TreePtrList<T> &tree){};
 
+    /// return a list with the order based in depthSearch
     virtual void depthSearch(const T &startValue, TreePtrList<T> &tree){};
 
+    /// return the value in the object based to the value passed
 	virtual T getValue(const T& nodeValue) const override = 0;
 
+    /// change the node in the object structure from oldValue to newValue
 	virtual void setValue(const T& oldValue,const T& newValue) override = 0;
     
     virtual void markNode(const T &value, marking mark) override {};
 
-    // virtual std::vector<T>& getAdjacentNode(const T& node); //return a vector
-    // with the adjacent of node
-
     friend std::istream &operator>>(std::istream &is, Graph<T> &graph) {
         // pre-conditions
         // the input work with csv format --> node2add, parent
-        // example with string:
 
         // std::cout<<"chiamata funzione\n";
         std::string line, srcString, destString;
 
         // read line-by-line
-
         while (std::getline(is, line)) {
 
             auto *src = new T;
             auto *dest = new T;
-
-            std::stringstream str(line); // converte la riga in uno stream
+            //
+            // converte la riga in uno stream
+            std::stringstream str(line);
+            //leggo lo stream fino al carattere delimitatore
             std::getline(str, srcString,
-                         graph.delimiter); // leggo lo stream della riga fino al
-                                           // carattere delimitatore
-            std::stringstream str1(
-                srcString); // converte il primo campo in uno stream
-            str1 >> *src;   // viene utilizzata la funzione >> per l'input del
-                          // primo campo
-
-            std::getline(str, destString,
-                         graph.delimiter); // continuo a leggere per trovare il
-                                           // secondo campo
+                         graph.delimiter);
+            
+            // converte il primo campo in uno stream
+            std::stringstream str1(srcString); 
+            str1 >> *src;   
+            
+            // continuo a leggere per trovare il secondo campo
+            std::getline(str, destString,graph.delimiter); 
 
             if (destString.empty()) {
-                // graph.addEdge(src, nullptr);
                 continue;
             }
 

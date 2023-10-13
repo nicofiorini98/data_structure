@@ -26,31 +26,35 @@ namespace datalib{
         ///copy costructor
         Edge(const Edge<T>& x);
         
-        // Destructor
+        /// Destructor
         ~Edge(){
             delete src;
             delete dest;
         }
 
-        /// get the src Value
+        /// Return the source value of the Edge
         T getSourceValue() const {return (src->value);}
         
-        //get dest Value
+        ///Return the destination Value of the Edge
         T getDestinationValue() const {return (dest->value);}
         
+        /// Return the weight of the Edge
         double getWeight() const {return this->weight;}
         
+        /// Set the weight of the Edge
         void setWeight(double weight){this->weight = weight;}
 
         friend std::ostream& operator<<(std::ostream &os,const Edge<T>& edge){
-            os <<edge.getSourceValue()<<","<< edge.getDestinationValue();
+            os << edge.getSourceValue() << "," << edge.getDestinationValue();
             return os;
         }
         
         friend std::istream& operator>>(std::istream &is,Edge<T>& edge){
+
             if((edge.src)){
                 delete (edge.src);
             }
+
             if((edge.dest)){
                 delete (edge.dest);
             }
@@ -58,8 +62,6 @@ namespace datalib{
             edge.src  = new Node<T>();
             edge.dest = new Node<T>();
             
-            
-
             std::string line;
             std::getline(is,line,',');
             std::stringstream str(line);
@@ -69,10 +71,8 @@ namespace datalib{
             std::stringstream str2(line);
             str2>>(*edge.dest);
 
-            //  <<edge.getSourceValue()<<","<< edge.getDestinationValue()<<"\n";
             return is;
         }
-        
 
         template<class U>
         friend class Graph;

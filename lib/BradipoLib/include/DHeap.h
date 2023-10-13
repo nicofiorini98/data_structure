@@ -63,11 +63,8 @@ namespace datalib{
         DHeap(int degree, int size,bool isMin = true, const std::vector<std::pair<K,T>>& values={});
 
 		/// Insert a value in the heap
-		// void insert(const T& nodeValue);
-
 		void insert(const std::pair<K,T>& value);
 
-		// void insert(const std::pair<K,T>& value);
 		
 		/// destroy a value and return a copy of destroyed value
 		std::pair<K,T> popValue();
@@ -80,8 +77,7 @@ namespace datalib{
 
 		void deleteByValue(const T& value);
 		
-		/// change Value
-		/// TODO da vedere meglio
+		/// change Value based on the key
 		void changeValue(const K& key,const T& value );
 		
 		/// decreaseKey 
@@ -90,22 +86,15 @@ namespace datalib{
 		/// get Key by Value
 		K getKeyByValue(const T& value);
 
-		// void increaseKey(const T& value);
-
 		/// return true if the Heap is empty
 		bool isEmpty();
-
-		/// show the tree of the heap
-		void showTree();
 		
-		/// show the structure behind the treePosVector
-		void showStructure();
-		
+		/// operator <<
 		friend std::ostream& operator<<(std::ostream& os,DHeap<K,T> heap){
-			//TODO implementare
 			return os;
 		}
 
+		// operator >>
 		friend std::istream& operator>>(std::istream& is,DHeap<K,T>& heap){
 
 			while(!is.eof()){

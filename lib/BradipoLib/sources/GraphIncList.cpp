@@ -233,18 +233,6 @@ void GraphIncList<T>::deleteEdge(const Edge<T>& e){
 }
 
 template<class T>
-int GraphIncList<T>::maxDegree(){
-
-	int max = 0;
-	for(auto &n: incList){
-		if(max < (n.second)->connected_edges.size())
-			max = (n.second)->connected_edges.size();
-	}
-
-	return max;
-}
-
-template<class T>
 int GraphIncList<T>::degree(const T& nodeValue){
 
 	for(auto &n: incList){
@@ -334,62 +322,6 @@ void GraphIncList<T>::breadthSearch(const T& startValue, TreePtrList<T>& tree){
 }
 
 
-// template<class T>
-// void GraphIncList<T>::depthSearch(const T &startValue, TreePtrList<T> &tree) {
-
-//     // marcatura di tutti i vertici come inesplorati
-//     for(auto &n: incList)
-//         n.second->mark = unexplored;
-
-//     //ricerca del nodo da cui partire
-//     typename std::map<T,Node<T>*>::iterator first_node_itr;
-//     first_node_itr = incList.find(startValue);
-//     if(first_node_itr == incList.end()){
-//         std::string error("the node for breadth first search doesn't exists in the graph");
-//         throw error;
-//     }
-
-// 	tree.addNode(new T(first_node_itr->first),nullptr);
-// 	//marca il vertice iniziale come aperto
-//     (first_node_itr->second)->mark = open;
-
-//     //inserire il vertice da cui partire nella frontiera (stack)
-//     std::stack<Node<T>*> open_node;
-//     open_node.push((first_node_itr->second));
-
-//     while(!open_node.empty()){
-
-//         //qui prendo il nodo nella coda
-//         Node<T> *u = open_node.top(); //return a reference to the last element inserted
-//         open_node.pop(); 				//remove the first element
-
-//         //visita il vertice u
-//         //typename std::map<T,node<T>*>::iterator u_itr;
-//         //u_itr = inc_list.find(*u);
-
-//         //if(u->mark == closed)
-//             //continue;
-
-//         u->mark = closed;
-
-//         //visita il vertice u (quindi prendo gli archi), prendo la destinazione del vertice u
-//         for(auto &e: u->connected_edges){
-//             auto* v = e->dest;
-//             if(v->mark == unexplored){
-//                 v->mark = open; 						//marca v come aperto
-//                 open_node.push(v);
-//                 tree.addNode(&(v->value),&(u->value)); //rendi u padre di v in t
-//                 tree.updateParent(v->value,u->value);
-
-//             }
-//             else if((e->dest)->mark == open){
-//                 open_node.push(e->dest);
-//                 tree.updateParent((e->dest)->value,u->value);
-//             }
-//         }
-//     }
-// }
-
 
 template<class T>
 void GraphIncList<T>::showStructure() const{
@@ -456,7 +388,6 @@ void GraphIncList<T>::showNode() const{
 }
 
 
-//TODO testare con l'output
 template<class T>
 std::list<Edge<T>>& GraphIncList<T>::getAllEdges(std::list<Edge<T>> &edges)const{
 	edges.clear();	

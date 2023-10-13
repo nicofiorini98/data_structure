@@ -28,11 +28,9 @@ DHeap<K, T>::DHeap(int degree, int size, bool isMin,
     /*
     Costruzione di un heap in tempo O(n):
     1. Creiamo un albero di taglia e dimensioe appropriata in cui mettiamo gl
-    oggetti dell'array
+       oggetti dell'array
     */
 
-    // riempimento vettore posizione mantenendo una struttura completa
-    // fino al penultimo livello, il valore 0 deve essere sempre nullo
     if (!values.empty()) {
         this->insertFromArray(values);
     }
@@ -46,12 +44,9 @@ void DHeap<K, T>::insertFromArray(const std::vector<std::pair<K,T>> &values) {
     heapify(1);
 }
 
-// todo testare
-// procedura che chiama se stessa in modo ricorsivo
 template <class K, class T> void DHeap<K, T>::heapify(int posNode) {
 
-    // make sure that the function doesn't continue if the pos is bigger than
-    // vector
+    // recursion function
     if (posNode >= (this->treePosVector)->vecNode.size())
         return;
 
@@ -74,7 +69,6 @@ template <class K, class T>
 void DHeap<K, T>::fixHeap(int posNode) {
 
     std::pair<K,T> nodeValue = this->treePosVector->vecNode[posNode]->value;
-    // std::cout<<"fixheap call with value: "<<nodeValue<<std::endl;
 
     if (this->isLeaf(nodeValue)) {
         return;
@@ -107,7 +101,6 @@ std::pair<K,T> DHeap<K, T>::getFirstValue() {
 
 template <class K, class T>
 std::pair<K,T> DHeap<K, T>::popValue() {
-
     if (!this->isEmpty()) {
         std::pair<K,T> value = this->getFirstValue();
         this->deleteByKey(value.first);
@@ -127,8 +120,6 @@ void DHeap<K, T>::deleteByKey(const K &keyValue) {
     this->deleteByPos(pos2Delete);
 }
 
-
-// TODO to test the min, like setValue
 template <class K, class T>
 void DHeap<K, T>::deleteByValue(const T &value) {
     
@@ -141,10 +132,6 @@ void DHeap<K, T>::deleteByValue(const T &value) {
 
 template <class K,class T>
 void DHeap<K, T>::deleteByPos(int pos2Delete){
-
-    // std::cout<<"\n----------"<<std::endl;
-    // this->showTree();
-    // std::cout<<"\n----------"<<std::endl;
 
     if (pos2Delete != -1) {
 
@@ -190,6 +177,9 @@ void DHeap<K, T>::deleteByPos(int pos2Delete){
 
 template <class K,class T>
 bool DHeap<K, T>::isEmpty() {
+    
+    //return true if the root exists
+    // else false
     if (VEC[1])
         return false;
     else
@@ -211,15 +201,11 @@ int DHeap<K, T>::getLeaf() {
 
 template <class K, class T>
 void DHeap<K, T>::insert(const std::pair<K,T>& value) {
-    // add the node to the last leaf
-    //  int lastLeaf = this->getLeaf();
     int lastLeaf = this->insertToLeaf(value);
 
     moveHigh(lastLeaf);
 }
 
-//TODO da rifattorizzare con la posizione e find by key
-// serve ancora? forse manco mi serve, basta increase key e decrease key
 template <class K, class T>
 void DHeap<K, T>::changeValue(const K& key, const T& newValue) {
 
@@ -239,9 +225,7 @@ void DHeap<K, T>::changeValue(const K& key, const T& newValue) {
 template <class K, class T>
 void DHeap<K,T>::changeKey(const K& newKey, const T& element){
 
-    // trovo l'elemento e cambio la chiave
     int posValue = this->findByValue(element);
-    // std::cout<<"change Key: "<<posValue<<std::endl;
     
     VEC[posValue]->value.first = newKey;
     
@@ -275,8 +259,6 @@ void DHeap<K,T>::changeKey(const K& newKey, const T& element){
     
 }
 
-// TODO to change interface
-// int insertToLeaf(const K& keyValue,const T& value);
 template <class K, class T>
 int DHeap<K, T>::insertToLeaf(const std::pair<K,T>& value) {
 
@@ -293,7 +275,6 @@ int DHeap<K, T>::insertToLeaf(const std::pair<K,T>& value) {
     }
 }
 
-/// get Key by Value
 template<class K, class T>
 K DHeap<K, T>::getKeyByValue(const T& value){
     int posValue = this->findByValue(value);
@@ -390,7 +371,6 @@ void DHeap<K, T>::moveLow(int posNode) {
                 return;
         }
 
-
         TREE->swapPositionValue(posNode, posChild);
 
         // update the positions for the next cycle
@@ -401,7 +381,7 @@ void DHeap<K, T>::moveLow(int posNode) {
 template <class K, class T>
 bool DHeap<K, T>::isLeaf(const std::pair<K,T>& value) {
 
-    // ritorna true se il nodo non ha figli
+    // return tru if the node doesn't have child
     int numChildren = (this->treePosVector)->getNumChildren(value);
 
     if (numChildren == 0)
@@ -414,21 +394,14 @@ bool DHeap<K, T>::isLeaf(const std::pair<K,T>& value) {
 template <class K, class T>
 int DHeap<K,T>::getChildPos(int posNode){
 
-
-    // typename std::vector<Node<T> *>::iterator parent_itr;
-    // parent_itr = datalib::trova(vecNode.begin(), vecNode.end(), parentValue);
-
     if (VEC[posNode]) {
-        // int pos = (*parent_itr)->pos;
 
-        // int maxPos = (*parent_itr)->pos;
         int priorPos = (posNode * degree) ;
 
         for(int i = 0; i < degree ; i++){
             int childPos = (posNode * degree) + i ;
             if(childPos < VEC.size() && VEC[(childPos)]){
 
-				
                 std::pair<K,T> maxValue = VEC[priorPos]->value;
                 std::pair<K,T> value = VEC[childPos]->value;
 
@@ -451,7 +424,6 @@ int DHeap<K,T>::getChildPos(int posNode){
 template <class K,class T>
 int DHeap<K,T>::findByKey(const K& keyValue){
 
-
     for(auto& node: VEC){
         if(node && (node->value).first == keyValue){
             return node->pos;
@@ -470,56 +442,6 @@ int DHeap<K,T>::findByValue(const T& value){
         }
     } 
     return -1;
-}
-
-template <class K,class T>
-void DHeap<K,T>::showStructure(){
-
-
-    std::cout << "\nTreePosVector structure visualization:\n";
-    
-    // stampa del root
-    if(this->isEmpty()){
-        return; 
-    }
-
-    for (auto &node : VEC) {
-        if(node){
-            std::cout<<*node<<"\n";
-        }
-     }
-}
-
-template <class K,class T>
-void DHeap<K,T>::showTree(){
-
-
-    std::cout << "\nTreePosVector visualization:\n";
-    
-    // stampa del root
-    if(this->isEmpty()){
-        return; 
-    }
-    std::cout << VEC[1]->value;
-
-    for (auto &node : VEC) {
-
-        if (node != nullptr) {
-            int pos = node->pos;
-            if (VEC[pos / 2] != nullptr)
-                std::cout << *VEC[pos / 2];
-
-            if (VEC[pos / 2] != nullptr)
-                std::cout << "<--" << *VEC[pos];
-
-            // printing each node
-            for (int i = 0; i < this->degree; i++) {
-                if (VEC[pos * 2 + i] != nullptr)
-                    std::cout << "-->" << *VEC[pos * 2 + i];
-            }
-            std::cout << "\n";
-        }
-     }
 }
 
 template <class K, class T>

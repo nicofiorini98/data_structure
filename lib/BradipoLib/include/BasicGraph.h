@@ -34,20 +34,18 @@ template <class T> class BasicGraph {
     /// set Delimiter Input File
     virtual void setDelimiterFile(const char delimiter){this->delimiter = delimiter;}
 	
-    /// return the value in the object based to a value passed
+    /// return the value in the object based to the value passed
 	  virtual T getValue(const T& nodeValue) const = 0;
 	
     /// change the node in the object structure from oldValue to newValue
 	  virtual void setValue(const T& oldValue,const T& newValue) = 0;
-    
 
-    /// 
+    ///Output with dot 
     virtual std::ostream &outputDotFile(std::ostream &dotFile) const = 0;
     
     /// utility function to mark node for helping to the types of search
     virtual void markNode(const T& value, marking mark) = 0;
     
-
   };
 } // namespace datalib
 

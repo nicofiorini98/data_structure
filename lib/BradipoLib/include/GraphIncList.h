@@ -48,31 +48,26 @@ namespace datalib{
             }
         }
         
-
         ///Costructor with a vector of Edge
         ///virtual Destructor
-        //TODO to implement and delete all the pointer in map and the pointer in edgeList
         virtual ~GraphIncList();
 
         ///add a Node x in the graph
         void addNode(const T &value) override;
-
-        ///return the max degree of the graph
-        int maxDegree() override;
 
         ///Return the degree of the node _x
         int degree(const T& nodeValue) override;
 
         std::list<Edge<T>>& getAllEdges(std::list<Edge<T>> &edges) const override;
 
+        /// return the value in the object based to the value passed
 	    T getValue(const T& nodeValue) const override;
         
+        /// change the node in the object structure from oldValue to newValue
         void setValue(const T& oldValue,const T& newValue) override;
 
-        ///Add an Edge (x,y) in the graph
         void addEdge(const T& srcValue,const T& destValue,double weight = 0) override;
 
-        ///Add an Edge (x,y) in the graph
         void addEdge(const Edge<T>& edge)override;
 
         ///Delete the node from the Graph

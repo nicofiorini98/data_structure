@@ -14,7 +14,7 @@
 #include "Testing.h"
 
 
-#define DIJKSTRA 0
+#define DIJKSTRA 1
 
 
 using namespace datalib;
@@ -68,7 +68,6 @@ int main(){
 
     GraphIncList<City> cityGraph;
     if(input.is_open()){
-        // TODO aggiungere il peso in graphIncList
         // input all the edges in the graph
         while(!input.eof()){
             Edge<City> edge;
@@ -140,9 +139,6 @@ int main(){
             
         }
 
-        // cityGraph.showStructure();
-        // S.showTree();
-        // tree.showTree();
         std::cout<<"spanning tree edge list: "<<tree<<std::endl;
 
         std::ofstream dotFile("/home/nico/project/data_structure/output_test/minimum_spanning_tree.dot",std::ios::out);

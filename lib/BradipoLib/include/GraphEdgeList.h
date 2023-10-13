@@ -24,7 +24,6 @@ namespace datalib{
 
         std::vector<Edge<T>> edgeList;
 
-        //TODO vedere se servono tutti e due 
         bool edgeExistence(const T *srcValue,const T *destValue) const;
         bool edgeExistence(const T &srcValue,const T &destValue) const;
 
@@ -44,13 +43,13 @@ namespace datalib{
         }
 
         ///Costructor with a vector of Edge
-        // GraphAdjList(const std::vector<Edge> &_edges);
         ///virtual Destructor
         virtual ~GraphEdgeList();
 
         ///add a Node x in the graph
         void addNode(const T &value) override;
         
+        ///
         T getValue(const T& value) const override;
 
         void setValue(const T& oldValue, const T& newValue)  override;
@@ -60,19 +59,15 @@ namespace datalib{
         ///add an Edge (x,y) in the graph
         void addEdge(const T& srcValue, const T& destValue, double weight = 0)override; // add an Edge
         
-        void addEdge(const Edge<T>& edge)override{}; //todo aggiungere nell'interfaccia
+        void addEdge(const Edge<T>& edge)override{};
 
-        void deleteNode(const T &value)override;                       //remove a Node in the graph
+        /// delete the node in the structure
+        void deleteNode(const T &value)override;
 
-        void deleteEdge(const T &srcValue,const T &destValue)override{} //remove a Edge in the graph
-
-        int maxDegree() override {return 0;}
+        // remove the edge
+        void deleteEdge(const T &srcValue,const T &destValue)override{}
 
         bool isAdjacent(const T &srcValue,const T &destValue) override;       //return true if the edge(x,y) exist, else return false
-
-        // void deleteEdge(const Edge &_edge);               //remove a Edge in the graph
-
-		// int grade(const T &_x){}
 
         std::list<Edge<T>>& getAllEdges(std::list<Edge<T>> &edges) const override;
         
@@ -85,11 +80,6 @@ namespace datalib{
 
         std::list<Edge<T>>& getIncomingEdges(const T& node,std::list<Edge<T>>& edges) override;
 
-        void showStructure() const{}
-
-        void showNode() const;
-        //void showGraphPos() const;
-        void showGraphValue() const{};
 
         //method for search on graph
         void markNode(const T& value,marking mark)override{}
