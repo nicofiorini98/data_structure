@@ -23,11 +23,7 @@ namespace datalib {
 template <class T> class TreePtrList : public Tree<T> {
 private:
 
-  // int degree;
-
-  // Node<T> *root;
-
-  std::map<T, Node<T>*> nodes_map;
+  std::map<T, Node<T>*> nodesMap;
 
   std::list<Node<T> *> &getNodeList(Node<T> *value);
 
@@ -44,7 +40,6 @@ public:
   TreePtrList(const TreePtrList<T>& tree):Tree<T>(tree){}
   
   /// virtual destructor
-  /// TODO controllare
   ~TreePtrList(); 
   
 
@@ -75,19 +70,13 @@ public:
   /// add children to node value
   void addChildren(const T &value, const std::list<T> &children)override;
 
-  /// print the node following a DFS visit
-  std::list<T>& depthSearch(const T &startValue,std::list<T>& values) const override;
-
-  /// print the node following BFS visit
-  std::list<T>& breadthSearch(const T &startValue,std::list<T>& values) const override;
-
+  /// change the parent of child with newParent
   void updateParent(const T &child, const T &newParent);
 
-  std::ostream& outputDotFile(std::ostream& dotFile);
   
 
 };
 } // namespace datalib
 
-#include "../sources/TreePtrList.cpp"
 #endif
+#include "../sources/TreePtrList.cpp"

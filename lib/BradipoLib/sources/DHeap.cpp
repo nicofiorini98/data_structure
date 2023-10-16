@@ -1,9 +1,9 @@
 #ifndef DHEAP_CPP
 #define DHEAP_CPP
+#pragma once
 #include "Node.h"
 #include <cmath>
 #include <vector>
-#pragma once
 
 #include "DHeap.h"
 #include "TreePosVector.h"

@@ -5,6 +5,9 @@
 #include "Edge.h"
 #include "Node.h"
 #include <list>
+#include <map>
+#include <queue>
+#include <stack>
 #include <vector>
 
 /**
@@ -42,8 +45,8 @@ template <class T> class Tree : public BasicGraph<T> {
     /// virtual destructor
     virtual ~Tree() {}
     
-    //TODO implementare
-    std::ostream &outputDotFile(std::ostream &dotFile)const override{std::cout<<"implementare outputDotfile\n";}
+    /// output tree as dot file for image visualization
+    std::ostream &outputDotFile(std::ostream &dotFile)const override;
 
     /// return the number of sons for the node x
     int getDegree() const {return this->degree;}
@@ -58,9 +61,7 @@ template <class T> class Tree : public BasicGraph<T> {
     virtual void addRoot(const T &rootValue){};
     
     /// get the root of the Tree
-    virtual T getRoot() const{
-        return root->value;
-    };
+    virtual T getRoot() const{return root->value;};
 
     virtual std::list<Edge<T>> &getAllEdges(std::list<Edge<T>> &edges) const = 0;
 
@@ -72,9 +73,9 @@ template <class T> class Tree : public BasicGraph<T> {
     /// add childrens to node value
     virtual void addChildren(const T &value, const std::list<T> &children) = 0;
 
-    virtual std::list<T>& depthSearch(const T &startValue,std::list<T>& values) const = 0;
+    std::list<T>& breadthSearch( std::list<T> &values) const;
 
-    virtual std::list<T>& breadthSearch(const T &startValue,std::list<T>& values) const = 0;
+    std::list<T>& depthSearch(std::list<T> &values) const;
 
     virtual T getValue(const T &nodeValue) const override = 0;
 
@@ -82,9 +83,6 @@ template <class T> class Tree : public BasicGraph<T> {
 
     // TODO implementare
     virtual void markNode(const T &value, marking mark) override {}
-
-    // used in the searches
-    // virtual void updateParent(const T &childValue, const T &newParent) = 0;
 
     /// overloading operator >>
     friend std::istream &operator>>(std::istream &is, Tree<T> &t) {
@@ -131,7 +129,6 @@ template <class T> class Tree : public BasicGraph<T> {
     /// overloading operator >>
     friend std::ostream &operator<<(std::ostream &os, Tree<T> &t) {
         std::list<Edge<T>> edges;
-        // edges = t.getAllEdges(edges);
         for (auto &e : t.getAllEdges(edges)) {
             os << e << "\n";
         }
@@ -140,4 +137,5 @@ template <class T> class Tree : public BasicGraph<T> {
 };
 } // namespace datalib
 
+#include "../sources/Tree.cpp"
 #endif

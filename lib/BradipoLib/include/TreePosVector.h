@@ -120,16 +120,6 @@ template <class T> class TreePosVector : public Tree<T> {
     // void addChild(const)
     void addChildren(const T &value, const std::list<T> &children) override;
 
-    // only for debug
-    // void showTree() const;
-
-    // void showStructure() const;
-
-    // todo da implementare
-    std::list<T>& breadthSearch(const T &startValue,std::list<T>& values)const override{}
-
-    // todo da implementare
-    std::list<T>& depthSearch(const T &startValue, std::list<T>&values) const override{}
 
     template<class U,class W>
     friend class DHeap;

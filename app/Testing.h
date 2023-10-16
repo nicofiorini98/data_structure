@@ -25,7 +25,7 @@
 
 //Required GraphViz installed on the system
 template <class T>
-void printPngImage(Graph<T>* graph,const std::string& nameFileDot, const std::string& nameFilePng){
+void printGraphPng(Graph<T>* graph,const std::string& nameFileDot, const std::string& nameFilePng){
 
     std::string path = "/home/nico/project/data_structure/output_test/";
     std::string nameDotFile = path + nameFileDot;
@@ -51,7 +51,34 @@ void printPngImage(Graph<T>* graph,const std::string& nameFileDot, const std::st
 
 }
 
-void graphImage(const std::string& nameFileDot, const std::string& nameFilePng){
+template <class T>
+void printTreePng(Tree<T>* tree,const std::string& nameFileDot, const std::string& nameFilePng){
+
+    std::string path = "/home/nico/project/data_structure/output_test/";
+    std::string nameDotFile = path + nameFileDot;
+
+    std::ofstream dotFile(nameDotFile,std::ios::out);
+
+    tree->outputDotFile(dotFile);
+
+    dotFile<<std::endl;
+    
+    std::string pngName = path + nameFilePng;
+    std::string command = "dot -Tpng " + std::string(nameDotFile) + " -o " + std::string(pngName);
+    
+    int result = system(command.c_str());
+
+    if (result == 0) {
+        std::cout << "Graph generation successful. Output image saved as " << nameFilePng<< std::endl;
+    } else {
+        std::cerr << "Graph generation failed. Check if GraphViz is installed and the DOT file exists." << std::endl;
+    }
+    
+    dotFile.close();
+
+}
+
+inline void graphImage(const std::string& nameFileDot, const std::string& nameFilePng){
 
     // std::string pathInput = "/home/nico/project/data_structure/input_test/";
     std::string pathOutput = "/home/nico/project/data_structure/output_test/";
@@ -70,6 +97,7 @@ void graphImage(const std::string& nameFileDot, const std::string& nameFilePng){
     
 
 }
+
 
 
 /* ++++++++++++++++++ test TreePtrList +++++++++++++++++++ */
@@ -102,16 +130,19 @@ inline int testTreePtrList(){
     //inizializzazione di tree tramite file
 
     input>>tree;
+    
+    printTreePng(&tree,"provaTree.dot","provaTree.png");
+
 
     std::list<std::string> values;
     std::cout<<"ordine depthSearch: \n";
-    for(auto& value: tree.depthSearch("a",values)){
+    for(auto& value: tree.depthSearch(values)){
         std::cout<<value<<"-->";
     }
     std::cout<<std::endl;
 
     std::cout<<"ordine breadth: \n";
-    for(auto& value: tree.breadthSearch("a",values)){
+    for(auto& value: tree.breadthSearch(values)){
         std::cout<<value<<"-->";
     } 
     std::cout<<std::endl;
@@ -167,10 +198,6 @@ inline int testTreePosVector(){
     std::cout<<"\n+++++++++++++ Test TreePosVector: ++++++++++\n";
 
     std::ifstream input("/home/nico/project/data_structure/input_test/tree.txt");
-    //std::ifstream ist2{"C:\\Users\\1dnic\\Desktop\\my_project\\data_structure\\insert_tree.txt"};
-    //std::ofstream os{"../output.txt"};
-
-	// input.open("../tree.txt",std::ios_base::in);
 
     if(!input.is_open()){
         std::cout << "Failed to open file." << std::endl;
@@ -184,6 +211,20 @@ inline int testTreePosVector(){
 
     //inizializzazione di tree tramite file
     input>>*tree;
+    
+    std::list<std::string> values;
+    std::cout<<"ordine depthSearch: \n";
+    for(auto& value: tree->depthSearch(values)){
+        std::cout<<value<<"-->";
+    }
+    std::cout<<std::endl;
+
+    std::cout<<"ordine breadth: \n";
+    for(auto& value: tree->breadthSearch(values)){
+        std::cout<<value<<"-->";
+    } 
+    #if 0
+    std::cout<<std::endl;
 
     std::cout<<"Test TreePosVector::getDegree() : "<<tree->getDegree()<<" \n";
 
@@ -212,10 +253,10 @@ inline int testTreePosVector(){
     
     std::cout<<"operator << with new value j"<<*tree;
 
+    #endif
 
     delete tree;
 
-    std::cout<<"parent: "<<parent<<"\n";
 
     std::cout<<"\n----------------------------------------------\n";
 		
@@ -247,7 +288,7 @@ inline int testGraphEdgeList(){
     std::cout<<graph.getValue("a")<<"\n";
     graph.setValue("a","j");
 
-    printPngImage(&graph,"edge.dot","edge.png");
+    printGraphPng(&graph,"edge.dot","edge.png");
     
 	return 0;
 }
@@ -277,7 +318,6 @@ inline int testGraphIncList(){
     std::cout<<"virtual method: "<<graph.getNumNode()<<"\n";
 
     std::cout<<"numero archi: "<<graph.numEdge()<<"\n";//OK
-    std::cout<<"max degree: "<<graph.maxDegree()<<"\n";
     std::cout<<"degree of c: "<<graph.degree("c")<<"\n";
 
 
@@ -359,8 +399,6 @@ inline int testDHeapMin(){
         // dheap.deleteValue(37);
         // dheap.setValue(3,40);
 
-        dheap.showTree();
-        dheap.showStructure();
 
         //devo arrivare a vedere questo
         // {37,22,31,13,15,25,14,nullptr,nullptr,7,3,nullptr,nullptr,12,9} // questo è 2-heap fixato
@@ -394,7 +432,6 @@ inline int testHeapSort(){
             input>>dheap;
         }
         
-        dheap.showTree();
         
         std::vector<std::pair<int,std::string>> ordered_int;
         

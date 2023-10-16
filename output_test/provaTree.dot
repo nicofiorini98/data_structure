@@ -1,0 +1,6 @@
+digraph Tree {a->l
+a->b
+b->o
+l->e
+l->r
+}

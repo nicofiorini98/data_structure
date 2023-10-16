@@ -1,22 +1,21 @@
-digraph G {
-Aquila -> Campobasso
-Bologna -> Genova
-Bologna -> Milano
-Bologna -> Venezia
-Campobasso -> Foggia
-Catanzaro -> Messina
-Firenze -> Bologna
-Foggia -> Bari
-Genova -> Torino
-Grosseto -> Pisa
-Napoli -> Potenza
-Perugia -> Firenze
-Perugia -> Ancona
-Potenza -> Catanzaro
-Roma -> Perugia
-Roma -> Grosseto
-Roma -> Aquila
-Roma -> Napoli
-Venezia -> Bolzano
-Veroli -> Roma
+digraph Tree {Aquila->Campobasso
+Bologna->Pisa
+Bologna->Firenze
+Bolzano->Milano
+Bolzano->Venezia
+Campobasso->Foggia
+Catanzaro->Messina
+Firenze->Perugia
+Foggia->Bari
+Milano->Torino
+Milano->Genova
+Napoli->Potenza
+Perugia->Ancona
+Perugia->Roma
+Pisa->Grosseto
+Potenza->Catanzaro
+Roma->Aquila
+Roma->Napoli
+Roma->Veroli
+Venezia->Bologna
 }

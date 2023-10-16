@@ -15,6 +15,7 @@ namespace datalib{
         Node<T>* src;
         Node<T>* dest;
         double weight;
+        char delimiter = ',';
         std::string mark;
         Edge(Node<T>* src, Node<T>* dest, int weight=0, const std::string mark="");
         
@@ -45,7 +46,7 @@ namespace datalib{
         void setWeight(double weight){this->weight = weight;}
 
         friend std::ostream& operator<<(std::ostream &os,const Edge<T>& edge){
-            os << edge.getSourceValue() << "," << edge.getDestinationValue();
+            os << edge.getSourceValue() << edge.delimiter << edge.getDestinationValue();
             return os;
         }
         
@@ -65,7 +66,7 @@ namespace datalib{
             std::string line;
             std::getline(is,line,',');
             std::stringstream str(line);
-            str>> (*edge.src);
+            str>>(*edge.src);
 
             std::getline(is,line);
             std::stringstream str2(line);

@@ -29,6 +29,7 @@ std::ostream &operator<<(std::ostream &os, const std::pair<T1, T2> &p) {
 int main(){
 
     testTreePtrList();
+    // testTreePosVector();
     // testCopyCostructor();
     // testGraphCopyCostructor();
     // testGraphEdgeList();
@@ -88,11 +89,11 @@ int main(){
         //initialization spanning tree
         TreePtrList<City> tree;
 
-        City startValue = cityGraph.getValue({"Veroli"});
+        City startValue = cityGraph.getValue({"Bolzano"});
         startValue.setDistance(0);
 
         //aggiorno la start city with distance 0
-        cityGraph.setValue({"Veroli"},startValue);
+        cityGraph.setValue({"Bolzano"},startValue);
 
         tree.addRoot(startValue);
         
@@ -135,8 +136,6 @@ int main(){
                     tree.updateParent(dest, src);
                 }
             }
-
-            
         }
 
         std::cout<<"spanning tree edge list: "<<tree<<std::endl;
@@ -144,11 +143,11 @@ int main(){
         std::ofstream dotFile("/home/nico/project/data_structure/output_test/minimum_spanning_tree.dot",std::ios::out);
         
         tree.outputDotFile(dotFile);
-        
-        graphImage("minimum_spanning_tree.dot","minimum_spanning_tree.png");
-        
+        dotFile<<std::endl;
         dotFile.close();
         
+        graphImage("minimum_spanning_tree.dot","minimum_spanning_tree.png");
+
     }
     else
         std::cout<<"file non aperto\n";

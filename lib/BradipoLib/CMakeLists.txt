@@ -17,6 +17,7 @@ set(LIBRARY_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/sources/TreePtrList.cpp
                     ${CMAKE_CURRENT_SOURCE_DIR}/sources/Node.cpp
                     ${CMAKE_CURRENT_SOURCE_DIR}/sources/Edge.cpp
                     ${CMAKE_CURRENT_SOURCE_DIR}/sources/DHeap.cpp
+                    ${CMAKE_CURRENT_SOURCE_DIR}/sources/Tree.cpp
                     )
 
 set(LIBRARY_INCLUDES "./include" )

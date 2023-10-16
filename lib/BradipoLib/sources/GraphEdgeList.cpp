@@ -1,7 +1,7 @@
 #ifndef GRAPH_EDGE_LIST_CPP
 #define GRAPH_EDGE_LIST_CPP
-#include <stdexcept>
 #pragma once
+#include <stdexcept>
 #include "GraphEdgeList.h"
 using namespace datalib;
 

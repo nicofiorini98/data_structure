@@ -1,7 +1,7 @@
 #ifndef GRAPH_INC_LIST_CPP
 #define GRAPH_INC_LIST_CPP
-#include <stdexcept>
 #pragma once
+#include <stdexcept>
 #include "GraphIncList.h"
 
 
@@ -304,10 +304,6 @@ void GraphIncList<T>::breadthSearch(const T& startValue, TreePtrList<T>& tree){
 		Node<T> *u = open_node.front(); //return a reference to the first element
 		open_node.pop(); 				//remove the first element 
 
-		//visita il vertice u
-		//typename std::map<T,node<T>*>::iterator u_itr;
-		//u_itr = inc_list.find(*u); 
-		
 		u->mark= closed;
 		
 		//visita il vertice u (quindi prendo gli archi), prendo la destinazione del vertice u
