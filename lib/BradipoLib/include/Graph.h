@@ -88,8 +88,6 @@ template <class T> class Graph: public BasicGraph<T> {
     /// change the node in the object structure from oldValue to newValue
 	virtual void setValue(const T& oldValue,const T& newValue) override = 0;
     
-    virtual void markNode(const T &value, marking mark) override {};
-
     friend std::istream &operator>>(std::istream &is, Graph<T> &graph) {
         // pre-conditions
         // the input work with csv format, example:

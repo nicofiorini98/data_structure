@@ -81,9 +81,6 @@ template <class T> class Tree : public BasicGraph<T> {
 
     virtual void setValue(const T &oldValue, const T &newValue) override = 0;
 
-    // TODO implementare
-    virtual void markNode(const T &value, marking mark) override {}
-
     /// overloading operator >>
     friend std::istream &operator>>(std::istream &is, Tree<T> &t) {
         // pre-conditions

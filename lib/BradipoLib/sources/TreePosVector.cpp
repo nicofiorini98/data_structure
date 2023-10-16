@@ -190,38 +190,7 @@ int TreePosVector<T>::getParentPos(int posChild){
 
 }
 
-template <class T>
-int TreePosVector<T>::getMaxChildPos(int posNode,bool isMin){
 
-
-
-    if (vecNode[posNode]) {
-        // int pos = (*parent_itr)->pos;
-
-        // int maxPos = (*parent_itr)->pos;
-        int priorPos = (posNode * (this->degree));
-
-        for(int i = 0; i < (this->degree) ; i++){
-            int childPos = (posNode * (this->degree)) + i ;
-            if(childPos < vecNode.size() && vecNode[(childPos)]){
-
-				
-                T maxValue = vecNode[priorPos]->value;
-                T value = vecNode[childPos]->value;
-
-                if(!isMin && value > maxValue){
-                    priorPos = childPos;
-                }else if(isMin && value < maxValue){
-                    priorPos = childPos;
-                }
-            }
-        }
-        return priorPos;
-    } else {
-        throw std::runtime_error(
-            "TreePosVector::getChildren(const T& parentValue) error: node doesn't exist in the Tree");
-    } 
-}
 template<class T>
 void TreePosVector<T>::swapPositionValue(int posNode1, int posNode2){
     /* 
@@ -296,30 +265,6 @@ bool TreePosVector<T>::isLeaf(const T& value){
 }
 
 
-// template <class T>
-// void TreePosVector<T>::deleteNode(const T& value){
-
-//     typename std::vector<Node<T> *>::iterator valueItr;
-//     valueItr = datalib::trova(vecNode.begin(), vecNode.end(), value);
-    
-//     if(valueItr != vecNode.end()){
-//         if(this->isLeaf((*valueItr)->value)){
-//             //cancella nodo e return
-//             int pos = (*valueItr)->pos;
-//             delete (*valueItr);
-//             this->vecNode[pos] = nullptr;
-//             return;
-//         }
-
-//         this->getChildren((*valueItr)->value)
-//         for(auto& n: )
-                
-
-//     }else{
-//         throw std::runtime_error("the node to delete doesn't exists");
-//     }
-
-// }
 
 // add childrens to node x, x must exists
 template <class T>
@@ -401,57 +346,6 @@ void TreePosVector<T>::addChild(const T *value, const T *child) {
     ++(*x_itr)->num_children;
 }
 
-// template <class T> void TreePosVector<T>::showStructure() const{
-
-//     std::cout << "\n\n Stampa di Tree_pos_vector: \n";
-
-//     for (auto &n : vecNode) {
-//         if (n) {
-//             std::cout << n->value << ", puntatore: " << n << "\n";
-//         } else if (n == nullptr)
-//             std::cout << "nullptr\n";
-//     }
-//     std::cout << std::endl;
-// }
-
-// template <class T>
-// int tree_pos_vector<T>::getNumChildren(node<T>* _x){
-//     return _x->num_children;
-// }
-
-
-// convention of print tree
-// template <class T>
-// void TreePosVector<T>::showTree() const{
-//     //{ padre figlio1 } { padre figlio2 } { padre2 figlio1}
-//     std::cout << "\nStampa TreePosVector:\n";
-//     // stampa del root
-
-//     std::cout << "root: " << this->vecNode[1]->value;
-
-//     for (auto &node : vecNode) {
-
-//         if (node != nullptr) {
-//             int pos = node->pos;
-//             if (vecNode[pos / 2] != nullptr)
-//                 std::cout << *vecNode[pos / 2];
-//             // else
-//             //     std::cout << "//";
-
-//             if (vecNode[pos / 2] != nullptr)
-//                 std::cout << "<--" << *vecNode[pos];
-//             // else
-//             //     std::cout << "//";
-
-//             // ciclo per la stampa di ogni ciclo del nodo
-//             for (int i = 0; i < this->degree; i++) {
-//                 if (vecNode[pos * 2 + i] != nullptr)
-//                     std::cout << "-->" << *vecNode[pos * 2 + i];
-//             }
-//             std::cout << "\n";
-//         }
-//     }
-// }
 
 template<class T>
 std::list<Edge<T>>& TreePosVector<T>::getAllEdges(std::list<Edge<T>>& edges) const{

@@ -77,11 +77,6 @@ namespace datalib{
 
         std::list<Edge<T>>& getIncomingEdges(const T& value,std::list<Edge<T>>& edges) override;
 
-
-        //method for search on graph
-        void markNode(const T& value,marking mark)override{}
-
-        
     };
     
 }

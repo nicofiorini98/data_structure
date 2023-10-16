@@ -13,8 +13,9 @@
  */
 /**
  * \class TreePosVector
- * \brief Is a Tree data structure implemented with vector positions
- *
+ * \brief Is a Tree data structure implemented with vector positions,
+ * The implementation of the TreePosVector tree imposes structural 
+ * constraints on the maximum node degree and the maximum tree height.
  * \author Nico Fiorini
  * \date 02/03/2021
  */
@@ -23,19 +24,12 @@ template <class T> class TreePosVector : public Tree<T> {
   private:
     /// vector of suitably positioned Nodes
     std::vector<Node<T> *> vecNode;
-    // Node<T> *root;
     int maxNumNodes;
     int height;
 
-    /// maximum degree of a Node
-    // int degree;
-
-    // int getNumChildren(Node<T> *value) { return value->num_children; }
-
     int getPos(Node<T> *value) { return value->pos; }
 
-	//todo controllare parametro passato
-    int getMaxChildPos(int posNode,bool isMin);
+    // int getMaxChildPos(int posNode,bool isMin);
     
     int getParentPos(int posChild);
 
@@ -47,13 +41,11 @@ template <class T> class TreePosVector : public Tree<T> {
 
     void addValuesFromVector(const std::vector<T>& values);
 
-    // void addChildren(node<T>* _x,const std::list<T*> &_childrens);
-
   public:
     /**
      * Default costructor
-     * \param _max_degree is the maximum grade of the nodes
-     *
+     * \param max_degree is the maximum grade of the nodes
+     * \param height is the maximum height for the tree
      */
 
     TreePosVector(int maxDegree, int height);

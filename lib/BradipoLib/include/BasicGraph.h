@@ -43,9 +43,6 @@ template <class T> class BasicGraph {
     ///Output with dot 
     virtual std::ostream &outputDotFile(std::ostream &dotFile) const = 0;
     
-    /// utility function to mark node for helping to the types of search
-    virtual void markNode(const T& value, marking mark) = 0;
-    
   };
 } // namespace datalib
 

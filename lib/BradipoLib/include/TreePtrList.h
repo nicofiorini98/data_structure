@@ -42,10 +42,6 @@ public:
   /// virtual destructor
   ~TreePtrList(); 
   
-
-  /// return the number of sons for the node x
-  // int getDegree()const override {return this->degree;}
-
   std::list<Edge<T>>& getAllEdges(std::list<Edge<T>>& edges) const override;
 
   /// return the nodeValue in the TreePtrList if exists

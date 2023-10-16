@@ -96,8 +96,6 @@ namespace datalib{
         /// return all node in the graph
         void getAllNodeValues(std::list<T>& nodesList);
 
-        void markNode(const T& value,marking mark) override {}
-
         void showStructure() const;
 
         void showNode() const;
