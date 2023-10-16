@@ -88,9 +88,6 @@ namespace datalib{
         /// Get the incoming edges of a graph
         std::list<Edge<T>>& getIncomingEdges(const T& value, std::list<Edge<T>>& edges) override;
 
-        /// return true if destValue is adjacent to srcValue
-        bool isAdjacent(const T &srcValue,const T &destValue) override;
-
         ///method for search in Graph
         void breadthSearch(const T& startValue, TreePtrList<T>& tree) override;
 

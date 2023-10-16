@@ -67,18 +67,15 @@ namespace datalib{
         // remove the edge
         void deleteEdge(const T &srcValue,const T &destValue)override{}
 
-        bool isAdjacent(const T &srcValue,const T &destValue) override;       //return true if the edge(x,y) exist, else return false
-
         std::list<Edge<T>>& getAllEdges(std::list<Edge<T>> &edges) const override;
         
-        //TODO controllare
         std::vector<Edge<T>> getIncidentEdge(const T &value);          //return the incident edge of the Node x
 
-        std::list<Edge<T>>& getIncidentEdges(const T& node,std::list<Edge<T>>& edges) override;
+        std::list<Edge<T>>& getIncidentEdges(const T& value,std::list<Edge<T>>& edges) override;
 
-        std::list<Edge<T>>& getOutgoingEdges(const T& node,std::list<Edge<T>>& edges) override;
+        std::list<Edge<T>>& getOutgoingEdges(const T& value,std::list<Edge<T>>& edges) override;
 
-        std::list<Edge<T>>& getIncomingEdges(const T& node,std::list<Edge<T>>& edges) override;
+        std::list<Edge<T>>& getIncomingEdges(const T& value,std::list<Edge<T>>& edges) override;
 
 
         //method for search on graph

@@ -56,11 +56,6 @@ template <class T> class Graph: public BasicGraph<T> {
     virtual std::list<Edge<T>>& getIncomingEdges(const T &value,
                                   std::list<Edge<T>> &edges) = 0;
 
-    /// return the adjacent nodes of the Node x
-    // void getExtremes(Edge* e);
-
-    virtual bool isAdjacent(const T &srcValue, const T &destValue) = 0;
-
     /// add the node Value in the structure
     virtual void addNode(const T &value) = 0; // add a Node
 
@@ -97,7 +92,9 @@ template <class T> class Graph: public BasicGraph<T> {
 
     friend std::istream &operator>>(std::istream &is, Graph<T> &graph) {
         // pre-conditions
-        // the input work with csv format --> node2add, parent
+        // the input work with csv format, example:
+        // value, parent
+        // value2, value
 
         // std::cout<<"chiamata funzione\n";
         std::string line, srcString, destString;

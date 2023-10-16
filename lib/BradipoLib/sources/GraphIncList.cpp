@@ -242,15 +242,6 @@ int GraphIncList<T>::degree(const T& nodeValue){
 	throw std::runtime_error("GraphIncList<T>::degree(---) error: The node inserted doesn't exist");
 }
 
-//TODO controllare
-template<class T>
-bool GraphIncList<T>::isAdjacent(const T &_src, const T &_dest){
-
-
-
-	return false;
-}
-
 
 //todo aggiustare con l'interfaccia nuova
 template<class T>

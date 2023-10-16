@@ -110,11 +110,11 @@ template <class T> void GraphEdgeList<T>::deleteNode(const T &value) {
 }
 
 template <class T>
-bool GraphEdgeList<T>::edgeExistence(const T &_src, const T &_dest) const {
+bool GraphEdgeList<T>::edgeExistence(const T &src, const T &dest) const {
 
     for (auto &e : edgeList) {
 
-        if ((e.src)->value == _src && (e.dest)->value == _dest)
+        if ((e.src)->value == src && (e.dest)->value == dest)
             return true;
     }
     return false;
@@ -196,11 +196,6 @@ GraphEdgeList<T>::getIncomingEdges(const T &value, std::list<Edge<T>> &edges) {
         }
     }
     return edges;
-}
-
-template <class T>
-bool GraphEdgeList<T>::isAdjacent(const T &srcValue, const T &destValue) {
-    return false;
 }
 
 #endif
