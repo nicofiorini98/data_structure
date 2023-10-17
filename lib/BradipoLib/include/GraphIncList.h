@@ -89,9 +89,9 @@ namespace datalib{
         std::list<Edge<T>>& getIncomingEdges(const T& value, std::list<Edge<T>>& edges) override;
 
         ///method for search in Graph
-        void breadthSearch(const T& startValue, TreePtrList<T>& tree) override;
+        TreePtrList<T>& breadthSearch(const T& startValue, TreePtrList<T>& tree) override;
 
-        void depthSearch(const T& startValue, TreePtrList<T>& tree) override {};
+        TreePtrList<T>& depthSearch(const T& startValue, TreePtrList<T>& tree) override;
         
         /// return all node in the graph
         void getAllNodeValues(std::list<T>& nodesList);

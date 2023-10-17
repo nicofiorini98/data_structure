@@ -29,8 +29,6 @@ template <class T> class TreePosVector : public Tree<T> {
 
     int getPos(Node<T> *value) { return value->pos; }
 
-    // int getMaxChildPos(int posNode,bool isMin);
-    
     int getParentPos(int posChild);
 
     void addChild(const T *value, const T *child);

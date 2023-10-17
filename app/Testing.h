@@ -315,22 +315,19 @@ inline int testGraphIncList(){
     graph.addNode("l");     // this is not necessary, only for testing
     graph.addEdge("l","a"); // OK
 
-    std::cout<<"virtual method: "<<graph.getNumNode()<<"\n";
-
     std::cout<<"numero archi: "<<graph.numEdge()<<"\n";//OK
     std::cout<<"degree of c: "<<graph.degree("c")<<"\n";
 
-
-    graph.showStructure();      // OK
-    graph.deleteEdge("l","a");  // OK
-    graph.showStructure();      // OK
 
     // TreePtrList<std::string> tree;
     // graph.depthSearch("b", tree);
     // _graph.breadthSearch("a",breadthTree);
 
     TreePtrList<std::string> tree;
-    graph.breadthSearch("a",tree);
+    graph.depthSearch("b",tree);
+    
+    printGraphPng(&graph,"oriented_graph.dot","orientedGraph.png");
+    printTreePng(&tree,"breadth_tree.dot","breadth_tree.png");
 
 	// std::cout<<"\n show breadthTree\n";
     // tree.showStructure();
@@ -344,6 +341,15 @@ inline int testGraphIncList(){
     // }	
 	return 0;
 }
+
+/* ++++++++++++++++++ test GraphIncList Search +++++++++++++++++++ */
+#if 1
+
+
+
+#endif
+
+
 
 /* ++++++++++++++++++ test DHeapMax +++++++++++++++++++ */
 #if 1

@@ -15,7 +15,8 @@ namespace datalib {
 
 /**
  * \class Graph
- * \brief This class is abstract, is a base class for various implementations.
+ * \brief Graph is an abstract class that inherits from BasicGraph and contains 
+ * all the methods from Graph implementations.
  * \author Nico Fiorini
  * \date 02/03/2021
  */
@@ -77,10 +78,10 @@ template <class T> class Graph: public BasicGraph<T> {
 
 
     /// return a list with the order based in breadthSearch
-    virtual void breadthSearch(const T &startValue, TreePtrList<T> &tree){};
+    virtual TreePtrList<T>& breadthSearch(const T &startValue, TreePtrList<T> &tree)=0;
 
     /// return a list with the order based in depthSearch
-    virtual void depthSearch(const T &startValue, TreePtrList<T> &tree){};
+    virtual TreePtrList<T>& depthSearch(const T &startValue, TreePtrList<T> &tree)=0;
 
     /// return the value in the object based to the value passed
 	virtual T getValue(const T& nodeValue) const override = 0;

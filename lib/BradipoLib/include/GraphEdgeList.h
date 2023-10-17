@@ -22,13 +22,17 @@ namespace datalib{
     class GraphEdgeList: public Graph<T>{
     private:
 
-        std::vector<Edge<T>> edgeList;
+        std::vector<Edge<T>*> edgeList;
 
         bool edgeExistence(const T *srcValue,const T *destValue) const;
         bool edgeExistence(const T &srcValue,const T &destValue) const;
 
-        bool nodeExistence(const T &value) const;
+        // bool nodeExistence(const T &value) const;
         bool nodeExistence(const Node<T> &value) const;
+        Node<T>* nodeExistence(const T& value);
+
+        void setValue(Node<T>& oldValue, Node<T> &newValue);
+        
 
     public:
         ///Default costructor for the GraphAdjList
@@ -76,7 +80,11 @@ namespace datalib{
         std::list<Edge<T>>& getOutgoingEdges(const T& value,std::list<Edge<T>>& edges) override;
 
         std::list<Edge<T>>& getIncomingEdges(const T& value,std::list<Edge<T>>& edges) override;
+        ///method for search in Graph
+        TreePtrList<T>& breadthSearch(const T& startValue, TreePtrList<T>& tree) override;
 
+        TreePtrList<T>& depthSearch(const T& startValue, TreePtrList<T>& tree) override;
+        
     };
     
 }

@@ -243,9 +243,8 @@ int GraphIncList<T>::degree(const T& nodeValue){
 }
 
 
-//todo aggiustare con l'interfaccia nuova
 template<class T>
-void GraphIncList<T>::breadthSearch(const T& startValue, TreePtrList<T>& tree){
+TreePtrList<T>& GraphIncList<T>::breadthSearch(const T& startValue, TreePtrList<T>& tree){
 
 	/*
 	 * Algoritmo visitaBFS(vertice s) ---> albero (OK)
@@ -291,41 +290,86 @@ void GraphIncList<T>::breadthSearch(const T& startValue, TreePtrList<T>& tree){
 
 	while(!open_node.empty()){
 
-		//qui prendo il nodo nella coda
-		Node<T> *u = open_node.front(); //return a reference to the first element
-		open_node.pop(); 				//remove the first element 
+		//return a reference to the first element
+		Node<T> *u = open_node.front(); 
+										
+		//remove the first element 
+		open_node.pop(); 				
 
-		u->mark= closed;
+		u->mark = closed;
 		
 		//visita il vertice u (quindi prendo gli archi), prendo la destinazione del vertice u
 		for(auto &e: u->connected_edges){
 		 	if((e->dest)->mark == unexplored){
-		 		(e->dest)->mark = open; 										  //marca v come aperto
+				//marca v come aperto
+		 		(e->dest)->mark = open;
 		 		open_node.push(e->dest);						
 		 		tree.addNode((e->dest)->value,u->value); //rendi u padre di v in t
 		 	}
 		}
 	}
+	return tree;
 }
-
 
 
 template<class T>
-void GraphIncList<T>::showStructure() const{
+TreePtrList<T>& GraphIncList<T>::depthSearch(const T &_first_node, TreePtrList<T> &_tree) {
 
-	std::cout<<"GraphEdgeList relations:\n";
-	for(auto &n: incList ){
-		std::cout << *(n.second) << "-->";
-		for(auto &e: (n.second)->connected_edges){
-			std::cout <<"("<< e->getSourceValue() << "," <<e->getDestinationValue()<<")";
-		}
-		std::cout << "\n";
-	}
-	std::cout<<"\n +++++++++\nGraphEdgeList structures:\n";
-	for(auto &e: edgeList){
-		std::cout << *e<<"\n";
-	}
+    //marcatura di tutti i vertici come inesplorati
+    for(auto &n: incList)
+        n.second->mark = unexplored;
+
+    //ricerca del nodo da cui partire
+    typename std::map<T,Node<T>*>::iterator first_node_itr;
+    first_node_itr = incList.find(_first_node);
+    if(first_node_itr == incList.end()){
+        std::string error("the node for breadth first search doesn't exists in the graph");
+        throw error;
+    }
+
+    _tree.addRoot((first_node_itr->second)->value);
+    (first_node_itr->second)->mark = open;
+
+    //inserire il vertice da cui partire nella frontiera (stack)
+    std::stack<Node<T>*> open_node;
+    open_node.push((first_node_itr->second));
+
+    while(!open_node.empty()){
+
+        //qui prendo il nodo nella coda
+        Node<T> *u = open_node.top(); //return a reference to the last element inserted
+        open_node.pop(); 				//remove the first element
+
+        //visita il vertice u
+        //typename std::map<T,node<T>*>::iterator u_itr;
+        //u_itr = inc_list.find(*u);
+
+        if(u->mark == closed)
+            continue;
+
+        u->mark = closed;
+
+        //visita il vertice u (quindi prendo gli archi), prendo la destinazione del vertice u
+        for(auto &e: u->connected_edges){
+            auto* v = e->dest;
+            if(v->mark == unexplored){
+                v->mark = open; 						//marca v come aperto
+                open_node.push(v);
+                _tree.addNode((v->value),(u->value)); //rendi u padre di v in t
+                _tree.updateParent(v->value,u->value);
+
+            }
+            else if((e->dest)->mark == open){
+                open_node.push(e->dest);
+                _tree.updateParent((e->dest)->value,u->value);
+            }
+        }
+    }
+
+	return _tree;
+
 }
+
 
 template<class T>
 bool GraphIncList<T>::edgeExistence(const Edge<T> &edge) const{

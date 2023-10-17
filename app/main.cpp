@@ -13,8 +13,7 @@
 #include "DHeap.h"
 #include "Testing.h"
 
-
-#define DIJKSTRA 1
+#define DIJKSTRA 0
 
 
 using namespace datalib;
@@ -28,11 +27,12 @@ std::ostream &operator<<(std::ostream &os, const std::pair<T1, T2> &p) {
 
 int main(){
 
-    testTreePtrList();
+    // testTreePtrList();
     // testTreePosVector();
     // testCopyCostructor();
     // testGraphCopyCostructor();
-    // testGraphEdgeList();
+    testGraphEdgeList();
+    // testGraphIncList();
 
 
 #if DIJKSTRA 

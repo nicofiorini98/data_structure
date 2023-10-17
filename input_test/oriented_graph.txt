@@ -1,9 +1,9 @@
 a,b
 a,d
 b,c
-c,a
-c,d
 c,f
 c,g
+c,a
+d,c
 f,g
 g,d
