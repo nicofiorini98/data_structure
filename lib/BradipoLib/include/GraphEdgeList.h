@@ -27,6 +27,8 @@ namespace datalib{
         bool edgeExistence(const T *srcValue,const T *destValue) const;
         bool edgeExistence(const T &srcValue,const T &destValue) const;
 
+        std::list<Edge<T>*> getEdgesPtr(const T& value,std::list<Edge<T>*>& edges);
+
         // bool nodeExistence(const T &value) const;
         bool nodeExistence(const Node<T> &value) const;
         Node<T>* nodeExistence(const T& value);

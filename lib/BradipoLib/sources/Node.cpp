@@ -22,14 +22,15 @@ Node<T>::Node(T value){
 template<class T>
 Node<T>::Node(T value, Node<T>* parent){
 
-            this->value = value;
-            pos = -1;
-            num_children = 0;
-            parent = parent;
-            node_list = {};
-            mark = unexplored;
+    this->value = value;
+    pos = -1;
+    num_children = 0;
+    parent = parent;
+    node_list = {};
+    mark = unexplored;
 } 
 
+//costruttore di copia
 template<class T>
 Node<T>::Node(const Node<T>& x){
     value = x.value;
@@ -37,7 +38,7 @@ Node<T>::Node(const Node<T>& x){
     parent = x.parent;
     pos = x.pos;
     num_children = x.num_children;
-    mark = unexplored;
+    mark = x.mark;
 }
 
 

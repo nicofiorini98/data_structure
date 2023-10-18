@@ -1,8 +1,8 @@
 a,b
 a,d
 b,c
-c,f
 c,g
+c,f
 c,a
 d,c
 f,g

@@ -313,7 +313,7 @@ TreePtrList<T>& GraphIncList<T>::breadthSearch(const T& startValue, TreePtrList<
 
 
 template<class T>
-TreePtrList<T>& GraphIncList<T>::depthSearch(const T &_first_node, TreePtrList<T> &_tree) {
+TreePtrList<T>& GraphIncList<T>::depthSearch(const T &startValue, TreePtrList<T> &tree) {
 
     //marcatura di tutti i vertici come inesplorati
     for(auto &n: incList)
@@ -321,13 +321,13 @@ TreePtrList<T>& GraphIncList<T>::depthSearch(const T &_first_node, TreePtrList<T
 
     //ricerca del nodo da cui partire
     typename std::map<T,Node<T>*>::iterator first_node_itr;
-    first_node_itr = incList.find(_first_node);
+    first_node_itr = incList.find(startValue);
     if(first_node_itr == incList.end()){
         std::string error("the node for breadth first search doesn't exists in the graph");
         throw error;
     }
 
-    _tree.addRoot((first_node_itr->second)->value);
+    tree.addRoot((first_node_itr->second)->value);
     (first_node_itr->second)->mark = open;
 
     //inserire il vertice da cui partire nella frontiera (stack)
@@ -355,18 +355,18 @@ TreePtrList<T>& GraphIncList<T>::depthSearch(const T &_first_node, TreePtrList<T
             if(v->mark == unexplored){
                 v->mark = open; 						//marca v come aperto
                 open_node.push(v);
-                _tree.addNode((v->value),(u->value)); //rendi u padre di v in t
-                _tree.updateParent(v->value,u->value);
+                tree.addNode((v->value),(u->value)); //rendi u padre di v in t
+                tree.updateParent(v->value,u->value);
 
             }
             else if((e->dest)->mark == open){
                 open_node.push(e->dest);
-                _tree.updateParent((e->dest)->value,u->value);
+                tree.updateParent((e->dest)->value,u->value);
             }
         }
     }
 
-	return _tree;
+	return tree;
 
 }
 

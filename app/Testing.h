@@ -285,10 +285,15 @@ inline int testGraphEdgeList(){
         return -1;
     }
     
-    std::cout<<graph.getValue("a")<<"\n";
-    graph.setValue("a","j");
+    // std::cout<<graph.getValue("a")<<"\n";
+    // graph.setValue("a","j");
+    
+    TreePtrList<std::string> searchTree;
+    searchTree = graph.depthSearch("b", searchTree);
 
     printGraphPng(&graph,"edge.dot","edge.png");
+    
+    printTreePng(&searchTree,"searchTree.dot","searchTree.png");
     
 	return 0;
 }
