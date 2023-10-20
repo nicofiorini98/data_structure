@@ -4,7 +4,7 @@
 #include "TreePosVector.h"
 #include <vector>
 
-namespace datalib{
+namespace slothLib{
 
 	/**
 	 * \class DHeap 

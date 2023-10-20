@@ -10,7 +10,7 @@
 // #include "edge.h"
 
 //todo togliere il pos nella classe node
-namespace datalib
+namespace slothLib
 {
     enum marking {unexplored,open,closed};
 

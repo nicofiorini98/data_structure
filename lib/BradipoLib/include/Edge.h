@@ -5,7 +5,7 @@
 #include <sstream>
 #include <string>
 
-namespace datalib{
+namespace slothLib{
 
     template<class T>
     class Edge

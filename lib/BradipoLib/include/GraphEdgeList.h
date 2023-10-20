@@ -6,7 +6,7 @@
 // #include <map>
 #include <vector>
 
-namespace datalib{
+namespace slothLib{
 
 	/**
 	 * \class GraphAdjList

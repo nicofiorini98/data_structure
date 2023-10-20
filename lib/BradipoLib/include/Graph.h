@@ -11,7 +11,7 @@
 #include <queue>
 #include <stack>
 
-namespace datalib {
+namespace slothLib {
 
 /**
  * \class Graph

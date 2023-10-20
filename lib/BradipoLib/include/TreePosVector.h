@@ -19,7 +19,7 @@
  * \author Nico Fiorini
  * \date 02/03/2021
  */
-namespace datalib {
+namespace slothLib {
 template <class T> class TreePosVector : public Tree<T> {
   private:
     /// vector of suitably positioned Nodes

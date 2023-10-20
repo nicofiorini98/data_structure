@@ -9,7 +9,7 @@
 #include "TreePosVector.h"
 #include <stdexcept>
 
-using namespace datalib;
+using namespace slothLib;
 
 #define VEC (this->treePosVector)->vecNode
 #define TREE (this->treePosVector)

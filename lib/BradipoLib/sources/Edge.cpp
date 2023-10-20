@@ -3,7 +3,7 @@
 #pragma once
 #include "Edge.h"
 
-using namespace datalib;
+using namespace slothLib;
 
 template<class T>
 Edge<T>::Edge(Node<T>* src, Node<T>* dest, int weight, const std::string mark){

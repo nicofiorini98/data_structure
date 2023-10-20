@@ -6,11 +6,11 @@
 #include "Node.h"
 #include <iostream>
 
-namespace datalib {
+namespace  slothLib {
 
 /**
  * \class Graph
- * \brief This is abstract Class, is a base class for Tree and graph.
+ * \brief This is abstract Class, is a base class for Tree and graph class.
  * \author Nico Fiorini
  * \date 02/03/2021
  */
@@ -21,6 +21,8 @@ template <class T> class BasicGraph {
     char delimiter = ',';
 
   public:
+    
+    /// Costructor
     BasicGraph() {
 		  numNodes = 0;	
     }
@@ -44,6 +46,6 @@ template <class T> class BasicGraph {
     virtual std::ostream &outputDotFile(std::ostream &dotFile) const = 0;
     
   };
-} // namespace datalib
+}
 
 #endif

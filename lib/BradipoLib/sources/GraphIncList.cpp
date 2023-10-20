@@ -5,7 +5,7 @@
 #include "GraphIncList.h"
 
 
-using namespace datalib;
+using namespace slothLib;
 
 //default constructor
 template<class T>

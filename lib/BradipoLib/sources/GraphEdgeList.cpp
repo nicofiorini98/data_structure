@@ -3,7 +3,7 @@
 #pragma once
 #include "GraphEdgeList.h"
 #include <stdexcept>
-using namespace datalib;
+using namespace slothLib;
 
 // default constructor
 template <class T> GraphEdgeList<T>::GraphEdgeList() : Graph<T>() {}

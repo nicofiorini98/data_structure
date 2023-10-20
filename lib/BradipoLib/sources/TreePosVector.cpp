@@ -8,7 +8,7 @@
 #include "Tree.h"
 #include <math.h>
 
-using namespace datalib;
+using namespace slothLib;
 
 // I need to know the grade of the tree and the
 // num_nodes for instatiate the tree
@@ -42,7 +42,7 @@ TreePosVector<T>::~TreePosVector() {
 // template <class T>
 // int TreePosVector<T>::getDegree(const T &value) const {
 //     typename std::vector<Node<T> *>::iterator x_itr;
-//     x_itr = datalib::trova(vecNode.begin(), vecNode.end(), value);
+//     x_itr = slothLib::trova(vecNode.begin(), vecNode.end(), value);
 //     // std::cout<<"TreePosVector::getDegree() --> "<<(*x_itr)->value<<"\n";
 //     if (x_itr != vecNode.end()) {
 //         return (*x_itr)->num_children;
@@ -58,7 +58,7 @@ template<class T>
 int TreePosVector<T>::getNumChildren(const T& value){
 
     typename std::vector<Node<T> *>::iterator x_itr;
-    x_itr = datalib::trova(vecNode.begin(), vecNode.end(), value);
+    x_itr = slothLib::trova(vecNode.begin(), vecNode.end(), value);
 
     int count_children = 0;
 
@@ -80,7 +80,7 @@ template<class T>
 T TreePosVector<T>::getParent(const T &childValue) {
 
     typename std::vector<Node<T> *>::iterator x_itr;
-    x_itr = datalib::trova(vecNode.begin(), vecNode.end(), childValue);
+    x_itr = slothLib::trova(vecNode.begin(), vecNode.end(), childValue);
 
 
     //il padre è vecNode[ parteInteraInferiore(index/degree)]
@@ -96,23 +96,7 @@ template<class T>
 std::list<T> TreePosVector<T>::getChildren(const T& parentValue) const {
 
     typename std::vector<Node<T> *>::const_iterator parent_itr;
-    parent_itr = datalib::trova(vecNode.begin(), vecNode.end(), parentValue);
-
-    //il padre è vecNode[ parteInteraInferiore(index/degree)]
-    /* if (parent_itr != vecNode.end()) {
-        int i=1;
-        std::list<T> children;
-        while( i <= this->getNumChildren(parentValue) ){ //  todo cancellare commento(*parent_itr)->num_children
-            int childPos = ((*parent_itr)->pos)*degree + i;
-            children.push_back(vecNode[childPos]->value);
-            i++;
-        }
-
-        return children;
-    } else {
-        throw std::runtime_error(
-            "TreePosVector::getChildren(const T& parentValue) error: nodo non presente nell'albero");
-    } */
+    parent_itr = slothLib::trova(vecNode.begin(), vecNode.end(), parentValue);
 
     std::list<T> children;
     if (parent_itr != vecNode.end()) {
@@ -155,7 +139,7 @@ template<class T>
 T TreePosVector<T>::getValue(const T& nodeValue) const{
 
     typename std::vector<Node<T> *>::const_iterator x_itr;
-    x_itr = datalib::trova(vecNode.begin(), vecNode.end(), nodeValue);
+    x_itr = slothLib::trova(vecNode.begin(), vecNode.end(), nodeValue);
     
     if(x_itr != vecNode.end()){
         return (*x_itr)->value;
@@ -169,7 +153,7 @@ template<class T>
 void TreePosVector<T>::setValue(const T &oldValue, const T &newValue){
 
     typename std::vector<Node<T> *>::iterator oldItr;
-    oldItr = datalib::trova(vecNode.begin(), vecNode.end(), oldValue);
+    oldItr = slothLib::trova(vecNode.begin(), vecNode.end(), oldValue);
     
     if(oldItr != vecNode.end()){
         (*oldItr)->value = newValue;
@@ -197,6 +181,7 @@ void TreePosVector<T>::swapPositionValue(int posNode1, int posNode2){
     Pre-conditions 
     1. Le due posizioni devono stare nel vettore
      */
+
     Node<T>* node1 = this->vecNode[posNode1];
     //cambio valore e aggiornamento posizione
     this->vecNode[posNode1] = this->vecNode[posNode2];
@@ -230,14 +215,14 @@ void TreePosVector<T>::addNode(const T &value, const T &parent) {
     typename std::vector<Node<T> *>::iterator x_itr;
     typename std::vector<Node<T> *>::iterator parent_itr;
 
-    x_itr = datalib::trova(vecNode.begin(), vecNode.end(), value);
+    x_itr = slothLib::trova(vecNode.begin(), vecNode.end(), value);
 
     if (x_itr != vecNode.end()) {
         // std::string error = "The node" + value + "already exist in the Tree";
         throw std::runtime_error("TreePosVector::addNode() error: The node already exist in the Tree");
     }
 
-    parent_itr = datalib::trova(vecNode.begin(), vecNode.end(), parent);
+    parent_itr = slothLib::trova(vecNode.begin(), vecNode.end(), parent);
 
     // pre-condition 2: parent can't be different from the null_ptr
     if (parent_itr == vecNode.end()) {
@@ -278,7 +263,7 @@ void TreePosVector<T>::addChildren(const T &value,
     */
 
     typename std::vector<Node<T> *>::iterator x_itr;
-    x_itr = datalib::trova(vecNode.begin(), vecNode.end(), value);
+    x_itr = slothLib::trova(vecNode.begin(), vecNode.end(), value);
 
     // preconditions 1
     if (x_itr == vecNode.end()) {
@@ -315,10 +300,10 @@ void TreePosVector<T>::addChild(const T *value, const T *child) {
 
     typename std::vector<Node<T> *>::iterator x_itr;
 
-    x_itr = datalib::trova(vecNode.begin(), vecNode.end(), *value);
+    x_itr = slothLib::trova(vecNode.begin(), vecNode.end(), *value);
 
     typename std::vector<Node<T> *>::iterator child_itr;
-    child_itr = datalib::trova(vecNode.begin(), vecNode.end(), *child);
+    child_itr = slothLib::trova(vecNode.begin(), vecNode.end(), *child);
 
     // preconditions 1
     if (x_itr == vecNode.end()) {

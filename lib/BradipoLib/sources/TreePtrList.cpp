@@ -6,7 +6,7 @@
 // #include <stack>
 // #include <queue>
 
-using namespace datalib;
+using namespace slothLib;
 
 template <class T>
 TreePtrList<T>::TreePtrList() : Tree<T>() {

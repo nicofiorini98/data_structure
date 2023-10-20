@@ -19,7 +19,7 @@
  * \date 03/03/2021
  */
 
-namespace datalib {
+namespace slothLib {
 
 template <class T> class Tree : public BasicGraph<T> {
   protected:

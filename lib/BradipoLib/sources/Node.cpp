@@ -4,7 +4,7 @@
 #include "Node.h"
 #include <algorithm>
 
-using namespace datalib;
+using namespace slothLib;
 
 template<class T>
 Node<T>::Node(T value){

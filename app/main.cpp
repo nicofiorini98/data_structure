@@ -16,7 +16,7 @@
 #define DIJKSTRA 0
 
 
-using namespace datalib;
+using namespace slothLib;
 
 // output stream to print std::pair
 template <typename T1, typename T2>
@@ -31,9 +31,8 @@ int main(){
     // testTreePosVector();
     // testCopyCostructor();
     // testGraphCopyCostructor();
-    testGraphEdgeList();
+    // testGraphEdgeList();
     // testGraphIncList();
-
 
 #if DIJKSTRA 
 
@@ -58,10 +57,6 @@ int main(){
     
     return T
     */
-    /* Come posso rappresentare le distanze tra i nodi?
-     * posso usare std::pair<int,Node<T>>
-     * Devo fare una struct per inserire nell'heap le distanze tra i nodi
-     */
     
 
     std::fstream input;
