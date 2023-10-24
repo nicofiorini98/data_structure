@@ -9,9 +9,9 @@
 namespace slothLib{
 
 	/**
-	 * \class GraphAdjList
+	 * \class GraphEdgeList
 	 * \brief This class is a data structure for a graph,
-	 * is implemented with Adjacency List tecnique .
+	 * is implemented with incidency List tecnique .
 	 * 
 	 * Inherits from Graph class 
 	 * \author Nico Fiorini

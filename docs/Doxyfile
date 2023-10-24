@@ -6,13 +6,14 @@
 # Project related configuration options
 #---------------------------------------------------------------------------
 DOXYFILE_ENCODING       = UTF-8
-PROJECT_NAME            = "C++ Project Template"
+PROJECT_NAME            = "Sloth Library"
 PROJECT_NUMBER          = 1.0.0
-PROJECT_BRIEF           =
-PROJECT_LOGO            =
+PROJECT_BRIEF           = 
+# PROJECT_LOGO            = 
 OUTPUT_DIRECTORY        = ./
 OUTPUT_LANGUAGE         = English
 MARKDOWN_SUPPORT        = YES
+
 
 #---------------------------------------------------------------------------
 # Build related configuration options
@@ -25,8 +26,12 @@ GENERATE_LATEX          = NO
 #---------------------------------------------------------------------------
 # Configuration options related to the input files
 #---------------------------------------------------------------------------
-INPUT                  =    ../src \
-INPUT                       ../include
+INPUT                  =    ../lib/BradipoLib/include \
+INPUT                  = ../mainpage.md \
+
+MAINPAGE                = ../mainpage.md
+USE_MDFILE_AS_MAINPAGE  = ../mainpage.md
+
 INPUT_ENCODING         = UTF-8
 FILE_PATTERNS          = *.c \
                          *.cc \

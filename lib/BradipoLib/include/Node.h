@@ -5,13 +5,12 @@
 #include <list>
 #include <vector>
 #include <algorithm>
-// #include "city.h"
 
-// #include "edge.h"
 
 //todo togliere il pos nella classe node
 namespace slothLib
 {
+    /// utility for searches
     enum marking {unexplored,open,closed};
 
     template<class T>
@@ -25,24 +24,24 @@ namespace slothLib
     private:
         //only implementation of data structure
         //can define the parent of a node
+        
+        /// The node's values goes in here
+        T value;
 
+        /// utility for breadthSearch and depthSearch
         marking mark = unexplored;
 
-        //list of outgoing nodes, used for treePtrList
-        //TODO change name in nodeList
+        ///list of outgoing nodes, used for treePtrList
         std::list<Node<T>*> node_list;
 
-        //vector for inc_list
-        //TODO change name in connectedEdges
+        /// vector for inc_list
         std::list<Edge<T>*> connected_edges;
         Node<T>* parent;
 
-        T value;
 
-        //attribute for tree_pos_vector
+        /// attribute utility for TreePosVector
         int pos;
         
-        //TODO vedere se si può togliere
         int num_children;
 
         //private constructor
@@ -52,7 +51,6 @@ namespace slothLib
         void addChildren(const std::list<Node<T>*>& _children);
 
     public:
-        ///\param value is for initialize the value
 
         Node(){}
 

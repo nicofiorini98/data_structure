@@ -9,10 +9,10 @@
 namespace  slothLib {
 
 /**
- * \class Graph
- * \brief This is abstract Class, is a base class for Tree and graph class.
+ * \class BasicGraph
+ * \brief This is an abstract class, it is the base class for all trees and graphs.
  * \author Nico Fiorini
- * \date 02/03/2021
+ * \date 10/10/2023
  */
 
 template <class T> class BasicGraph {
@@ -30,19 +30,36 @@ template <class T> class BasicGraph {
     /// virtual destructor
     virtual ~BasicGraph() {}
 
-    /// return the number of the Node in the graph
+    /**
+     * @brief Return the number of nodes contained in the Graph.
+     */
     int getNumNode() { return numNodes; }
     
-    /// set Delimiter Input File
+    /**
+     * @brief Set delimiter for input file.
+     * @param delimiter delimiter character for input file.
+     */
     virtual void setDelimiterFile(const char delimiter){this->delimiter = delimiter;}
 	
     /// return the value in the object based to the value passed
+    /**
+     * @brief Return the value passed by parameter contained in the Graph
+     * @param nodeValue is the parameter to search and return from the Graph,
+     * Uniqueness is based on comparison operators.
+    */
 	  virtual T getValue(const T& nodeValue) const = 0;
 	
-    /// change the node in the object structure from oldValue to newValue
+    /**
+     * @brief Change the value of the node OldValue with the newValue.
+     * @param oldValue the value to search and change.
+     * @param newValue the new value to change with the old value.
+    */
 	  virtual void setValue(const T& oldValue,const T& newValue) = 0;
 
-    ///Output with dot 
+    /**
+     * @brief Write in the stream in dot language to visualize with Graphviz software.
+     * @param dotFile The stream to write in dot language.
+    */
     virtual std::ostream &outputDotFile(std::ostream &dotFile) const = 0;
     
   };
