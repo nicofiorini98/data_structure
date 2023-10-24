@@ -16,7 +16,7 @@
 #include "Testing.h"
 
 
-void Dijkstra(){
+inline void Dijkstra(){
 	 /* 
     algorimo Dijkstra(grafo G,vertice s)->albero
     for(each)(vertice u in G) do Dsu <- +inf
@@ -40,12 +40,15 @@ void Dijkstra(){
     */
     
 
+	// Open the input file that contains graph data
     std::fstream input;
     input.open( "/home/nico/project/data_structure/input_test/city_graph.txt",std::ios::in);
 
+	// Create a graph instance for cityGraph
     GraphIncList<City> cityGraph;
+	
     if(input.is_open()){
-        // input all the edges in the graph
+		// Read edges from the input file and add them to the graph
         while(!input.eof()){
             Edge<City> edge;
             input>>edge;
@@ -54,28 +57,25 @@ void Dijkstra(){
             cityGraph.addEdge(edge);
         }
 
+		// Create a DOT file for cityGraph visualization
         std::ofstream cytyGraphdotFile("/home/nico/project/data_structure/output_test/cityGraph.dot",std::ios::out);
-        
         cityGraph.outputDotFile(cytyGraphdotFile);
-        
         cytyGraphdotFile.close();
 
+		// Create a DHeap for processing nodes with the minimum distance
         DHeap<double,City> S(2,cityGraph.getNumNode(),true);
 
-        //initialization spanning tree
+		// Initialize the minimum spanning tree
         TreePtrList<City> tree;
 
+		// Set the source city and add it to the root of the tree
         City startValue = cityGraph.getValue({"Bolzano"});
         startValue.setDistance(0);
-
-        //aggiorno la start city with distance 0
         cityGraph.setValue({"Bolzano"},startValue);
-
         tree.addRoot(startValue);
-        
         S.insert(std::pair<double,City>(0,startValue));
-        //aggiornare distanza da Roma->Roma Dss=0
 
+		// Process vertices to find the minimum spanning tree
         while(!S.isEmpty()){
             City u = S.popValue().second;
 
@@ -83,9 +83,11 @@ void Dijkstra(){
             std::list<Edge<City>> edges;
             cityGraph.getOutgoingEdges(u,edges);
 
+			// macro for  reading optimization
             #define dest e.getDestinationValue()
             #define src e.getSourceValue()
 
+			// Process outgoing edges from the current city
             for(auto& e: edges){
                 double Dsv = dest.getDistance();
                 double Dsu = src.getDistance();
@@ -116,12 +118,14 @@ void Dijkstra(){
 
         std::cout<<"spanning tree edge list: "<<tree<<std::endl;
 
+		// Output the resulting minimum spanning tree to a DOT file
         std::ofstream dotFile("/home/nico/project/data_structure/output_test/minimum_spanning_tree.dot",std::ios::out);
         
         tree.outputDotFile(dotFile);
         dotFile<<std::endl;
         dotFile.close();
         
+		// Generate an image of the minimum spanning tree using graphImage function
         graphImage("minimum_spanning_tree.dot","minimum_spanning_tree.png");
 
     }
