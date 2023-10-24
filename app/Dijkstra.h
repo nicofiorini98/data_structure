@@ -122,7 +122,6 @@ inline void Dijkstra(){
         std::ofstream dotFile("/home/nico/project/data_structure/output_test/minimum_spanning_tree.dot",std::ios::out);
         
         tree.outputDotFile(dotFile);
-        dotFile<<std::endl;
         dotFile.close();
         
 		// Generate an image of the minimum spanning tree using graphImage function
