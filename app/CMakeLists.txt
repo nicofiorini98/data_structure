@@ -1,5 +1,7 @@
 set(APP_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
-                ${CMAKE_CURRENT_SOURCE_DIR}/Testing.h)
+                ${CMAKE_CURRENT_SOURCE_DIR}/Testing.h
+                ${CMAKE_CURRENT_SOURCE_DIR}/Dijkstra.h
+                ${CMAKE_CURRENT_SOURCE_DIR}/Utils.h)
 
                 
 
