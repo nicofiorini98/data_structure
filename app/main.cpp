@@ -33,6 +33,7 @@ int main(){
     // testGraphCopyCostructor();
     // testGraphEdgeList();
     // testGraphIncList();
+    testDHeapMin();
 
 #if DIJKSTRA 
 

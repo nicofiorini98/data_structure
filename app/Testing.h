@@ -19,7 +19,7 @@
 #define GRAPH_EDGE_LIST 0
 #define GRAPH_INC_LIST 0
 #define DHEAP_MAX 0
-#define DHEAP_MIN 0
+#define DHEAP_MIN 1
 #define HEAP_SORT 0
 #define COPY_COSTRUCTOR 1
 
@@ -398,6 +398,8 @@ inline int testDHeapMin(){
         
         dheap.changeKey(300,"c");
         dheap.changeValue(300,"d");
+        
+        std::cout<<dheap;
         
 
         // dheap.deleteByValue("undici");

@@ -204,6 +204,9 @@ void DHeap<K, T>::insert(const std::pair<K,T>& value) {
     int lastLeaf = this->insertToLeaf(value);
 
     moveHigh(lastLeaf);
+    
+    // update the root of the tree
+    this->treePosVector->root = VEC[1];
 }
 
 template <class K, class T>
@@ -446,9 +449,7 @@ int DHeap<K,T>::findByValue(const T& value){
 
 template <class K, class T>
 DHeap<K, T>::~DHeap() {
-
     delete treePosVector;
-    std::cout << "~Dheap() called\n";
 }
 
 #endif /* DHEAP_CPP */

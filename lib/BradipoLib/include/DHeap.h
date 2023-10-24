@@ -179,7 +179,13 @@ template <class K, class T> class DHeap {
      * @param heap The DHeap object to be streamed.
      * @return The same output stream (`os`) after streaming the DHeap object.
      */
-    friend std::ostream &operator<<(std::ostream &os, DHeap<K, T> heap) {
+    friend std::ostream &operator<<(std::ostream &os, DHeap<K, T>& heap) {
+		std::list<std::pair<K, T>> nodeList;
+		heap.treePosVector->breadthSearch(nodeList);
+
+		for(auto& n: nodeList){
+			os<<n.first<<heap.delimiter<<n.second<<"\n";
+		}
         return os;
     }
 
@@ -212,7 +218,10 @@ template <class K, class T> class DHeap {
         return is;
     }
 
-    /// Destructor
+    /**
+     * @brief Destroy the DHeap object
+     * 
+     */
     ~DHeap();
 };
 

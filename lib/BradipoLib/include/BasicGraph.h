@@ -44,8 +44,8 @@ template <class T> class BasicGraph {
     /// return the value in the object based to the value passed
     /**
      * @brief Return the value passed by parameter contained in the Graph
-     * @param nodeValue is the parameter to search and return from the Graph,
-     * Uniqueness is based on comparison operators.
+     * @param nodeValue is the parameter to search and return from the Graph.
+     * @note Uniqueness is based on comparison operators.
     */
 	  virtual T getValue(const T& nodeValue) const = 0;
 	
