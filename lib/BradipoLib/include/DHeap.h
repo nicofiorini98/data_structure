@@ -99,7 +99,7 @@ template <class K, class T> class DHeap {
     std::pair<K, T> popValue();
 
     /**
-     * @brief Get the First Value object
+     * @brief Get the value with max priority
      *
      * @return std::pair<K, T>
      */

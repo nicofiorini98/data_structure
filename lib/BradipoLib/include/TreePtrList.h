@@ -8,71 +8,66 @@
 #include <queue>
 #include <sstream>
 #include <stack>
+
+namespace slothLib {
 /**
- * \class Tree
- * \brief This class is an implementation of tree
- * This is the most flexible implementation of this library, because doesn't have degree
- * limits of node. Doesn't have limit in terms of size.
+ * \class TreePtrList
+ * \brief This class is an implementation of a tree structure.
+ *
+ * This implementation provides a flexible tree structure that doesn't have
+ * degree limits for nodes and has no specific size limits.
  *
  * \author Nico Fiorini
- * \date 03/03/2021
- *
  */
-namespace slothLib {
 
 template <class T> class TreePtrList : public Tree<T> {
-private:
+  private:
+    std::map<T, Node<T> *>
+        nodesMap; /**< A map that stores nodes in the tree. */
 
-  std::map<T, Node<T>*> nodesMap;
+    std::list<Node<T> *> &getNodeList(Node<T> *value);
 
-  std::list<Node<T> *> &getNodeList(Node<T> *value);
+    int getNumChildren(Node<T> *value) { return value->node_list.size(); }
 
-  int getNumChildren(Node<T> *value) { return value->node_list.size(); }
+    Node<T> *getNode(const T value);
 
-  Node<T> *getNode(const T value);
+  public:
+    /**
+     * \brief Constructor for the TreePtrList.
+     */
+    TreePtrList();
 
-public:
+    /**
+     * \brief Copy constructor for the TreePtrList.
+     *
+     * @param tree The tree to be copied.
+     */
+    TreePtrList(const TreePtrList<T> &tree) : Tree<T>(tree) {}
 
-  /// Costructor
-  TreePtrList();
-  
-  /// Copy Costructor
-  TreePtrList(const TreePtrList<T>& tree):Tree<T>(tree){}
-  
-  /// virtual destructor
-  ~TreePtrList(); 
-  
-  std::list<Edge<T>>& getAllEdges(std::list<Edge<T>>& edges) const override;
+    /**
+     * \brief Destructor for the TreePtrList.
+     */
+    ~TreePtrList();
 
-  /// return the nodeValue in the TreePtrList if exists
-  T getValue(const T &nodeValue) const override;
+    std::list<Edge<T>> &getAllEdges(std::list<Edge<T>> &edges) const override;
 
-  void setValue(const T &oldValue, const T &newValue) override;
+    T getValue(const T &nodeValue) const override;
 
-  T getParent(const T &childValue) override;
+    void setValue(const T &oldValue, const T &newValue) override;
 
-  /// return a vector of the node x
-  std::list<T> getChildren(const T& parentValue) const override;
+    T getParent(const T &childValue) override;
 
-  /// add root in the Tree
-  void addRoot(const T& rootValue) override;
+    std::list<T> getChildren(const T &parentValue) const override;
 
-  /// add a node in the Tree, permitted only if root exist
-  ///\param _node is the node to add in the Tree
-  ///\param _father is the parent of the node to be inserted,
-  /// if not specified the node is the root of the Tree
-  void addNode(const T& value, const T& parent)override;
+    void addRoot(const T &rootValue) override;
 
-  /// add children to node value
-  void addChildren(const T &value, const std::list<T> &children)override;
+    void addNode(const T &value, const T &parent) override;
 
-  /// change the parent of child with newParent
-  void updateParent(const T &child, const T &newParent);
+    void addChildren(const T &value, const std::list<T> &children) override;
 
-  
-
+    void updateParent(const T &child, const T &newParent);
 };
-} // namespace datalib
+} // namespace slothLib
 
 #endif
 #include "../sources/TreePtrList.cpp"

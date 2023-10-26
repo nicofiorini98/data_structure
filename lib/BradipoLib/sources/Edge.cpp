@@ -15,7 +15,6 @@ Edge<T>::Edge(Node<T>* src, Node<T>* dest, int weight, const std::string mark){
 	this->src  = src;
 	this->dest = dest;
 	this->weight = weight;
-	this->mark = mark;
 
 }
 
@@ -31,7 +30,6 @@ Edge<T>::Edge(const T *_src, const T *_dest, int _weight, const std::string &_ma
 	src  = new Node<T>(*_src);
 	dest = new Node<T>(*_dest);
 	weight = _weight;
-	mark = _mark;
 
 }
 
@@ -42,7 +40,6 @@ Edge<T>::Edge(const Edge<T> &x){
 	this->src  = new Node(*(x.src));
 	this->dest = new Node(*(x.dest));
 	weight = x.weight;
-	mark = x.mark;
 
 }
 

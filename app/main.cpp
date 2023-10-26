@@ -32,8 +32,8 @@ int main(){
     // testGraphCopyCostructor();
     // testGraphEdgeList();
     // testGraphIncList();
-    testDHeapMin();
-    Dijkstra();
+    // testDHeapMin();
+    // Dijkstra();
 
 
     return 0;

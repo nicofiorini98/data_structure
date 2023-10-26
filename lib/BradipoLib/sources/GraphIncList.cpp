@@ -154,16 +154,16 @@ void GraphIncList<T>::setValue(const T& oldValue,const T& newValue){
 }
 
 
-template<class T>
-void GraphIncList<T>::getAllNodeValues(std::list<T>& nodesList){
-	nodesList.clear();
+// template<class T>
+// void GraphIncList<T>::getAllNodeValues(std::list<T>& nodesList){
+// 	nodesList.clear();
 
-	for(auto &n: incList){
-		nodesList.push_back(n.first);
-	}	
-	return;
+// 	for(auto &n: incList){
+// 		nodesList.push_back(n.first);
+// 	}	
+// 	return;
 	
-}
+// }
 
 
 template <class T>
@@ -400,22 +400,6 @@ bool GraphIncList<T>::nodeExistence(const T* nodeValue) const{
 			return true;
 	}
 	return false;
-}
-
-
-template<class T>
-void GraphIncList<T>::showNode() const{
-	
-	for(auto &n: incList ){
-		std::cout << (n.second) << "-->";
-		for(auto &e: (n.second)->connected_edges){
-			std::cout <<"("<< e->src << "," <<e->dest<<")";
-		}
-		std::cout << "\n";
-	}
-	for(auto &e: edgeList){
-		std::cout << *e;
-	}
 }
 
 

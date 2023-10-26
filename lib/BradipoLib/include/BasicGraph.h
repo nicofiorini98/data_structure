@@ -17,7 +17,9 @@ namespace  slothLib {
 
 template <class T> class BasicGraph {
   protected:
+    /**@brief number of nodes in the graph*/
 	  int numNodes;
+    /**@brief delimiter character for the input*/
     char delimiter = ',';
 
   public:

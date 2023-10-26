@@ -14,11 +14,16 @@
 namespace slothLib {
 
 /**
- * \class Graph
- * \brief Graph is an abstract class that inherits from BasicGraph and contains 
- * all the methods from Graph implementations.
+ * @class Graph
+ * @brief A graph data structure template.
+ *
+ * This class provides a basic implementation of a graph data structure. It supports
+ * adding and removing nodes and edges, as well as performing basic graph operations
+ * such as breadth-first search and depth-first search.
+ *
  * \author Nico Fiorini
  * \date 02/03/2021
+ * @tparam T The type of the nodes in the graph.
  */
 
 template <class T> class Graph: public BasicGraph<T> {
@@ -28,65 +33,132 @@ template <class T> class Graph: public BasicGraph<T> {
 
   public:
     
-    /// Costructor
+    /**
+     * @brief Constructor for the Graph.
+     *
+     * Initializes the number of edges to 0.
+     */
     Graph(): BasicGraph<T>(){
         numEdges = 0;
     }
     
-    /// virtual Destructor
+    /**
+     * @brief Virtual destructor for the Graph.
+     */
     virtual ~Graph() {}
 
-    /// return the number of the Edge in the graph
+    /**
+     * @brief Get the number of edges in the graph.
+     * @return The number of edges in the graph.
+     */
     int numEdge() { return numEdges;}
     
-    /// return the degree of nodeValue
+    /**
+     * @brief Get the degree of a node with a specific value.
+     * 
+     * @param nodeValue The value of the node.
+     * @return The degree of the node.
+     */
     virtual int degree(const T &nodeValue) = 0;
 
-    /// return all the Edge in the graph into a list
+    /**
+     * @brief Get all the edges in the graph into a list.
+     * 
+     * @param edges The list to store the edges.
+     * @return A list containing all the edges in the graph.
+     */
     virtual std::list<Edge<T>>& getAllEdges(std::list<Edge<T>> &edges) const = 0;
 
-    /// return the incident edges of value
+    /**
+     * @brief Get the incident edges of a node with a specific value.
+     * 
+     * @param value The value of the node.
+     * @param edges The list to store the incident edges.
+     * @return A list containing the incident edges of the node.
+     */
     virtual std::list<Edge<T>>& getIncidentEdges(const T &value,
                                   std::list<Edge<T>> &edges) = 0;
 
-    /// return the outgoing edges of value
+    /**
+     * @brief Get the outgoing edges of a node with a specific value.
+     * 
+     * @param value The value of the node.
+     * @param edges The list to store the outgoing edges.
+     * @return A list containing the outgoing edges of the node.
+     */
     virtual std::list<Edge<T>>& getOutgoingEdges(const T &value,
                                   std::list<Edge<T>> &edges) = 0;
 
-    /// return the incoming edges of value
+    /**
+     * @brief Get the incoming edges of a node with a specific value.
+     * 
+     * @param value The value of the node.
+     * @param edges The list to store the incoming edges.
+     * @return A list containing the incoming edges of the node.
+     */
     virtual std::list<Edge<T>>& getIncomingEdges(const T &value,
                                   std::list<Edge<T>> &edges) = 0;
 
-    /// add the node Value in the structure
-    virtual void addNode(const T &value) = 0; // add a Node
+    /**
+     * @brief Add a node with a specific value to the graph structure.
+     * 
+     * @param value The value of the node to be added.
+     */
+    virtual void addNode(const T &value) = 0;
 
-    /// add the edge in the structure and create the nodes if doesn't exists
+    /**
+     * @brief Add an edge to the graph structure and create the nodes if they do not exist.
+     * 
+     * @param edge The edge to be added.
+     */
     virtual void addEdge(const Edge<T>& edge) = 0;
 
-    /// add the edge in the structure and create the nodes if doesn't exists
+    /**
+     * @brief Add an edge to the graph structure and create the nodes if they do not exist.
+     * 
+     * @param srcValue The value of the source node.
+     * @param destValue The value of the destination node.
+     * @param weight The weight of the edge (default is 0).
+     */
     virtual void addEdge(const T& srcValue,
                          const T& destValue,
-                         double weight = 0)=0; // add an Edge
+                         double weight = 0)=0; 
 
-    /// delete the node Value in the structure
-    virtual void deleteNode(const T &value) = 0; // remove a Node in the graph
+    /**
+     * @brief Delete a node with a specific value from the graph structure.
+     * 
+     * @param value The value of the node to be deleted.
+     */
+    virtual void deleteNode(const T &value) = 0;
 
-    /// delete the edge in the structure
-    virtual void
-    deleteEdge(const T &srcValue,
-               const T &destValue) = 0; // remove a Edge in the graph
+    /**
+     * @brief Delete an edge from the graph structure.
+     * 
+     * @param srcValue The value of the source node.
+     * @param destValue The value of the destination node.
+     */
+    virtual void deleteEdge(const T &srcValue,const T &destValue) = 0;
 
-
-    /// return a list with the order based in breadthSearch
+    /**
+     * @brief Perform breadth-first search starting from a node with a specific value.
+     * 
+     * @param startValue The value of the starting node.
+     * @param tree The tree to store the search results.
+     * @return A list with the order based on breadth-first search.
+     */
     virtual TreePtrList<T>& breadthSearch(const T &startValue, TreePtrList<T> &tree)=0;
 
-    /// return a list with the order based in depthSearch
+    /**
+     * @brief Perform depth-first search starting from a node with a specific value.
+     * 
+     * @param startValue The value of the starting node.
+     * @param tree The tree to store the search results.
+     * @return A list with the order based on depth-first search.
+     */
     virtual TreePtrList<T>& depthSearch(const T &startValue, TreePtrList<T> &tree)=0;
 
-    /// return the value in the object based to the value passed
 	virtual T getValue(const T& nodeValue) const override = 0;
 
-    /// change the node in the object structure from oldValue to newValue
 	virtual void setValue(const T& oldValue,const T& newValue) override = 0;
     
     friend std::istream &operator>>(std::istream &is, Graph<T> &graph) {

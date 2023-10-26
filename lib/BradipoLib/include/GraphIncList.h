@@ -1,109 +1,109 @@
 #ifndef GRAPH_INC_LIST_H
 #define GRAPH_INC_LIST_H
 
-
-#include "Graph.h"
 #include "Edge.h"
+#include "Graph.h"
 #include <map>
 #include <vector>
 
-namespace slothLib{
+namespace slothLib {
 
-	/**
-	 * \class GraphIncList
-	 * \brief This class is a data structure for a graph,
-	 * is implemented with incidency List tecnique .
-	 * 
-	 * Inherits from Graph class 
-	 * \author Nico Fiorini
-	*/
-    //this scructure is implemented with vector of edge
+/**
+ * @class GraphIncList
+ * @brief This class is a data structure for a graph, implemented using an
+ * incidence list technique.
+ *
+ * This class inherits from the Graph class and is designed to represent a graph
+ * structure with an incidence list.
+ *
+ * @tparam T The type of the nodes in the graph.
+ * @author Nico Fiorini
+ */
+template <class T> class GraphIncList : public Graph<T> {
+  private:
+    /// The incidence list data structure.
+    std::map<T, Node<T> *> incList;
+    /// A list of edges.
+    std::list<Edge<T> *> edgeList;
 
-    template<class T>
-    class GraphIncList: public Graph<T>{
-    private: 
+    // bool edge_existence(const T &_src,const T &_dest) const;
+    bool edgeExistence(const Edge<T> &edge) const;
 
-		//this is the data structure
-        std::map<T,Node<T>*> incList;
-        std::list<Edge<T>*> edgeList;
+    bool edgeExistence(const T *srcValue, const T *destValue) const;
 
-        // bool edge_existence(const T &_src,const T &_dest) const;
-        bool edgeExistence(const Edge<T> &edge) const;
+    bool nodeExistence(const T *nodeValue) const;
 
-        bool edgeExistence(const T* srcValue,const T* destValue) const;
+  public:
 
-        bool nodeExistence(const T* nodeValue) const;
+    /**
+     * @brief Default constructor for the GraphIncList.
+     */
+    GraphIncList();
 
-
-    public:
-        ///Default costructor for the GraphAdjList
-        GraphIncList();
-        
-        /// CopyCostructor
-        GraphIncList(const GraphIncList<T>& otherGraph) {
-            std::list<Edge<T>> edges;
-            this->numEdges = otherGraph.numEdges;
-            for(auto& e: otherGraph.getAllEdges(edges)){
-                this->addEdge(e.getSourceValue(),e.getDestinationValue(),e.getWeight());
-            }
+    /**
+     * @brief Copy constructor for the GraphIncList.
+     *
+     * @param otherGraph The graph to be copied.
+     */
+    GraphIncList(const GraphIncList<T> &otherGraph) {
+        std::list<Edge<T>> edges;
+        this->numEdges = otherGraph.numEdges;
+        for (auto &e : otherGraph.getAllEdges(edges)) {
+            this->addEdge(e.getSourceValue(), e.getDestinationValue(),
+                          e.getWeight());
         }
-        
-        ///Costructor with a vector of Edge
-        ///virtual Destructor
-        virtual ~GraphIncList();
+    }
 
-        ///add a Node x in the graph
-        void addNode(const T &value) override;
+    /**
+     * @brief Destructor for the GraphIncList.
+     */
+    virtual ~GraphIncList();
 
-        ///Return the degree of the node _x
-        int degree(const T& nodeValue) override;
+    void addNode(const T &value) override;
 
-        std::list<Edge<T>>& getAllEdges(std::list<Edge<T>> &edges) const override;
+    int degree(const T &nodeValue) override;
 
-        /// return the value in the object based to the value passed
-	    T getValue(const T& nodeValue) const override;
-        
-        /// change the node in the object structure from oldValue to newValue
-        void setValue(const T& oldValue,const T& newValue) override;
+    std::list<Edge<T>> &getAllEdges(std::list<Edge<T>> &edges) const override;
 
-        void addEdge(const T& srcValue,const T& destValue,double weight = 0) override;
+    T getValue(const T &nodeValue) const override;
 
-        void addEdge(const Edge<T>& edge)override;
+    void setValue(const T &oldValue, const T &newValue) override;
 
-        ///Delete the node from the Graph
-        void deleteNode(const T& value) override;      
+    void addEdge(const T &srcValue, const T &destValue,
+                 double weight = 0) override;
 
-        ///Remove the Edge in the graph
-        void deleteEdge(const T &srcValue,const T &destValue) override;
+    void addEdge(const Edge<T> &edge) override;
 
-        ///Remove the Edge in the graph
-        void deleteEdge(const Edge<T>& edge);                    
+    void deleteNode(const T &value) override;
 
-        /// Get the incident edges of a graph
-        std::list<Edge<T>>& getIncidentEdges(const T& value, std::list<Edge<T>>& edges) override;
+    
+    void deleteEdge(const T &srcValue, const T &destValue) override;
 
-        /// Get the outgoing edges of a graph
-        std::list<Edge<T>>& getOutgoingEdges(const T& value, std::list<Edge<T>>& edges) override;
+    /**
+     * @brief Delete an edge from the graph structure.
+     * 
+     * @param edge to delete.
+     */
+    void deleteEdge(const Edge<T> &edge);
 
-        /// Get the incoming edges of a graph
-        std::list<Edge<T>>& getIncomingEdges(const T& value, std::list<Edge<T>>& edges) override;
+    std::list<Edge<T>> &getIncidentEdges(const T &value,
+                                         std::list<Edge<T>> &edges) override;
 
-        ///method for search in Graph
-        TreePtrList<T>& breadthSearch(const T& startValue, TreePtrList<T>& tree) override;
+    std::list<Edge<T>> &getOutgoingEdges(const T &value,
+                                         std::list<Edge<T>> &edges) override;
 
-        TreePtrList<T>& depthSearch(const T& startValue, TreePtrList<T>& tree) override;
-        
-        /// return all node in the graph
-        void getAllNodeValues(std::list<T>& nodesList);
+    std::list<Edge<T>> &getIncomingEdges(const T &value,
+                                         std::list<Edge<T>> &edges) override;
 
-        void showStructure() const;
+    TreePtrList<T> &breadthSearch(const T &startValue,
+                                  TreePtrList<T> &tree) override;
 
-        void showNode() const;
+    TreePtrList<T> &depthSearch(const T &startValue,
+                                TreePtrList<T> &tree) override;
 
-        void showGraphValue() const{}
-
-    };
-}
+    // void getAllNodeValues(std::list<T> &nodesList);
+};
+} // namespace slothLib
 
 #include "../sources/GraphIncList.cpp"
 

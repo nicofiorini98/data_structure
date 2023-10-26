@@ -125,19 +125,6 @@ void GraphEdgeList<T>::setValue(Node<T> &oldNode, Node<T> &newNode) {
     }
 }
 
-template <class T>
-std::vector<Edge<T>> GraphEdgeList<T>::getIncidentEdge(const T &value) {
-
-    std::vector<Edge<T>> incident_edge;
-
-    for (auto &e : edgeList) {
-        if ((e->src)->value == value || (e->dest)->value == value) {
-            Edge<T> appo(e);
-            incident_edge.push_back(appo);
-        }
-    }
-    return incident_edge;
-}
 
 template <class T> void GraphEdgeList<T>::deleteNode(const T &value) {
 
