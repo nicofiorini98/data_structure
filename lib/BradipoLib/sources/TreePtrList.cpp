@@ -1,6 +1,5 @@
 #ifndef TREE_PTR_LIST_CPP
 #define TREE_PTR_LIST_CPP
-#pragma once
 #include <stdexcept>
 #include "TreePtrList.h"
 // #include <stack>
@@ -18,7 +17,6 @@ TreePtrList<T>::TreePtrList() : Tree<T>() {
 
 template <class T> TreePtrList<T>::~TreePtrList() {
 
-    std::cout << "------Call ~TreePtrList-----\n";
     int j = 0;
     for (typename std::map<T, Node<T> *>::iterator i = nodesMap.begin();
          i != nodesMap.end(); ++i) {
@@ -108,7 +106,7 @@ void TreePtrList<T>::addChildren(const T &value, const std::list<T> &children) {
         for (auto &child : children)
             addNode(child, value);
     } catch (std::string error) {
-        std::cout << error << "\n";
+        throw std::runtime_error("TreePtrList<T>::addChildren error");
     }
 }
 

@@ -1,6 +1,5 @@
 #ifndef TREE_CPP
 #define TREE_CPP
-#pragma once
 #include "Tree.h"
 
 template <class T>

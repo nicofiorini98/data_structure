@@ -17,17 +17,6 @@
 #include "BasicGraph.h"
 #include "Utils.h"
 
-#define TREE_PTR_LIST 0
-#define POS_VECTOR 0
-#define GRAPH_EDGE_LIST 0
-#define GRAPH_INC_LIST 0
-#define DHEAP_MAX 0
-#define DHEAP_MIN 1
-#define HEAP_SORT 0
-#define COPY_COSTRUCTOR 1
-
-
-
 
 /* ++++++++++++++++++ test TreePtrList +++++++++++++++++++ */
 
@@ -214,8 +203,6 @@ inline int testGraphEdgeList(){
         return -1;
     }
     
-    // std::cout<<graph.getValue("a")<<"\n";
-    // graph.setValue("a","j");
     
     TreePtrList<std::string> searchTree;
     searchTree = graph.depthSearch("b", searchTree);
@@ -331,25 +318,6 @@ inline int testDHeapMin(){
         std::cout<<dheap;
         
 
-        // dheap.deleteByValue("undici");
-
-        // {37,22,31,13,15,25,14,7,3,12,9}
-
-        // DHeap<int> dheap(2,15,true,{3,37,22,31,13,15,25,14,7,12,1}); // 11 elementi
-
-        // dheap.deleteValue(3);
-        // dheap.deleteValue(37);
-        // dheap.setValue(3,40);
-
-
-        //devo arrivare a vedere questo
-        // {37,22,31,13,15,25,14,nullptr,nullptr,7,3,nullptr,nullptr,12,9} // questo è 2-heap fixato
-
-        // std::cout<<"\n----- \nIl min dell'heap è: "<< dheap.getFirstValue()<<"\n";
-
-        // dheap.popValue();
-
-        // std::cout<<"\n----- \nIl min dell'heap è: "<< dheap.getFirstValue()<<"\n";
 
     }catch(std::exception &error){
         std::cout<<"DHeap error caught: "<<error.what()<<"\n";
@@ -408,8 +376,6 @@ inline int testCopyCostructor(){
 
     std::ifstream input("/home/nico/project/data_structure/input_test/tree.txt");
 
-    //std::ifstream ist2{"C:\\Users\\1dnic\\Desktop\\my_project\\data_structure\\insert_tree.txt"};
-    //std::ofstream os{"../output.txt"};
 
 	// input.open("../tree.txt",std::ios_base::in);
     if(!input.is_open()){
@@ -452,8 +418,6 @@ inline int testGraphCopyCostructor(){
 
     std::ifstream input("/home/nico/project/data_structure/input_test/oriented_graph.txt");
 
-    //std::ifstream ist2{"C:\\Users\\1dnic\\Desktop\\my_project\\data_structure\\insert_tree.txt"};
-    //std::ofstream os{"../output.txt"};
 
 	// input.open("../tree.txt",std::ios_base::in);
     if(!input.is_open()){
@@ -472,10 +436,6 @@ inline int testGraphCopyCostructor(){
     GraphEdgeList<std::string> copyGraph(graph);
 	std::cout<<"copyTree: \n"<<copyGraph;
 	
-	
-    
-    
-
     }
     catch (const std::exception& e) 
     {

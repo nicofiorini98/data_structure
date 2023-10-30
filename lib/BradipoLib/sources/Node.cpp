@@ -1,6 +1,5 @@
 #ifndef NODE_CPP
 #define NODE_CPP
-#pragma once
 #include "Node.h"
 #include <algorithm>
 

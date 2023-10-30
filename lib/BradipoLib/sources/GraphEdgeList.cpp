@@ -1,6 +1,5 @@
 #ifndef GRAPH_EDGE_LIST_CPP
 #define GRAPH_EDGE_LIST_CPP
-#pragma once
 #include "GraphEdgeList.h"
 #include <stdexcept>
 using namespace slothLib;
@@ -282,8 +281,6 @@ TreePtrList<T> &GraphEdgeList<T>::breadthSearch(const T &startValue,
 										
         if(u->mark==closed)
             continue;
-
-        std::cout<<"visita "<<*u<<std::endl;
 
 		u->mark = closed;
     

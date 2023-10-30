@@ -35,7 +35,7 @@ template <class T> class BasicGraph {
     /**
      * @brief Return the number of nodes contained in the Graph.
      */
-    int getNumNode() { return numNodes; }
+    int getNumNode() const { return numNodes; }
     
     /**
      * @brief Set delimiter for input file.
