@@ -20,12 +20,16 @@ set(LIBRARY_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/sources/TreePtrList.cpp
                     ${CMAKE_CURRENT_SOURCE_DIR}/sources/Tree.cpp
                     )
 
-set(LIBRARY_INCLUDES "./include" )
+set(LIBRARY_INCLUDES "./include")
 
 # Nico Library
-add_library(${BRADIPO_LIB_NAME} STATIC ${LIBRARY_SOURCES}) # ${LIBRARY_HEADERS}
-# target_link_libraries(${BRADIPO_LIB_NAME} PUBLIC ${UTIL_LIB_NAME})
-target_include_directories(${BRADIPO_LIB_NAME} PUBLIC ${LIBRARY_INCLUDES})
+add_library(bradipo STATIC
+    ${LIBRARY_SOURCES}
+    ${LIBRARY_HEADERS}
+)
 
-# Collego la libreria privata di Utils, questa Utils non dovrà essere visibile come libreria esterna
+target_include_directories(bradipo PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:include>
+)
 

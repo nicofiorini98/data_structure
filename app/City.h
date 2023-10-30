@@ -6,8 +6,6 @@
 #include <cmath>
 
 
-
-
 class City {
 
     // chiave della citta

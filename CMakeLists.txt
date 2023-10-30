@@ -30,7 +30,6 @@ include(Docs)
 
 # SUB DIRECTORIES
 
-add_subdirectory(configured)
 #add_subdirectory(external)
 add_subdirectory(lib)
 add_subdirectory(app)
@@ -38,3 +37,21 @@ add_subdirectory(app)
 
 # aggiungo eseguibile
 # TODO INSTALL TARGETS
+
+# Specify the installation paths based on the operating system
+# if (WIN32)
+#     set(install_directory "C:/Program Files/bradipoLib")
+# elseif (UNIX)
+#     set(install_directory ${CMAKE_SOURCE_DIR}/install)
+# endif()
+
+# install(
+#     targets ${bradipo_lib_name}
+#     destination ${install_directory}
+# )
+
+# install(
+#     directory ${cmake_source_dir}/lib/bradipolib/include/
+#     destination ${install_directory}/include
+#     files_matching pattern "*.h"
+# )

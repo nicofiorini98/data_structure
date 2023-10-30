@@ -1,11 +1,13 @@
 digraph G {
-a -> b 
-a -> d
-b -> c
-c -> f
-c -> g
-d -> c
-f -> g
-g -> d
-a -> c
+a -> b [label="0"]
+a -> d [label="0"]
+b -> c [label="0"]
+c -> g [label="0"]
+c -> f [label="0"]
+c -> a [label="0"]
+d -> c [label="0"]
+f -> g [label="0"]
+g -> d [label="0"]
+a -> c [label="0"]
+l -> a [label="0"]
 }

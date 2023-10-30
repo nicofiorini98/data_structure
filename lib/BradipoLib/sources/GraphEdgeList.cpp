@@ -114,16 +114,16 @@ void GraphEdgeList<T>::setValue(const T &oldValue, const T &newValue) {
     }
 }
 
-template <class T>
-void GraphEdgeList<T>::setValue(Node<T> &oldNode, Node<T> &newNode) {
-    for (auto &e : edgeList) {
-        if ((e->dest) == oldNode) {
-            (e->dest) = newNode;
-        } else if ((e.src) == oldNode) {
-            (e->src) = newNode;
-        }
-    }
-}
+// template <class T>
+// void GraphEdgeList<T>::setValue(Node<T> &oldNode, Node<T> &newNode) {
+//     for (auto &e : edgeList) {
+//         if ((e->dest) == oldNode) {
+//             (e->dest) = newNode;
+//         } else if ((e.src) == oldNode) {
+//             (e->src) = newNode;
+//         }
+//     }
+// }
 
 
 template <class T> void GraphEdgeList<T>::deleteNode(const T &value) {

@@ -1,6 +1,6 @@
 digraph Tree {a->d
 b->c
 c->f
-c->g
 c->a
+f->g
 }

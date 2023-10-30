@@ -17,7 +17,7 @@
 
 
 inline void Dijkstra(){
-	 /* 
+	/* 
     algorimo Dijkstra(grafo G,vertice s)->albero
     for(each)(vertice u in G) do Dsu <- +inf
      T = albero formato dal solo vertice s
@@ -69,9 +69,9 @@ inline void Dijkstra(){
         TreePtrList<City> tree;
 
 		// Set the source city and add it to the root of the tree
-        City startValue = cityGraph.getValue({"Bolzano"});
+        City startValue = cityGraph.getValue({"Roma"});
         startValue.setDistance(0);
-        cityGraph.setValue({"Bolzano"},startValue);
+        cityGraph.setValue({"Roma"},startValue);
         tree.addRoot(startValue);
         S.insert(std::pair<double,City>(0,startValue));
 
@@ -116,7 +116,7 @@ inline void Dijkstra(){
             }
         }
 
-        std::cout<<"spanning tree edge list: "<<tree<<std::endl;
+        // std::cout<<"spanning tree edge list: "<<tree<<std::endl;
 
 		// Output the resulting minimum spanning tree to a DOT file
         std::ofstream dotFile("/home/nico/project/data_structure/output_test/minimum_spanning_tree.dot",std::ios::out);
@@ -125,7 +125,8 @@ inline void Dijkstra(){
         dotFile.close();
         
 		// Generate an image of the minimum spanning tree using graphImage function
-        graphImage("minimum_spanning_tree.dot","minimum_spanning_tree.png");
+        // uncomment the below code for generate an image of the Tree ( GraphViz needed )
+        // graphImage("minimum_spanning_tree.dot","minimum_spanning_tree.png");
 
     }
     else

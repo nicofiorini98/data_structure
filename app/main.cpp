@@ -18,22 +18,17 @@
 using namespace slothLib;
 
 // output stream to print std::pair
-template <typename T1, typename T2>
-std::ostream &operator<<(std::ostream &os, const std::pair<T1, T2> &p) {
-    os << p.first ;
-    return os;
-}
+// template <typename T1, typename T2>
+// std::ostream &operator<<(std::ostream &os, const std::pair<T1, T2> &p) {
+//     os << p.first ;
+//     return os;
+// }
 
 int main(){
+    
+    std::cout<<"Benvenuto nella libreria\n";
 
-    // testTreePtrList();
-    // testTreePosVector();
-    // testCopyCostructor();
-    // testGraphCopyCostructor();
-    // testGraphEdgeList();
-    // testGraphIncList();
-    // testDHeapMin();
-    // Dijkstra();
+    Dijkstra();
 
 
     return 0;
