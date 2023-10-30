@@ -1,3 +1,3 @@
-# data_structure
-This is a project for a OOP course, it will be a data structure library and it allow to work with trees and graph.
-![Class diagram](data_structure.drawio.png)
+# Bradipo lib data_structure
+
+![Class diagram](diagramma_UML.png)
