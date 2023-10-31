@@ -11,7 +11,7 @@ using namespace slothLib;
 
 int main(){
     
-    std::cout<<"Welcome to the library\n";
+    std::cout<<"Welcome to the Bradipo library project\n";
     std::cout<<"Here an example of TreePtrList output in CSV format\n";
     std::cout<<"+++++++++TreePtrList++++++++++++"<<"\n";
     
