@@ -46,9 +46,6 @@ int main(){
 
     input.close();
     
-    // testGraphCopyCostructor();
-    // testCopyCostructor();
-    // testHeapSort();
     // Dijkstra();
 
     return 0;
