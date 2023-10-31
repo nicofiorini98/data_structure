@@ -163,24 +163,26 @@ template <class T> class Tree : public BasicGraph<T> {
             auto *parent = new T;
 
             std::stringstream str(line); // converte la riga in uno stream
-            std::getline(str, x_string,
+            std::getline(str, parent_string,
                          t.delimiter); // leggo lo stream della riga fino al
                                        // carattere delimitatore
             std::stringstream str1(
-                x_string); // converte il primo campo in uno stream
-            str1 >> *x;    // viene utilizzata la funzione >> per l'input del
+                parent_string); // converte il primo campo in uno stream
+            str1 >> *parent;    // viene utilizzata la funzione >> per l'input del
                            // primo campo
-            std::getline(str, parent_string,
+            std::getline(str, x_string,
                          t.delimiter); // continuo a leggere per trovare il
                                        // secondo campo
 
-            if (parent_string.empty()) {
-                t.addRoot(*x);
+
+            std::stringstream str2(x_string);
+            str2 >> *x;
+
+            if (x_string.empty()) {
+                t.addRoot(*parent);
                 continue;
             }
 
-            std::stringstream str2(parent_string);
-            str2 >> *parent;
             t.addNode(*x, *parent);
 
             // deallocate x and parent to avoid memory leak

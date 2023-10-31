@@ -42,7 +42,7 @@ inline void Dijkstra(){
 
 	// Open the input file that contains graph data
     std::fstream input;
-    input.open( "/home/nico/project/data_structure/input_test/city_graph.txt",std::ios::in);
+    input.open( "../../input_test/city_graph.txt",std::ios::in);
 
 	// Create a graph instance for cityGraph
     GraphIncList<City> cityGraph;
@@ -58,7 +58,7 @@ inline void Dijkstra(){
         }
 
 		// Create a DOT file for cityGraph visualization
-        std::ofstream cytyGraphdotFile("/home/nico/project/data_structure/output_test/cityGraph.dot",std::ios::out);
+        std::ofstream cytyGraphdotFile("../output_test/cityGraph.dot",std::ios::out);
         cityGraph.outputDotFile(cytyGraphdotFile);
         cytyGraphdotFile.close();
 
@@ -119,7 +119,7 @@ inline void Dijkstra(){
         // std::cout<<"spanning tree edge list: "<<tree<<std::endl;
 
 		// Output the resulting minimum spanning tree to a DOT file
-        std::ofstream dotFile("/home/nico/project/data_structure/output_test/minimum_spanning_tree.dot",std::ios::out);
+        std::ofstream dotFile("../output_test/minimum_spanning_tree.dot",std::ios::out);
         
         tree.outputDotFile(dotFile);
         dotFile.close();

@@ -2,16 +2,12 @@ cmake_minimum_required(VERSION 3.10 FATAL_ERROR)
 
 project(BradipoLib VERSION 1 LANGUAGES CXX)
 
-
 # Global CMake variables are set here
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_STANDARD_LIBRARIES "-lstdc++")
-set(CMAKE_CXX_EXTENSIONS OFF)
+# set(CMAKE_CXX_STANDARD_LIBRARIES "-lstdc++")
+# set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-
-# find_path(GRAPHVIZ_INCLUDE_DIRS NAMES graphviz/cgraph.h)
-# find_library(GRAPHVIZ_LIBRARIES NAMES cgraph)
 
 
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libstdc++")

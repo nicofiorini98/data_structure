@@ -1,6 +1,6 @@
 a
-l,a
-b,a
-e,l
-r,l
-o,b
+a,l
+a,b
+l,e
+l,r
+b,o

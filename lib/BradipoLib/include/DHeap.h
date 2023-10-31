@@ -6,7 +6,7 @@
 
 namespace slothLib {
 
-  //
+  
   template <typename T1, typename T2>
   std::ostream &operator<<(std::ostream &os, const std::pair<T1, T2> &p) {
       os << p.first;

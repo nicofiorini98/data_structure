@@ -97,6 +97,7 @@ template <class T> class Edge {
     friend std::ostream &operator<<(std::ostream &os, const Edge<T> &edge) {
         os << edge.getSourceValue() << edge.delimiter
            << edge.getDestinationValue();
+        
         return os;
     }
 
